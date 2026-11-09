@@ -125,7 +125,9 @@ button{cursor:pointer;background:none;border:0}
 .h-brand .prod b{font-size:16px;font-weight:700;color:var(--primary);display:block}
 .h-brand .prod span{font-size:12px;color:var(--muted-fg);white-space:nowrap}
 .collapsed .h-brand{width:var(--sidebar-c);padding:0 14px}
-.collapsed .h-brand .brand-btn{display:none}
+.collapsed .h-brand .brand-btn{padding:4px;justify-content:center;border:0}
+.collapsed .h-brand .brand-btn .prod,.collapsed .h-brand .brand-btn>.ic{display:none}
+.collapsed .h-brand .crest{display:grid!important}
 .brand-btn{flex:1;min-width:0;display:flex;align-items:center;gap:10px;padding:5px 8px 5px 5px;border:1px solid transparent;border-radius:var(--r-lg);text-align:left;transition:border-color .15s,background .15s}
 .brand-btn:hover,.brand-btn[aria-expanded=true]{border-color:var(--accent);background:#fff}
 .brand-btn>.ic{color:var(--muted-fg);width:16px;height:16px}
@@ -183,7 +185,7 @@ kbd{font-family:inherit;font-size:11px;padding:2px 6px;border-radius:6px;backgro
 .nav-a .chev{margin-left:auto;width:16px;height:16px;transition:transform .2s}
 .nav-group.open>.nav-a .chev{transform:rotate(180deg)}
 .nav-sub{display:none;padding-left:18px;margin:2px 0 6px 18px;border-left:1px solid var(--border)}
-.nav-group.open .nav-sub{display:block}
+.nav-group.open>.nav-sub{display:block}
 .nav-sub .nav-a{height:36px;font-weight:400;font-size:13.5px}
 .nav-sec{font-size:11px;font-weight:600;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.6px;padding:14px 10px 6px}
 body:not(.collapsed) .sidebar .nav-a>.ic:not(.chev){display:none}
@@ -337,6 +339,315 @@ mark{background:#FCD34D66;color:inherit;border-radius:3px}
 .mob-only{display:none}
 .scrim{display:none}
 
+/* ---------- FAVORITOS NO MENU ---------- */
+.fav-sec{display:flex;align-items:center;gap:6px;margin-top:8px;border-top:1px solid var(--border);padding-top:16px}
+.fav-sec .ic{width:13px;height:13px;color:#F5B301}
+.fav-sec .ic svg{fill:#F5B301}
+.fav-row{position:relative}
+.fav-row .nav-a{padding-right:36px}
+.fav-x{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:8px;display:grid;place-items:center;color:#F5B301;opacity:0;transition:opacity .15s}
+.fav-x .ic{width:15px;height:15px}.fav-x svg{fill:#F5B301}
+.fav-row:hover .fav-x,.fav-x:focus-visible{opacity:1}
+.fav-x:hover{background:#fff}
+.fav-empty{font-size:12px;color:var(--muted-fg);padding:4px 10px 12px;line-height:1.4}
+.collapsed .fav-x,.collapsed .fav-empty{display:none}
+.collapsed .fav-sec{display:block!important;height:0;padding:0;margin:8px 0;overflow:hidden}
+/* ---------- CONTÁBIL ---------- */
+.nav-group.open>.nav-sub{display:block}
+.nav-sub .nav-group>.nav-a{font-weight:400;font-size:13.5px;height:36px}
+.nav-sub .nav-sub{margin-left:8px}
+.ex-btn{display:flex;align-items:center;gap:10px;height:44px;padding:0 10px;border:1px solid var(--border);border-radius:var(--r-lg);background:#fff;text-align:left;transition:border-color .15s}
+.ex-btn:hover,.ex-btn[aria-expanded=true]{border-color:var(--accent)}
+.ex-btn .ic{color:var(--primary)}
+.ex-btn b{display:block;font-size:14px;font-weight:700;color:var(--primary);line-height:1.1}
+.ex-btn small{font-size:11px;color:var(--muted-fg)}
+body:not(.sys-cont) #exAnchor{display:none}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.kpi{background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);padding:16px}
+.kpi span{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--secondary-fg);font-weight:500}
+.kpi span .ic{width:16px;height:16px;color:var(--primary)}
+.kpi b{display:block;font-size:24px;font-weight:700;margin-top:6px;font-variant-numeric:tabular-nums}
+.kpi small{font-size:12px;color:var(--muted-fg)}
+.kpi .bar{margin-top:10px}
+.bar{height:6px;border-radius:3px;background:var(--muted);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:3px}
+
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--r-lg)}
+.card-h{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.card-h h3{font-size:20px;font-weight:600}
+.card-b{padding:16px}
+.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 16px;border-bottom:1px solid var(--border)}
+.toolbar .input{height:40px;width:280px}
+.chip{white-space:nowrap}
+.nav-sub .nav-a{height:auto!important;min-height:36px;padding-top:7px;padding-bottom:7px}
+.toolbar .sp{flex:1}
+.fchips{display:flex;gap:8px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--readonly)}
+.fchip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 6px 0 10px;border-radius:var(--r-sm);background:#fff;border:1px solid var(--border);font-size:12px;font-weight:500}
+.fchip button{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;color:var(--secondary-fg)}
+.fchip button:hover{background:var(--destructive);color:#fff}
+.fchip .ic{width:12px;height:12px}
+
+.tbl-wrap{overflow-x:auto}
+table.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{height:48px;padding:0 12px;text-align:left;font-weight:600;font-size:12.5px;color:var(--secondary-fg);background:var(--bg);white-space:nowrap;border-bottom:1px solid var(--border);user-select:none}
+.tbl th.sort{cursor:pointer}
+.tbl th.sort:hover{color:var(--fg)}
+.tbl th .ic{width:14px;height:14px;vertical-align:-2px;margin-left:4px}
+.tbl td{height:56px;padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.tbl tbody tr{transition:background .15s;cursor:pointer}
+.tbl tbody tr:hover{background:var(--row-hover)}
+.tbl tbody tr.sel{background:var(--light-green)}
+.tbl .r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl .num b{font-weight:700;color:var(--primary)}
+.tbl .num small,.tbl .sub{display:block;font-size:12px;color:var(--muted-fg)}
+.tbl .dotc b{font-weight:600}
+.tbl .dotc code{display:block;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--muted-fg);letter-spacing:-.2px}
+.tbl .cred{min-width:210px;max-width:260px}
+.tbl .sub{white-space:nowrap}
+.tbl .dotc code{max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tbl input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px;cursor:pointer}
+.tbl .w-chk{width:44px}
+.tbl .w-act{width:56px;text-align:center}
+.saldo-cell{min-width:120px}
+.saldo-cell .bar{margin-top:6px;height:4px}
+.kebab{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:var(--secondary-fg)}
+.kebab:hover{background:var(--accent);color:#fff}
+.chip.pend{background:#FCD34D;color:#0A1A2E}
+.chip.bad{background:var(--destructive);color:#fff}
+.chip.gray{background:var(--secondary);color:var(--secondary-fg);border:1px solid var(--border)}
+.chip.prim{background:var(--primary);color:#fff}
+.chip.out{background:#fff;color:var(--primary);border:1px solid var(--border)}
+
+.bulkbar{display:flex;align-items:center;gap:12px;padding:0 16px;background:var(--primary);color:#fff;overflow:hidden;max-height:0;transition:max-height .2s,padding .2s}
+.bulkbar.on{max-height:64px;padding:10px 16px}
+.bulkbar b{font-weight:600}
+.bulkbar .btn{height:34px}
+.bulkbar .btn-ghost-w{color:#fff!important;border:1px solid rgba(255,255,255,.4);background:transparent!important}
+.bulkbar .btn-ghost-w .ic{color:#fff}
+#bkClr{width:34px;padding:0}
+.bulkbar .btn-ghost-w:hover{background:rgba(255,255,255,.12)}
+
+.pager{display:flex;align-items:center;gap:12px;padding:12px 16px;flex-wrap:wrap;font-size:13px;color:var(--secondary-fg)}
+.pager .sp{flex:1}
+.pager select{height:34px;border:1px solid var(--border);border-radius:var(--r-md);padding:0 8px;background:#fff;font:inherit}
+.pg{display:flex;gap:4px}
+.pg button{min-width:34px;height:34px;padding:0 8px;border-radius:var(--r-md);border:1px solid var(--border);background:#fff;font-weight:500;font-size:13px}
+.pg button:hover{border-color:var(--accent)}
+.pg button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.pg button[disabled]{opacity:.45;pointer-events:none}
+.pg .ic{width:16px;height:16px;vertical-align:-3px}
+.tot{font-size:13px;color:var(--secondary-fg);margin-top:10px}
+.tot b{color:var(--fg)}
+
+.fpop{position:fixed;z-index:75;background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:0 12px 32px rgba(10,26,46,.14);padding:6px;min-width:230px;animation:pop .14s ease-out}
+.fpop .menu-item.danger:hover{background:var(--destructive)}
+.fpop label{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:14px}
+.fpop label:hover{background:var(--row-hover)}
+.fpop input{accent-color:var(--accent)}
+
+.drawer-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:85;animation:fade .15s}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(480px,100vw);background:#fff;z-index:86;display:flex;flex-direction:column;box-shadow:-12px 0 40px rgba(0,0,0,.15);animation:din .2s ease-out}
+@keyframes din{from{transform:translateX(40px);opacity:0}}
+.drawer-h{display:flex;align-items:center;gap:10px;padding:18px 20px;border-bottom:1px solid var(--border)}
+.drawer-h h3{font-size:20px;font-weight:600}
+.drawer-b{flex:1;overflow-y:auto;padding:12px 20px 20px}
+.drawer-f{display:flex;gap:10px;justify-content:flex-end;padding:14px 20px;border-top:1px solid var(--border)}
+.acc-sec{border:1px solid var(--border);border-radius:var(--r-lg);margin-top:10px;overflow:hidden}
+.acc-sec>button{display:flex;align-items:center;width:100%;gap:8px;padding:12px 14px;font-weight:600;text-align:left}
+.acc-sec>button:hover{background:var(--row-hover)}
+.acc-sec>button .chev{margin-left:auto;transition:transform .2s}
+.acc-sec.open>button .chev{transform:rotate(180deg)}
+.acc-sec>div{display:none;padding:4px 14px 14px}
+.acc-sec.open>div{display:block}
+.acc-sec em{font-style:normal;font-size:11px;background:var(--accent);color:#fff;border-radius:10px;padding:1px 7px}
+
+.fgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px 16px}
+.c2{grid-column:span 2}.c3{grid-column:span 3}.c4{grid-column:span 4}.c5{grid-column:span 5}.c6{grid-column:span 6}.c7{grid-column:span 7}.c8{grid-column:span 8}.c12{grid-column:span 12}
+.fgrid .field{margin:0}
+.fgrid label,.dfield label{display:block;font-size:14px;font-weight:500;margin-bottom:6px}
+.fgrid label i.req{font-style:normal;color:var(--destructive)}
+.input select,.input textarea{flex:1;border:0;outline:0;background:transparent;font:inherit;font-size:15px;min-width:0}
+.input select{appearance:none;cursor:pointer;height:100%}
+.input.ta{height:auto;align-items:flex-start;padding:10px 12px}
+.input.ta textarea{resize:vertical;min-height:72px}
+.input.ro{background:var(--readonly);border-color:var(--readonly);cursor:default}
+.input.ro input,.input.ro span.v{font-weight:600;color:var(--fg)}
+.input.ro:focus-within{border-color:var(--readonly);box-shadow:none}
+.input span.v{flex:1;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.input span.v.ph{color:var(--muted-fg);font-weight:400}
+.input .pre{color:var(--muted-fg);font-size:15px}
+.form-layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;align-items:start}
+.form-layout .card{margin-bottom:16px}
+.fsec-h{display:flex;align-items:center;gap:10px;padding:16px 16px 0}
+.fsec-h h3{font-size:20px;font-weight:600}
+.fsec-h .n{width:28px;height:28px;border-radius:50%;background:var(--light-green);color:var(--dark-green);display:grid;place-items:center;font-weight:700;font-size:13px}
+.fsec-h .n.ok{background:var(--accent);color:#fff}
+.fsec-h .opt{margin-left:auto}
+.side{position:sticky;top:calc(var(--header) + 16px)}
+.side .card-b>div{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px dashed var(--border);font-size:13.5px}
+.side .card-b>div:last-child{border-bottom:0}
+.side .card-b>div span{color:var(--secondary-fg)}
+.side .card-b>div b{font-variant-numeric:tabular-nums;text-align:right}
+.side .big{font-size:22px!important}
+.checklist{list-style:none;padding:4px 16px 14px}
+.checklist li{display:flex;align-items:center;gap:8px;font-size:13.5px;padding:5px 0;color:var(--secondary-fg)}
+.checklist li .ic{width:16px;height:16px;color:var(--muted)}
+.checklist li.ok{color:var(--fg)}
+.checklist li.ok .ic{color:var(--accent)}
+.form-foot{position:sticky;bottom:0;z-index:5;display:flex;justify-content:flex-end;gap:10px;padding:14px 0;background:linear-gradient(to top,var(--bg) 70%,transparent)}
+.tipo-seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tipo-seg button{border:1px solid var(--border);border-radius:var(--r-lg);padding:10px 12px;text-align:left;background:#fff;transition:all .15s}
+.tipo-seg button b{display:block;font-weight:600}
+.tipo-seg button small{font-size:12px;color:var(--muted-fg)}
+.tipo-seg button:hover{border-color:var(--accent)}
+.tipo-seg button.on{border-color:var(--accent);background:var(--light-green);box-shadow:0 0 0 1px var(--accent)}
+.res-list{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:30;background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:0 12px 32px rgba(10,26,46,.14);padding:6px;max-height:340px;overflow-y:auto}
+.res{display:block;width:100%;text-align:left;padding:10px;border-radius:8px}
+.res:hover,.res.kb{background:var(--accent);color:#fff}
+.res:hover small,.res.kb small,.res:hover code,.res.kb code{color:#fff}
+.res b{font-weight:600}
+.res small{display:block;font-size:12px;color:var(--muted-fg)}
+.res code{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--muted-fg)}
+.res .rr{float:right;font-weight:600;font-variant-numeric:tabular-nums}
+.pick{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--accent);background:var(--row-hover);border-radius:var(--r-lg)}
+.pick .ic{color:var(--dark-green)}
+.pick b{font-weight:600}
+.pick small{display:block;font-size:12px;color:var(--secondary-fg)}
+.pick .x2{margin-left:auto}
+.saldo-box{margin-top:10px;padding:12px;border-radius:var(--r-lg);background:var(--readonly)}
+.saldo-box .row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}
+.saldo-box .row b{font-variant-numeric:tabular-nums}
+.saldo-box .bar{height:8px}
+.saldo-box .bar i.over{background:var(--destructive)}
+.alert{display:flex;gap:10px;padding:12px;border-radius:var(--r-lg);font-size:13.5px;margin-top:10px}
+.alert .ic{flex:none;margin-top:1px}
+.alert.warn{background:#FEF3C7;color:#78350F}
+.alert.info{background:var(--readonly);color:var(--primary)}
+.alert.err{background:#FEE2E2;color:#991B1B}
+.copy-banner{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:var(--r-lg);background:var(--primary);color:#fff;margin-bottom:16px}
+.counter{font-size:12px;color:var(--muted-fg);text-align:right;margin-top:4px}
+
+.detail{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;align-items:start}
+.tl{list-style:none;padding:8px 16px 16px}
+.tl li{position:relative;display:flex;gap:14px;padding:12px 0}
+.tl li:not(:last-child)::before{content:"";position:absolute;left:17px;top:48px;bottom:-12px;width:2px;background:var(--border)}
+.tl li.done:not(:last-child)::before{background:var(--accent)}
+.tl .tli{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;flex:none;background:var(--secondary);color:var(--muted-fg);border:2px solid var(--border);z-index:1}
+.tl li.done .tli{background:var(--accent);border-color:var(--accent);color:#fff}
+.tl li.now .tli{background:#fff;border-color:var(--accent);color:var(--dark-green)}
+.tl .tli .ic{width:18px;height:18px}
+.tl b{font-weight:600}
+.tl p{font-size:13px;color:var(--secondary-fg);margin-top:2px}
+.tl .tl-act{margin-top:8px}
+.dl{display:grid;grid-template-columns:150px 1fr;gap:8px 12px;font-size:13.5px}
+.dl dt{color:var(--secondary-fg)}
+.dl dd{font-weight:600;min-width:0;overflow-wrap:anywhere}
+.dl dd code{font-family:ui-monospace,Menlo,monospace;font-size:12px;font-weight:500}
+.sum-box{margin-top:14px;padding:14px;border-radius:var(--r-lg);background:var(--readonly)}
+.sum-box div{display:flex;justify-content:space-between;font-size:14px;padding:4px 0}
+.sum-box div b{font-variant-numeric:tabular-nums}
+.sum-box .liq{border-top:1px solid #d6dcef;margin-top:6px;padding-top:10px;font-size:16px}
+.sum-box .liq b{font-size:22px;color:var(--primary)}
+.ret{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed var(--border)}
+.ret:last-child{border-bottom:0}
+.ret label{flex:1;display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:500;margin:0!important}
+.ret input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px}
+.ret .input{width:90px;height:36px}
+.ret b{width:110px;text-align:right;font-variant-numeric:tabular-nums}
+.modal.lg{max-width:720px;max-height:88vh;overflow-y:auto}
+.modal .fgrid{margin-top:4px}
+.modal .fgrid label{font-size:13px}
+.oc{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r-lg);background:var(--readonly);color:var(--primary);font-size:13px;margin-top:12px}
+.oc b{font-size:inherit}
+.tabs-line{display:flex;gap:8px;padding:12px 16px 0}
+
+@media (max-width:1200px){.form-layout{grid-template-columns:1fr}.side{position:static}.detail{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:899px){
+  .kpis{grid-template-columns:1fr 1fr}.kpi b{font-size:18px}
+  .toolbar .input{width:100%}
+  .fgrid{grid-template-columns:1fr}.fgrid>*{grid-column:auto!important}
+  .tipo-seg{grid-template-columns:1fr}
+  .ex-btn small{display:none}.ex-btn{padding:0 8px}
+  .dl{grid-template-columns:1fr}
+}
+
+
+
+/* ===== Alinhamento com o Portal do Servidor (AppColors/AppTheme e componentes compartilhados) ===== */
+:root{--bg:#F8F9FE;--inactive:#757575;--black:#01060B;--header:65px;--sidebar:280px;--sidebar-c:60px;--r-md:10.8px}
+body{background:var(--bg)}
+/* barra superior: branca translúcida com desfoque, como o AppbarComponent */
+.header{background:rgba(255,255,255,.6);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);border-bottom:1px solid #E0E0E0;padding-right:14px;gap:12px}
+.h-brand{background:#fff;border-right:1px solid var(--border);box-shadow:0 2px 4px rgba(0,0,0,.05);height:calc(100% + 1px);align-self:flex-start}
+.h-brand .prod b{font-size:19px;font-weight:600;line-height:.95}
+.h-brand .prod span{font-size:13px;color:var(--inactive)}
+.brand-btn .crest{width:40px;height:40px}
+#collapseBtn{border-radius:4px;color:var(--secondary-fg)}
+.search-trigger{width:250px;height:52px;background:var(--bg);border-radius:var(--r-lg);padding:4px 8px;color:var(--muted-fg)}
+.search-trigger span{font-size:16px}
+.search-trigger kbd{background:var(--border);border:0;border-radius:4px;font-size:11px;font-weight:600;color:var(--muted-fg);box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.me-btn{display:flex;align-items:center;gap:10px;padding:4px 8px 4px 4px;border-radius:var(--r-lg);text-align:left;transition:background .15s;margin-left:4px}
+.me-btn:hover,.me-btn[aria-expanded=true]{background:var(--secondary)}
+.me-txt b{display:block;font-weight:700;font-size:14px;line-height:1.2}
+.me-txt small{display:block;color:var(--muted-fg);font-size:13px;line-height:1}
+/* menu lateral: 280px aberto, 60px recolhido, itens 16px/500, padding 8, raio 8 */
+.sidebar{background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.05);padding:10px 12px}
+.collapsed .sidebar{padding:10px 8px}
+.nav-a{height:auto;min-height:40px;padding:8px 10px;margin-bottom:2px;font-size:16px;font-weight:500;color:var(--black);border-radius:8px}
+.nav-sub .nav-a,.nav-sub .nav-group>.nav-a{font-size:15px;font-weight:500;min-height:38px}
+/* cabeçalho de página: título 48px negrito primário, subtítulo 18px cinza, Voltar à direita */
+.page-head{align-items:center}
+.page-head h1{font-size:48px;font-weight:700;line-height:1.05}
+.page-head p{font-size:18px;color:var(--inactive);margin-top:4px}
+.page-head .back{order:9;margin-left:auto;width:auto;height:45px;padding:0 12px;gap:8px;display:inline-flex;align-items:center;border-radius:6px;color:var(--primary);font-weight:500;font-size:14px}
+.page-head .back::after{content:"Voltar"}
+.page-head:has(.actions) .back{margin-left:0}
+.hello{font-size:48px;font-weight:700}
+/* botões: primário azul #1F4993 (raio 10,8 e escurece 15% no hover); contorno sem borda que fica verde no hover */
+.btn{border-radius:var(--r-md)}
+.btn-accent{background:var(--primary);color:#fff}
+.btn-accent:hover{filter:brightness(.85)}
+.btn-outline{border:1px solid transparent;background:transparent;color:var(--primary);border-radius:6px;transition:all .2s}
+.btn-outline:hover{background:var(--accent);color:#fff;transform:scale(1.05)}
+.alt-grid .btn-outline{border-color:var(--border);background:#fff}
+.alt-grid .btn-outline:hover{transform:none}
+.bulkbar .btn-accent{background:var(--accent)}
+.btn .ic{width:16px;height:16px}
+/* campos: rótulo 14/600 acima com 10px, fundo #F8F9FE, raio 10,8, foco verde 2px */
+.field label,.fgrid label,.dfield label{font-weight:600;margin-bottom:10px}
+.input{background:var(--bg);border-radius:var(--r-md);border-color:var(--border)}
+.input:focus-within{border-color:var(--ring,#75C566);box-shadow:0 0 0 1px #75C566}
+.input input::placeholder,.input textarea::placeholder{color:rgba(117,117,117,.5)}
+.input.ro{background:var(--readonly)}
+.check input,.tbl input[type=checkbox],.ret input[type=checkbox],.fpop input{accent-color:var(--primary)}
+/* tabela: AppDataTable (raio 8, cabeçalho branco 48px, 14/600 #8A8A8D, células 12x16 14px) */
+.card:has(.tbl){border-radius:8px}
+.tbl{font-size:14px}
+.tbl th{background:#fff;font-size:14px;font-weight:600;color:var(--muted-fg)}
+.tbl td{padding:12px 16px}
+.tbl th{padding:0 16px}
+/* aviso (Toastr): 90px do topo, raio 8, título 24 negrito, texto 16 */
+#toasts{top:90px;right:12px}
+.toast{border-radius:8px;padding:16px;box-shadow:0 4px 8px rgba(0,0,0,.2)}
+.toast b{font-size:24px}
+.toast p{font-size:16px;font-weight:400}
+/* cartões de tela: hover verde-claro #E6F8F0 com sombra, como o CardPortalServerComponent */
+.tile:hover,.sys:hover{background:var(--light-green);border-color:var(--border);box-shadow:0 6px 16px rgba(10,26,46,.08)}
+.tile .ti,.sys .si{transition:transform .2s}
+.tile:hover .ti{transform:scale(1.05)}
+/* rodapé: margem lateral 48, linha no topo, selos de loja em texto cinza que fica azul no hover */
+.footer{background:transparent;margin:0 48px;padding:16px 0;border-top:1px solid var(--border);border-bottom:0}
+.store{background:transparent;color:rgba(10,26,46,.6)!important;padding:0;height:auto}
+.store:hover{color:var(--primary)!important}
+.store .ic{width:22px;height:22px}
+.store b{font-size:13px;font-weight:600}
+.store span{font-size:11px}
+@media (max-width:999px){.search-trigger{width:40px;height:40px;padding:0;justify-content:center;border:0;background:transparent}.search-trigger span,.search-trigger kbd{display:none}.me-txt{display:none}}
+@media (max-width:899px){.page-head h1,.hello{font-size:32px}.page-head p{font-size:14px;color:var(--fg)}.footer{margin:0 24px}.h-brand{box-shadow:none;border-right:0;background:transparent}}
+
+.collapsed .fav-row .nav-a{padding-right:0}
+.toolbar .input{width:220px}
 /* ---------- RESPONSIVO ---------- */
 @media (max-width:1100px){ .ug-btn b{max-width:150px} }
 @media (max-width:899px){
@@ -463,12 +774,12 @@ mark{background:#FCD34D66;color:inherit;border-radius:3px}
         <span class="prod"><b id="prodName">Central</b><span id="brandUgName"></span></span>
         <i data-i="chevrons-up-down"></i>
       </button>
-      <button class="icon-btn hide-sm" id="collapseBtn" aria-label="Recolher menu" title="Recolher menu"><i data-i="panel-left-close"></i></button>
     </div>
-
-    <button class="search-trigger" id="openPalette" aria-label="Buscar"><i data-i="search"></i><span>Buscar telas, cadastros e ações</span><kbd>Ctrl K</kbd></button>
+    <button class="icon-btn hide-sm" id="collapseBtn" aria-label="Recolher menu" title="Recolher menu"><i data-i="panel-left-close"></i></button>
 
     <div class="h-right">
+      <button class="search-trigger" id="openPalette" aria-label="Buscar"><i data-i="search"></i><span>O que você procura?</span><kbd>Ctrl+K</kbd></button>
+      <div class="anchor" id="exAnchor"><button class="ex-btn" id="exBtn" aria-haspopup="listbox" aria-expanded="false" title="Exercício"><i data-i="calendar"></i><span><b id="exYear">2026</b><small>Exercício</small></span><i data-i="chevron-down"></i></button></div>
       <div class="anchor" id="ugAnchor">
         <button class="ug-btn" id="ugBtn" aria-expanded="false" aria-haspopup="listbox">
           <span class="crest" data-crest="color"></span>
@@ -507,7 +818,7 @@ mark{background:#FCD34D66;color:inherit;border-radius:3px}
       </div>
 
       <div class="anchor">
-        <button class="icon-btn me" id="meBtn" aria-label="Minha conta" aria-expanded="false"><span class="avatar" style="width:34px;height:34px;font-size:12px">FG</span></button>
+        <button class="me-btn" id="meBtn" aria-label="Minha conta" aria-expanded="false"><span class="avatar" style="width:40px;height:40px;font-size:13px">FG</span><span class="me-txt"><b>Fernanda Gomes</b><small>Administradora</small></span></button>
         <div class="pop hidden" id="mePop">
           <div style="display:flex;gap:12px;align-items:center;padding:10px"><span class="avatar">FG</span><div><b>Fernanda Gomes</b><div style="font-size:12px;color:var(--muted-fg)">Administradora · Central</div></div></div>
           <hr>
@@ -525,10 +836,10 @@ mark{background:#FCD34D66;color:inherit;border-radius:3px}
     <div class="main">
       <main class="content" id="content"></main>
       <footer class="footer">
-        <span>© 2026 Coplan Tecnologia</span>
+        <span>© 2026 Coplan Tecnologia. Todos os direitos reservados.</span>
         <div class="links"><a href="#">Política de Privacidade</a><a href="#">Termos de Uso</a><a href="#">Sobre</a></div>
         <div class="stores">
-          <a class="store" href="#"><i data-i="apple"></i><span>Baixar na<b>App Store</b></span></a>
+          <a class="store" href="#"><i data-i="apple"></i><span>Download na<b>App Store</b></span></a>
           <a class="store" href="#"><i data-i="play"></i><span>Disponível no<b>Google Play</b></span></a>
         </div>
       </footer>
@@ -541,7 +852,7 @@ mark{background:#FCD34D66;color:inherit;border-radius:3px}
 <div id="layer"></div>
 
 <script>
-const ICONS={"accessibility": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"16\" cy=\"4\" r=\"1\" /> <path d=\"m18 19 1-7-6 1\" /> <path d=\"m5 8 3-3 5.5 3-2.36 3.5\" /> <path d=\"M4.24 14.5a5 5 0 0 0 6.88 6\" /> <path d=\"M13.76 17.5a5 5 0 0 0-6.88-6\" /> </svg>", "anchor": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 6v16\" /> <path d=\"m19 13 2-1a9 9 0 0 1-18 0l2 1\" /> <path d=\"M9 11h6\" /> <circle cx=\"12\" cy=\"4\" r=\"2\" /> </svg>", "apple": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 6.528V3a1 1 0 0 1 1-1h0\" /> <path d=\"M18.237 21A15 15 0 0 0 22 11a6 6 0 0 0-10-4.472A6 6 0 0 0 2 11a15.1 15.1 0 0 0 3.763 10 3 3 0 0 0 3.648.648 5.5 5.5 0 0 1 5.178 0A3 3 0 0 0 18.237 21\" /> </svg>", "badge-check": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z\" /> <path d=\"m16 9-5.5 5.5L8 12\" /> </svg>", "bell": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10.268 21a2 2 0 0 0 3.464 0\" /> <path d=\"M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326\" /> </svg>", "blocks": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2\" /> <rect x=\"14\" y=\"2\" width=\"8\" height=\"8\" rx=\"1\" /> </svg>", "book-open": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 5v16\" /> <path d=\"M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z\" /> </svg>", "briefcase": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16\" /> <rect width=\"20\" height=\"14\" x=\"2\" y=\"6\" rx=\"2\" /> </svg>", "building": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 10h.01\" /> <path d=\"M12 14h.01\" /> <path d=\"M12 6h.01\" /> <path d=\"M16 10h.01\" /> <path d=\"M16 14h.01\" /> <path d=\"M16 6h.01\" /> <path d=\"M8 10h.01\" /> <path d=\"M8 14h.01\" /> <path d=\"M8 6h.01\" /> <path d=\"M9 22v-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3\" /> <rect x=\"4\" y=\"2\" width=\"16\" height=\"20\" rx=\"2\" /> </svg>", "building-2": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10 12h4\" /> <path d=\"M10 8h4\" /> <path d=\"M14 21v-3a2 2 0 0 0-4 0v3\" /> <path d=\"M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2\" /> <path d=\"M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16\" /> </svg>", "calculator": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"16\" height=\"20\" x=\"4\" y=\"2\" rx=\"2\" /> <line x1=\"8\" x2=\"16\" y1=\"6\" y2=\"6\" /> <line x1=\"16\" x2=\"16\" y1=\"14\" y2=\"18\" /> <path d=\"M16 10h.01\" /> <path d=\"M12 10h.01\" /> <path d=\"M8 10h.01\" /> <path d=\"M12 14h.01\" /> <path d=\"M8 14h.01\" /> <path d=\"M12 18h.01\" /> <path d=\"M8 18h.01\" /> </svg>", "calendar-days": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M8 2v3\" /> <path d=\"M16 2v3\" /> <rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" /> <path d=\"M3 9h18\" /> <path d=\"M8 13h.01\" /> <path d=\"M12 13h.01\" /> <path d=\"M16 13h.01\" /> <path d=\"M8 17h.01\" /> <path d=\"M12 17h.01\" /> <path d=\"M16 17h.01\" /> </svg>", "check": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M20 6 9 17l-5-5\" /> </svg>", "chevron-down": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m6 9 6 6 6-6\" /> </svg>", "chevron-left": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m15 18-6-6 6-6\" /> </svg>", "chevron-right": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m9 18 6-6-6-6\" /> </svg>", "chevrons-up-down": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m7 15 5 5 5-5\" /> <path d=\"m7 9 5-5 5 5\" /> </svg>", "circle-alert": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <line x1=\"12\" x2=\"12\" y1=\"8\" y2=\"12\" /> <line x1=\"12\" x2=\"12.01\" y1=\"16\" y2=\"16\" /> </svg>", "circle-check": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"m16 9-5.5 5.5L8 12\" /> </svg>", "clock": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"M12 6v6l4 2\" /> </svg>", "contact": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M16 2v2\" /> <path d=\"M7 21v-2a2 2 0 012-2h6a2 2 0 012 2v2\" /> <path d=\"M8 2v2\" /> <circle cx=\"12\" cy=\"10\" r=\"3\" /> <rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" /> </svg>", "copy": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"14\" height=\"14\" x=\"8\" y=\"8\" rx=\"2\" ry=\"2\" /> <path d=\"M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2\" /> </svg>", "database": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <ellipse cx=\"12\" cy=\"5\" rx=\"9\" ry=\"3\" /> <path d=\"M3 5V19A9 3 0 0 0 21 19V5\" /> <path d=\"M3 12A9 3 0 0 0 21 12\" /> </svg>", "dot": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"1\" /> </svg>", "eye": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0\" /> <circle cx=\"12\" cy=\"12\" r=\"3\" /> </svg>", "eye-off": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49\" /> <path d=\"M14.084 14.158a3 3 0 0 1-4.242-4.242\" /> <path d=\"M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143\" /> <path d=\"m2 2 20 20\" /> </svg>", "file-chart-column": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\" /> <path d=\"M14 2v5a1 1 0 0 0 1 1h5\" /> <path d=\"M8 18v-1\" /> <path d=\"M12 18v-6\" /> <path d=\"M16 18v-3\" /> </svg>", "file-check": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\" /> <path d=\"M14 2v5a1 1 0 0 0 1 1h5\" /> <path d=\"m9 15 2 2 4-4\" /> </svg>", "globe": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20\" /> <path d=\"M2 12h20\" /> </svg>", "graduation-cap": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z\" /> <path d=\"M22 10v6\" /> <path d=\"M6 12.5V16a6 3 0 0 0 12 0v-3.5\" /> </svg>", "grid": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\" /> <path d=\"M3 9h18\" /> <path d=\"M3 15h18\" /> <path d=\"M9 3v18\" /> <path d=\"M15 3v18\" /> </svg>", "headset": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z\" /> <path d=\"M21 16v2a4 4 0 0 1-4 4h-5\" /> </svg>", "history": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\" /> <path d=\"M3 3v5h5\" /> <path d=\"M12 7v5l4 2\" /> </svg>", "house": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8\" /> <path d=\"M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\" /> </svg>", "info": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"M12 16v-4\" /> <path d=\"M12 8h.01\" /> </svg>", "key-round": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z\" /> <circle cx=\"16.5\" cy=\"7.5\" r=\".5\" fill=\"currentColor\" /> </svg>", "landmark": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10 18v-7\" /> <path d=\"M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z\" /> <path d=\"M14 18v-7\" /> <path d=\"M18 18v-7\" /> <path d=\"M3 22h18\" /> <path d=\"M6 18v-7\" /> </svg>", "layout-dashboard": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"7\" height=\"9\" x=\"3\" y=\"3\" rx=\"1\" /> <rect width=\"7\" height=\"5\" x=\"14\" y=\"3\" rx=\"1\" /> <rect width=\"7\" height=\"9\" x=\"14\" y=\"12\" rx=\"1\" /> <rect width=\"7\" height=\"5\" x=\"3\" y=\"16\" rx=\"1\" /> </svg>", "layout-grid": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"7\" height=\"7\" x=\"3\" y=\"3\" rx=\"1\" /> <rect width=\"7\" height=\"7\" x=\"14\" y=\"3\" rx=\"1\" /> <rect width=\"7\" height=\"7\" x=\"14\" y=\"14\" rx=\"1\" /> <rect width=\"7\" height=\"7\" x=\"3\" y=\"14\" rx=\"1\" /> </svg>", "link": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71\" /> <path d=\"M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71\" /> </svg>", "list": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M3 5h.01\" /> <path d=\"M3 12h.01\" /> <path d=\"M3 19h.01\" /> <path d=\"M8 5h13\" /> <path d=\"M8 12h13\" /> <path d=\"M8 19h13\" /> </svg>", "lock": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"18\" height=\"11\" x=\"3\" y=\"11\" rx=\"2\" ry=\"2\" /> <path d=\"M7 11V7a5 5 0 0 1 10 0v4\" /> </svg>", "log-in": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m10 17 5-5-5-5\" /> <path d=\"M15 12H3\" /> <path d=\"M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4\" /> </svg>", "log-out": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m16 17 5-5-5-5\" /> <path d=\"M21 12H9\" /> <path d=\"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4\" /> </svg>", "map": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z\" /> <path d=\"M15 5.764v15\" /> <path d=\"M9 3.236v15\" /> </svg>", "map-pin": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0\" /> <circle cx=\"12\" cy=\"10\" r=\"3\" /> </svg>", "megaphone": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z\" /> <path d=\"M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14\" /> <path d=\"M8 6v8\" /> </svg>", "menu": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M4 5h16\" /> <path d=\"M4 12h16\" /> <path d=\"M4 19h16\" /> </svg>", "merge": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m8 6 4-4 4 4\" /> <path d=\"M12 2v10.3a4 4 0 0 1-1.172 2.872L4 22\" /> <path d=\"m20 22-5-5\" /> </svg>", "message-circle": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719\" /> </svg>", "messages-square": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z\" /> <path d=\"M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1\" /> </svg>", "palette": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z\" /> <circle cx=\"13.5\" cy=\"6.5\" r=\".5\" fill=\"currentColor\" /> <circle cx=\"17.5\" cy=\"10.5\" r=\".5\" fill=\"currentColor\" /> <circle cx=\"6.5\" cy=\"12.5\" r=\".5\" fill=\"currentColor\" /> <circle cx=\"8.5\" cy=\"7.5\" r=\".5\" fill=\"currentColor\" /> </svg>", "panel-left-close": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\" /> <path d=\"M9 3v18\" /> <path d=\"m16 15-3-3 3-3\" /> </svg>", "panel-left-open": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\" /> <path d=\"M9 3v18\" /> <path d=\"m14 9 3 3-3 3\" /> </svg>", "pen-line": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M13 21h8\" /> <path d=\"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z\" /> </svg>", "pencil": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z\" /> <path d=\"m15 5 4 4\" /> </svg>", "pin": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 17v5\" /> <path d=\"M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z\" /> </svg>", "play": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z\" /> </svg>", "plus": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M5 12h14\" /> <path d=\"M12 5v14\" /> </svg>", "receipt": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 17V7\" /> <path d=\"M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8\" /> <path d=\"M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z\" /> </svg>", "repeat": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m17 2 4 4-4 4\" /> <path d=\"M3 11v-1a4 4 0 0 1 4-4h14\" /> <path d=\"m7 22-4-4 4-4\" /> <path d=\"M21 13v1a4 4 0 0 1-4 4H3\" /> </svg>", "route": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"6\" cy=\"19\" r=\"3\" /> <path d=\"M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15\" /> <circle cx=\"18\" cy=\"5\" r=\"3\" /> </svg>", "scroll-text": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M15 12h-5\" /> <path d=\"M15 8h-5\" /> <path d=\"M19 17V5a2 2 0 0 0-2-2H4\" /> <path d=\"M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3\" /> </svg>", "search": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m21 21-4.34-4.34\" /> <circle cx=\"11\" cy=\"11\" r=\"8\" /> </svg>", "search-x": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m13.5 8.5-5 5\" /> <path d=\"m8.5 8.5 5 5\" /> <circle cx=\"11\" cy=\"11\" r=\"8\" /> <path d=\"m21 21-4.3-4.3\" /> </svg>", "send": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z\" /> <path d=\"m21.854 2.147-10.94 10.939\" /> </svg>", "settings": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915\" /> <circle cx=\"12\" cy=\"12\" r=\"3\" /> </svg>", "shield": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z\" /> </svg>", "shield-check": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z\" /> <path d=\"m9 12 2 2 4-4\" /> </svg>", "sidebar": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\" /> <path d=\"M9 3v18\" /> </svg>", "sliders-horizontal": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10 5H3\" /> <path d=\"M12 19H3\" /> <path d=\"M14 3v4\" /> <path d=\"M16 17v4\" /> <path d=\"M21 12h-9\" /> <path d=\"M21 19h-5\" /> <path d=\"M21 5h-7\" /> <path d=\"M8 10v4\" /> <path d=\"M8 12H3\" /> </svg>", "square-pen": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7\" /> <path d=\"M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z\" /> </svg>", "star": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z\" /> </svg>", "store": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5\" /> <path d=\"M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244\" /> <path d=\"M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05\" /> </svg>", "target": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <circle cx=\"12\" cy=\"12\" r=\"6\" /> <circle cx=\"12\" cy=\"12\" r=\"2\" /> </svg>", "text": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M21 5H3\" /> <path d=\"M15 12H3\" /> <path d=\"M17 19H3\" /> </svg>", "ticket": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z\" /> <path d=\"M13 5v2\" /> <path d=\"M13 17v2\" /> <path d=\"M13 11v2\" /> </svg>", "triangle-alert": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3\" /> <path d=\"M12 9v4\" /> <path d=\"M12 17h.01\" /> </svg>", "usb": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"10\" cy=\"7\" r=\"1\" /> <circle cx=\"4\" cy=\"20\" r=\"1\" /> <path d=\"M4.7 19.3 19 5\" /> <path d=\"m21 3-3 1 2 2Z\" /> <path d=\"M9.26 7.68 5 12l2 5\" /> <path d=\"m10 14 5 2 3.5-3.5\" /> <path d=\"m18 12 1-1 1 1-1 1Z\" /> </svg>", "user": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2\" /> <circle cx=\"12\" cy=\"7\" r=\"4\" /> </svg>", "user-plus": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\" /> <circle cx=\"9\" cy=\"7\" r=\"4\" /> <line x1=\"19\" x2=\"19\" y1=\"8\" y2=\"14\" /> <line x1=\"22\" x2=\"16\" y1=\"11\" y2=\"11\" /> </svg>", "user-search": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"10\" cy=\"7\" r=\"4\" /> <path d=\"M10.3 15H7a4 4 0 0 0-4 4v2\" /> <circle cx=\"17\" cy=\"17\" r=\"3\" /> <path d=\"m21 21-1.9-1.9\" /> </svg>", "users": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\" /> <path d=\"M16 3.128a4 4 0 0 1 0 7.744\" /> <path d=\"M22 21v-2a4 4 0 0 0-3-3.87\" /> <circle cx=\"9\" cy=\"7\" r=\"4\" /> </svg>", "zap": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z\" /> </svg>"};
+const ICONS={"accessibility": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"16\" cy=\"4\" r=\"1\" /> <path d=\"m18 19 1-7-6 1\" /> <path d=\"m5 8 3-3 5.5 3-2.36 3.5\" /> <path d=\"M4.24 14.5a5 5 0 0 0 6.88 6\" /> <path d=\"M13.76 17.5a5 5 0 0 0-6.88-6\" /> </svg>", "anchor": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 6v16\" /> <path d=\"m19 13 2-1a9 9 0 0 1-18 0l2 1\" /> <path d=\"M9 11h6\" /> <circle cx=\"12\" cy=\"4\" r=\"2\" /> </svg>", "apple": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 6.528V3a1 1 0 0 1 1-1h0\" /> <path d=\"M18.237 21A15 15 0 0 0 22 11a6 6 0 0 0-10-4.472A6 6 0 0 0 2 11a15.1 15.1 0 0 0 3.763 10 3 3 0 0 0 3.648.648 5.5 5.5 0 0 1 5.178 0A3 3 0 0 0 18.237 21\" /> </svg>", "archive": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"20\" height=\"5\" x=\"2\" y=\"3\" rx=\"1\" /> <path d=\"M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8\" /> <path d=\"M10 12h4\" /> </svg>", "arrow-down": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 5v14\" /> <path d=\"m19 12-7 7-7-7\" /> </svg>", "arrow-left-right": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M8 3 4 7l4 4\" /> <path d=\"M4 7h16\" /> <path d=\"m16 21 4-4-4-4\" /> <path d=\"M20 17H4\" /> </svg>", "arrow-up": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m5 12 7-7 7 7\" /> <path d=\"M12 19V5\" /> </svg>", "arrow-up-down": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m21 16-4 4-4-4\" /> <path d=\"M17 20V4\" /> <path d=\"m3 8 4-4 4 4\" /> <path d=\"M7 4v16\" /> </svg>", "badge-check": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z\" /> <path d=\"m16 9-5.5 5.5L8 12\" /> </svg>", "banknote": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"20\" height=\"12\" x=\"2\" y=\"6\" rx=\"2\" /> <circle cx=\"12\" cy=\"12\" r=\"2\" /> <path d=\"M6 12h.01M18 12h.01\" /> </svg>", "bell": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10.268 21a2 2 0 0 0 3.464 0\" /> <path d=\"M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326\" /> </svg>", "blocks": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2\" /> <rect x=\"14\" y=\"2\" width=\"8\" height=\"8\" rx=\"1\" /> </svg>", "book-open": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 5v16\" /> <path d=\"M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z\" /> </svg>", "briefcase": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16\" /> <rect width=\"20\" height=\"14\" x=\"2\" y=\"6\" rx=\"2\" /> </svg>", "building": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 10h.01\" /> <path d=\"M12 14h.01\" /> <path d=\"M12 6h.01\" /> <path d=\"M16 10h.01\" /> <path d=\"M16 14h.01\" /> <path d=\"M16 6h.01\" /> <path d=\"M8 10h.01\" /> <path d=\"M8 14h.01\" /> <path d=\"M8 6h.01\" /> <path d=\"M9 22v-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3\" /> <rect x=\"4\" y=\"2\" width=\"16\" height=\"20\" rx=\"2\" /> </svg>", "building-2": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10 12h4\" /> <path d=\"M10 8h4\" /> <path d=\"M14 21v-3a2 2 0 0 0-4 0v3\" /> <path d=\"M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2\" /> <path d=\"M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16\" /> </svg>", "calculator": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"16\" height=\"20\" x=\"4\" y=\"2\" rx=\"2\" /> <line x1=\"8\" x2=\"16\" y1=\"6\" y2=\"6\" /> <line x1=\"16\" x2=\"16\" y1=\"14\" y2=\"18\" /> <path d=\"M16 10h.01\" /> <path d=\"M12 10h.01\" /> <path d=\"M8 10h.01\" /> <path d=\"M12 14h.01\" /> <path d=\"M8 14h.01\" /> <path d=\"M12 18h.01\" /> <path d=\"M8 18h.01\" /> </svg>", "calendar": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M8 2v3\" /> <path d=\"M16 2v3\" /> <rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" /> <path d=\"M3 9h18\" /> </svg>", "calendar-clock": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M16 14v2.2l1.6 1\" /> <path d=\"M16 2v3\" /> <path d=\"M21 7.338V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h2.338\" /> <path d=\"M3 9h5.859\" /> <path d=\"M8 2v3\" /> <circle cx=\"16\" cy=\"16\" r=\"6\" /> </svg>", "calendar-days": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M8 2v3\" /> <path d=\"M16 2v3\" /> <rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" /> <path d=\"M3 9h18\" /> <path d=\"M8 13h.01\" /> <path d=\"M12 13h.01\" /> <path d=\"M16 13h.01\" /> <path d=\"M8 17h.01\" /> <path d=\"M12 17h.01\" /> <path d=\"M16 17h.01\" /> </svg>", "calendar-range": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" /> <path d=\"M16 2v3\" /> <path d=\"M3 9h18\" /> <path d=\"M8 2v3\" /> <path d=\"M17 13h-6\" /> <path d=\"M13 17H7\" /> <path d=\"M7 13h.01\" /> <path d=\"M17 17h.01\" /> </svg>", "chart-pie": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z\" /> <path d=\"M21.21 15.89A10 10 0 1 1 8 2.83\" /> </svg>", "check": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M20 6 9 17l-5-5\" /> </svg>", "chevron-down": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m6 9 6 6 6-6\" /> </svg>", "chevron-left": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m15 18-6-6 6-6\" /> </svg>", "chevron-right": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m9 18 6-6-6-6\" /> </svg>", "chevrons-left": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m11 17-5-5 5-5\" /> <path d=\"m18 17-5-5 5-5\" /> </svg>", "chevrons-right": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m6 17 5-5-5-5\" /> <path d=\"m13 17 5-5-5-5\" /> </svg>", "chevrons-up-down": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m7 15 5 5 5-5\" /> <path d=\"m7 9 5-5 5 5\" /> </svg>", "circle": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> </svg>", "circle-alert": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <line x1=\"12\" x2=\"12\" y1=\"8\" y2=\"12\" /> <line x1=\"12\" x2=\"12.01\" y1=\"16\" y2=\"16\" /> </svg>", "circle-check": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"m16 9-5.5 5.5L8 12\" /> </svg>", "circle-plus": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"M8 12h8\" /> <path d=\"M12 8v8\" /> </svg>", "clock": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"M12 6v6l4 2\" /> </svg>", "columns-3": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\" /> <path d=\"M9 3v18\" /> <path d=\"M15 3v18\" /> </svg>", "contact": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M16 2v2\" /> <path d=\"M7 21v-2a2 2 0 012-2h6a2 2 0 012 2v2\" /> <path d=\"M8 2v2\" /> <circle cx=\"12\" cy=\"10\" r=\"3\" /> <rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" /> </svg>", "copy": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"14\" height=\"14\" x=\"8\" y=\"8\" rx=\"2\" ry=\"2\" /> <path d=\"M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2\" /> </svg>", "database": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <ellipse cx=\"12\" cy=\"5\" rx=\"9\" ry=\"3\" /> <path d=\"M3 5V19A9 3 0 0 0 21 19V5\" /> <path d=\"M3 12A9 3 0 0 0 21 12\" /> </svg>", "dot": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"1\" /> </svg>", "ellipsis": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"1\" /> <circle cx=\"19\" cy=\"12\" r=\"1\" /> <circle cx=\"5\" cy=\"12\" r=\"1\" /> </svg>", "ellipsis-vertical": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"1\" /> <circle cx=\"12\" cy=\"5\" r=\"1\" /> <circle cx=\"12\" cy=\"19\" r=\"1\" /> </svg>", "eraser": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21\" /> <path d=\"m5.082 11.09 8.828 8.828\" /> </svg>", "eye": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0\" /> <circle cx=\"12\" cy=\"12\" r=\"3\" /> </svg>", "eye-off": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49\" /> <path d=\"M14.084 14.158a3 3 0 0 1-4.242-4.242\" /> <path d=\"M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143\" /> <path d=\"m2 2 20 20\" /> </svg>", "file-chart-column": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\" /> <path d=\"M14 2v5a1 1 0 0 0 1 1h5\" /> <path d=\"M8 18v-1\" /> <path d=\"M12 18v-6\" /> <path d=\"M16 18v-3\" /> </svg>", "file-check": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\" /> <path d=\"M14 2v5a1 1 0 0 0 1 1h5\" /> <path d=\"m9 15 2 2 4-4\" /> </svg>", "file-pen-line": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M14.364 13.634a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506l4.013-4.009a1 1 0 0 0-3.004-3.004z\" /> <path d=\"M14.487 7.858A1 1 0 0 1 14 7V2\" /> <path d=\"M20 19.645V20a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l2.516 2.516\" /> <path d=\"M8 18h1\" /> </svg>", "file-text": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\" /> <path d=\"M14 2v5a1 1 0 0 0 1 1h5\" /> <path d=\"M10 9H8\" /> <path d=\"M16 13H8\" /> <path d=\"M16 17H8\" /> </svg>", "file-x": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\" /> <path d=\"M14 2v5a1 1 0 0 0 1 1h5\" /> <path d=\"m14.5 12.5-5 5\" /> <path d=\"m9.5 12.5 5 5\" /> </svg>", "folder": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\" /> </svg>", "folder-open": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2\" /> </svg>", "globe": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20\" /> <path d=\"M2 12h20\" /> </svg>", "graduation-cap": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z\" /> <path d=\"M22 10v6\" /> <path d=\"M6 12.5V16a6 3 0 0 0 12 0v-3.5\" /> </svg>", "grid": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\" /> <path d=\"M3 9h18\" /> <path d=\"M3 15h18\" /> <path d=\"M9 3v18\" /> <path d=\"M15 3v18\" /> </svg>", "hand-coins": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17\" /> <path d=\"m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9\" /> <path d=\"m2 16 6 6\" /> <circle cx=\"16\" cy=\"9\" r=\"2.9\" /> <circle cx=\"6\" cy=\"5\" r=\"3\" /> </svg>", "hash": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <line x1=\"4\" x2=\"20\" y1=\"9\" y2=\"9\" /> <line x1=\"4\" x2=\"20\" y1=\"15\" y2=\"15\" /> <line x1=\"10\" x2=\"8\" y1=\"3\" y2=\"21\" /> <line x1=\"16\" x2=\"14\" y1=\"3\" y2=\"21\" /> </svg>", "headset": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z\" /> <path d=\"M21 16v2a4 4 0 0 1-4 4h-5\" /> </svg>", "history": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\" /> <path d=\"M3 3v5h5\" /> <path d=\"M12 7v5l4 2\" /> </svg>", "hourglass": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M5 22h14\" /> <path d=\"M5 2h14\" /> <path d=\"M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22\" /> <path d=\"M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2\" /> </svg>", "house": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8\" /> <path d=\"M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\" /> </svg>", "inbox": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <polyline points=\"22 12 16 12 14 15 10 15 8 12 2 12\" /> <path d=\"M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z\" /> </svg>", "info": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"M12 16v-4\" /> <path d=\"M12 8h.01\" /> </svg>", "key-round": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z\" /> <circle cx=\"16.5\" cy=\"7.5\" r=\".5\" fill=\"currentColor\" /> </svg>", "landmark": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10 18v-7\" /> <path d=\"M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z\" /> <path d=\"M14 18v-7\" /> <path d=\"M18 18v-7\" /> <path d=\"M3 22h18\" /> <path d=\"M6 18v-7\" /> </svg>", "layout-dashboard": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"7\" height=\"9\" x=\"3\" y=\"3\" rx=\"1\" /> <rect width=\"7\" height=\"5\" x=\"14\" y=\"3\" rx=\"1\" /> <rect width=\"7\" height=\"9\" x=\"14\" y=\"12\" rx=\"1\" /> <rect width=\"7\" height=\"5\" x=\"3\" y=\"16\" rx=\"1\" /> </svg>", "layout-grid": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"7\" height=\"7\" x=\"3\" y=\"3\" rx=\"1\" /> <rect width=\"7\" height=\"7\" x=\"14\" y=\"3\" rx=\"1\" /> <rect width=\"7\" height=\"7\" x=\"14\" y=\"14\" rx=\"1\" /> <rect width=\"7\" height=\"7\" x=\"3\" y=\"14\" rx=\"1\" /> </svg>", "link": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71\" /> <path d=\"M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71\" /> </svg>", "list": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M3 5h.01\" /> <path d=\"M3 12h.01\" /> <path d=\"M3 19h.01\" /> <path d=\"M8 5h13\" /> <path d=\"M8 12h13\" /> <path d=\"M8 19h13\" /> </svg>", "list-checks": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M13 5h8\" /> <path d=\"M13 12h8\" /> <path d=\"M13 19h8\" /> <path d=\"m3 17 2 2 4-4\" /> <path d=\"m3 7 2 2 4-4\" /> </svg>", "list-filter": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M2 5h20\" /> <path d=\"M6 12h12\" /> <path d=\"M9 19h6\" /> </svg>", "list-ordered": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M11 5h10\" /> <path d=\"M11 12h10\" /> <path d=\"M11 19h10\" /> <path d=\"M4 4h1v5\" /> <path d=\"M4 9h2\" /> <path d=\"M6.5 20H3.4c0-1 2.6-1.925 2.6-3.5a1.5 1.5 0 0 0-2.6-1.02\" /> </svg>", "lock": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"18\" height=\"11\" x=\"3\" y=\"11\" rx=\"2\" ry=\"2\" /> <path d=\"M7 11V7a5 5 0 0 1 10 0v4\" /> </svg>", "lock-open": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"18\" height=\"11\" x=\"3\" y=\"11\" rx=\"2\" ry=\"2\" /> <path d=\"M7 11V7a5 5 0 0 1 9.9-1\" /> </svg>", "log-in": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m10 17 5-5-5-5\" /> <path d=\"M15 12H3\" /> <path d=\"M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4\" /> </svg>", "log-out": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m16 17 5-5-5-5\" /> <path d=\"M21 12H9\" /> <path d=\"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4\" /> </svg>", "map": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z\" /> <path d=\"M15 5.764v15\" /> <path d=\"M9 3.236v15\" /> </svg>", "map-pin": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0\" /> <circle cx=\"12\" cy=\"10\" r=\"3\" /> </svg>", "megaphone": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z\" /> <path d=\"M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14\" /> <path d=\"M8 6v8\" /> </svg>", "menu": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M4 5h16\" /> <path d=\"M4 12h16\" /> <path d=\"M4 19h16\" /> </svg>", "merge": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m8 6 4-4 4 4\" /> <path d=\"M12 2v10.3a4 4 0 0 1-1.172 2.872L4 22\" /> <path d=\"m20 22-5-5\" /> </svg>", "message-circle": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719\" /> </svg>", "messages-square": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z\" /> <path d=\"M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1\" /> </svg>", "palette": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z\" /> <circle cx=\"13.5\" cy=\"6.5\" r=\".5\" fill=\"currentColor\" /> <circle cx=\"17.5\" cy=\"10.5\" r=\".5\" fill=\"currentColor\" /> <circle cx=\"6.5\" cy=\"12.5\" r=\".5\" fill=\"currentColor\" /> <circle cx=\"8.5\" cy=\"7.5\" r=\".5\" fill=\"currentColor\" /> </svg>", "panel-left-close": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\" /> <path d=\"M9 3v18\" /> <path d=\"m16 15-3-3 3-3\" /> </svg>", "panel-left-open": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\" /> <path d=\"M9 3v18\" /> <path d=\"m14 9 3 3-3 3\" /> </svg>", "pen-line": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M13 21h8\" /> <path d=\"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z\" /> </svg>", "pencil": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z\" /> <path d=\"m15 5 4 4\" /> </svg>", "pin": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 17v5\" /> <path d=\"M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z\" /> </svg>", "play": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z\" /> </svg>", "plus": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M5 12h14\" /> <path d=\"M12 5v14\" /> </svg>", "printer": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2\" /> <path d=\"M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6\" /> <rect x=\"6\" y=\"14\" width=\"12\" height=\"8\" rx=\"1\" /> </svg>", "receipt": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 17V7\" /> <path d=\"M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8\" /> <path d=\"M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z\" /> </svg>", "repeat": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m17 2 4 4-4 4\" /> <path d=\"M3 11v-1a4 4 0 0 1 4-4h14\" /> <path d=\"m7 22-4-4 4-4\" /> <path d=\"M21 13v1a4 4 0 0 1-4 4H3\" /> </svg>", "route": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"6\" cy=\"19\" r=\"3\" /> <path d=\"M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15\" /> <circle cx=\"18\" cy=\"5\" r=\"3\" /> </svg>", "save": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z\" /> <path d=\"M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7\" /> <path d=\"M7 3v4a1 1 0 0 0 1 1h7\" /> </svg>", "scale": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 3v18\" /> <path d=\"m19 8 3 8a5 5 0 0 1-6 0zV7\" /> <path d=\"M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1\" /> <path d=\"m5 8 3 8a5 5 0 0 1-6 0zV7\" /> <path d=\"M7 21h10\" /> </svg>", "scroll-text": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M15 12h-5\" /> <path d=\"M15 8h-5\" /> <path d=\"M19 17V5a2 2 0 0 0-2-2H4\" /> <path d=\"M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3\" /> </svg>", "search": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m21 21-4.34-4.34\" /> <circle cx=\"11\" cy=\"11\" r=\"8\" /> </svg>", "search-x": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m13.5 8.5-5 5\" /> <path d=\"m8.5 8.5 5 5\" /> <circle cx=\"11\" cy=\"11\" r=\"8\" /> <path d=\"m21 21-4.3-4.3\" /> </svg>", "send": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z\" /> <path d=\"m21.854 2.147-10.94 10.939\" /> </svg>", "settings": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915\" /> <circle cx=\"12\" cy=\"12\" r=\"3\" /> </svg>", "sheet": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\" ry=\"2\" /> <line x1=\"3\" x2=\"21\" y1=\"9\" y2=\"9\" /> <line x1=\"3\" x2=\"21\" y1=\"15\" y2=\"15\" /> <line x1=\"9\" x2=\"9\" y1=\"9\" y2=\"21\" /> <line x1=\"15\" x2=\"15\" y1=\"9\" y2=\"21\" /> </svg>", "shield": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z\" /> </svg>", "shield-alert": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z\" /> <path d=\"M12 8v4\" /> <path d=\"M12 16h.01\" /> </svg>", "shield-check": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z\" /> <path d=\"m9 12 2 2 4-4\" /> </svg>", "sidebar": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\" /> <path d=\"M9 3v18\" /> </svg>", "sliders-horizontal": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10 5H3\" /> <path d=\"M12 19H3\" /> <path d=\"M14 3v4\" /> <path d=\"M16 17v4\" /> <path d=\"M21 12h-9\" /> <path d=\"M21 19h-5\" /> <path d=\"M21 5h-7\" /> <path d=\"M8 10v4\" /> <path d=\"M8 12H3\" /> </svg>", "square-pen": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7\" /> <path d=\"M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z\" /> </svg>", "star": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z\" /> </svg>", "store": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5\" /> <path d=\"M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244\" /> <path d=\"M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05\" /> </svg>", "tags": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M13.172 2a2 2 0 0 1 1.414.586l6.71 6.71a2.4 2.4 0 0 1 0 3.408l-4.592 4.592a2.4 2.4 0 0 1-3.408 0l-6.71-6.71A2 2 0 0 1 6 9.172V3a1 1 0 0 1 1-1z\" /> <path d=\"M2 7v6.172a2 2 0 0 0 .586 1.414l6.71 6.71a2.4 2.4 0 0 0 3.191.193\" /> <circle cx=\"10.5\" cy=\"6.5\" r=\".5\" fill=\"currentColor\" /> </svg>", "target": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <circle cx=\"12\" cy=\"12\" r=\"6\" /> <circle cx=\"12\" cy=\"12\" r=\"2\" /> </svg>", "text": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M21 5H3\" /> <path d=\"M15 12H3\" /> <path d=\"M17 19H3\" /> </svg>", "ticket": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z\" /> <path d=\"M13 5v2\" /> <path d=\"M13 17v2\" /> <path d=\"M13 11v2\" /> </svg>", "triangle-alert": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3\" /> <path d=\"M12 9v4\" /> <path d=\"M12 17h.01\" /> </svg>", "undo-2": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M9 14 4 9l5-5\" /> <path d=\"M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11\" /> </svg>", "usb": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"10\" cy=\"7\" r=\"1\" /> <circle cx=\"4\" cy=\"20\" r=\"1\" /> <path d=\"M4.7 19.3 19 5\" /> <path d=\"m21 3-3 1 2 2Z\" /> <path d=\"M9.26 7.68 5 12l2 5\" /> <path d=\"m10 14 5 2 3.5-3.5\" /> <path d=\"m18 12 1-1 1 1-1 1Z\" /> </svg>", "user": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2\" /> <circle cx=\"12\" cy=\"7\" r=\"4\" /> </svg>", "user-plus": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\" /> <circle cx=\"9\" cy=\"7\" r=\"4\" /> <line x1=\"19\" x2=\"19\" y1=\"8\" y2=\"14\" /> <line x1=\"22\" x2=\"16\" y1=\"11\" y2=\"11\" /> </svg>", "user-search": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"10\" cy=\"7\" r=\"4\" /> <path d=\"M10.3 15H7a4 4 0 0 0-4 4v2\" /> <circle cx=\"17\" cy=\"17\" r=\"3\" /> <path d=\"m21 21-1.9-1.9\" /> </svg>", "users": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\" /> <path d=\"M16 3.128a4 4 0 0 1 0 7.744\" /> <path d=\"M22 21v-2a4 4 0 0 0-3-3.87\" /> <circle cx=\"9\" cy=\"7\" r=\"4\" /> </svg>", "wallet": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1\" /> <path d=\"M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4\" /> </svg>", "wrench": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z\" /> </svg>", "x": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M18 6 6 18\" /> <path d=\"m6 6 12 12\" /> </svg>", "zap": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z\" /> </svg>"};
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 function ico(n){return `<i data-i="${n}"></i>`}
 function paintIcons(root=document){ $$('i[data-i]',root).forEach(el=>{ if(el.dataset.done)return; const s=ICONS[el.dataset.i]; el.classList.add('ic'); el.innerHTML=s||''; el.dataset.done=1; el.setAttribute('aria-hidden','true'); }); }
@@ -552,8 +863,8 @@ const MUNIS=[{id:'sinop',short:'Sinop',name:'Prefeitura de Sinop'},{id:'diamanti
 let muni=MUNIS[0];
 /* autarquias e órgãos de Sinop (fonte: TCE-MT, administração indireta = PreviSinop e AGER) */
 const UGS=[
-  {id:'pm',short:'Prefeitura de Sinop',name:'Prefeitura Municipal de Sinop',code:'Executivo · Administração direta'},
-  {id:'cm',short:'Câmara de Sinop',name:'Câmara Municipal de Sinop',code:'Legislativo'},
+  {id:'pm',short:'Prefeitura',name:'Prefeitura Municipal de Sinop',code:'Executivo · Administração direta'},
+  {id:'cm',short:'Câmara Municipal',name:'Câmara Municipal de Sinop',code:'Legislativo'},
   {id:'prev',short:'PreviSinop',name:'PreviSinop',code:'Autarquia · Instituto de Previdência dos Servidores'},
   {id:'ager',short:'AGER Sinop',name:'AGER Sinop',code:'Autarquia · Agência Reguladora dos Serviços Públicos Delegados'}];
 let ug=UGS[0];
@@ -575,7 +886,7 @@ let NOTES=[
   {id:1,pend:true,icon:'file-check',title:'Novo termo de uso para ciência',text:'A versão 3.2 do termo de uso dos sistemas precisa da sua ciência até 30/11.',when:'há 12 min',from:'Central'},
   {id:2,pend:true,icon:'megaphone',title:'Comunicado: recesso de fim de ano',text:'Os sistemas ficarão em manutenção programada em 26/12, das 20h às 23h.',when:'há 2 h',from:'Coplan'},
   {id:3,pend:false,icon:'calendar-days',title:'Feriado municipal cadastrado',text:'20/11 foi incluído no calendário de todas as unidades gestoras.',when:'ontem',from:'Central'}];
-const MENU=[
+let MENU=[
   {id:'cfg',label:'Configuração',icon:'settings',items:[
     ['ug','Unidade Gestora','building-2','Dados e parâmetros das UGs'],
     ['menu','Menu','list','Estrutura de menus do sistema'],
@@ -602,13 +913,13 @@ const MENU=[
     ['trigger','Trigger','zap','Gatilhos de auditoria'],
     ['log','Log Registro','scroll-text','Histórico de alterações']]},
   {id:'termo',label:'Termo',icon:'file-check',items:[['termo','Termo','file-check','Termos de uso e aceite']]}];
-const SCREENS={}; MENU.forEach(g=>g.items.forEach(([id,label,icon,desc])=>SCREENS[id]={id,label,icon,desc,group:g.label,gid:g.id}));
+let SCREENS={}; buildScreens();
 /* a Câmara tem um perfil mais restrito: mostra que o conteúdo muda com a UG */
 const CAMARA_ALLOWED=['pessoa','perfil','usuario','feriado','log','termo','rel'];
-const allowed=()=>Object.values(SCREENS).filter(s=>ug.id!=='cm'||CAMARA_ALLOWED.includes(s.id));
+const allowed=()=>Object.values(SCREENS).filter(s=>ug.id!=='cm'||sys.id!=='central'||CAMARA_ALLOWED.includes(s.id));
 
-let favs=store.get('favs',['usuario','perfil','pessoa','govbr']);
-let recents=store.get('recents',['usuario','log','feriado']);
+let favs=store.get('favs_central',['usuario','perfil','pessoa','govbr']);
+let recents=store.get('recents_central',['usuario','log','feriado']);
 let sys=SYSTEMS[0], route='', filterGroup='all', filterText='';
 const greet=()=>{const h=new Date().getHours();return h<12?'Bom dia':h<18?'Boa tarde':'Boa noite'};
 
@@ -623,7 +934,7 @@ function bind(){ $$('[data-bind=muniName]').forEach(e=>e.textContent=muni.name);
 function toast(type,title,msg){const ic={success:'circle-check',error:'circle-alert',info:'info'}[type];
   const t=document.createElement('div');t.className='toast '+type;t.setAttribute('role','status');
   t.innerHTML=`${ico(ic)}<div><b>${title}</b><p>${msg}</p></div><button class="x" aria-label="Fechar">${ico('x')}</button>`;
-  $('#toasts').appendChild(t);paintIcons(t);const kill=()=>{t.classList.add('out');setTimeout(()=>t.remove(),250)};$('.x',t).onclick=kill;setTimeout(kill,4200);}
+  $('#toasts').appendChild(t);paintIcons(t);const kill=()=>{t.classList.add('out');setTimeout(()=>t.remove(),250)};$('.x',t).onclick=kill;setTimeout(kill,8000);}
 
 /* ---------- ROTEAMENTO ---------- */
 let cur=(location.hash||'#login');
@@ -631,7 +942,7 @@ function go(h){ cur=h; try{ if(location.hash!==h) history.replaceState(null,'',h
 window.addEventListener('hashchange',()=>{cur=location.hash||'#login';render()});
 function render(){
   const h=cur.replace('#','')||'login'; route=h; closePops();
-  const [page,arg]=h.split('/');
+  const [page,arg,arg2]=h.split('/');
   $('#login').classList.toggle('hidden',page!=='login');
   $('#app').classList.toggle('hidden',page==='login');
   document.body.classList.remove('drawer-open');
@@ -639,13 +950,14 @@ function render(){
   bind();
   const isHub=page==='sistemas';
   document.body.classList.toggle('in-sys',!isHub);
+  document.body.classList.toggle('sys-cont',!isHub&&sys.id==='cont');
   $('#sidebar').classList.toggle('hidden',isHub);
   $('#collapseBtn').style.display=isHub?'none':'';
   $('#openPalette').style.visibility=isHub?'hidden':'';
   $('#sysBtn').parentElement.style.display=isHub?'none':'';
-  if(isHub){ $('#prodName').textContent='Sistemas'; return renderHub(); }
+  if(isHub){ $('#prodName').textContent='Município de '+muni.short; return renderHub(); }
   renderSidebar(arg);
-  if(page==='central') renderHome(); else if(page==='tela') renderScreen(arg);
+  if(page==='central') renderHome(); else if(page==='tela') renderScreen(arg,arg2);
   window.scrollTo(0,0);
 }
 
@@ -687,7 +999,7 @@ function initLogin(){
 }
 function doLogin(){const b=$('#enterBtn');b.disabled=true;b.innerHTML='<span class="spin"></span>Entrando...';
   setTimeout(()=>{b.disabled=false;b.innerHTML=ico('log-in')+'<span>Entrar</span>';paintIcons(b);
-    const auto=store.get('autoSys',null);if(auto){sys=SYSTEMS.find(s=>s.id===auto)||sys;go('#central')}else go('#sistemas');},700);}
+    const auto=store.get('autoSys',null);if(auto&&NAVEGAVEIS.includes(auto)){setSys(auto);go('#central')}else go('#sistemas');},700);}
 
 /* ---------- HUB ---------- */
 function renderHub(){
@@ -719,7 +1031,7 @@ function renderHub(){
   $$('[data-tab]',c).forEach(b=>b.onclick=()=>{notifTab=b.dataset.tab;renderHub()});
   $$('[data-ciencia]',c).forEach(b=>b.onclick=()=>{const n=NOTES.find(x=>x.id==b.dataset.ciencia);n.pend=false;n.when='agora';toast('success','Ciência registrada',n.title);renderHub()});
 }
-function enterSys(id){const t=SYSTEMS.find(s=>s.id===id);if(id!=='central'){toast('info',t.name,'Neste protótipo apenas o Central está navegável.');return}sys=t;lastSys=id;store.set('lastSys',id);go('#central');}
+function enterSys(id){const t=SYSTEMS.find(s=>s.id===id);if(!NAVEGAVEIS.includes(id)){toast('info',t.name,'Neste protótipo estão navegáveis o Central e o Contábil.');return}setSys(id);lastSys=id;store.set('lastSys',id);go('#central');}
 
 /* ---------- SIDEBAR ---------- */
 let openGroups=store.get('openGroups',['cfg','cfgug']);
@@ -754,17 +1066,10 @@ function renderHome(){
   const q=filterText.trim().toLowerCase();
   const filtered=list.filter(s=>(filterGroup==='all'||s.gid===filterGroup)&&(!q||s.label.toLowerCase().includes(q)||s.desc.toLowerCase().includes(q)));
   c.innerHTML=`
-  <div class="page-head"><div><h1>${greet()}, Fernanda</h1><p>Central de cadastros e configurações compartilhadas.</p></div>
-    <div class="actions"><button class="btn btn-gray" id="customize">${ico('pencil')}Personalizar</button><button class="btn btn-accent" data-open="usuario">${ico('user-plus')}Novo usuário</button></div></div>
+  <div class="page-head"><div><h1>${greet()}, Fernanda</h1><p>${sys.id==='cont'?`Execução orçamentária e financeira · exercício ${EX}.`:'Central de cadastros e configurações compartilhadas.'}</p></div>
+    <div class="actions"><button class="btn btn-gray" id="customize">${ico('pencil')}Personalizar</button>${sys.id==='cont'?`<button class="btn btn-accent" id="homeNovoEmp">${ico('plus')}Novo empenho</button>`:`<button class="btn btn-accent" data-open="usuario">${ico('user-plus')}Novo usuário</button>`}</div></div>
 
-  <div class="ctx">${ico('building-2')}<span>Você está em <b>${ug.name}</b></span><span class="chip soft">${ug.code}</span>
-    <button class="link" id="ctxChange" style="font-size:13px">Trocar unidade</button>
-    <span class="chip ok">${ico('circle-check')}${list.length} telas liberadas no seu perfil</span></div>
 
-  <div class="sec-head"><h2>Favoritos</h2><span>${fv.length?'Fixe as telas que mais usa clicando na estrela':''}</span></div>
-  ${fv.length?`<div class="grid">${fv.map(s=>tile(s)).join('')}</div>`:`<div class="empty">${ico('star')}<b>Nenhum favorito nesta unidade</b>Passe o mouse em qualquer tela abaixo e clique na estrela para fixar aqui.</div>`}
-
-  ${rc.length?`<div class="sec-head"><h2>Usadas recentemente</h2></div><div class="recent">${rc.map(s=>tile(s,{fav:false})).join('')}</div>`:''}
 
   <div class="sec-head"><h2>Todas as telas</h2><span>${filtered.length} de ${list.length}</span></div>
   <div class="filter-bar">
@@ -777,29 +1082,29 @@ function renderHome(){
   const f=$('#tileFilter');f.oninput=()=>{filterText=f.value;const pos=f.selectionStart;renderHome();const n=$('#tileFilter');n.focus();n.setSelectionRange(pos,pos)};
   if($('#clearF'))$('#clearF').onclick=()=>{filterText='';renderHome()};
   $$('[data-fg]',c).forEach(b=>b.onclick=()=>{filterGroup=b.dataset.fg;renderHome()});
-  $('#ctxChange').onclick=e=>{e.stopPropagation();openPop('ug')};
+  if($('#homeNovoEmp'))$('#homeNovoEmp').onclick=()=>go('#tela/k-2.10/novo');
   $('#customize').onclick=()=>toast('info','Personalizar início','Arraste os favoritos para reordenar (próxima versão do protótipo).');
 }
 function wireTiles(c){
-  $$('[data-star]',c).forEach(b=>b.onclick=e=>{e.stopPropagation();const id=b.dataset.star;const on=favs.includes(id);favs=on?favs.filter(x=>x!==id):[...favs,id];store.set('favs',favs);
-    toast(on?'info':'success',on?'Removido dos favoritos':'Adicionado aos favoritos',SCREENS[id].label);renderHome();});
+  $$('[data-star]',c).forEach(b=>b.onclick=e=>{e.stopPropagation();const id=b.dataset.star;const on=favs.includes(id);favs=on?favs.filter(x=>x!==id):[...favs,id];store.set('favs_'+sys.id,favs);
+    toast(on?'info':'success',on?'Removido dos favoritos':'Adicionado aos favoritos',SCREENS[id].label);renderHome();renderSidebar();});
   $$('[data-open]',c).forEach(t=>{t.onclick=()=>openScreen(t.dataset.open);t.onkeydown=e=>{if(e.key==='Enter'&&e.target===t)openScreen(t.dataset.open)}});
 }
-function openScreen(id){recents=[id,...recents.filter(x=>x!==id)].slice(0,6);store.set('recents',recents);go('#tela/'+id);}
+function openScreen(id){recents=[id,...recents.filter(x=>x!==id)].slice(0,6);store.set('recents_'+sys.id,recents);go('#tela/'+id);}
 
 /* ---------- TELA GENÉRICA ---------- */
-function renderScreen(id){const s=SCREENS[id];const c=$('#content');if(!s){go('#central');return}
+function renderScreen(id,a2){if(CUSTOM[id])return CUSTOM[id](a2);const s=SCREENS[id];const c=$('#content');if(!s){go('#central');return}
   const on=favs.includes(id);
-  c.innerHTML=`<div class="crumbs">Central ${ico('chevron-right')} ${s.group} ${ico('chevron-right')} ${s.label}</div>
+  c.innerHTML=`<div class="crumbs">${sys.name} ${ico('chevron-right')} ${s.group} ${ico('chevron-right')} ${s.label}</div>
   <div class="page-head"><button class="back" aria-label="Voltar" data-back>${ico('chevron-left')}</button><div><h1>${s.label}</h1><p>${s.desc}</p></div>
   <div class="actions"><button class="btn btn-gray" id="favHere">${ico('star')}${on?'Remover dos favoritos':'Favoritar'}</button><button class="btn btn-accent">${ico('plus')}Novo</button></div></div>
-  <div class="empty">${ico(s.icon)}<b>Tela fora do escopo deste protótipo</b>O objetivo aqui é validar login, escolha de sistema, início e troca de unidade gestora.<br><br><button class="btn btn-primary" data-back>${ico('house')}Voltar ao início</button></div>`;
+  <div class="empty">${ico(s.icon)}<b>Tela fora do escopo deste protótipo</b>Neste protótipo estão navegáveis: login, escolha de sistema, início, troca de órgão e, no Contábil, empenho, liquidação e pagamento.<br><br><button class="btn btn-primary" data-back>${ico('house')}Voltar ao início</button></div>`;
   paintIcons(c);$$('[data-back]',c).forEach(b=>b.onclick=()=>go('#central'));
-  $('#favHere').onclick=()=>{favs=on?favs.filter(x=>x!==id):[...favs,id];store.set('favs',favs);toast('success',on?'Removido dos favoritos':'Adicionado aos favoritos',s.label);renderScreen(id)};}
+  $('#favHere').onclick=()=>{favs=on?favs.filter(x=>x!==id):[...favs,id];store.set('favs_'+sys.id,favs);toast('success',on?'Removido dos favoritos':'Adicionado aos favoritos',s.label);renderScreen(id);renderSidebar(id)};}
 
 /* ---------- POPOVERS ---------- */
 const POPS={ug:['#ugBtn','#ugPop'],sys:['#sysBtn','#sysPop'],help:['#helpBtn','#helpPop'],notif:['#notifBtn','#notifPop'],me:['#meBtn','#mePop']};
-function closePops(except){Object.entries(POPS).forEach(([k,[b,p]])=>{if(k!==except){$(p).classList.add('hidden');$(b).setAttribute('aria-expanded','false')}});$('#brandUg').setAttribute('aria-expanded','false')}
+function closePops(except){if(typeof closeFpop==='function')closeFpop();Object.entries(POPS).forEach(([k,[b,p]])=>{if(k!==except){$(p).classList.add('hidden');$(b).setAttribute('aria-expanded','false')}});$('#brandUg').setAttribute('aria-expanded','false')}
 function ugTrigger(){const inSys=document.body.classList.contains('in-sys'),col=document.body.classList.contains('collapsed');return (inSys&&(!col||innerWidth<=899))?$('#brandUg'):$('#ugBtn')}
 function openPop(k,trig){const [b,p]=POPS[k];const was=!$(p).classList.contains('hidden');closePops();if(was)return;$(p).classList.remove('hidden');
   const t=k==='ug'?(trig||ugTrigger()):$(b);t.setAttribute('aria-expanded','true');
@@ -845,6 +1150,527 @@ function modal({icon,title,html,ok='Confirmar',okIcon='check',onOk}){const L=$('
   paintIcons(L);const close=()=>L.innerHTML='';$('#mNo').onclick=close;$('#mOk').onclick=()=>{close();onOk&&onOk()};$('#mOv').onclick=e=>{if(e.target.id==='mOv')close()};}
 function logout(){modal({icon:'log-out',title:'Sair do sistema?',html:'<p>Você vai precisar entrar de novo para acessar os sistemas do município.</p>',ok:'Sair',okIcon:'log-out',onOk:()=>{$('#savedBox').classList.remove('hidden');$('#pwd').value='';go('#login')}})}
 
+/* =====================================================================
+   CONTÁBIL · empenho, liquidação e pagamento (dados 100% fictícios)
+   ===================================================================== */
+const MENU_K=[
+  {id:'k1',label:'1 - Cadastros Básicos',icon:'archive',items:[
+    ['k-1.1','1.1 - Credor','contact','Pessoas físicas e jurídicas credoras'],
+    ['k-1.3','1.3 - Agência','landmark','Agências bancárias'],
+    ['k-1.4','1.4 - Conta Bancária','landmark','Contas do município'],
+    ['k-1.5','1.5 - Conta Extra','wallet','Contas extraorçamentárias'],
+    ['k-1.6','1.6 - Ato Legal','scale','Leis, decretos e portarias'],
+    ['k-1.8','1.8 - Histórico Padrão','file-text','Textos padrão de histórico'],
+    ['k-1.11','1.11 - Parâmetro','settings','Parâmetros do sistema'],
+    ['k-1.12','1.12 - Banco','landmark','Instituições bancárias'],
+    ['k-1.14','1.14 - Contrato Bancário','file-check','Contratos com bancos']]},
+  {id:'k2',label:'2 - Orçamentário',icon:'chart-pie',items:[
+    {sub:'k2.1',label:'2.1 - Orçamento',items:[
+      ['k-2.1.2','2.1.2 - Previsão da Receita','hand-coins','Previsão inicial da receita'],
+      ['k-2.1.3','2.1.3 - Reestimativa da Receita','hand-coins','Reestimativas ao longo do ano'],
+      ['k-2.1.4','2.1.4 - Fixação da Despesa','wallet','Dotações iniciais'],
+      ['k-2.1.5','2.1.5 - Cadastro de Parlamentares','users','Vereadores e deputados'],
+      ['k-2.1.6','2.1.6 - Emendas Parlamentares','file-text','Emendas impositivas']]},
+    {sub:'k2.2',label:'2.2 - Programação/Cronograma',items:[
+      ['k-2.2.1','2.2.1 - Contingenciamento','lock','Limitação de empenho'],
+      ['k-2.2.2','2.2.2 - Descontingenciamento','lock-open','Liberação de limites'],
+      ['k-2.2.3','2.2.3 - Cronograma de Desembolso','calendar-range','Cronograma mensal'],
+      ['k-2.2.4','2.2.4 - Programação Financeira Receita','hand-coins','Metas bimestrais']]},
+    ['k-2.3','2.3 - Reconhecimento de Receita','hand-coins','Receita reconhecida'],
+    ['k-2.4','2.4 - Receita Arrecadada','hand-coins','Arrecadação diária'],
+    ['k-2.5','2.5 - Anulação de Receita','hand-coins','Estornos de receita'],
+    ['k-2.6','2.6 - Crédito Adicional','circle-plus','Suplementares e especiais'],
+    ['k-2.7','2.7 - Crédito à Receber','circle-plus','Créditos a receber'],
+    ['k-2.8','2.8 - Projeto - Créditos Adicionais','circle-plus','Projetos de lei de crédito'],
+    ['k-2.9','2.9 - Crédito Adicional Limites','circle-plus','Limites da LOA'],
+    ['k-2.10','2.10 - Empenho','file-pen-line','Reserva da dotação para a despesa'],
+    ['k-2.11','2.11 - Anulação de Empenho','file-x','Estorno total ou parcial'],
+    ['k-2.12','2.12 - Liquidação','file-check','Verificação do direito do credor'],
+    ['k-2.13','2.13 - Anulação de Liquidação','file-x','Estorno de liquidação']]},
+  {id:'k3',label:'3 - Financeiro',icon:'banknote',items:[
+    ['k-3.1.1','3.1.1 - Pagamentos','banknote','Pagamento de liquidações'],
+    ['k-3.1.2','3.1.2 - Borderô','list-checks','Lotes de pagamento'],
+    ['k-3.1.3','3.1.3 - Remessa Bancária','send','Arquivos para o banco'],
+    ['k-3.1.4','3.1.4 - Retorno Bancário','inbox','Retornos do banco'],
+    ['k-3.2.1','3.2.1 - Pagamentos Ordem Cronológica','list-ordered','Fila por exigibilidade'],
+    ['k-3.2.2','3.2.2 - Pagamentos Sem Ordem Cronológica','list','Exceções justificadas'],
+    ['k-3.3','3.3 - Anulação de Pagamento','undo-2','Estorno de pagamento'],
+    ['k-3.4','3.4 - Transferência Bancária','arrow-left-right','Entre contas do município'],
+    ['k-3.5','3.5 - Conciliação Bancária','scale','Extrato x contabilidade'],
+    ['k-3.6','3.6 - Interferência Financeira','arrow-left-right','Repasses entre órgãos'],
+    ['k-3.7','3.7 - Despesa Extra','wallet','Despesa extraorçamentária'],
+    ['k-3.8','3.8 - Anulação de Despesa Extra','undo-2','Estorno de despesa extra'],
+    ['k-3.9','3.9 - Receita Extra','hand-coins','Receita extraorçamentária'],
+    ['k-3.10','3.10 - Anulação da Receita Extra','undo-2','Estorno de receita extra'],
+    ['k-3.11','3.11 - Prestação de Contas','file-check','Adiantamentos e diárias'],
+    ['k-3.12','3.12 - Dívida Fundada','landmark','Operações de crédito'],
+    ['k-3.15','3.15 - Saldo Consignação','wallet','Retenções a recolher'],
+    ['k-3.16','3.16 - Cadastro de Restituição','undo-2','Devoluções'],
+    ['k-3.17','3.17 - Anulação de Restituição','undo-2','Estorno de restituição'],
+    ['k-3.19','3.19 - Cancelamento de Receita Extra','undo-2','Cancelamentos'],
+    ['k-3.20','3.20 - Lançamentos Financeiros','list','Lançamentos manuais']]},
+  {id:'k4',label:'4 - Restos a Pagar',icon:'history',items:[
+    ['k-4.1','4.1 - Restos a Pagar','history','Inscrição e saldos'],
+    ['k-4.2','4.2 - Cancelamento de Restos a Pagar','file-x','Cancelamentos'],
+    ['k-4.3','4.3 - Liquidação de Restos a Pagar','file-check','Liquidação de RP'],
+    ['k-4.4','4.4 - Anulação de Liquidação de Restos a Pagar','file-x','Estorno'],
+    ['k-4.6','4.6 - Anulação de Pagamento de Restos a Pagar','undo-2','Estorno']]},
+  {id:'k12',label:'12 - Utilitários',icon:'wrench',items:[['k-12.8','12.8 - Versão','info','Versão do sistema']]}];
+
+const MENU_C=MENU;
+function flat(g){return g.items.flatMap(i=>Array.isArray(i)?[i]:i.items)}
+function buildScreens(){SCREENS={};MENU.forEach(g=>flat(g).forEach(([id,label,icon,desc])=>SCREENS[id]={id,label,icon,desc,group:g.label,gid:g.id}))}
+const FAV_DEF={central:['usuario','perfil','pessoa','govbr'],cont:['k-2.10','k-2.12','k-3.1.1','k-1.1']};
+const REC_DEF={central:['usuario','log','feriado'],cont:['k-2.10','k-3.5','k-1.1']};
+function setSys(id){sys=SYSTEMS.find(s=>s.id===id)||SYSTEMS[0];MENU=sys.id==='cont'?MENU_K:MENU_C;buildScreens();
+  favs=store.get('favs_'+sys.id,FAV_DEF[sys.id]||[]);if(sys.id==='cont'&&!store.get('k2opened',false)){openGroups=[...new Set([...openGroups,'k2'])];store.set('k2opened',true)}recents=store.get('recents_'+sys.id,REC_DEF[sys.id]||[]);filterGroup='all';filterText='';}
+const NAVEGAVEIS=['central','cont'];
+let EX=2026;
+
+/* ---------- utilitários ---------- */
+const brl=v=>(+v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const R$=v=>'R$ '+brl(v);
+const today=()=>{const d=new Date();return d.toLocaleDateString('pt-BR')};
+const toISO=br=>{const [d,m,y]=br.split('/');return `${y}-${m}-${d}`};
+const fromISO=iso=>{if(!iso)return'';const [y,m,d]=iso.split('-');return `${d}/${m}/${y}`};
+const parseMoney=s=>+(String(s).replace(/\D/g,''))/100;
+function moneyInput(el,cb){el.addEventListener('input',()=>{const v=parseMoney(el.value);el.value=v?brl(v):'';cb&&cb(v)})}
+let seed=11;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;const pick=a=>a[Math.floor(rnd()*a.length)];
+
+/* ---------- dados fictícios ---------- */
+const DOTS=[
+ {cod:101,org:'02.001 Gabinete do Prefeito',func:'02.001.04.122.0030.2017',acao:'Manutenção do Gabinete',el:'3.3.90.30.00',elN:'Material de Consumo',fonte:'1.500.1000',fonteN:'Recursos não vinculados de impostos',dot:280000},
+ {cod:205,org:'10.001 Secretaria de Agricultura',func:'10.001.18.541.0015.2048',acao:'Conservação de Estradas Vicinais',el:'3.3.90.30.00',elN:'Material de Consumo',fonte:'2.501.0000',fonteN:'Outros recursos não vinculados',dot:520000},
+ {cod:312,org:'11.001 Secretaria de Educação',func:'11.001.12.361.0020.2053',acao:'Transporte Escolar',el:'3.3.90.39.00',elN:'Outros Serviços de Terceiros, PJ',fonte:'1.500.1001',fonteN:'Educação, impostos (MDE)',dot:1850000},
+ {cod:318,org:'11.001 Secretaria de Educação',func:'11.001.12.122.0020.2065',acao:'Manutenção da Secretaria de Educação',el:'3.3.90.30.00',elN:'Material de Consumo',fonte:'1.500.1001',fonteN:'Educação, impostos (MDE)',dot:640000},
+ {cod:420,org:'14.001 Secretaria de Saúde',func:'14.001.10.302.0023.2115',acao:'Atenção Especializada',el:'3.3.90.39.00',elN:'Outros Serviços de Terceiros, PJ',fonte:'1.500.1002',fonteN:'Saúde, impostos (ASPS)',dot:2400000},
+ {cod:427,org:'14.001 Secretaria de Saúde',func:'14.001.10.305.0024.2118',acao:'Vigilância em Saúde',el:'3.3.90.39.00',elN:'Outros Serviços de Terceiros, PJ',fonte:'1.600.0000',fonteN:'Transferências do SUS',dot:780000},
+ {cod:530,org:'15.001 Secretaria de Obras',func:'15.001.15.451.0031.1022',acao:'Pavimentação Urbana',el:'4.4.90.51.00',elN:'Obras e Instalações',fonte:'1.500.1000',fonteN:'Recursos não vinculados de impostos',dot:5200000},
+ {cod:612,org:'22.001 Encargos Gerais',func:'22.001.28.846.0000.0001',acao:'Cumprimento de Sentenças Judiciais',el:'3.1.90.91.00',elN:'Sentenças Judiciais',fonte:'1.500.1000',fonteN:'Recursos não vinculados de impostos',dot:900000}];
+DOTS.forEach(d=>d.full=`${d.func}.${d.el.replace(/\./g,'')}00.${d.fonte.replace(/\./g,'')}000`);
+const SUBEL={'3.3.90.30.00':['01 - Combustíveis e lubrificantes','16 - Material de expediente','22 - Material de limpeza'],'3.3.90.39.00':['05 - Serviços técnicos profissionais','50 - Serviço médico-hospitalar','63 - Serviços gráficos'],'4.4.90.51.00':['91 - Obras em andamento'],'3.1.90.91.00':['01 - Sentenças judiciais']};
+const CREDS=[
+ {id:1,nome:'Alfa Transportes Escolares Ltda',doc:'11.222.333/0001-81',cert:'ok'},
+ {id:2,nome:'Beta Distribuidora de Materiais Ltda',doc:'22.333.444/0001-90',cert:'ok'},
+ {id:3,nome:'Gama Diagnósticos Ltda',doc:'33.444.555/0001-02',cert:'ok'},
+ {id:4,nome:'Delta Combustíveis Ltda',doc:'44.555.666/0001-13',cert:'vencida'},
+ {id:5,nome:'Épsilon Engenharia e Construções Ltda',doc:'55.666.777/0001-24',cert:'ok'},
+ {id:6,nome:'Zeta Gráfica e Editora Ltda',doc:'66.777.888/0001-35',cert:'ok'},
+ {id:7,nome:'Conselho Regional Exemplo',doc:'77.888.999/0001-46',cert:'ok'},
+ {id:8,nome:'Maria Exemplo da Silva',doc:'***.456.789-**',cert:'ok'}];
+const DOT_CRED={101:[2,6,7],205:[4,2],312:[1,4],318:[2,6],420:[3,8],427:[3],530:[5],612:[8,7]};
+const DESC={1:'Transporte escolar da rede municipal, rotas rurais',2:'Aquisição de material de expediente',3:'Exames laboratoriais e de imagem',4:'Combustível para frota municipal',5:'Pavimentação asfáltica, medição mensal',6:'Impressão de material informativo',7:'Anuidade de registro profissional',8:'Pagamento de sentença judicial transitada em julgado'};
+const CONTAS=[{id:1,n:'Banco do Brasil · Ag 0001-9 · CC 12.345-6',f:'Movimento livre'},{id:2,n:'Caixa · Ag 0789 · CC 006.000.123-4',f:'FUNDEB'},{id:3,n:'Banco do Brasil · Ag 0001-9 · CC 54.321-0',f:'Fundo Municipal de Saúde'}];
+let EMPS=[];
+(function gen(){let n=4148;const d0=new Date(2026,10,6);
+  for(let i=0;i<46;i++){const dot=pick(DOTS);const cid=pick(DOT_CRED[dot.cod]);const tipo=rnd()<.72?'Ordinário':rnd()<.5?'Global':'Estimativo';
+    const dt=new Date(d0);dt.setDate(d0.getDate()-Math.floor(i*1.3));
+    const valor=Math.round((dot.cod===530?80000+rnd()*400000:dot.cod===312?20000+rnd()*90000:300+rnd()*18000)*100)/100;
+    const e={num:n-i,ano:2026,tipo,data:dt.toLocaleDateString('pt-BR'),dot:dot.cod,cred:cid,desc:DESC[cid],valor,anulado:0,liqs:[],assinado:rnd()<.35,
+      proc:pick(['Licitação','Dispensa','Inexigibilidade','Sem processo']),nat:'Normal',sub:(SUBEL[dot.el]||[''])[0]};
+    const r=rnd();
+    if(i>3&&r<.78){const parts=tipo==='Global'?2:1;for(let p=0;p<parts;p++){const lv=Math.round(valor*(r<.3?1:(parts===2?.4:.6+rnd()*.4))/parts*100)/100;
+        e.liqs.push(mkLiq(e,lv,p,rnd()<.62))}}
+    if(i===9){e.anulado=e.valor;e.liqs=[]}
+    EMPS.push(e)}})();
+function mkLiq(e,valor,p,pago){const iss=e.cred!==8&&e.cred!==7?Math.round(valor*.05*100)/100:0;const ret={iss,inss:0,irrf:Math.round(valor*.015*100)/100};
+  const l={id:`${e.num}-${e.liqs.length+1}`,tipoDoc:e.cred===8?'Recibo':'NFS-e',doc:String(1000+Math.floor(rnd()*8999)),data:e.data,valor,ret,liquido:Math.round((valor-ret.iss-ret.inss-ret.irrf)*100)/100,pago:!!pago,pg:null};
+  if(pago)l.pg={conta:CONTAS[0].n,forma:'Transferência (TED/PIX)',data:e.data,op:'OP '+(2600+Math.floor(rnd()*900))};return l}
+const D=c=>DOTS.find(d=>d.cod==c), C=id=>CREDS.find(c=>c.id==id), E=n=>EMPS.find(e=>e.num==n);
+function empenhadoDot(cod){return EMPS.filter(e=>e.dot==cod).reduce((s,e)=>s+e.valor-e.anulado,0)}
+function saldoDot(cod){const d=D(cod);return Math.round((d.dot-empenhadoDot(cod))*100)/100}
+function tot(e){const L=e.liqs.reduce((s,l)=>s+l.valor,0),P=e.liqs.filter(l=>l.pago).reduce((s,l)=>s+l.valor,0),V=e.valor-e.anulado;
+  return {V,L,P,aLiq:Math.round((V-L)*100)/100,aPag:Math.round((L-P)*100)/100}}
+function status(e){const t=tot(e);if(e.anulado>=e.valor)return['Anulado','bad'];if(!t.L)return['Empenhado','soft'];
+  if(!t.P)return t.L<t.V?['Liquidado parcial','pend']:['Liquidado','prim'];return t.P<t.V?['Pago parcial','pend']:['Pago','ok']}
+
+/* ---------- popover genérico ---------- */
+function fpop(anchor,html,onReady,align='right'){closeFpop();const p=document.createElement('div');p.className='fpop';p.innerHTML=html;document.body.appendChild(p);paintIcons(p);
+  const r=anchor.getBoundingClientRect();p.style.top=Math.min(r.bottom+6,innerHeight-p.offsetHeight-8)+'px';p.style.left=Math.max(8,align==='right'?r.right-p.offsetWidth:r.left)+'px';
+  p.addEventListener('click',e=>e.stopPropagation());setTimeout(()=>document.addEventListener('click',closeFpop,{once:true}),0);onReady&&onReady(p);return p}
+function closeFpop(){$$('.fpop').forEach(p=>p.remove())}
+
+/* ---------- sidebar com subgrupos ---------- */
+function renderSidebar(active){
+  const ok=new Set(allowed().map(s=>s.id)),sb=$('#sidebar');const chev=ico('chevron-down').replace('<i ','<i class="chev" ');
+  const item=([id,l,ic])=>`<button class="nav-a ${active===id?'active':''}" data-tip="${l}" data-go="#tela/${id}">${ico(ic)}<span>${l}</span></button>`;
+  const grp=(gid,label,icon,inner,open)=>`<div class="nav-group ${open?'open':''}" data-g="${gid}"><button class="nav-a" data-tip="${label}" data-toggle="${gid}" aria-expanded="${open}">${ico(icon)}<span>${label}</span>${chev}</button><div class="nav-sub">${inner}</div></div>`;
+  sb.innerHTML=`<button class="nav-a ${route==='central'?'active':''}" data-tip="Início" data-go="#central">${ico('house')}<span>Início</span></button><div class="nav-sec">Módulos</div>`+
+   MENU.map(g=>{const its=flat(g).filter(i=>ok.has(i[0]));if(!its.length)return'';
+     if(g.items.length===1&&Array.isArray(g.items[0]))return `<button class="nav-a ${active===its[0][0]?'active':''}" data-tip="${g.label}" data-go="#tela/${its[0][0]}">${ico(g.icon)}<span>${g.label}</span></button>`;
+     const inner=g.items.map(i=>{if(Array.isArray(i))return ok.has(i[0])?item(i):'';const sub=i.items.filter(x=>ok.has(x[0]));if(!sub.length)return'';
+       return grp(i.sub,i.label,'folder',sub.map(item).join(''),openGroups.includes(i.sub)||sub.some(x=>x[0]===active))}).join('');
+     return grp(g.id,g.label,g.icon,inner,openGroups.includes(g.id)||its.some(x=>x[0]===active))}).join('')+
+   `<div class="nav-sec fav-sec">${ico('star')}Favoritos</div>`+(favs.filter(id=>ok.has(id)).map(id=>{const sc=SCREENS[id];return `<div class="fav-row"><button class="nav-a ${active===id?'active':''}" data-tip="${sc.label}" data-go="#tela/${id}">${ico(sc.icon)}<span>${sc.label}</span></button><button class="fav-x" data-unfav="${id}" title="Remover dos favoritos" aria-label="Remover ${sc.label} dos favoritos">${ico('star')}</button></div>`}).join('')||
+     `<p class="fav-empty">Clique na estrela de qualquer tela para fixar aqui.</p>`);
+  paintIcons(sb);
+  $$('[data-unfav]',sb).forEach(b=>b.onclick=e=>{e.stopPropagation();const id=b.dataset.unfav;favs=favs.filter(x=>x!==id);store.set('favs_'+sys.id,favs);toast('info','Removido dos favoritos',SCREENS[id].label);renderSidebar(active);if(route==='central')renderHome()});
+  $$('[data-go]',sb).forEach(b=>b.onclick=()=>{const id=b.dataset.go.split('/')[1];if(id)recents=[id,...recents.filter(x=>x!==id)].slice(0,6),store.set('recents_'+sys.id,recents);go(b.dataset.go)});
+  $$('[data-toggle]',sb).forEach(b=>b.onclick=()=>{
+    if(document.body.classList.contains('collapsed')){document.body.classList.remove('collapsed');store.set('collapsed',false);syncCollapse()}
+    const g=b.dataset.toggle,el=b.parentElement;el.classList.toggle('open');const o=el.classList.contains('open');b.setAttribute('aria-expanded',o);
+    openGroups=o?[...new Set([...openGroups,g])]:openGroups.filter(x=>x!==g);store.set('openGroups',openGroups)});
+}
+
+/* ---------- exercício ---------- */
+function openExPop(){const b=$('#exBtn');b.setAttribute('aria-expanded','true');
+  fpop(b,`<h4 style="font-size:12px;font-weight:600;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.5px;padding:8px 10px 6px">Exercício</h4>`+
+   [2027,2026,2025,2024].map(y=>`<button class="menu-item" data-ex="${y}" ${y===2027?'disabled style="opacity:.5"':''}>${ico('calendar')}${y}${y===EX?'<span class="chip soft" style="margin-left:auto;height:20px">atual</span>':y===2027?'<span style="margin-left:auto;font-size:11px;color:var(--muted-fg)">não aberto</span>':''}</button>`).join(''),
+   p=>$$('[data-ex]',p).forEach(x=>x.onclick=()=>{EX=+x.dataset.ex;$('#exYear').textContent=EX;closeFpop();toast('info','Exercício '+EX,EX===2026?'Lançamentos do exercício corrente.':'Exercício anterior: somente consulta neste protótipo.');render()}),'right');
+  setTimeout(()=>document.addEventListener('click',()=>b.setAttribute('aria-expanded','false'),{once:true}),0)}
+
+/* =====================================================================
+   2.10 EMPENHO · LISTA
+   ===================================================================== */
+const ST={q:'',tipo:'all',sit:'all',adv:{},sort:['num',-1],page:1,per:20,sel:new Set(),cols:{tipo:1,data:1,dot:1,cred:1,valor:1,saldo:1,sit:1,ass:1}};
+const ADV_LABEL={num:'Número',dotIni:'Dotação de',dotFim:'Dotação até',org:'Órgão',fonte:'Fonte',vIni:'Valor de',vFim:'Valor até',dIni:'Data de',dFim:'Data até',cred:'Credor',proc:'Processo',protocolo:'Protocolo'};
+function filtered(){const a=ST.adv,q=ST.q.trim().toLowerCase();
+  let l=EMPS.filter(e=>e.ano===EX);
+  if(q)l=l.filter(e=>(e.num+'/'+e.ano+' '+C(e.cred).nome+' '+C(e.cred).doc+' '+D(e.dot).full+' '+e.dot+' '+e.desc).toLowerCase().includes(q));
+  if(ST.tipo!=='all')l=l.filter(e=>e.tipo===ST.tipo);
+  if(ST.sit!=='all')l=l.filter(e=>ST.sit==='ass'?!e.assinado:status(e)[0]===ST.sit);
+  if(a.num)l=l.filter(e=>String(e.num).includes(a.num));
+  if(a.dotIni)l=l.filter(e=>e.dot>=+a.dotIni);if(a.dotFim)l=l.filter(e=>e.dot<=+a.dotFim);
+  if(a.org)l=l.filter(e=>D(e.dot).org===a.org);if(a.fonte)l=l.filter(e=>D(e.dot).fonte===a.fonte);
+  if(a.vIni)l=l.filter(e=>e.valor>=parseMoney(a.vIni));if(a.vFim)l=l.filter(e=>e.valor<=parseMoney(a.vFim));
+  if(a.dIni)l=l.filter(e=>toISO(e.data)>=a.dIni);if(a.dFim)l=l.filter(e=>toISO(e.data)<=a.dFim);
+  if(a.cred)l=l.filter(e=>C(e.cred).nome.toLowerCase().includes(a.cred.toLowerCase()));
+  const [k,dir]=ST.sort;l.sort((x,y)=>{const v=k==='data'?toISO(x.data).localeCompare(toISO(y.data)):k==='valor'?x.valor-y.valor:k==='saldo'?tot(x).aLiq-tot(y).aLiq:x.num-y.num;return v*dir});return l}
+
+function renderEmpList(){
+  const c=$('#content'),all=filtered(),pages=Math.max(1,Math.ceil(all.length/ST.per));ST.page=Math.min(ST.page,pages);
+  const rows=all.slice((ST.page-1)*ST.per,ST.page*ST.per);const ex=EMPS.filter(e=>e.ano===EX);
+  const T=ex.reduce((s,e)=>{const t=tot(e);s.V+=t.V;s.L+=t.L;s.P+=t.P;return s},{V:0,L:0,P:0});
+  const pct=(a,b)=>b?Math.round(a/b*100):0;const cl=ST.cols;
+  const sortTh=(k,l,r)=>`<th class="sort ${r?'r':''}" data-sort="${k}">${l}${ST.sort[0]===k?ico(ST.sort[1]>0?'arrow-up':'arrow-down'):ico('arrow-up-down').replace('<i ','<i style="opacity:.35" ')}</th>`;
+  const chips=Object.entries(ST.adv).filter(([,v])=>v).map(([k,v])=>`<span class="fchip">${ADV_LABEL[k]}: <b>${k.startsWith('d')&&k.length===4?fromISO(v):v}</b><button data-rmf="${k}" aria-label="Remover">${ico('x')}</button></span>`).join('');
+  c.innerHTML=`<div class="crumbs">Contábil ${ico('chevron-right')} 2 - Orçamentário ${ico('chevron-right')} 2.10 - Empenho</div>
+  <div class="page-head"><div><h1>Empenho</h1><p>Exercício ${EX} · ${ug.name}</p></div>
+    <div class="actions"><button class="btn btn-gray" id="empAcoes">${ico('ellipsis-vertical')}Ações</button><button class="btn btn-accent" id="empNovo">${ico('plus')}Incluir empenho</button></div></div>
+  <div class="kpis">
+    <div class="kpi"><span>${ico('file-pen-line')}Empenhado</span><b>${R$(T.V)}</b><small>${ex.length} empenhos no exercício</small></div>
+    <div class="kpi"><span>${ico('file-check')}Liquidado</span><b>${R$(T.L)}</b><div class="bar"><i style="width:${pct(T.L,T.V)}%"></i></div><small>${pct(T.L,T.V)}% do empenhado</small></div>
+    <div class="kpi"><span>${ico('banknote')}Pago</span><b>${R$(T.P)}</b><div class="bar"><i style="width:${pct(T.P,T.V)}%"></i></div><small>${pct(T.P,T.V)}% do empenhado</small></div>
+    <div class="kpi"><span>${ico('hourglass')}A pagar</span><b>${R$(T.L-T.P)}</b><small>Liquidado e ainda não pago</small></div></div>
+  <div class="card">
+    <div class="toolbar">
+      <div class="input"><i data-i="search"></i><input id="empQ" placeholder="Buscar por número, credor, CNPJ ou dotação" value="${ST.q.replace(/"/g,'&quot;')}"></div>
+      <div class="seg">${['all','Ordinário','Global','Estimativo'].map(t=>`<button data-tp="${t}" class="${ST.tipo===t?'on':''}">${t==='all'?'Todos os tipos':t}</button>`).join('')}</div>
+      <span class="sp"></span>
+      <div class="input" style="width:auto;height:40px;padding:0 4px 0 10px"><i data-i="list-filter"></i><select id="empSit">${[['all','Todas as situações'],['Empenhado','Empenhado'],['Liquidado parcial','Liquidado parcial'],['Liquidado','Liquidado'],['Pago parcial','Pago parcial'],['Pago','Pago'],['Anulado','Anulado'],['ass','Não assinados']].map(([v,l])=>`<option value="${v}" ${ST.sit===v?'selected':''}>${l}</option>`).join('')}</select></div>
+      <button class="btn btn-gray" id="advBtn">${ico('sliders-horizontal')}Filtros avançados${Object.values(ST.adv).filter(Boolean).length?` <span class="chip ok" style="height:20px;padding:0 7px">${Object.values(ST.adv).filter(Boolean).length}</span>`:''}</button>
+      <button class="btn-ghost btn" id="colsBtn" title="Colunas" aria-label="Colunas">${ico('columns-3')}</button>
+    </div>
+    ${chips?`<div class="fchips">${chips}<button class="link" id="clrAdv" style="font-size:12px">Limpar filtros</button></div>`:''}
+    <div class="bulkbar ${ST.sel.size?'on':''}" id="bulk"><b>${ST.sel.size} selecionado(s)</b><span style="flex:1"></span>
+      <button class="btn btn-ghost-w" id="bkPrint">${ico('printer')}Imprimir notas</button><button class="btn btn-accent" id="bkSign">${ico('pen-line')}Assinar no Assina</button><button class="btn btn-ghost-w" id="bkClr" aria-label="Limpar seleção">${ico('x')}</button></div>
+    <div class="tbl-wrap"><table class="tbl"><thead><tr>
+      <th class="w-chk"><input type="checkbox" id="chkAll" ${rows.length&&rows.every(e=>ST.sel.has(e.num))?'checked':''} aria-label="Selecionar página"></th>
+      ${sortTh('num','Número')}${cl.tipo?'<th>Tipo</th>':''}${cl.data?sortTh('data','Data'):''}${cl.dot?'<th>Dotação</th>':''}${cl.cred?'<th>Credor</th>':''}
+      ${cl.valor?sortTh('valor','Valor',1):''}${cl.saldo?sortTh('saldo','A liquidar',1):''}${cl.sit?'<th>Situação</th>':''}${cl.ass?'<th>Assinatura</th>':''}<th class="w-act">Ações</th></tr></thead>
+    <tbody>${rows.map(e=>{const d=D(e.dot),t=tot(e),[sl,sc]=status(e);return `<tr data-emp="${e.num}" class="${ST.sel.has(e.num)?'sel':''}">
+      <td class="w-chk"><input type="checkbox" data-chk="${e.num}" ${ST.sel.has(e.num)?'checked':''} aria-label="Selecionar ${e.num}"></td>
+      <td class="num"><b>${e.num}</b><small>${e.ano}</small></td>
+      ${cl.tipo?`<td>${e.tipo}</td>`:''}${cl.data?`<td>${e.data}</td>`:''}
+      ${cl.dot?`<td class="dotc"><b>${d.cod}</b> · ${d.acao}<code title="${d.full}">${d.full}</code></td>`:''}
+      ${cl.cred?`<td class="cred">${C(e.cred).nome}<span class="sub">${C(e.cred).doc}</span></td>`:''}
+      ${cl.valor?`<td class="r">${brl(e.valor)}</td>`:''}
+      ${cl.saldo?`<td class="r saldo-cell">${brl(t.aLiq)}<div class="bar"><i style="width:${t.V?Math.round((t.V-t.aLiq)/t.V*100):100}%"></i></div></td>`:''}
+      ${cl.sit?`<td><span class="chip ${sc}">${sl}</span></td>`:''}
+      ${cl.ass?`<td>${e.assinado?`<span class="chip ok">${ico('check')}Assinado</span>`:'<span class="chip gray">Não assinado</span>'}</td>`:''}
+      <td class="w-act"><button class="kebab" data-kb="${e.num}" aria-label="Ações do empenho ${e.num}">${ico('ellipsis')}</button></td></tr>`}).join('')||
+      `<tr><td colspan="11"><div class="empty" style="border:0">${ico('search-x')}<b>Nenhum empenho encontrado</b>${EX!==2026?'Este protótipo só tem lançamentos em 2026.':'Revise a busca ou os filtros.'}</div></td></tr>`}</tbody></table></div>
+    <div class="pager"><span>${all.length?`${(ST.page-1)*ST.per+1}–${Math.min(ST.page*ST.per,all.length)} de ${all.length}`:'0 registros'}</span>
+      <span>Por página <select id="perSel">${[10,20,50].map(n=>`<option ${n===ST.per?'selected':''}>${n}</option>`).join('')}</select></span><span class="sp"></span>
+      <div class="pg"><button data-pg="1" ${ST.page===1?'disabled':''} aria-label="Primeira">${ico('chevrons-left')}</button><button data-pg="${ST.page-1}" ${ST.page===1?'disabled':''} aria-label="Anterior">${ico('chevron-left')}</button>
+      ${Array.from({length:pages},(_,i)=>i+1).map(i=>`<button data-pg="${i}" class="${i===ST.page?'on':''}">${i}</button>`).join('')}
+      <button data-pg="${ST.page+1}" ${ST.page===pages?'disabled':''} aria-label="Próxima">${ico('chevron-right')}</button><button data-pg="${pages}" ${ST.page===pages?'disabled':''} aria-label="Última">${ico('chevrons-right')}</button></div></div>
+  </div>
+  <p class="tot">Total filtrado: <b>${all.length} empenhos</b> · Valor: <b>${R$(all.reduce((s,e)=>s+e.valor,0))}</b></p>`;
+  paintIcons(c);
+  const q=$('#empQ');q.oninput=()=>{ST.q=q.value;ST.page=1;const p=q.selectionStart;renderEmpList();const n=$('#empQ');n.focus();n.setSelectionRange(p,p)};
+  $$('[data-tp]',c).forEach(b=>b.onclick=()=>{ST.tipo=b.dataset.tp;ST.page=1;renderEmpList()});
+  $('#empSit').onchange=e=>{ST.sit=e.target.value;ST.page=1;renderEmpList()};
+  $$('[data-sort]',c).forEach(th=>th.onclick=()=>{const k=th.dataset.sort;ST.sort=[k,ST.sort[0]===k?-ST.sort[1]:-1];renderEmpList()});
+  $$('[data-pg]',c).forEach(b=>b.onclick=()=>{ST.page=+b.dataset.pg;renderEmpList();window.scrollTo(0,0)});
+  $('#perSel').onchange=e=>{ST.per=+e.target.value;ST.page=1;renderEmpList()};
+  $$('[data-rmf]',c).forEach(b=>b.onclick=()=>{delete ST.adv[b.dataset.rmf];renderEmpList()});
+  if($('#clrAdv'))$('#clrAdv').onclick=()=>{ST.adv={};renderEmpList()};
+  $('#advBtn').onclick=advDrawer;
+  $('#empNovo').onclick=()=>go('#tela/k-2.10/novo');
+  $('#empAcoes').onclick=e=>{e.stopPropagation();fpop(e.currentTarget,`<button class="menu-item" data-a="copy">${ico('copy')}Gerar cópia de empenho</button><button class="menu-item" data-a="xls">${ico('sheet')}Exportar planilha</button><button class="menu-item" data-a="pdf">${ico('printer')}Imprimir relação</button>`,
+    p=>{$('[data-a=copy]',p).onclick=()=>{closeFpop();copyModal()};$('[data-a=xls]',p).onclick=()=>{closeFpop();toast('success','Planilha gerada',`${all.length} empenhos exportados com os filtros atuais.`)};$('[data-a=pdf]',p).onclick=()=>{closeFpop();toast('info','Relação de empenhos','Abrindo a visualização de impressão...')}})};
+  $('#colsBtn').onclick=e=>{e.stopPropagation();fpop(e.currentTarget,Object.entries({tipo:'Tipo',data:'Data',dot:'Dotação',cred:'Credor',valor:'Valor',saldo:'A liquidar',sit:'Situação',ass:'Assinatura'}).map(([k,l])=>`<label><input type="checkbox" data-col="${k}" ${ST.cols[k]?'checked':''}>${l}</label>`).join(''),
+    p=>$$('[data-col]',p).forEach(x=>x.onchange=()=>{ST.cols[x.dataset.col]=x.checked?1:0;renderEmpList()}))};
+  $('#chkAll').onchange=e=>{rows.forEach(r=>e.target.checked?ST.sel.add(r.num):ST.sel.delete(r.num));renderEmpList()};
+  $$('[data-chk]',c).forEach(x=>{x.onclick=ev=>ev.stopPropagation();x.onchange=()=>{const n=+x.dataset.chk;x.checked?ST.sel.add(n):ST.sel.delete(n);renderEmpList()}});
+  $('#bkClr').onclick=()=>{ST.sel.clear();renderEmpList()};
+  $('#bkSign').onclick=()=>{const n=ST.sel.size;ST.sel.forEach(x=>E(x).assinado=true);ST.sel.clear();toast('success','Enviado para assinatura',`${n} nota(s) de empenho assinada(s) no Assina.`);renderEmpList()};
+  $('#bkPrint').onclick=()=>toast('info','Notas de empenho',`Gerando PDF com ${ST.sel.size} nota(s)...`);
+  $$('tr[data-emp]',c).forEach(tr=>tr.onclick=()=>go('#tela/k-2.10/'+tr.dataset.emp));
+  $$('[data-kb]',c).forEach(b=>b.onclick=ev=>{ev.stopPropagation();rowMenu(b,E(b.dataset.kb))});
+}
+function rowMenu(btn,e){const t=tot(e),an=e.anulado>=e.valor;
+  fpop(btn,`<button class="menu-item" data-m="ver">${ico('eye')}Visualizar</button>
+    ${!an&&t.aLiq>0?`<button class="menu-item" data-m="liq">${ico('file-check')}Liquidar</button>`:''}
+    ${t.aPag>0?`<button class="menu-item" data-m="pag">${ico('banknote')}Pagar</button>`:''}
+    <button class="menu-item" data-m="copy">${ico('copy')}Gerar cópia</button>
+    ${e.assinado?'':`<button class="menu-item" data-m="ass">${ico('pen-line')}Assinar</button>`}
+    <button class="menu-item" data-m="nota">${ico('printer')}Imprimir nota de empenho</button>
+    ${!an&&t.aLiq>0?`<hr><button class="menu-item danger" data-m="anu">${ico('file-x')}Anular</button>`:''}`,
+  p=>{const on=(k,f)=>{const x=$(`[data-m=${k}]`,p);if(x)x.onclick=()=>{closeFpop();f()}};
+    on('ver',()=>go('#tela/k-2.10/'+e.num));on('liq',()=>liqModal(e));on('pag',()=>pagModal(e));on('copy',()=>go('#tela/k-2.10/novo?copia='+e.num));
+    on('ass',()=>{e.assinado=true;toast('success','Empenho assinado',`Nota de empenho ${e.num}/${e.ano} assinada no Assina.`);render()});
+    on('nota',()=>toast('info','Nota de empenho',`Gerando PDF da NE ${e.num}/${e.ano}...`));on('anu',()=>anulModal(e))})}
+
+function advDrawer(){const a={...ST.adv};const orgs=[...new Set(DOTS.map(d=>d.org))],fontes=[...new Set(DOTS.map(d=>d.fonte+' '+d.fonteN))];
+  const L=$('#layer');const f=(k,l,ph='',type='text',cls='c6')=>`<div class="${cls}"><label>${l}</label><div class="input"><input data-adv="${k}" type="${type}" placeholder="${ph}" value="${a[k]||''}"></div></div>`;
+  const cnt=ks=>ks.filter(k=>a[k]).length;const sec=(id,t,ks,body,open)=>`<div class="acc-sec ${open?'open':''}"><button type="button">${t}${cnt(ks)?` <em>${cnt(ks)}</em>`:''}${ico('chevron-down').replace('<i ','<i class="chev" ')}</button><div><div class="fgrid">${body}</div></div></div>`;
+  L.innerHTML=`<div class="drawer-ov" id="dOv"></div><aside class="drawer" role="dialog" aria-label="Filtros avançados">
+   <div class="drawer-h"><h3>Filtros avançados</h3><button class="btn-ghost btn" id="dX" style="margin-left:auto" aria-label="Fechar">${ico('x')}</button></div>
+   <div class="drawer-b"><p style="color:var(--secondary-fg);font-size:13.5px">Agrupei os ${Object.keys(ADV_LABEL).length+20} campos do filtro atual por assunto. Abra só o grupo que precisar.</p>
+   ${sec('id','Identificação',['num','proc','protocolo'],f('num','Número','Ex.: 4120','text','c4')+f('proc','Processo de compra','Nº/ano','text','c4')+f('protocolo','Nº protocolo','','text','c4'),true)}
+   ${sec('per','Período e valor',['dIni','dFim','vIni','vFim'],f('dIni','Data inicial','','date')+f('dFim','Data final','','date')+f('vIni','Valor de','0,00')+f('vFim','Valor até','0,00'),true)}
+   ${sec('cred','Credor',['cred'],`<div class="c12"><label>Nome ou CNPJ/CPF</label><div class="input"><i data-i="search"></i><input data-adv="cred" value="${a.cred||''}" placeholder="Digite para buscar"></div></div>`,true)}
+   ${sec('dot','Dotação e classificação',['dotIni','dotFim','org','fonte'],f('dotIni','Cód. reduzido de','Ex.: 100')+f('dotFim','Cód. reduzido até','Ex.: 600')+
+     `<div class="c12"><label>Órgão / unidade</label><div class="input"><select data-adv="org"><option value="">Todos</option>${orgs.map(o=>`<option ${a.org===o?'selected':''}>${o}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
+      <div class="c12"><label>Fonte de recurso</label><div class="input"><select data-adv="fonte"><option value="">Todas</option>${fontes.map(o=>`<option value="${o.split(' ')[0]}" ${a.fonte===o.split(' ')[0]?'selected':''}>${o}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
+      <div class="c12" style="font-size:12.5px;color:var(--muted-fg)">Função, subfunção, programa, ação e elemento entram aqui na versão completa, no mesmo formato de/até.</div>`)}
+   ${sec('compra','Compras e administrativo',[],`<div class="c12" style="font-size:13px;color:var(--secondary-fg)">Ordem de fornecimento, pré-empenho, NAD e modalidade (com ano) ficam neste grupo.</div>`)}
+   </div>
+   <div class="drawer-f"><button class="btn btn-gray" id="dClr">${ico('eraser')}Limpar</button><button class="btn btn-accent" id="dOk">${ico('check')}Aplicar filtros</button></div></aside>`;
+  paintIcons(L);const close=()=>L.innerHTML='';$('#dOv').onclick=close;$('#dX').onclick=close;
+  $$('.acc-sec>button',L).forEach(b=>b.onclick=()=>b.parentElement.classList.toggle('open'));
+  $$('[data-adv]',L).forEach(i=>{if(['vIni','vFim'].includes(i.dataset.adv))moneyInput(i);i.oninput=i.onchange=()=>a[i.dataset.adv]=i.value});
+  $('#dClr').onclick=()=>{ST.adv={};close();renderEmpList()};$('#dOk').onclick=()=>{ST.adv=a;ST.page=1;close();renderEmpList();const n=filtered().length;toast('info','Filtros aplicados',`${n} empenho(s) encontrado(s).`)}}
+function copyModal(){modal({icon:'copy',title:'Gerar cópia de empenho',html:`<p>Informe o empenho de origem. Dotação, credor, tipo e descrição são copiados; data e valor você confere antes de salvar.</p>
+  <div class="field"><label>Número do empenho</label><div class="input"><i data-i="hash"></i><input id="cpN" placeholder="Ex.: ${EMPS[3].num}" inputmode="numeric"></div><div class="hint err hidden" id="cpH"></div></div>`,ok:'Gerar cópia',okIcon:'copy',
+  onOk:()=>{}});const ok=$('#mOk');const nb=ok.cloneNode(true);ok.replaceWith(nb);
+  nb.onclick=()=>{const n=$('#cpN').value.trim();if(!E(n)){const h=$('#cpH');h.innerHTML=ico('circle-alert')+'Empenho não encontrado em '+EX+'.';h.classList.remove('hidden');paintIcons(h);return}$('#layer').innerHTML='';go('#tela/k-2.10/novo?copia='+n)};setTimeout(()=>$('#cpN').focus(),30)}
+
+/* =====================================================================
+   2.10 EMPENHO · INCLUIR
+   ===================================================================== */
+let F=null;
+function renderEmpForm(copyFrom){
+  const src=copyFrom?E(copyFrom):null;const last=Math.max(...EMPS.map(e=>e.num));
+  F=src?{proc:src.proc,data:toISO(today()),tipo:src.tipo,nat:src.nat,dot:src.dot,sub:src.sub,cred:src.cred,desc:src.desc,valor:0,cls:{}}:{proc:'',data:toISO(today()),tipo:'',nat:'',dot:null,sub:'',cred:null,desc:'',valor:0,cls:{}};
+  const c=$('#content');
+  c.innerHTML=`<div class="crumbs">Contábil ${ico('chevron-right')} 2 - Orçamentário ${ico('chevron-right')} <button class="link" data-back style="font-size:12px">2.10 - Empenho</button> ${ico('chevron-right')} Incluir</div>
+  <div class="page-head"><button class="back" aria-label="Voltar" data-back>${ico('chevron-left')}</button><div><h1>Incluir empenho</h1><p>Último empenho: <b>${last}/${EX}</b>. O próximo número é gerado ao salvar.</p></div></div>
+  ${src?`<div class="copy-banner">${ico('copy')}<span>Cópia do empenho <b>${src.num}/${src.ano}</b>. Confira a data e informe o valor.</span></div>`:''}
+  <div class="form-layout"><div>
+   <section class="card"><div class="fsec-h"><span class="n" data-sn="1">1</span><h3>Empenho</h3></div><div class="card-b"><div class="fgrid">
+     <div class="c4"><label>Tipo de processo <i class="req">*</i></label><div class="input"><i data-i="folder-open"></i><select data-f="proc"><option value="">Selecione</option>${['Licitação','Dispensa','Inexigibilidade','Sem processo'].map(o=>`<option ${F.proc===o?'selected':''}>${o}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
+     <div class="c4"><label>Data <i class="req">*</i></label><div class="input"><input type="date" data-f="data" value="${F.data}"></div></div>
+     <div class="c4"><label>Natureza do empenho <i class="req">*</i></label><div class="input"><select data-f="nat"><option value="">Selecione</option>${['Normal','Adiantamento','Diárias','Folha de pagamento','Precatório'].map(o=>`<option ${F.nat===o?'selected':''}>${o}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
+     <div class="c12"><label>Tipo <i class="req">*</i></label><div class="tipo-seg">${[['Ordinário','Valor exato, pago de uma vez'],['Estimativo','Valor estimado, ex.: água e energia'],['Global','Valor exato, pago em parcelas']].map(([t,s])=>`<button type="button" data-tipo="${t}" class="${F.tipo===t?'on':''}"><b>${t}</b><small>${s}</small></button>`).join('')}</div></div>
+   </div></div></section>
+
+   <section class="card"><div class="fsec-h"><span class="n" data-sn="2">2</span><h3>Dotação</h3></div><div class="card-b"><div id="dotBox"></div></div></section>
+
+   <section class="card"><div class="fsec-h"><span class="n" data-sn="3">3</span><h3>Credor, descrição e valor</h3></div><div class="card-b"><div class="fgrid">
+     <div class="c12" id="credBox"></div>
+     <div class="c12"><label>Descrição <i class="req">*</i></label><div class="input ta"><textarea data-f="desc" maxlength="500" placeholder="Objeto da despesa, como vai aparecer na nota de empenho">${F.desc}</textarea></div>
+       <div style="display:flex;justify-content:space-between"><button type="button" class="link" id="histBtn" style="font-size:12px">Usar histórico padrão</button><span class="counter" id="descCnt">${F.desc.length}/500</span></div></div>
+     <div class="c6"><label>Valor <i class="req">*</i></label><div class="input" id="valBox"><span class="pre">R$</span><input data-money id="valIn" inputmode="numeric" placeholder="0,00"></div><div class="hint err hidden" id="valH"></div></div>
+   </div></div></section>
+
+   <section class="card acc-sec" style="border-radius:var(--r-lg)" id="clsSec"><button type="button" style="padding:16px">${ico('tags')}<span style="font-size:20px;font-weight:600">Classificação da despesa</span><span class="chip gray" style="margin-left:8px">opcional</span>${ico('chevron-down').replace('<i ','<i class="chev" ')}</button>
+     <div><div class="fgrid">
+       <div class="c6"><label>Convênio</label><div class="input"><i data-i="search"></i><input placeholder="Buscar convênio"></div></div>
+       <div class="c3"><label>Contrato</label><div class="input"><input placeholder="Nº"></div></div><div class="c3"><label>Ano do contrato</label><div class="input"><input placeholder="${EX}"></div></div>
+       <div class="c3"><label>Tipo do contrato</label><div class="input ro"><span class="v ph">Preenchido pelo contrato</span></div></div>
+       <div class="c3"><label>Aditivo do contrato</label><div class="input"><input></div></div><div class="c3"><label>Ano do aditivo</label><div class="input"><input></div></div>
+       <div class="c3"><label>Serviço de engenharia</label><div class="input"><select><option>Não</option><option>Sim</option></select>${ico('chevron-down')}</div></div>
+       <div class="c6"><label>Obra</label><div class="input"><i data-i="search"></i><input placeholder="Buscar obra"></div></div>
+       <div class="c6"><label>Dívida fundada</label><div class="input"><i data-i="search"></i><input placeholder="Buscar dívida"></div></div>
+       <div class="c4"><label>Tipo de despesa do RPPS</label><div class="input"><select><option>Não se aplica</option><option>Benefícios previdenciários</option><option>Taxa de administração</option></select>${ico('chevron-down')}</div></div>
+       <div class="c4"><label>Nº protocolo</label><div class="input"><input></div></div>
+       <div class="c4"><label>Emenda parlamentar</label><div class="input"><i data-i="search"></i><input placeholder="Buscar emenda"></div></div>
+     </div></div></section>
+  </div>
+  <aside class="side"><div class="card"><div class="card-h"><h3 style="font-size:18px">Resumo</h3></div><div class="card-b" id="sumBox"></div>
+    <ul class="checklist" id="chkList"></ul></div></aside></div>
+  <div class="form-foot"><button class="btn btn-gray" data-back>${ico('x')}Cancelar</button><button class="btn btn-outline" id="saveLiq">${ico('file-check')}Salvar e liquidar</button><button class="btn btn-accent" id="saveBtn">${ico('save')}Salvar empenho</button></div>`;
+  paintIcons(c);
+  $$('[data-back]',c).forEach(b=>b.onclick=()=>go('#tela/k-2.10'));
+  $$('[data-f]',c).forEach(i=>i.oninput=i.onchange=()=>{F[i.dataset.f]=i.value;if(i.dataset.f==='desc')$('#descCnt').textContent=i.value.length+'/500';syncForm()});
+  $$('[data-tipo]',c).forEach(b=>b.onclick=()=>{F.tipo=b.dataset.tipo;$$('[data-tipo]',c).forEach(x=>x.classList.toggle('on',x===b));syncForm()});
+  moneyInput($('#valIn'),v=>{F.valor=v;syncForm()});
+  $('#clsSec>button').onclick=()=>$('#clsSec').classList.toggle('open');
+  $('#histBtn').onclick=e=>{e.stopPropagation();fpop(e.currentTarget,Object.values(DESC).map(d=>`<button class="menu-item" data-h="${d}">${ico('file-text')}${d}</button>`).join(''),p=>$$('[data-h]',p).forEach(b=>b.onclick=()=>{F.desc=b.dataset.h;$('[data-f=desc]').value=F.desc;$('#descCnt').textContent=F.desc.length+'/500';closeFpop();syncForm()}),'left')};
+  $('#saveBtn').onclick=()=>saveEmp(false);$('#saveLiq').onclick=()=>saveEmp(true);
+  paintDot();paintCred();syncForm();
+}
+function combo(box,{label,ph,items,render,onPick,empty}){
+  box.innerHTML=`<label>${label} <i class="req">*</i></label><div style="position:relative"><div class="input"><i data-i="search"></i><input placeholder="${ph}" autocomplete="off"></div><div class="res-list hidden"></div></div>`;
+  paintIcons(box);const inp=$('input',box),lst=$('.res-list',box);let kb=0,cur=[];
+  const draw=()=>{const q=inp.value.toLowerCase();cur=items().filter(x=>!q||render(x).txt.toLowerCase().includes(q)).slice(0,8);kb=Math.min(kb,Math.max(cur.length-1,0));
+    lst.innerHTML=cur.map((x,i)=>`<button type="button" class="res ${i===kb?'kb':''}" data-i="${i}">${render(x).html}</button>`).join('')||`<div class="hint" style="padding:10px">${empty}</div>`;lst.classList.remove('hidden');
+    $$('[data-i]',lst).forEach(b=>{b.onmousedown=e=>{e.preventDefault();onPick(cur[+b.dataset.i])}})};
+  inp.onfocus=draw;inp.oninput=()=>{kb=0;draw()};inp.onblur=()=>setTimeout(()=>lst.classList.add('hidden'),120);
+  inp.onkeydown=e=>{if(e.key==='ArrowDown'){e.preventDefault();kb=Math.min(kb+1,cur.length-1);draw()}else if(e.key==='ArrowUp'){e.preventDefault();kb=Math.max(kb-1,0);draw()}else if(e.key==='Enter'&&cur[kb]){e.preventDefault();onPick(cur[kb])}};}
+function paintDot(){const box=$('#dotBox');
+  if(!F.dot){combo(box,{label:'Código reduzido',ph:'Digite o código, a ação ou o órgão',items:()=>DOTS,empty:'Nenhuma dotação encontrada',
+    render:d=>({txt:`${d.cod} ${d.acao} ${d.org} ${d.full}`,html:`<span class="rr">${R$(saldoDot(d.cod))}</span><b>${d.cod} · ${d.acao}</b><small>${d.org} · ${d.el} ${d.elN}</small><code>${d.full}</code>`}),
+    onPick:d=>{F.dot=d.cod;F.sub='';paintDot();syncForm()}});return}
+  const d=D(F.dot),s=saldoDot(d.cod),subs=SUBEL[d.el]||[];
+  box.innerHTML=`<div class="pick">${ico('circle-check')}<div><b>${d.cod} · ${d.acao}</b><small>${d.full}</small></div><button type="button" class="link x2" id="dotX">Trocar</button></div>
+   <div class="fgrid" style="margin-top:14px">
+    <div class="c6"><label>Órgão / unidade</label><div class="input ro"><span class="v">${d.org}</span></div></div>
+    <div class="c6"><label>Funcional-programática</label><div class="input ro"><span class="v">${d.func}</span></div></div>
+    <div class="c6"><label>Despesa</label><div class="input ro"><span class="v">${d.el} · ${d.elN}</span></div></div>
+    <div class="c6"><label>Fonte de recurso</label><div class="input ro"><span class="v">${d.fonte} · ${d.fonteN}</span></div></div>
+    <div class="c6"><label>Subelemento</label><div class="input"><select data-sub><option value="">Selecione</option>${subs.map(o=>`<option ${F.sub===o?'selected':''}>${o}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
+    <div class="c6"><label>Saldo da dotação</label><div class="input ro"><span class="v">${R$(s)}</span></div></div></div>
+   <div class="saldo-box" id="saldoBox"></div>`;
+  paintIcons(box);$('#dotX').onclick=()=>{F.dot=null;paintDot();syncForm()};$('[data-sub]',box).onchange=e=>{F.sub=e.target.value;syncForm()}}
+function paintCred(){const box=$('#credBox');
+  if(!F.cred){combo(box,{label:'Credor',ph:'Nome, CPF ou CNPJ',items:()=>CREDS,empty:'Nenhum credor encontrado. Cadastre em 1.1 - Credor.',
+    render:c=>({txt:c.nome+' '+c.doc,html:`${c.cert==='vencida'?'<span class="rr" style="color:var(--destructive);font-size:12px">certidão vencida</span>':''}<b>${c.nome}</b><small>${c.doc}</small>`}),onPick:c=>{F.cred=c.id;paintCred();syncForm()}});return}
+  const c=C(F.cred);box.innerHTML=`<label>Credor <i class="req">*</i></label><div class="pick">${ico('building-2')}<div><b>${c.nome}</b><small>${c.doc} · ${c.cert==='ok'?'Certidões regulares':'Certidão negativa vencida em 30/10/2026'}</small></div><button type="button" class="link x2" id="credX">Trocar</button></div>
+   ${c.cert==='vencida'?`<div class="alert warn">${ico('triangle-alert')}<span>O empenho pode ser emitido, mas o pagamento vai exigir certidão válida. Avise o setor de compras.</span></div>`:''}`;
+  paintIcons(box);$('#credX').onclick=()=>{F.cred=null;paintCred();syncForm()}}
+function syncForm(){
+  const req=[['Tipo de processo',!!F.proc],['Data',!!F.data],['Natureza',!!F.nat],['Tipo',!!F.tipo],['Dotação',!!F.dot],['Credor',!!F.cred],['Descrição',F.desc.trim().length>=5],['Valor',F.valor>0]];
+  const s=F.dot?saldoDot(F.dot):0,over=F.dot&&F.valor>s;
+  if($('#saldoBox')){const pc=s>0?Math.min(100,F.valor/s*100):100;$('#saldoBox').innerHTML=`<div class="row"><span>Este empenho usa</span><b>${R$(F.valor)} de ${R$(s)}</b></div><div class="bar"><i class="${over?'over':''}" style="width:${pc}%"></i></div><div class="row" style="margin:6px 0 0"><span>Saldo após o empenho</span><b style="color:${over?'var(--destructive)':'inherit'}">${R$(s-F.valor)}</b></div>`}
+  const vh=$('#valH');if(vh){if(over){vh.innerHTML=ico('circle-alert')+`Valor maior que o saldo da dotação (${R$(s)}). Peça crédito adicional ou escolha outra dotação.`;vh.classList.remove('hidden');paintIcons(vh);$('#valBox').classList.add('err')}else{vh.classList.add('hidden');$('#valBox').classList.remove('err')}}
+  const done=req.filter(r=>r[1]).length;
+  $('#sumBox').innerHTML=`<div><span>Dotação</span><b>${F.dot?F.dot+' · '+D(F.dot).acao:'—'}</b></div><div><span>Credor</span><b>${F.cred?C(F.cred).nome:'—'}</b></div><div><span>Tipo</span><b>${F.tipo||'—'}</b></div>
+    <div><span>Saldo da dotação</span><b>${F.dot?R$(s):'—'}</b></div><div><span>Valor do empenho</span><b class="big">${R$(F.valor)}</b></div>`;
+  $('#chkList').innerHTML=`<li style="font-weight:600;color:var(--fg)">${done} de ${req.length} obrigatórios preenchidos</li>`+req.map(([l,ok])=>`<li class="${ok?'ok':''}">${ico(ok?'circle-check':'circle')}${l}</li>`).join('');paintIcons($('#chkList'));
+  const sn={1:F.proc&&F.data&&F.nat&&F.tipo,2:!!F.dot,3:F.cred&&F.desc.trim().length>=5&&F.valor>0&&!over};Object.entries(sn).forEach(([k,v])=>$(`[data-sn="${k}"]`).classList.toggle('ok',!!v));
+  const valid=done===req.length&&!over;$('#saveBtn').disabled=!valid;$('#saveLiq').disabled=!valid;}
+function saveEmp(liq){const num=Math.max(...EMPS.map(e=>e.num))+1;const e={num,ano:EX,tipo:F.tipo,data:fromISO(F.data),dot:F.dot,cred:F.cred,desc:F.desc.trim(),valor:F.valor,anulado:0,liqs:[],assinado:false,proc:F.proc,nat:F.nat,sub:F.sub};
+  EMPS.unshift(e);toast('success','Empenho incluído',`Empenho ${num}/${EX} de ${R$(e.valor)} salvo. Saldo da dotação atualizado.`);go('#tela/k-2.10/'+num);if(liq)setTimeout(()=>liqModal(e),250)}
+
+/* =====================================================================
+   2.10 EMPENHO · DETALHE
+   ===================================================================== */
+function renderEmpDetail(num){const e=E(num);if(!e)return go('#tela/k-2.10');
+  const d=D(e.dot),c=C(e.cred),t=tot(e),[sl,sc]=status(e),an=e.anulado>=e.valor;const pct=v=>t.V?Math.round(v/t.V*100):0;
+  const el=$('#content');
+  const steps=[{ic:'file-pen-line',t:`Empenho ${e.num}/${e.ano}`,p:`${e.data} · ${R$(e.valor)} · ${e.tipo}${e.anulado?` · anulado ${R$(e.anulado)}`:''}`,done:true},
+    ...e.liqs.flatMap(l=>[{ic:'file-check',t:`Liquidação ${l.id}`,p:`${l.data} · ${l.tipoDoc} ${l.doc} · bruto ${R$(l.valor)}, líquido ${R$(l.liquido)}`,done:true},
+      l.pago?{ic:'banknote',t:`Pagamento ${l.pg.op}`,p:`${l.pg.data} · ${R$(l.liquido)} · ${l.pg.forma}`,done:true}:{ic:'hourglass',t:'Aguardando pagamento',p:`${R$(l.liquido)} a pagar da liquidação ${l.id}`,now:true,act:`<button class="btn btn-accent" data-pay="${l.id}" style="height:34px">${ico('banknote')}Pagar</button>`}])];
+  if(!an&&t.aLiq>0)steps.push({ic:'file-check',t:e.liqs.length?'Saldo a liquidar':'Aguardando liquidação',p:`${R$(t.aLiq)} ainda não liquidados`,now:true,act:`<button class="btn btn-accent" id="tlLiq" style="height:34px">${ico('file-check')}Liquidar</button>`});
+  el.innerHTML=`<div class="crumbs">Contábil ${ico('chevron-right')} 2 - Orçamentário ${ico('chevron-right')} <button class="link" data-back style="font-size:12px">2.10 - Empenho</button> ${ico('chevron-right')} ${e.num}/${e.ano}</div>
+  <div class="page-head"><button class="back" aria-label="Voltar" data-back>${ico('chevron-left')}</button><div><h1>Empenho ${e.num}/${e.ano}</h1><p style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="chip ${sc}">${sl}</span>${e.assinado?`<span class="chip ok">${ico('check')}Assinado</span>`:'<span class="chip gray">Não assinado</span>'}<span>${c.nome}</span></p></div>
+   <div class="actions"><button class="btn btn-gray" id="dPrint">${ico('printer')}Nota de empenho</button>${e.assinado?'':`<button class="btn btn-outline" id="dSign">${ico('pen-line')}Assinar</button>`}
+   ${!an&&t.aLiq>0?`<button class="btn btn-gray" id="dAnu">${ico('file-x')}Anular</button>`:''}${!an&&t.aLiq>0?`<button class="btn btn-accent" id="dLiq">${ico('file-check')}Liquidar</button>`:t.aPag>0?`<button class="btn btn-accent" id="dPag">${ico('banknote')}Pagar</button>`:''}</div></div>
+  <div class="kpis">
+   <div class="kpi"><span>${ico('file-pen-line')}Empenhado</span><b>${R$(t.V)}</b><small>${e.anulado?`${R$(e.anulado)} anulado`:'valor atual'}</small></div>
+   <div class="kpi"><span>${ico('file-check')}Liquidado</span><b>${R$(t.L)}</b><div class="bar"><i style="width:${pct(t.L)}%"></i></div><small>${pct(t.L)}%</small></div>
+   <div class="kpi"><span>${ico('banknote')}Pago (bruto)</span><b>${R$(t.P)}</b><div class="bar"><i style="width:${pct(t.P)}%"></i></div><small>${pct(t.P)}%</small></div>
+   <div class="kpi"><span>${ico('hourglass')}A liquidar</span><b>${R$(t.aLiq)}</b><small>${t.aPag?`${R$(t.aPag)} liquidado a pagar`:'nada a pagar'}</small></div></div>
+  <div class="detail">
+   <div class="card"><div class="card-h"><h3>Linha do tempo</h3></div><ul class="tl">${steps.map(s=>`<li class="${s.done?'done':s.now?'now':''}"><span class="tli">${ico(s.ic)}</span><div><b>${s.t}</b><p>${s.p}</p>${s.act?`<div class="tl-act">${s.act}</div>`:''}</div></li>`).join('')}</ul></div>
+   <div>
+    <div class="card" style="margin-bottom:16px"><div class="card-h"><h3>Dados do empenho</h3></div><div class="card-b"><dl class="dl">
+      <dt>Credor</dt><dd>${c.nome}<br><span style="font-weight:400;color:var(--muted-fg)">${c.doc}</span></dd>
+      <dt>Descrição</dt><dd style="font-weight:500">${e.desc}</dd><dt>Tipo / natureza</dt><dd>${e.tipo} · ${e.nat}</dd><dt>Processo</dt><dd>${e.proc}</dd><dt>Data</dt><dd>${e.data}</dd></dl></div></div>
+    <div class="card"><div class="card-h"><h3>Dotação ${d.cod}</h3></div><div class="card-b"><dl class="dl">
+      <dt>Órgão / unidade</dt><dd>${d.org}</dd><dt>Ação</dt><dd>${d.acao}</dd><dt>Despesa</dt><dd>${d.el} · ${d.elN}${e.sub?`<br><span style="font-weight:400">${e.sub}</span>`:''}</dd><dt>Fonte</dt><dd>${d.fonte} · ${d.fonteN}</dd><dt>Classificação</dt><dd><code>${d.full}</code></dd><dt>Saldo da dotação</dt><dd>${R$(saldoDot(d.cod))}</dd></dl></div></div>
+   </div></div>`;
+  paintIcons(el);
+  $$('[data-back]',el).forEach(b=>b.onclick=()=>go('#tela/k-2.10'));
+  const on=(id,f)=>{const x=$(id);if(x)x.onclick=f};on('#dLiq',()=>liqModal(e));on('#tlLiq',()=>liqModal(e));on('#dPag',()=>pagModal(e));on('#dAnu',()=>anulModal(e));
+  on('#dSign',()=>{e.assinado=true;toast('success','Empenho assinado',`Nota de empenho ${e.num}/${e.ano} assinada no Assina.`);render()});on('#dPrint',()=>toast('info','Nota de empenho',`Gerando PDF da NE ${e.num}/${e.ano}...`));
+  $$('[data-pay]',el).forEach(b=>b.onclick=()=>pagModal(e,b.dataset.pay));}
+
+/* ---------- modais de liquidação, pagamento e anulação ---------- */
+function bigModal(icon,title,body,okTxt,okIcon){const L=$('#layer');L.innerHTML=`<div class="overlay" id="mOv"><div class="modal lg" role="dialog" aria-modal="true"><div style="display:flex;gap:14px;align-items:center;margin-bottom:6px"><div class="mi" style="margin:0">${ico(icon)}</div><div><h3>${title}</h3></div><button class="btn-ghost btn" id="mX" style="margin-left:auto" aria-label="Fechar">${ico('x')}</button></div>${body}
+  <div class="acts"><button class="btn btn-gray" id="mNo">${ico('x')}Cancelar</button><button class="btn btn-accent" id="mOk">${ico(okIcon)}${okTxt}</button></div></div></div>`;
+  paintIcons(L);const close=()=>L.innerHTML='';$('#mNo').onclick=close;$('#mX').onclick=close;$('#mOv').onclick=ev=>{if(ev.target.id==='mOv')close()};return close}
+function liqModal(e){const t=tot(e),c=C(e.cred);const pf=e.cred===8,isPF=pf;let v=t.aLiq;
+  const R={iss:{on:!isPF&&e.cred!==7,p:5,l:'ISS (retido na fonte)'},inss:{on:false,p:11,l:'INSS'},irrf:{on:e.cred!==7,p:1.5,l:'IRRF'}};
+  const close=bigModal('file-check',`Liquidar empenho ${e.num}/${e.ano}`,`<p style="font-size:14px;margin:0 0 12px">${c.nome} · saldo a liquidar <b>${R$(t.aLiq)}</b></p>
+   <div class="fgrid">
+    <div class="c4"><label>Tipo de documento</label><div class="input"><select id="lTd">${['NFS-e','NF-e','Recibo','Fatura','Folha'].map(o=>`<option ${o===(pf?'Recibo':'NFS-e')?'selected':''}>${o}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
+    <div class="c4"><label>Número do documento <i class="req">*</i></label><div class="input"><input id="lDoc" placeholder="Ex.: 1532"></div></div>
+    <div class="c4"><label>Data da liquidação</label><div class="input"><input type="date" id="lDt" value="${toISO(today())}"></div></div>
+    <div class="c6"><label>Valor a liquidar <i class="req">*</i></label><div class="input" id="lVb"><span class="pre">R$</span><input id="lV" value="${brl(v)}" inputmode="numeric"></div><div class="hint err hidden" id="lVh"></div></div>
+    <div class="c6"><label>Data de vencimento</label><div class="input"><input type="date" id="lVc"></div></div>
+   </div>
+   <h4 style="font-size:14px;font-weight:600;margin:16px 0 4px">Retenções</h4><div id="lRet"></div>
+   <div class="sum-box" id="lSum"></div>
+   <label class="check" style="margin-top:14px;color:var(--fg)"><input type="checkbox" id="lAt"> Atesto que o material ou serviço foi entregue conforme o empenho.</label>
+   <p class="hint" style="margin-top:6px">${ico('info')}A liquidação exige o atesto de quem recebeu (Lei 4.320/64, art. 63).</p>`,'Confirmar liquidação','check');
+  const paint=()=>{const vals={};let sum=0;$('#lRet').innerHTML=Object.entries(R).map(([k,r])=>{const x=r.on?Math.round(v*r.p)/100:0;vals[k]=x;sum+=x;return `<div class="ret"><label><input type="checkbox" data-rk="${k}" ${r.on?'checked':''}>${r.l}</label><div class="input"><input data-rp="${k}" value="${String(r.p).replace('.',',')}" inputmode="decimal"><span class="pre">%</span></div><b>${R$(x)}</b></div>`}).join('');
+    $('#lSum').innerHTML=`<div><span>Valor bruto</span><b>${R$(v)}</b></div><div><span>Total de retenções</span><b>− ${R$(sum)}</b></div><div class="liq"><span>Líquido a pagar ao credor</span><b>${R$(v-sum)}</b></div>`;
+    $$('[data-rk]').forEach(x=>x.onchange=()=>{R[x.dataset.rk].on=x.checked;paint()});$$('[data-rp]').forEach(x=>x.onchange=()=>{R[x.dataset.rp].p=+x.value.replace(',','.')||0;paint()});return {vals,sum}};
+  let cur=paint();const vi=$('#lV');moneyInput(vi,x=>{v=x;const bad=v>t.aLiq||!v;const h=$('#lVh');h.classList.toggle('hidden',!bad);$('#lVb').classList.toggle('err',bad);if(bad){h.innerHTML=ico('circle-alert')+(v?`Máximo ${R$(t.aLiq)} (saldo a liquidar).`:'Informe o valor.');paintIcons(h)}cur=paint()});
+  $('#mOk').onclick=()=>{if(!$('#lDoc').value.trim()){$('#lDoc').parentElement.classList.add('err');$('#lDoc').focus();return}if(!v||v>t.aLiq)return;if(!$('#lAt').checked){toast('error','Falta o atesto','Confirme o recebimento do material ou serviço.');return}
+    const l={id:`${e.num}-${e.liqs.length+1}`,tipoDoc:$('#lTd').value,doc:$('#lDoc').value.trim(),data:fromISO($('#lDt').value),valor:v,ret:{iss:cur.vals.iss,inss:cur.vals.inss,irrf:cur.vals.irrf},liquido:Math.round((v-cur.sum)*100)/100,pago:false,pg:null};
+    e.liqs.push(l);close();toast('success','Liquidação registrada',`${l.tipoDoc} ${l.doc}: ${R$(l.liquido)} líquido a pagar.`);render()};}
+function pagModal(e,liqId){const abertas=e.liqs.filter(l=>!l.pago);if(!abertas.length)return toast('info','Nada a pagar','Este empenho não tem liquidação em aberto.');
+  let l=abertas.find(x=>x.id===liqId)||abertas[0];const c=C(e.cred);
+  const fila=EMPS.flatMap(x=>x.liqs.filter(y=>!y.pago).map(y=>({...y,dot:x.dot}))).filter(y=>D(y.dot).fonte===D(e.dot).fonte).sort((a,b)=>toISO(a.data).localeCompare(toISO(b.data)));
+  const pos=fila.findIndex(y=>y.id===l.id)+1;
+  const close=bigModal('banknote',`Pagar empenho ${e.num}/${e.ano}`,`<p style="font-size:14px;margin:0 0 12px">${c.nome} · ${c.doc}</p>
+   ${c.cert==='vencida'?`<div class="alert err">${ico('shield-alert')}<span><b>Certidão negativa vencida.</b> Anexe a certidão atualizada antes de pagar, ou registre a justificativa.</span></div>`:''}
+   <div class="fgrid" style="margin-top:12px">
+    <div class="c12"><label>Liquidação</label><div class="input"><select id="pL">${abertas.map(x=>`<option value="${x.id}" ${x.id===l.id?'selected':''}>${x.id} · ${x.tipoDoc} ${x.doc} · líquido ${R$(x.liquido)}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
+    <div class="c12"><label>Conta bancária pagadora</label><div class="input"><i data-i="landmark"></i><select id="pC">${CONTAS.map(x=>`<option value="${x.id}">${x.n} · ${x.f}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
+    <div class="c6"><label>Forma de pagamento</label><div class="input"><select id="pF"><option>Transferência (TED/PIX)</option><option>Borderô</option><option>Débito em conta</option></select>${ico('chevron-down')}</div></div>
+    <div class="c6"><label>Data do pagamento</label><div class="input"><input type="date" id="pD" value="${toISO(today())}"></div></div>
+    <div class="c12"><label>Valor líquido</label><div class="input ro"><span class="v" id="pV">${R$(l.liquido)}</span></div></div></div>
+   <div class="oc">${ico('list-ordered')}<span>Ordem cronológica da fonte ${D(e.dot).fonte}: esta liquidação é a <b>${pos}ª</b> da fila${pos>1?`. ${pos-1===1?'Há 1 liquidação mais antiga aguardando':`Há ${pos-1} liquidações mais antigas aguardando`}. Pagar fora da ordem exige justificativa (3.2.2).`:', pode pagar.'}</span></div>`,'Confirmar pagamento','check');
+  $('#pL').onchange=ev=>{l=abertas.find(x=>x.id===ev.target.value);$('#pV').textContent=R$(l.liquido)};
+  $('#mOk').onclick=()=>{const op='OP '+(3500+Math.floor(Math.random()*400));l.pago=true;l.pg={conta:CONTAS.find(x=>x.id==$('#pC').value).n,forma:$('#pF').value,data:fromISO($('#pD').value),op};close();
+    toast('success','Pagamento registrado',`${op}: ${R$(l.liquido)} para ${c.nome}.`);render()};}
+function anulModal(e){const t=tot(e);let v=t.aLiq;
+  const close=bigModal('file-x',`Anular empenho ${e.num}/${e.ano}`,`<p style="font-size:14px;margin:0 0 12px">Só o saldo não liquidado pode ser anulado: <b>${R$(t.aLiq)}</b>. O valor volta para a dotação ${e.dot}.</p>
+   <div class="fgrid"><div class="c6"><label>Valor a anular</label><div class="input"><span class="pre">R$</span><input id="aV" value="${brl(v)}"></div></div><div class="c6"><label>Data</label><div class="input"><input type="date" value="${toISO(today())}"></div></div>
+   <div class="c12"><label>Motivo <i class="req">*</i></label><div class="input ta"><textarea id="aM" placeholder="Ex.: serviço não executado, valor estimado maior que o consumo"></textarea></div></div></div>`,'Anular','file-x');
+  moneyInput($('#aV'),x=>v=x);
+  $('#mOk').onclick=()=>{if(!$('#aM').value.trim()){$('#aM').parentElement.classList.add('err');return}if(!v||v>t.aLiq)return toast('error','Valor inválido',`Máximo ${R$(t.aLiq)}.`);
+    e.anulado=Math.round((e.anulado+v)*100)/100;close();toast('success','Empenho anulado',`${R$(v)} devolvido à dotação ${e.dot}.`);render()};}
+
+/* =====================================================================
+   2.12 LIQUIDAÇÃO e 3.1.1 PAGAMENTOS
+   ===================================================================== */
+let PTAB='abertas';
+function allLiqs(){return EMPS.filter(e=>e.ano===EX).flatMap(e=>e.liqs.map(l=>({l,e})))}
+function renderLiqList(){const c=$('#content'),L=allLiqs().sort((a,b)=>toISO(b.l.data).localeCompare(toISO(a.l.data)));
+  const tot2=L.reduce((s,{l})=>s+l.valor,0),ret=L.reduce((s,{l})=>s+l.ret.iss+l.ret.inss+l.ret.irrf,0);
+  c.innerHTML=`<div class="crumbs">Contábil ${ico('chevron-right')} 2 - Orçamentário ${ico('chevron-right')} 2.12 - Liquidação</div>
+  <div class="page-head"><div><h1>Liquidação</h1><p>Exercício ${EX} · ${ug.name}</p></div><div class="actions"><button class="btn btn-accent" id="newLiq">${ico('file-check')}Liquidar empenho</button></div></div>
+  <div class="kpis"><div class="kpi"><span>${ico('file-check')}Liquidado</span><b>${R$(tot2)}</b><small>${L.length} liquidações</small></div>
+   <div class="kpi"><span>${ico('receipt')}Retenções</span><b>${R$(ret)}</b><small>ISS, INSS e IRRF</small></div>
+   <div class="kpi"><span>${ico('hourglass')}A pagar</span><b>${R$(L.filter(x=>!x.l.pago).reduce((s,{l})=>s+l.liquido,0))}</b><small>${L.filter(x=>!x.l.pago).length} liquidações em aberto</small></div>
+   <div class="kpi"><span>${ico('file-pen-line')}A liquidar</span><b>${R$(EMPS.filter(e=>e.ano===EX).reduce((s,e)=>s+tot(e).aLiq,0))}</b><small>saldo dos empenhos</small></div></div>
+  <div class="card"><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Liquidação</th><th>Empenho</th><th>Documento</th><th>Data</th><th>Credor</th><th class="r">Bruto</th><th class="r">Retenções</th><th class="r">Líquido</th><th>Situação</th><th class="w-act">Ações</th></tr></thead>
+  <tbody>${L.slice(0,40).map(({l,e})=>`<tr data-go-emp="${e.num}"><td class="num"><b>${l.id}</b></td><td>${e.num}/${e.ano}</td><td>${l.tipoDoc} ${l.doc}</td><td>${l.data}</td><td class="cred">${C(e.cred).nome}</td>
+   <td class="r">${brl(l.valor)}</td><td class="r">${brl(l.ret.iss+l.ret.inss+l.ret.irrf)}</td><td class="r"><b>${brl(l.liquido)}</b></td><td>${l.pago?'<span class="chip ok">Pago</span>':'<span class="chip pend">A pagar</span>'}</td>
+   <td class="w-act">${l.pago?'':`<button class="kebab" data-pl="${e.num}|${l.id}" title="Pagar" aria-label="Pagar">${ico('banknote')}</button>`}</td></tr>`).join('')}</tbody></table></div></div>`;
+  paintIcons(c);$$('[data-go-emp]',c).forEach(r=>r.onclick=()=>go('#tela/k-2.10/'+r.dataset.goEmp));
+  $$('[data-pl]',c).forEach(b=>b.onclick=ev=>{ev.stopPropagation();const [n,id]=b.dataset.pl.split('|');pagModal(E(n),id)});
+  $('#newLiq').onclick=()=>pickEmp('Liquidar empenho','Empenhos com saldo a liquidar',e=>tot(e).aLiq>0&&e.anulado<e.valor,e=>liqModal(e));}
+function pickEmp(title,sub,filter,then){const L=$('#layer');const list=EMPS.filter(e=>e.ano===EX&&filter(e));
+  L.innerHTML=`<div class="overlay" id="mOv"><div class="palette" role="dialog"><div class="pin">${ico('search')}<input id="peQ" placeholder="${title}: número ou credor"><kbd>Esc</kbd></div><div class="p-list" id="peL"></div></div></div>`;paintIcons(L);
+  const draw=()=>{const q=$('#peQ').value.toLowerCase();$('#peL').innerHTML=`<div class="p-sec">${sub}</div>`+list.filter(e=>!q||(e.num+' '+C(e.cred).nome).toLowerCase().includes(q)).slice(0,30).map(e=>`<button class="p-item" data-pe="${e.num}">${ico('file-pen-line')}<span><b>${e.num}/${e.ano}</b> · ${C(e.cred).nome}</span><small>${R$(tot(e).aLiq)} a liquidar</small></button>`).join('');paintIcons($('#peL'));
+    $$('[data-pe]').forEach(b=>b.onclick=()=>{L.innerHTML='';then(E(b.dataset.pe))})};
+  $('#peQ').oninput=draw;$('#peQ').onkeydown=ev=>{if(ev.key==='Escape')L.innerHTML=''};$('#mOv').onclick=ev=>{if(ev.target.id==='mOv')L.innerHTML=''};draw();$('#peQ').focus()}
+function renderPagList(){const c=$('#content'),L=allLiqs();const ab=L.filter(x=>!x.l.pago).sort((a,b)=>toISO(a.l.data).localeCompare(toISO(b.l.data))),pg=L.filter(x=>x.l.pago).sort((a,b)=>toISO(b.l.pg.data).localeCompare(toISO(a.l.pg.data)));
+  const rows=PTAB==='abertas'?ab:pg;
+  c.innerHTML=`<div class="crumbs">Contábil ${ico('chevron-right')} 3 - Financeiro ${ico('chevron-right')} 3.1.1 - Pagamentos</div>
+  <div class="page-head"><div><h1>Pagamentos</h1><p>Liquidações a pagar em ordem cronológica de exigibilidade, por fonte de recurso.</p></div></div>
+  <div class="kpis"><div class="kpi"><span>${ico('hourglass')}A pagar</span><b>${R$(ab.reduce((s,{l})=>s+l.liquido,0))}</b><small>${ab.length} liquidações</small></div>
+   <div class="kpi"><span>${ico('banknote')}Pago no exercício</span><b>${R$(pg.reduce((s,{l})=>s+l.liquido,0))}</b><small>${pg.length} pagamentos (líquido)</small></div>
+   <div class="kpi"><span>${ico('calendar-clock')}Mais antiga</span><b>${ab[0]?ab[0].l.data:'—'}</b><small>${ab[0]?C(ab[0].e.cred).nome:''}</small></div>
+   <div class="kpi"><span>${ico('landmark')}Contas pagadoras</span><b>${CONTAS.length}</b><small>Movimento livre, FUNDEB e Saúde</small></div></div>
+  <div class="card"><div class="tabs-line tabs"><button class="${PTAB==='abertas'?'on':''}" data-pt="abertas">A pagar <em>${ab.length}</em></button><button class="${PTAB==='pagos'?'on':''}" data-pt="pagos">Pagos <em>${pg.length}</em></button></div>
+  <div class="tbl-wrap" style="margin-top:12px"><table class="tbl"><thead><tr>${PTAB==='abertas'?'<th>Ordem</th>':'<th>OP</th>'}<th>Liquidação</th><th>Empenho</th><th>Fonte</th><th>${PTAB==='abertas'?'Liquidado em':'Pago em'}</th><th>Credor</th><th class="r">Líquido</th><th class="w-act">${PTAB==='abertas'?'Pagar':''}</th></tr></thead>
+  <tbody>${rows.slice(0,40).map(({l,e},i)=>`<tr data-go-emp="${e.num}"><td class="num"><b>${PTAB==='abertas'?(i+1)+'º':l.pg.op}</b></td><td>${l.id}</td><td>${e.num}/${e.ano}</td><td>${D(e.dot).fonte}</td><td>${PTAB==='abertas'?l.data:l.pg.data}</td><td class="cred">${C(e.cred).nome}${C(e.cred).cert==='vencida'?'<span class="sub" style="color:var(--destructive)">certidão vencida</span>':''}</td><td class="r"><b>${brl(l.liquido)}</b></td>
+   <td class="w-act">${PTAB==='abertas'?`<button class="btn btn-accent" style="height:32px;padding:0 12px" data-pl="${e.num}|${l.id}">${ico('banknote')}Pagar</button>`:''}</td></tr>`).join('')||`<tr><td colspan="8"><div class="empty" style="border:0">${ico('circle-check')}<b>Nada por aqui</b></div></td></tr>`}</tbody></table></div></div>`;
+  paintIcons(c);$$('[data-pt]',c).forEach(b=>b.onclick=()=>{PTAB=b.dataset.pt;renderPagList()});$$('[data-go-emp]',c).forEach(r=>r.onclick=()=>go('#tela/k-2.10/'+r.dataset.goEmp));
+  $$('[data-pl]',c).forEach(b=>b.onclick=ev=>{ev.stopPropagation();const [n,id]=b.dataset.pl.split('|');pagModal(E(n),id)});}
+
+const CUSTOM={'k-2.10':a=>{if(!a)return renderEmpList();if(a.startsWith('novo'))return renderEmpForm((a.split('copia=')[1])||null);return renderEmpDetail(a)},'k-2.12':()=>renderLiqList(),'k-3.1.1':()=>renderPagList()};
+
 /* ---------- INIT ---------- */
 function init(){
   document.body.appendChild($('#ugPop'));
@@ -855,12 +1681,13 @@ function init(){
   $('#scrim').onclick=()=>document.body.classList.remove('drawer-open');
   $('#openPalette').onclick=palette;
   Object.keys(POPS).forEach(k=>$(POPS[k][0]).addEventListener('click',e=>{e.stopPropagation();openPop(k,$(POPS[k][0]))}));
-  $('#brandUg').addEventListener('click',e=>{e.stopPropagation();openPop('ug',$('#brandUg'))});
+  $('#brandUg').addEventListener('click',e=>{e.stopPropagation();if(document.body.classList.contains('collapsed')&&innerWidth>899){document.body.classList.remove('collapsed');store.set('collapsed',false);syncCollapse();return}openPop('ug',$('#brandUg'))});
   Object.values(POPS).forEach(([,p])=>$(p).addEventListener('click',e=>e.stopPropagation()));
   document.addEventListener('click',()=>closePops());
   $('#ugSearch').oninput=()=>{ugKb=0;paintUG()};
   $('#ugSearch').onkeydown=e=>{const n=$$('[data-ug]').length;if(e.key==='ArrowDown'){e.preventDefault();ugKb=Math.min(ugKb+1,n-1);paintUGkb()}else if(e.key==='ArrowUp'){e.preventDefault();ugKb=Math.max(ugKb-1,0);paintUGkb()}else if(e.key==='Enter'){const b=$$('[data-ug]')[ugKb];b&&b.click()}else if(e.key==='Escape')closePops()};
   $('#goHub').onclick=()=>go('#sistemas');
+  $('#exBtn').onclick=e=>{e.stopPropagation();openExPop()};
   $('#logout').onclick=()=>{closePops();logout()};
   $('#readAll').onclick=()=>{$('#notifDot').classList.add('hidden');toast('success','Tudo em dia','Notificações marcadas como lidas.')};
   document.addEventListener('keydown',e=>{
