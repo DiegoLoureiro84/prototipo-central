@@ -19,10 +19,6 @@ Protótipo navegável de uma plataforma de gestão pública municipal: acesso ú
 - Extrato do empenho com liquidações e pagamentos
 - Linha do tempo do processo, com visualizador de documentos e assinatura no próprio fluxo
 
-## Sobre o projeto
-
-- Um único arquivo HTML, com CSS e JavaScript puros, sem framework e sem backend
-- Construído sobre um design system com tokens de cor, tipografia e componentes
-- Todos os dados são fictícios e servem apenas para demonstração
+Os dados exibidos são fictícios e servem apenas para demonstração.
 
 Feito por [Diego Loureiro](https://github.com/DiegoLoureiro84).
