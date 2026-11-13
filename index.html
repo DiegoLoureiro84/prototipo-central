@@ -1052,6 +1052,32 @@ body{background:var(--bg)}
 .ex-y.on{background:var(--light-green)!important;border-color:var(--light-green)!important;color:#032861!important;font-weight:700}
 .ex-y.on:hover{background:var(--accent)!important;border-color:var(--accent)!important;color:#fff!important}
 .ex-y.cur:not(.on){border-color:var(--border)}
+/* NAD dentro do empenho */
+.nad-tg{display:inline-flex;align-items:center;gap:6px;margin-top:12px;height:32px;padding:0 10px;margin-left:-10px;border-radius:6px;font-size:14px;color:var(--primary)}
+.nad-tg:hover{background:var(--readonly)}
+.nad-tg .ic{width:16px;height:16px}
+.nad-info{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-top:8px}
+.nad-info h4{font-size:15px;font-weight:600;margin-bottom:8px;color:var(--fg)}
+.nad-det,.nad-tl{border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px;background:#fff}
+.nad-det .dl{grid-template-columns:150px 1fr}
+.nad-det dd small{font-weight:400;color:var(--muted-fg);font-size:12px}
+.nad-tl .tl2{padding:0}
+.nad-tl .tl2 li{padding:8px 0;margin:0}
+.nad-tl .tl2 li:not(:last-child)::before{top:44px}
+.tl2 li.st-here .tli{border-color:var(--primary);color:var(--primary);background:var(--readonly)}
+.tl2 li.st-here b{color:var(--primary)}
+@media (max-width:1199px){.nad-info{grid-template-columns:1fr}}
+.nad-tabs{margin-top:16px}
+.nad-det{padding:16px;margin-top:16px}
+.nad-dl{grid-template-columns:170px 1fr 170px 1fr!important}
+.nad-tlv{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:16px;margin-top:16px;align-items:start}
+.nad-tl{border:1px solid var(--border);border-radius:var(--r-lg);padding:8px 14px}
+.nad-tl .tl2-link{font-weight:600;font-size:14px;color:var(--primary);text-align:left}
+.nad-tl .tl2-link:hover{text-decoration:underline}
+.nad-tl .tl2 li.cur{background:var(--light-green)}
+.nad-vw{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;background:#fff}
+.nad-vw .vw-stage{height:560px;min-height:0}
+@media (max-width:1199px){.nad-tlv{grid-template-columns:1fr}.nad-dl{grid-template-columns:150px 1fr!important}}
 /* ---------- RESPONSIVO ---------- */
 @media (max-width:1100px){ .ug-btn b{max-width:150px} }
 @media (max-width:899px){
@@ -1900,7 +1926,7 @@ function renderEmpForm(copyFrom){
      <div class="c12"><label>Tipo <i class="req">*</i></label><div class="tipo-seg">${[['Ordinário','Valor exato, pago de uma vez'],['Estimativo','Valor estimado, ex.: água e energia'],['Global','Valor exato, pago em parcelas']].map(([t,s])=>`<button type="button" data-tipo="${t}" class="${F.tipo===t?'on':''}"><b>${t}</b><small>${s}</small></button>`).join('')}</div></div>
    </div></div></section>
 
-   ${src&&!src.pre?'':`<section class="card" id="origSec"><div class="fsec-h"><span class="n ok">${ico('inbox')}</span><h3>Origem</h3><span class="chip gray" style="margin-left:4px">NAD / solicitação</span></div><div class="card-b" id="origBox"></div></section>`}
+   ${src&&!src.pre?'':`<section class="card" id="origSec"><div class="fsec-h"><span class="n ok">${ico('inbox')}</span><h3>Origem</h3><span class="chip gray" style="margin-left:4px">NAD</span></div><div class="card-b" id="origBox"></div></section>`}
 
    <section class="card"><div class="fsec-h"><span class="n" data-sn="2">2</span><h3>Dotação</h3></div><div class="card-b"><div id="dotBox"></div><div id="vincBox"></div></div></section>
 
@@ -2143,7 +2169,7 @@ const saldoParado=e=>{const t=tot(e);return (e.tipo==='Estimativo'||e.tipo==='Gl
 
 const METRICS={
  aempenhar:{label:'A empenhar',icon:'inbox',act:true,
-   calc:()=>{const l=preOpen(),np=l.filter(p=>p.prio).length;return {v:l.length?`${l.length} ${l.length===1?'solicitação':'solicitações'}`:'Nada pendente',s:l.length?`${R$(l.reduce((s,p)=>s+p.valor,0))} aguardando empenho`:'Sem solicitações do Administrativo',an:np?`<div class="kx-an"><span class="prio-t"><span class="prio sm">!</span>${np} ${np===1?'prioritária':'prioritárias'}</span></div>`:'',warn:l.some(p=>daysSince(p.rec)>5)}},cta:'Ver solicitações'},
+   calc:()=>{const l=preOpen(),np=l.filter(p=>p.prio).length;return {v:l.length?`${l.length} ${l.length===1?'NAD':'NADs'}`:'Nada pendente',s:l.length?`${R$(l.reduce((s,p)=>s+p.valor,0))} aguardando empenho`:'Nenhuma NAD aguardando empenho',an:np?`<div class="kx-an"><span class="prio-t"><span class="prio sm">!</span>${np} ${np===1?'prioritária':'prioritárias'}</span></div>`:'',warn:l.some(p=>daysSince(p.rec)>5)}},cta:'Ver NADs'},
  nass:{label:'Não assinados',icon:'pen-line',act:true,
    calc:()=>{const l=EMPS.filter(e=>e.ano===EX&&!e.assinado&&e.anulado<e.valor);return {v:`${l.length} ${l.length===1?'empenho':'empenhos'}`,s:'aguardando assinatura no Assina',warn:l.length>0}},cta:'Ver e assinar'},
  anular:{label:'A liquidar',icon:'hourglass',act:true,
@@ -2171,13 +2197,13 @@ function kpiCards(){return `<div class="kpis kpis-x">${KPIS.map((k,i)=>{const m=
   </div>`}).join('')}</div>`}
 
 function psTh(k,l,r){const on=ST.psort[0]===k;return `<th class="sort ${r?'r':''}" data-psort="${k}" aria-sort="${on?(ST.psort[1]>0?'ascending':'descending'):'none'}">${l}${on?ico(ST.psort[1]>0?'arrow-up':'arrow-down'):ico('arrow-up-down').replace('<i ','<i style="opacity:.35" ')}</th>`}
-function psSort(l){const [k,d]=ST.psort;return [...l].sort((a,b)=>{const v=k==='rec'?a.rec.localeCompare(b.rec):k==='prio'?(+!!b.prio)-(+!!a.prio)||a.rec.localeCompare(b.rec):k==='valor'?a.valor-b.valor:k==='cred'?C(a.cred).nome.localeCompare(C(b.cred).nome):k==='dot'?a.dot-b.dot:a.numero.localeCompare(b.numero);return v*d})}
+function psSort(l){const [k,d]=ST.psort;return [...l].sort((a,b)=>{const v=k==='rec'?a.rec.localeCompare(b.rec):k==='prio'?(+!!b.prio)-(+!!a.prio)||a.rec.localeCompare(b.rec):k==='valor'?a.valor-b.valor:k==='cred'?C(a.cred).nome.localeCompare(C(b.cred).nome):k==='dot'?a.dot-b.dot:(+a.nad)-(+b.nad);return v*d})}
 function focusPanel(){
-  if(ST.focus==='aempenhar'){const l=preOpen();return `<section class="card focus-card"><div class="card-h"><h3>Solicitações aguardando empenho</h3><span class="muted">${l.length} vindas do Administrativo, da mais antiga para a mais recente</span><button class="btn btn-gray fc-x" data-unfocus>${ico('x')}Fechar</button></div>
-   ${l.length?`<div class="tbl-wrap"><table class="tbl"><thead><tr>${psTh('num','Solicitação')}${psTh('cred','Credor')}${psTh('dot','Dotação')}${psTh('valor','Valor',1)}${psTh('rec','Recebida')}${psTh('prio','Prioridade')}<th></th></tr></thead><tbody>${psSort(l).map(p=>{const d=D(p.dot),c=C(p.cred),s=saldoDot(p.dot),ok=s>=p.valor,age=daysSince(p.rec);
-     return `<tr class="norow"><td class="num"><b>${p.doc} ${p.numero}</b><small>${p.desc}</small></td><td class="cred">${credCell(c)}</td><td class="dotc"><b>${d.cod}</b> · ${d.acao}<span class="sub ${ok?'':'neg'}">${ok?'Saldo suficiente':'Saldo insuficiente: '+R$(s)}</span></td><td class="r"><b>${brl(p.valor)}</b></td>
+  if(ST.focus==='aempenhar'){const l=preOpen();return `<section class="card focus-card"><div class="card-h"><h3>NADs aguardando empenho</h3><span class="muted">${l.length} ${l.length===1?'NAD emitida':'NADs emitidas'} pelo Administrativo, da mais antiga para a mais recente</span><button class="btn btn-gray fc-x" data-unfocus>${ico('x')}Fechar</button></div>
+   ${l.length?`<div class="tbl-wrap"><table class="tbl"><thead><tr>${psTh('num','NAD')}${psTh('cred','Credor')}${psTh('dot','Dotação e natureza da despesa')}${psTh('valor','Valor',1)}${psTh('rec','Recebida')}${psTh('prio','Prioridade')}<th></th></tr></thead><tbody>${psSort(l).map(p=>{const d=D(p.dot),c=C(p.cred),s=saldoDot(p.dot),ok=s>=p.valor,age=daysSince(p.rec);
+     return `<tr class="norow"><td class="num"><b>NAD ${p.nad}</b><small>${p.desc}</small></td><td class="cred">${credCell(c)}</td><td class="dotc"><b>${d.cod}</b> · ${d.acao}<span class="sub ${ok?'':'neg'}">${ok?`${d.el} · ${d.elN}`:'Saldo insuficiente: '+R$(s)}</span></td><td class="r"><b>${brl(p.valor)}</b></td>
      <td><span class="chip ${age>5?'pend':'gray'}">${age===0?'hoje':age===1?'há 1 dia':`há ${age} dias`}</span></td><td class="prio-c">${p.prio?`<span class="prio" title="Prioridade definida no Administrativo" aria-label="Prioritária">!</span>`:''}</td><td class="r"><button class="btn btn-accent btn-sm" data-empenhar="${p.id}" ${ok?'':'disabled title="Sem saldo na dotação"'}>${ico('file-pen-line')}Empenhar</button></td></tr>`}).join('')}</tbody></table></div>`
-   :`<div class="empty" style="border:0">${ico('circle-check')}<b>Tudo empenhado</b>Não há solicitações do Administrativo aguardando.</div>`}</section>`}
+   :`<div class="empty" style="border:0">${ico('circle-check')}<b>Tudo empenhado</b>Não há NADs do Administrativo aguardando empenho.</div>`}</section>`}
   if(ST.focus==='dotbaixa'){const l=DOTS.filter(d=>saldoDot(d.cod)/d.dot<.15);return `<section class="card focus-card"><div class="card-h"><h3>Dotações com saldo baixo</h3><span class="muted">Peça crédito adicional antes de travar um empenho</span><button class="btn btn-gray fc-x" data-unfocus>${ico('x')}Fechar</button></div>
    ${l.length?`<div class="card-b">${l.map(d=>{const s=saldoDot(d.cod),p=Math.max(0,s/d.dot);return `<div class="dot-low"><div><b>${d.cod} · ${d.acao}</b><small>${d.org} · ${d.fonte}</small></div><div class="dl-bar"><div class="bar"><i class="over" style="width:${Math.round((1-p)*100)}%"></i></div><small>${R$(s)} de ${R$(d.dot)}</small></div></div>`}).join('')}</div>`
    :`<div class="empty" style="border:0">${ico('circle-check')}<b>Nenhuma dotação abaixo de 15%</b>Todas as dotações têm saldo confortável.</div>`}</section>`}
@@ -2294,13 +2320,14 @@ function afterForm(mode,val){
   if(val){const vi=$('#valIn');vi.value=brl(val);F.valor=val;syncForm()}}
 /* origem: NAD / solicitação */
 function paintOrig(){const box=$('#origBox');if(!box)return;
-  if(F.pre){const p=PRE.find(x=>x.id===F.pre);box.innerHTML=`<div class="pick">${ico('circle-check')}<div><b>NAD ${p.nad} · ${p.doc} ${p.numero}</b><small>${p.desc} · recebida ${fromISO(p.rec)}</small></div><button type="button" class="link x2" id="origX">Desvincular</button></div>
-    <div class="alert info">${ico('sparkles')}<span>Carregado da NAD: <b>credor, dotação, tipo, processo, valor</b>${p.contrato?', <b>contrato</b>':''}${p.emenda?', <b>emenda</b>':''}${p.divida?', <b>dívida fundada</b>':''}. Confira e salve.</span></div>`;
-    paintIcons(box);$('#origX').onclick=()=>go('#tela/k-2.10/novo');return}
-  combo(box,{label:'Vincular NAD ou solicitação do Administrativo',ph:'Nº da NAD, requisição, ordem de fornecimento ou credor',items:()=>preOpen(),empty:'Nenhuma NAD aguardando empenho',
-    render:p=>({txt:`NAD ${p.nad} ${p.numero} ${p.doc} ${C(p.cred).nome} ${C(p.cred).doc} ${p.desc}`,html:`<span class="rr">${R$(p.valor)}</span><b>${p.prio?'<span class="prio sm">!</span> ':''}NAD ${p.nad} · ${p.doc} ${p.numero}</b><small>${C(p.cred).nome} · ${p.desc}</small>`}),
+  if(F.pre){const p=PRE.find(x=>x.id===F.pre);box.innerHTML=`<div class="pick">${ico('circle-check')}<div><b>NAD ${p.nad}</b><small>${p.desc} · ${D(p.dot).el} ${D(p.dot).elN} · recebida ${fromISO(p.rec)}</small></div><button type="button" class="link x2" id="origX">Desvincular</button></div>
+    <div class="alert info">${ico('sparkles')}<span>Carregado da NAD: <b>credor, dotação, tipo, processo, valor</b>${p.contrato?', <b>contrato</b>':''}${p.emenda?', <b>emenda</b>':''}${p.divida?', <b>dívida fundada</b>':''}. Confira e salve.</span></div>`+nadInfo(p);
+    paintIcons(box);$('#origX').onclick=()=>go('#tela/k-2.10/novo');
+    wireNad(box);return}
+  combo(box,{label:'Vincular NAD',ph:'Nº da NAD, credor ou natureza da despesa',items:()=>preOpen(),empty:'Nenhuma NAD aguardando empenho',
+    render:p=>({txt:`NAD ${p.nad} ${C(p.cred).nome} ${C(p.cred).doc} ${p.desc} ${D(p.dot).el} ${D(p.dot).elN}`,html:`<span class="rr">${R$(p.valor)}</span><b>${p.prio?'<span class="prio sm">!</span> ':''}NAD ${p.nad}</b><small>${C(p.cred).nome} · ${D(p.dot).el} ${D(p.dot).elN}</small>`}),
     onPick:p=>go('#tela/k-2.10/novo?pre='+p.id)});
-  const lab=$('label',box);if(lab)lab.innerHTML='Vincular NAD ou solicitação do Administrativo <span class="chip gray" style="height:18px;font-size:10px">opcional</span>';
+  const lab=$('label',box);if(lab)lab.innerHTML='Vincular NAD <span class="chip gray" style="height:18px;font-size:10px">opcional</span>';
   box.insertAdjacentHTML('beforeend',`<p class="hint" style="margin-top:8px">${ico('info')}Ao escolher, credor, dotação e valores são carregados automaticamente. Sem NAD, preencha manualmente.</p>`);paintIcons(box)}
 /* vínculos exigidos pela dotação */
 function paintVinc(){const box=$('#vincBox');if(!box)return;const vk=F.dot?(VINC[F.dot]||[]):[];
@@ -2325,7 +2352,7 @@ function saveEmp(){if(F.edit){const e=E(F.edit);Object.assign(e,{tipo:F.tipo,dat
   const ns=numState();if(ns.k==='used')return;const num=ns.n;{const ri=RESERVAS.findIndex(r=>r.num===num);if(ri>=0)RESERVAS.splice(ri,1)}const e={num,ano:EX,tipo:F.tipo,data:fromISO(F.data),dot:F.dot,cred:F.cred,desc:F.desc.trim(),valor:F.valor,anulado:0,liqs:[],assinado:false,proc:F.proc,nat:F.nat,sub:F.sub};
   e.contrato=F.contrato;e.emenda=F.emenda;e.divida=F.divida;e.nf=F.nf;if(F.pre){const p0=PRE.find(x=>x.id===F.pre);if(p0)e.nad=p0.nad}
   EMPS.unshift(e);if(F.pre){const p=PRE.find(x=>x.id===F.pre);if(p)p.done=true}
-  toast('success','Empenho incluído',`Empenho ${num}/${EX} de ${R$(e.valor)} salvo.${F.pre?' Solicitação atendida.':''}`);go('#tela/k-2.10/'+num)}
+  toast('success','Empenho incluído',`Empenho ${num}/${EX} de ${R$(e.valor)} salvo.${F.pre?' NAD atendida.':''}`);go('#tela/k-2.10/'+num)}
 
 /* ---------- detalhe: ações integradas na página, sem pop-up ---------- */
 function renderEmpDetail(num,mode){const e=E(num);if(!e)return go('#tela/k-2.10');
@@ -2440,7 +2467,7 @@ function docsOf(e){const c=C(e.cred),t=tot(e),s=sigOf(e),d=D(e.dot),out=[];const
   return out}
 /* ---------- documentos (renderização fiel ao layout de um PDF; dados fictícios) ---------- */
 function paper(title,sub,body,foot){const pm=UGS.find(u=>u.id==='pm');
-  return `<div class="paper" style="--z:${ZOOM}"><div class="wm">PROTÓTIPO · DADOS FICTÍCIOS</div>
+  return `<div class="paper" style="--z:${ZOOM}"><div class="wm">PROTÓTIPO</div>
    <header class="pp-h"><span class="pp-crest">${brasao(pm)}</span><div><b>${ug.name.includes('Câmara')?'CÂMARA MUNICIPAL DE SINOP':'PREFEITURA MUNICIPAL DE SINOP'}</b><small>Estado de Mato Grosso · ${ug.short} · Exercício ${EX}</small></div></header>
    <h2 class="pp-t">${title}</h2>${sub?`<p class="pp-s">${sub}</p>`:''}${body}${foot||''}</div>`}
 const kv=rows=>`<table class="pp-kv">${rows.map(([k,v])=>`<tr><th>${k}</th><td>${v}</td></tr>`).join('')}</table>`;
@@ -2665,6 +2692,27 @@ function openFly(g,anchor,active){const was=anchor.classList.contains('fly-on');
 document.addEventListener('click',e=>{if(!e.target.closest('.fly'))closeFly()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFly()});
 window.addEventListener('resize',closeFly);
+/* ---------- NAD em empenho: abas Detalhes da NAD e Linha do tempo e documentos ---------- */
+function nadPseudo(p){const rec=fromISO(p.rec);return {num:+p.nad,ano:EX,data:dMinus(rec,-2),desc:p.desc,valor:p.valor,dot:p.dot,cred:p.cred,proc:p.proc,contrato:p.contrato,nad:p.nad,liqs:[],tipo:p.tipo,nat:p.nat,assinado:true}}
+function nadInfo(p){ST.nadTab=ST.nadTab||'det';ST.nadDoc=ST.nadDoc||'nad';const d=D(p.dot),c=C(p.cred),rec=fromISO(p.rec),pe=nadPseudo(p);
+  const orgN=d.org.split(' ').slice(1).join(' ');
+  const steps=[
+    ['clipboard-list','Solicitação',`${orgN} · ${p.desc}`,dMinus(pe.data,21),'req'],
+    ['stamp','Deferimento','Deferido pelo secretário da pasta',dMinus(pe.data,19),'def'],
+    ['wallet','Autorização da despesa',`Dotação ${d.cod} · reserva de ${R$(p.valor)}`,dMinus(pe.data,16),'res'],
+    ['gavel','Processo de compra',`${p.proc}${p.contrato?` · contrato ${p.contrato}`:''}`,dMinus(pe.data,9),'pc'],
+    ['file-text',`Emissão da NAD ${p.nad}`,'Emitida pelo Administrativo e enviada ao Contábil',rec,'nad'],
+    ['file-pen-line','Empenho','Em inclusão agora',today(),null]];
+  const dl=[['NAD',`${p.nad}${p.prio?' <span class="prio sm" title="Prioritária">!</span>':''}`],['Recebida em',rec],['Órgão / unidade',d.org],['Natureza da despesa',`${d.el} · ${d.elN}`],['Dotação',`${d.cod} · ${d.acao}`],['Fonte',`${d.fonte} · ${d.fonteN}`],['Credor',`${c.nome}<br><small>${c.doc}</small>`],['Processo',p.proc],
+    ...(p.contrato?[['Contrato',p.contrato]]:[]),...(p.emenda?[['Emenda',(EMENDAS.find(x=>x.id===p.emenda)||{}).desc||p.emenda]]:[]),...(p.divida?[['Dívida fundada',(DIVIDAS.find(x=>x.id===p.divida)||{}).desc||p.divida]]:[]),
+    ['Tipo',`${p.tipo} · ${p.nat}`],['Valor',`<b>${R$(p.valor)}</b>`],['Descrição',p.desc]];
+  const cur=steps.find(x=>x[4]===ST.nadDoc)||steps[4];
+  const tabs=`<div class="vtabs nad-tabs" role="tablist"><button type="button" role="tab" class="${ST.nadTab==='det'?'on':''}" data-nt="det" aria-selected="${ST.nadTab==='det'}">${ico('file-text')}Detalhes da NAD</button><button type="button" role="tab" class="${ST.nadTab==='tl'?'on':''}" data-nt="tl" aria-selected="${ST.nadTab==='tl'}">${ico('git-commit-vertical')}Linha do tempo e documentos</button></div>`;
+  const det=`<div class="nad-det"><dl class="dl nad-dl">${dl.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl></div>`;
+  const tl=`<div class="nad-tlv"><div class="nad-tl"><ol class="tl2">${steps.map(([ic,t,pp,dt,k])=>`<li class="st-${k?'done':'here'} ${k&&k===ST.nadDoc?'cur':''}"><span class="tli">${ico(ic)}</span><div class="tl2-b"><div class="tl2-t">${k?`<button type="button" class="tl2-link" data-nd="${k}">${t}</button>`:`<b>${t}</b>`}<small>${dt}</small></div><p>${pp}</p></div></li>`).join('')}</ol></div>
+    <div class="nad-vw"><div class="vw-bar"><div class="vw-title">${ico(cur[0])}<b>${cur[1]}</b></div></div><div class="vw-stage">${renderDoc(cur[4]+':'+pe.num,pe)}</div></div></div>`;
+  return tabs+(ST.nadTab==='det'?det:tl)}
+function wireNad(box){$$('[data-nt]',box).forEach(b=>b.onclick=()=>{ST.nadTab=b.dataset.nt;paintOrig()});$$('[data-nd]',box).forEach(b=>b.onclick=()=>{ST.nadDoc=b.dataset.nd;paintOrig()})}
 /* ---------- INIT ---------- */
 function init(){
   document.body.appendChild($('#ugPop'));
