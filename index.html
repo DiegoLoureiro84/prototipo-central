@@ -1228,6 +1228,12 @@ body{background:var(--bg)}
 #ugPop{width:380px!important}
 .brand-btn .crest.ug-mono{display:grid;place-items:center;font-weight:700;font-size:14px;letter-spacing:.5px;color:#032861;background:var(--readonly)!important}
 .crest img{object-fit:contain}
+.prio-tag{display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px 0 3px;margin-left:8px;border-radius:999px;background:var(--secondary);border:1px solid var(--border);color:var(--fg);font-size:12px;font-weight:600;line-height:1;vertical-align:middle;white-space:nowrap}
+.prio-tag .prio-i{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:var(--destructive);color:#fff;font-size:11px;font-weight:900}
+.prio-tag.sm{height:20px;font-size:11.5px}
+.res.kb .prio-tag,.res:hover .prio-tag{background:#fff;color:var(--fg)}
+.fsec-h .prio-tag{margin-left:10px}
+.prio-c .prio-tag{margin-left:0}
 /* ---------- RESPONSIVO ---------- */
 @media (max-width:1100px){ .ug-btn b{max-width:150px} }
 @media (max-width:899px){
@@ -2076,7 +2082,7 @@ function renderEmpForm(copyFrom){
   ${src?(src.pre||src.editar?'':`<div class="copy-banner">${ico('copy')}<span>Cópia do empenho <b>${src.num}/${src.ano}</b>. Confira a data e informe o valor.</span></div>`):''}
   ${F.pre?`<div class="vtabs ftabs" role="tablist"><button type="button" role="tab" data-ft="form" class="on" aria-selected="true">${ico('file-text')}Detalhes do empenho</button><button type="button" role="tab" data-ft="tl" aria-selected="false">${ico('git-commit-vertical')}Linha do tempo e documentos</button></div><div id="nadTlPane"></div>`:''}
   <div class="form-layout"><div>
-   <section class="card"><div class="fsec-h"><span class="n" data-sn="1">1</span><h3>Empenho</h3>${(()=>{const p=F.pre&&PRE.find(x=>x.id===F.pre);return p&&p.prio?'<span class="prio" style="margin-left:4px" title="NAD prioritária, definida no Administrativo" aria-label="NAD prioritária">!</span>':''})()}</div><div class="card-b"><div class="fgrid">
+   <section class="card"><div class="fsec-h"><span class="n" data-sn="1">1</span><h3>Empenho</h3>${(()=>{const p=F.pre&&PRE.find(x=>x.id===F.pre);return p&&p.prio?prioTag():''})()}</div><div class="card-b"><div class="fgrid">
      <div class="c12" id="numBox"></div>
      <div class="c4"><label>Tipo de processo <i class="req">*</i></label><div class="input"><i data-i="folder-open"></i><select data-f="proc"><option value="">Selecione</option>${['Licitação','Dispensa','Inexigibilidade','Sem processo'].map(o=>`<option ${F.proc===o?'selected':''}>${o}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
      <div class="c4"><label>Data <i class="req">*</i></label><div class="input"><input type="date" data-f="data" value="${F.data}"></div></div>
@@ -2360,7 +2366,7 @@ function focusPanel(){
   if(ST.focus==='aempenhar'){const l=preOpen();return `<section class="card focus-card"><div class="card-h"><h3>NADs aguardando empenho</h3><span class="muted">${l.length} ${l.length===1?'NAD emitida':'NADs emitidas'} pelo Administrativo, da mais antiga para a mais recente</span><button class="btn btn-gray fc-x" data-unfocus>${ico('x')}Fechar</button></div>
    ${l.length?`<div class="tbl-wrap"><table class="tbl"><thead><tr>${psTh('num','NAD')}${psTh('cred','Credor')}${psTh('dot','Dotação e natureza da despesa')}${psTh('valor','Valor',1)}${psTh('rec','Recebida')}${psTh('prio','Prioridade')}<th></th></tr></thead><tbody>${psSort(l).map(p=>{const d=D(p.dot),c=C(p.cred),s=saldoDot(p.dot),ok=s>=p.valor,age=daysSince(p.rec);
      return `<tr class="norow"><td class="num"><b>NAD ${p.nad}</b><small>${p.desc}</small></td><td class="cred">${credCell(c)}</td><td class="dotc"><b>${d.cod}</b> · ${d.acao}<span class="sub ${ok?'':'neg'}">${ok?`${d.el} · ${d.elN}`:'Saldo insuficiente: '+R$(s)}</span></td><td class="r"><b>${brl(p.valor)}</b></td>
-     <td><span class="chip ${age>5?'pend':'gray'}">${age===0?'hoje':age===1?'há 1 dia':`há ${age} dias`}</span></td><td class="prio-c">${p.prio?`<span class="prio" title="Prioridade definida no Administrativo" aria-label="Prioritária">!</span>`:''}</td><td class="r"><button class="btn btn-accent btn-sm" data-empenhar="${p.id}" ${ok?'':'disabled title="Sem saldo na dotação"'}>${ico('file-pen-line')}Empenhar</button></td></tr>`}).join('')}</tbody></table></div>`
+     <td><span class="chip ${age>5?'pend':'gray'}">${age===0?'hoje':age===1?'há 1 dia':`há ${age} dias`}</span></td><td class="prio-c">${p.prio?prioTag():''}</td><td class="r"><button class="btn btn-accent btn-sm" data-empenhar="${p.id}" ${ok?'':'disabled title="Sem saldo na dotação"'}>${ico('file-pen-line')}Empenhar</button></td></tr>`}).join('')}</tbody></table></div>`
    :`<div class="empty" style="border:0">${ico('circle-check')}<b>Tudo empenhado</b>Não há NADs do Administrativo aguardando empenho.</div>`}</section>`}
   if(ST.focus==='dotbaixa'){const l=DOTS.filter(d=>saldoDot(d.cod)/d.dot<.15);return `<section class="card focus-card"><div class="card-h"><h3>Dotações com saldo baixo</h3><span class="muted">Peça crédito adicional antes de travar um empenho</span><button class="btn btn-gray fc-x" data-unfocus>${ico('x')}Fechar</button></div>
    ${l.length?`<div class="card-b">${l.map(d=>{const s=saldoDot(d.cod),p=Math.max(0,s/d.dot);return `<div class="dot-low"><div><b>${d.cod} · ${d.acao}</b><small>${d.org} · ${d.fonte}</small></div><div class="dl-bar"><div class="bar"><i class="over" style="width:${Math.round((1-p)*100)}%"></i></div><small>${R$(s)} de ${R$(d.dot)}</small></div></div>`}).join('')}</div>`
@@ -2482,7 +2488,7 @@ function paintOrig(){const box=$('#origBox');if(!box)return;
     <div class="alert info">${ico('sparkles')}<span>Carregado da NAD: <b>credor, dotação, tipo, processo, valor</b>${p.contrato?', <b>contrato</b>':''}${p.emenda?', <b>emenda</b>':''}${p.divida?', <b>dívida fundada</b>':''}. Confira e salve.</span></div>`+nadInfo(p);
     paintIcons(box);$('#origX').onclick=()=>go('#tela/k-2.10/novo');return}
   combo(box,{label:'Vincular NAD',ph:'Nº da NAD, credor ou natureza da despesa',items:()=>preOpen(),empty:'Nenhuma NAD aguardando empenho',
-    render:p=>({txt:`NAD ${p.nad} ${C(p.cred).nome} ${C(p.cred).doc} ${p.desc} ${D(p.dot).el} ${D(p.dot).elN}`,html:`<span class="rr">${R$(p.valor)}</span><b>${p.prio?'<span class="prio sm">!</span> ':''}NAD ${p.nad}</b><small>${C(p.cred).nome} · ${D(p.dot).el} ${D(p.dot).elN}</small>`}),
+    render:p=>({txt:`NAD ${p.nad} ${C(p.cred).nome} ${C(p.cred).doc} ${p.desc} ${D(p.dot).el} ${D(p.dot).elN}`,html:`<span class="rr">${R$(p.valor)}</span><b>NAD ${p.nad}${p.prio?prioTag(true):''}</b><small>${C(p.cred).nome} · ${D(p.dot).el} ${D(p.dot).elN}</small>`}),
     onPick:p=>go('#tela/k-2.10/novo?pre='+p.id)});
   const lab=$('label',box);if(lab)lab.innerHTML='Vincular NAD <span class="chip gray" style="height:18px;font-size:10px">opcional</span>';
   box.insertAdjacentHTML('beforeend',`<p class="hint" style="margin-top:8px">${ico('info')}Ao escolher, credor, dotação e valores são carregados automaticamente. Sem NAD, preencha manualmente.</p>`);paintIcons(box)}
@@ -3168,6 +3174,8 @@ window.addEventListener('resize',cselClose);document.addEventListener('scroll',e
 
 /* ---------- Limpar filtro: padrão do Portal do Servidor ---------- */
 function clrBtn(id,show,cls=''){return `<button type="button" class="btn-clr ${cls} ${show?'':'is-hidden'}" id="${id}" ${show?'':'tabindex="-1" aria-hidden="true"'}>${ico('funnel-x')}Limpar filtro</button>`}
+/* marcador de prioridade: sempre depois do texto, com a palavra escrita */
+const prioTag=(sm)=>`<span class="prio-tag ${sm?'sm':''}" title="Prioridade definida pelo Administrativo na NAD">${'<span class="prio-i" aria-hidden="true">!</span>'}Prioritária</span>`;
 /* ---------- INIT ---------- */
 function init(){
   document.body.appendChild($('#ugPop'));
