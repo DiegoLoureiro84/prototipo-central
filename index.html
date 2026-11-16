@@ -1218,6 +1218,8 @@ body{background:var(--bg)}
 .ex-o:hover b,.ex-o:hover small{color:#fff}
 .ex-o:focus-visible{outline:2px solid var(--primary);outline-offset:1px}
 .ex-note{padding:2px 12px 8px;font-size:12.5px;color:var(--muted-fg)}
+#brandUgName{display:inline-flex;align-items:center;gap:6px}
+.ex-pill{display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:999px;background:var(--secondary);border:1px solid var(--border);color:var(--secondary-fg);font-size:11px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
 /* ---------- RESPONSIVO ---------- */
 @media (max-width:1100px){ .ug-btn b{max-width:150px} }
 @media (max-width:899px){
@@ -1497,7 +1499,7 @@ function crest(mode){const c=mode==='white'?'#fff':'#01814E',c2=mode==='white'?'
   return `<svg viewBox="0 0 32 32" fill="none"><path d="M16 3l10 4v8c0 6.5-4.2 11.6-10 14-5.8-2.4-10-7.5-10-14V7l10-4z" stroke="${c}" stroke-width="2"/><path d="M11 17l3.5 3.5L21 13" stroke="${c2}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`}
 function paintCrests(){ $$('[data-crest]').forEach(el=>el.innerHTML=crest(el.dataset.crest)); }
 function bind(){ $$('[data-bind=muniName]').forEach(e=>e.textContent=muni.name); $$('[data-bind=muniShort]').forEach(e=>e.textContent=muni.short); $$('[data-bind=muniShortT]').forEach(e=>e.textContent=muni.name);
-  $('#ugName').textContent=ug.name; $('#brandUgName').textContent=ug.short+(sys&&sys.id==='cont'&&typeof EX!=='undefined'?' · '+EX:''); if(typeof brasao==='function'){$$('.brand-btn .crest').forEach(c=>c.innerHTML=brasao(ug))}
+  $('#ugName').textContent=ug.name; $('#brandUgName').innerHTML=ug.short+(sys&&typeof EX!=='undefined'?`<span class="ex-pill" title="Exercício ${EX}">${EX}</span>`:''); if(typeof brasao==='function'){$$('.brand-btn .crest').forEach(c=>c.innerHTML=brasao(ug))}
   if(typeof brasao==='function'){const pm=UGS.find(u=>u.id==='pm');$$('.brand-top .crest').forEach(c=>c.innerHTML=brasao(pm))} $('#ugCode').textContent=ug.code; $('#prodName').textContent=muni.short; }
 
 /* ---------- TOAST ---------- */
@@ -1638,7 +1640,7 @@ function renderHome(){
   const c=$('#content'),ok=new Set(allowed().map(s=>s.id));
   const fv=favs.filter(id=>ok.has(id)).map(id=>SCREENS[id]);
   c.innerHTML=`
-  <div class="page-head"><div><h1>${greet()}, Diego</h1><p>${sys.id==='cont'?`Execução orçamentária e financeira · exercício ${EX}.`:sys.id==='plan'?`PPA, LDO e LOA · exercício ${EX}.`:'Central de cadastros e configurações compartilhadas.'}</p></div>
+  <div class="page-head"><div><h1>${greet()}, Diego</h1><p>${sys.id==='cont'?`Execução orçamentária e financeira · exercício ${EX}.`:sys.id==='plan'?`PPA, LDO e LOA · exercício ${EX}.`:`Cadastros e configurações compartilhadas · exercício ${EX}.`}</p></div>
     <div class="actions">${sys.id==='cont'?`<button class="btn btn-accent" id="homeNovoEmp">${ico('plus')}Novo empenho</button>`:sys.id==='plan'?`<button class="btn btn-accent" data-open="p-receita">${ico('hand-coins')}Especificação da Receita</button>`:`<button class="btn btn-accent" data-open="usuario">${ico('user-plus')}Novo usuário</button>`}</div></div>
 
   ${noticesHTML()}
@@ -1687,7 +1689,7 @@ function paintUG(){
 const EX_MIN=2008,EX_MAX=2027,EX_ATUAL=2026,EX_ABERTOS=y=>y<=EX_ATUAL;let exGrid=false,exPage=null;
 function setEx(y){if(y===EX||!EX_ABERTOS(y)||y<EX_MIN)return;EX=y;exGrid=false;closePops();bind();render();
   toast('info','Exercício '+EX,EX===EX_ATUAL?'Exercício corrente.':'Exercício anterior: somente consulta neste protótipo.')}
-function paintEx(){const box=$('#exSec');if(!box)return;const show=document.body.classList.contains('sys-cont');if(!show){box.innerHTML='';return}
+function paintEx(){const box=$('#exSec');if(!box)return;
   if(exPage===null)exPage=EX_MAX-11-12*Math.floor((EX_MAX-EX)/12);
   const yrs=Array.from({length:12},(_,i)=>exPage+i);
   const rec=[EX_ATUAL-2,EX_ATUAL-1,EX_ATUAL],outro=!rec.includes(EX);
