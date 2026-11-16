@@ -1686,7 +1686,7 @@ function paintEx(){const box=$('#exSec');if(!box)return;const show=document.body
   $$('[data-exy]',box).forEach(b=>b.onclick=e=>{e.stopPropagation();setEx(+b.dataset.exy)});}
 function changeUG(id){if(id===ug.id){closePops();return}ug=UGS.find(u=>u.id===id);closePops();bind();render();
   toast('success','Órgão alterado',`Agora você está em: ${ug.short}.`+(ug.id==='cm'?' Perfil com menos telas liberadas.':''));}
-const sysWord=s=>s.id==='cont'?'contábil':s.word.replace(/<[^>]+>/g,'');
+const sysWord=s=>{const w=s.id==='cont'?'contábil':s.word.replace(/<[^>]+>/g,'');return w.charAt(0).toUpperCase()+w.slice(1)};
 function paintSys(){$('#sysOpts').innerHTML=SYSTEMS.map(s=>`<button class="menu-item ${s.id===sys.id?'cur':''}" data-s="${s.id}" aria-current="${s.id===sys.id}" aria-label="${s.name}"><span class="si-m">${ico('layout-grid')}</span><span class="wm-m">${sysWord(s)}<small>gove</small></span>${s.id===sys.id?`<span class="sys-cur" title="Sistema em uso">${ico('check')}</span>`:''}</button>`).join('');paintIcons($('#sysOpts'));
   $$('[data-s]').forEach(b=>b.onclick=()=>{closePops();enterSys(b.dataset.s)});}
 
