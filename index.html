@@ -1174,6 +1174,16 @@ body{background:var(--bg)}
 .grp-sel{flex:0 0 auto!important;min-width:250px}
 .grp-sel .csel-v{overflow:visible}
 .rec-tbl code{color:var(--fg)!important}
+/* campo com chave liga/desliga: mesmo rótulo e altura dos outros campos */
+.sw-field{width:100%;cursor:pointer;text-align:left;justify-content:flex-start;gap:12px}
+.sw-field .sw-t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px;color:var(--secondary-fg)}
+.sw-field .sw-st{font-size:15px;font-weight:400;color:var(--fg);min-width:28px;text-align:right}
+.sw-field .sw{pointer-events:none}
+.sw-field.on .sw{background:var(--accent)}.sw-field.on .sw span{left:23px}
+.sw-field:hover:not([disabled]){border-color:var(--accent)}
+.sw-field:focus-visible{outline:2px solid var(--primary);outline-offset:1px}
+.sw-field[disabled]{cursor:default}
+.sw-field.ro .sw{opacity:.75}
 /* ---------- RESPONSIVO ---------- */
 @media (max-width:1100px){ .ug-btn b{max-width:150px} }
 @media (max-width:899px){
@@ -3006,13 +3016,13 @@ function renderRecForm(mode,id){const r=id?recOf(id):null;if(id&&!r)return go('#
    <div class="rec-derived" id="rDerived"></div></div></section>
 
    <section class="card"><div class="fsec-h"><span class="n" data-rsn="2">2</span><h3>Tribunal de Contas</h3></div><div class="card-b"><div class="fgrid">
-     <div class="c6"><div class="sw-row"><div><b>Nível TC</b><small>A conta existe na tabela de receitas do Tribunal de Contas</small></div><button type="button" class="sw ${RF.nivelTC?'on':''}" id="rNivel" role="switch" aria-checked="${RF.nivelTC}" ${ro?'disabled':''} aria-label="Nível TC"><span></span></button></div></div>
+     <div class="c6"><label id="rNivelL">Nível TC</label><button type="button" class="input sw-field ${ro?'ro':''} ${RF.nivelTC?'on':''}" id="rNivel" role="switch" aria-checked="${RF.nivelTC}" aria-labelledby="rNivelL" ${ro?'disabled':''}><span class="sw-t">Existe na tabela do TCE</span><span class="sw-st">${RF.nivelTC?'Sim':'Não'}</span><span class="sw"><span></span></span></button></div>
      <div class="c6" id="rTcBox"></div>
    </div></div></section>
 
    <section class="card"><div class="fsec-h"><span class="n ok">${ico('notebook')}</span><h3>Complementos</h3><span class="chip gray" style="margin-left:4px">opcional</span></div><div class="card-b"><div class="fgrid">
      <div class="c6"><label>Legislação</label><div class="input ${ro?'ro':''}"><i data-i="scale"></i><input id="rLegis" list="rLegisL" value="${RF.legis}" ${ro?'disabled placeholder="—"':'placeholder="Base legal da receita"'}><datalist id="rLegisL">${LEGIS.map(x=>`<option value="${x}">`).join('')}</datalist></div></div>
-     <div class="c6"><div class="sw-row"><div><b>Dedução</b><small>Conta redutora da receita, por exemplo formação do Fundeb</small></div><button type="button" class="sw ${RF.deducao?'on':''}" id="rDed" role="switch" aria-checked="${RF.deducao}" ${ro?'disabled':''} aria-label="Dedução"><span></span></button></div></div>
+     <div class="c6"><label id="rDedL">Dedução</label><button type="button" class="input sw-field ${ro?'ro':''} ${RF.deducao?'on':''}" id="rDed" role="switch" aria-checked="${RF.deducao}" aria-labelledby="rDedL" ${ro?'disabled':''}><span class="sw-t" title="Conta redutora da receita, como a formação do Fundeb">Conta redutora da receita</span><span class="sw-st">${RF.deducao?'Sim':'Não'}</span><span class="sw"><span></span></span></button></div>
      <div class="c12"><label>Função</label><div class="input ta ${ro?'ro':''}"><textarea id="rFunc" rows="3" maxlength="1000" ${ro?'disabled placeholder="—"':'placeholder="Para que serve esta receita e quando ela é registrada"'}>${RF.funcao}</textarea></div><div class="ta-foot"><span></span><span class="counter" id="rFuncCnt">${RF.funcao.length}/1000</span></div></div>
    </div></div></section>
   </div>
@@ -3024,7 +3034,7 @@ function renderRecForm(mode,id){const r=id?recOf(id):null;if(id&&!r)return go('#
   const cod=$('#rCod');cod.oninput=()=>{const d=cod.value.replace(/\D/g,'').slice(0,14);let out='',i=0;for(const n of RSEG){if(i>=d.length)break;out+=(out?'.':'')+d.substr(i,n);i+=n}cod.value=out;RF.cod=out;RF.dirty=true;recSync()};
   bind('#rDesc','desc','#rDescCnt');bind('#rAbrev','abrev');bind('#rLegis','legis');bind('#rFunc','funcao','#rFuncCnt');
   $$('[data-rtipo]',c).forEach(b=>b.onclick=()=>{RF.tipo=b.dataset.rtipo;RF.dirty=true;$$('[data-rtipo]',c).forEach(x=>x.classList.toggle('on',x===b));recSync()});
-  const sw=(id,k)=>{const b=$(id);b.onclick=()=>{RF[k]=!RF[k];RF.dirty=true;b.classList.toggle('on',RF[k]);b.setAttribute('aria-checked',RF[k]);if(k==='nivelTC'){if(RF.nivelTC)RF.codTC='';paintRecTc()}recSync()}};
+  const sw=(id,k)=>{const b=$(id);b.onclick=()=>{RF[k]=!RF[k];RF.dirty=true;b.classList.toggle('on',RF[k]);b.setAttribute('aria-checked',RF[k]);$('.sw-st',b).textContent=RF[k]?'Sim':'Não';if(k==='nivelTC'){if(RF.nivelTC)RF.codTC='';paintRecTc()}recSync()}};
   if(!ro){sw('#rNivel','nivelTC');sw('#rDed','deducao')}
   $$('[data-rback]',c).forEach(b=>b.onclick=()=>recLeave());
   paintRecTc();recSync()}
