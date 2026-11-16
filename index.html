@@ -1192,6 +1192,14 @@ body{background:var(--bg)}
 .btn-clr.is-hidden{visibility:hidden;pointer-events:none}
 .btn-clr.sm{width:auto;height:30px;font-size:13px;margin-left:auto}
 .flt-end{display:flex;align-items:flex-end}
+/* nomes dos sistemas na fonte padrão, ícone único */
+.sys-grid .wm{font-family:'Exo 2',system-ui,sans-serif!important;font-size:34px;font-weight:600;line-height:1.05;letter-spacing:-.2px;color:#032861;padding-bottom:16px}
+.sys-grid .wm small{font-family:'Exo 2',system-ui,sans-serif!important;font-size:14px;font-weight:500;letter-spacing:.2px;color:#AEADB2}
+#sysOpts .menu-item{height:auto;min-height:48px;padding-top:6px;padding-bottom:6px}
+#sysOpts .wm-m{font-family:'Exo 2',system-ui,sans-serif!important;font-size:16px;font-weight:600;line-height:1.1;letter-spacing:0;padding-bottom:0;display:flex;flex-direction:column;align-items:flex-start}
+#sysOpts .wm-m small{font-size:11px;font-weight:500;color:#AEADB2;line-height:1.1}
+#sysOpts .menu-item:hover .wm-m small{color:rgba(255,255,255,.8)}
+@media (max-width:599px){.sys-grid .wm{font-size:24px;padding-bottom:12px}.sys-grid .wm small{font-size:11px}}
 /* ---------- RESPONSIVO ---------- */
 @media (max-width:1100px){ .ug-btn b{max-width:150px} }
 @media (max-width:899px){
@@ -1554,8 +1562,8 @@ function renderHub(){
     <div class="page-head"><div><h1>Início</h1><p>${greet()}, Diego. Você tem acesso a ${SYSTEMS.length} sistemas.</p></div></div>
     <div class="sec-head"><h2>Escolha o sistema</h2><span>Selecione para onde deseja entrar.</span></div>
     <div class="sys-grid">${SYSTEMS.map((s,i)=>`<button class="sys ${s.id===lastSys?'last':''}" data-sys="${s.id}" title="${s.name}: ${s.desc}" aria-label="Entrar no ${s.name}">
-      <span class="si">${ico(s.icon)}</span>
-      <span class="wm">${s.word}<small>gove</small></span>
+      <span class="si">${ico('layout-grid')}</span>
+      <span class="wm">${sysWord(s)}<small>gove</small></span>
       ${s.id===lastSys?'<span class="last-tag">último acesso</span>':''}
     </button>`).join('')}</div>
     <div class="hub-foot"><label class="check"><input type="checkbox" id="autoSys" ${store.get('autoSys',null)?'checked':''}> Nas próximas vezes, entrar direto no último sistema usado</label></div>
@@ -1678,7 +1686,8 @@ function paintEx(){const box=$('#exSec');if(!box)return;const show=document.body
   $$('[data-exy]',box).forEach(b=>b.onclick=e=>{e.stopPropagation();setEx(+b.dataset.exy)});}
 function changeUG(id){if(id===ug.id){closePops();return}ug=UGS.find(u=>u.id===id);closePops();bind();render();
   toast('success','Órgão alterado',`Agora você está em: ${ug.short}.`+(ug.id==='cm'?' Perfil com menos telas liberadas.':''));}
-function paintSys(){$('#sysOpts').innerHTML=SYSTEMS.map(s=>`<button class="menu-item ${s.id===sys.id?'cur':''}" data-s="${s.id}" aria-current="${s.id===sys.id}" aria-label="${s.name}"><span class="si-m">${ico(s.icon)}</span><span class="wm-m">${s.word}</span>${s.id===sys.id?`<span class="sys-cur" title="Sistema em uso">${ico('check')}</span>`:''}</button>`).join('');paintIcons($('#sysOpts'));
+const sysWord=s=>s.id==='cont'?'contábil':s.word.replace(/<[^>]+>/g,'');
+function paintSys(){$('#sysOpts').innerHTML=SYSTEMS.map(s=>`<button class="menu-item ${s.id===sys.id?'cur':''}" data-s="${s.id}" aria-current="${s.id===sys.id}" aria-label="${s.name}"><span class="si-m">${ico('layout-grid')}</span><span class="wm-m">${sysWord(s)}<small>gove</small></span>${s.id===sys.id?`<span class="sys-cur" title="Sistema em uso">${ico('check')}</span>`:''}</button>`).join('');paintIcons($('#sysOpts'));
   $$('[data-s]').forEach(b=>b.onclick=()=>{closePops();enterSys(b.dataset.s)});}
 
 /* ---------- PALETA (Ctrl K) ---------- */
