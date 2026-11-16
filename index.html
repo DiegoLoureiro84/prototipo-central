@@ -1690,10 +1690,10 @@ function setEx(y){if(y===EX||!EX_ABERTOS(y)||y<EX_MIN)return;EX=y;exGrid=false;c
 function paintEx(){const box=$('#exSec');if(!box)return;const show=document.body.classList.contains('sys-cont');if(!show){box.innerHTML='';return}
   if(exPage===null)exPage=EX_MAX-11-12*Math.floor((EX_MAX-EX)/12);
   const yrs=Array.from({length:12},(_,i)=>exPage+i);
-  const rec=[EX_ATUAL,EX_ATUAL-1,EX_ATUAL-2],outro=!rec.includes(EX);
+  const rec=[EX_ATUAL-2,EX_ATUAL-1,EX_ATUAL],outro=!rec.includes(EX);
   box.innerHTML=`<hr><h4>Exercício</h4>
-  <div class="ex-seg" role="radiogroup" aria-label="Exercício">${rec.map(y=>`<button type="button" class="ex-o ${y===EX?'on':''}" data-exy="${y}" role="radio" aria-checked="${y===EX}"><b>${y}</b><small>${y===EX_ATUAL?'corrente':'consulta'}</small></button>`).join('')}
-    <button type="button" class="ex-o more ${outro||exGrid?'on':''} ${exGrid?'open':''}" id="exCur" aria-expanded="${exGrid}"><b>${outro?EX:'Outro'}</b><small>${outro?'consulta':'ano'} ${ico(exGrid?'chevron-up':'chevron-down')}</small></button></div>
+  <div class="ex-seg" role="radiogroup" aria-label="Exercício"><button type="button" class="ex-o more ${outro||exGrid?'on':''} ${exGrid?'open':''}" id="exCur" aria-expanded="${exGrid}"><b>${outro?EX:'Outro'}</b><small>${outro?'consulta':'ano'} ${ico(exGrid?'chevron-up':'chevron-down')}</small></button>
+    ${rec.map(y=>`<button type="button" class="ex-o ${y===EX?'on':''}" data-exy="${y}" role="radio" aria-checked="${y===EX}"><b>${y}</b><small>${y===EX_ATUAL?'corrente':'consulta'}</small></button>`).join('')}</div>
   ${exGrid?`<div class="ex-grid-box"><div class="ex-gh"><button class="ex-step sm" data-exp="-12" ${exPage<=EX_MIN?'disabled':''} aria-label="Anos anteriores">${ico('chevrons-left')}</button><span>${Math.max(yrs[0],EX_MIN)} – ${yrs[11]}</span><button class="ex-step sm" data-exp="12" ${yrs[11]>=EX_MAX?'disabled':''} aria-label="Anos seguintes">${ico('chevrons-right')}</button></div>
     <div class="ex-grid">${yrs.map(y=>{const out=y<EX_MIN||y>EX_MAX,closed=!EX_ABERTOS(y);return `<button class="ex-y ${y===EX?'on':''} ${y===EX_ATUAL?'cur':''}" data-exy="${y}" ${out||closed?'disabled':''} title="${closed&&!out?'Exercício ainda não aberto':''}">${out?'':y}</button>`}).join('')}</div></div>`:''}
   <p class="ex-note">${EX===EX_ATUAL?'Exercício corrente, com lançamentos liberados.':`Exercício ${EX} encerrado: somente consulta.`}</p>`;
