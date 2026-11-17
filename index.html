@@ -16,7 +16,7 @@
 :root{
   --primary:#1F4993; --accent:#75C566; --dark-green:#01814E; --blue:#032861;
   --bg:#F8F9FE; --card:#FFFFFF; --fg:#0A1A2E; --border:#E0E0E1; --secondary:#F5F5F6;
-  --secondary-fg:#57575A; --muted:#E6E6E7; --muted-fg:#6B6B6E; --destructive:#EF4444;
+  --secondary-fg:#57575A; --muted:#E6E6E7; --muted-fg:#6B6B6E; --destructive:#F44336;
   --light-green:#E6F8F0; --readonly:#EEF1FA; --row-hover:#EAF7EE;
   --r-lg:12.8px; --r-md:10.8px; --r-sm:8.8px;
   --sidebar:260px; --sidebar-c:64px; --header:64px;
@@ -526,7 +526,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
 .alert .ic{flex:none;margin-top:1px}
 .alert.warn{background:#FEF3C7;color:#78350F}
 .alert.info{background:var(--readonly);color:var(--primary)}
-.alert.err{background:#FEF2F2;color:#EF4444}
+.alert.err{background:#FEF2F2;color:#F44336}
 .copy-banner{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:var(--r-lg);background:var(--primary);color:#fff;margin-bottom:16px}
 .counter{font-size:12px;color:var(--muted-fg);text-align:right;margin-top:4px}
 
@@ -825,8 +825,8 @@ body{background:var(--bg)}
 .pp-sig .ln .ic{width:14px;height:14px}.pp-sig b{display:block;margin-top:6px}.pp-sig small{color:#555;font-size:.8em}
 .pp-sig:not(.ok) .ln{border-bottom-style:dashed;border-color:#78350F}
 .pp-note{display:flex;gap:8px;align-items:center;margin-top:calc(24px * var(--z));padding:calc(10px * var(--z));border-radius:6px;background:#EEF1FA;color:#1F4993;font-size:.9em}
-.pp-note.bad{background:#FEF2F2;color:#EF4444}.pp-note .ic{width:16px;height:16px;flex:none}
-.paper .neg{color:#EF4444}.paper .pos{color:#01814E}
+.pp-note.bad{background:#FEF2F2;color:#F44336}.pp-note .ic{width:16px;height:16px;flex:none}
+.paper .neg{color:#F44336}.paper .pos{color:#01814E}
 .vw-sign{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--border);background:#FEF3C7}
 .vw-sign>div{display:flex;gap:10px;align-items:center;flex:1;min-width:240px}.vw-sign>div>.ic{width:22px;height:22px;color:#78350F}
 .vw-sign b{display:block;font-weight:600}.vw-sign small{font-size:12.5px;color:var(--secondary-fg)}
@@ -869,29 +869,29 @@ body{background:var(--bg)}
 .lnk{color:var(--primary);font-weight:600;text-decoration:underline;text-underline-offset:2px}
 .tl2 li.w .lnk{color:var(--destructive)}
 .tl2 li.st-alert .tli{border-color:#FECACA;color:var(--destructive);background:#FEF2F2}
-.chip.bad-o{background:#FEF2F2;color:#EF4444;border:1px solid #FECACA}
+.chip.bad-o{background:#FEF2F2;color:#F44336;border:1px solid #FECACA}
 .chip.bad-o .ic{width:12px;height:12px}
-.mt-pend{background:#FEF2F2!important;color:#EF4444!important}
+.mt-pend{background:#FEF2F2!important;color:#F44336!important}
 .vw-sign.al{background:#FEF2F2}.vw-sign.al>div>.ic{color:var(--destructive)}
 .vw-stage{padding:12px;background:#E6E6E7}
 .paper{width:min(100%, calc(640px * var(--z)))}
 .pp-p{line-height:1.6;margin-top:calc(12px * var(--z))}
 .pp-sub{font-size:1em;margin:calc(18px * var(--z)) 0 calc(4px * var(--z));color:#032861}
 @media (max-width:1300px){.tlv{grid-template-columns:minmax(400px,1fr) minmax(0,1fr)}}
-.chip.bad-o{background:#EF4444!important;color:#fff!important;border:0!important}
+.chip.bad-o{background:#F44336!important;color:#fff!important;border:0!important}
 .chip.bad-o .ic{color:#fff}
-.mt-pend{background:#EF4444!important;color:#fff!important}.mt-pend .ic{color:#fff}
-.tl2 li.st-alert .tli{border-color:#EF4444;color:#EF4444;background:#FEF2F2}
-.vw-sign.al{background:#FEF2F2;border-left:4px solid #EF4444}.vw-sign.al b{color:#EF4444}
-.tl2 li.w .lnk{color:#EF4444}
-.pp-note.bad{background:#FEF2F2;color:#EF4444;border-left:4px solid #EF4444}
-.chip.bad{background:#EF4444}
-.prio{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#EF4444;color:#fff!important;font-weight:800;font-size:15px;line-height:1}
+.mt-pend{background:#F44336!important;color:#fff!important}.mt-pend .ic{color:#fff}
+.tl2 li.st-alert .tli{border-color:#F44336;color:#F44336;background:#FEF2F2}
+.vw-sign.al{background:#FEF2F2;border-left:4px solid #F44336}.vw-sign.al b{color:#F44336}
+.tl2 li.w .lnk{color:#F44336}
+.pp-note.bad{background:#FEF2F2;color:#F44336;border-left:4px solid #F44336}
+.chip.bad{background:#F44336}
+.prio{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#F44336;color:#fff!important;font-weight:800;font-size:15px;line-height:1}
 .prio.sm{width:18px;height:18px;font-size:13px;font-weight:900;vertical-align:-2px;margin-right:4px}
 .prio-c{width:90px;text-align:center}
-.prio-t{color:#EF4444;font-weight:700;display:inline-flex;align-items:center}
-.kx .kx-an .prio-t{color:#EF4444;font-weight:700;display:inline-flex;align-items:center;gap:6px}
-.kx .kx-an .prio.sm,.prio.sm{display:inline-grid!important;place-items:center;justify-content:center;text-align:center;padding:0;margin:0;width:18px;height:18px;border-radius:50%;background:#EF4444;color:#fff!important;font-size:12px;font-weight:900;line-height:1}
+.prio-t{color:#F44336;font-weight:700;display:inline-flex;align-items:center}
+.kx .kx-an .prio-t{color:#F44336;font-weight:700;display:inline-flex;align-items:center;gap:6px}
+.kx .kx-an .prio.sm,.prio.sm{display:inline-grid!important;place-items:center;justify-content:center;text-align:center;padding:0;margin:0;width:18px;height:18px;border-radius:50%;background:#F44336;color:#fff!important;font-size:12px;font-weight:900;line-height:1}
 .side .card-b>div.sum-use{display:block;margin-top:8px;padding:12px;border:0;border-radius:var(--r-lg);background:var(--readonly)}
 .sum-use .row{display:flex;justify-content:space-between;gap:8px;font-size:13px}
 .sum-use .row b{font-variant-numeric:tabular-nums}
@@ -1288,7 +1288,7 @@ body{background:var(--bg)}
 .ex-y.on{background:var(--light-green)!important;border-color:var(--dark-green)!important;color:var(--fg)!important}
 .ex-y.on *{color:var(--fg)!important}
 .fsec-h .n:not(.ok){color:var(--fg)}
-/* vermelho: #EF4444 fica para borda, barra e ícone; texto e fundo com texto usam o vermelho forte */
+/* vermelho: #F44336 fica para borda, barra e ícone; texto e fundo com texto usam o vermelho forte */
 .hint.err,.fgrid label i.req,.alert.err,.tbl .sub.neg,.kx-an .neg,.neg,.tl li.neg b,.tl li.neg p,.tl2 li.st-neg b,.tl2 li.st-neg p,.pp-note.bad,.paper .neg,.tbl td.neg,.tl2 li.st-neg .tl2-link,.tl2 li.w .lnk,.vw-sign.al b,.prio-t,.kx .kx-an .prio-t,.neg-t,.tl li.neg .tli,.tl2 li.st-neg .tli,.tl2 li.st-alert .tli{color:var(--danger-strong)!important}
 .toast.error,.fchip button:hover,.chip.bad,.prio,.kx .kx-an .prio.sm,.prio.sm,.prio-tag .prio-i,.btn-danger,.fpop .menu-item.danger:hover{background:var(--danger-strong)!important;color:#fff!important}
 .fpop .menu-item.danger:hover *{color:#fff!important}
