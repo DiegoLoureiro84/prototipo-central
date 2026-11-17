@@ -1,12 +1,13 @@
 # Especificação do front do novo Central
 
-Documento de handoff para construir o front em Flutter web a partir do protótipo. Não há versão mobile (app) prevista. Autor: Diego Loureiro, Gerente de Inovação. Versão 1.1, 17/11/2026.
+Documento de handoff para construir o front em Flutter web a partir do protótipo. Não há versão mobile (app) prevista. Autor: Diego Loureiro, Gerente de Inovação. Versão 1.3, 17/11/2026.
 
 | Artefato | Link | Papel |
 |---|---|---|
 | Protótipo navegável | https://diegoloureiro84.github.io/prototipo-central/ | Fonte da verdade de layout, comportamento e texto |
 | Design System 2.0 | https://diegoloureiro84.github.io/coplan-design-system/ | Tokens, componentes, padrões e regras |
 | Este documento | `ESPECIFICACAO-FRONT.md` neste repositório | Roteiro, regras de negócio, critérios de aceite e dados |
+| Kit Flutter | https://diegoloureiro84.github.io/coplan-design-system/#flutter | Tela de login pronta em Flutter web, no padrão dos portais (GetX), com tema, cores, fontes, ícones e componentes do DS. Código: https://github.com/DiegoLoureiro84/coplan-design-system/tree/main/flutter |
 
 Ordem de precedência quando houver conflito: **protótipo, depois Design System, depois este documento**. Divergência encontrada deve ser registrada como pergunta, não resolvida por conta própria.
 
@@ -25,6 +26,7 @@ Ordem de precedência quando houver conflito: **protótipo, depois Design System
 
 ## 2. Como usar este material com IA
 
+0. Comece pelo **kit Flutter** do Design System. Ele já resolve tema, cores, fonte, ícones, componentes do Design System, rotas e a separação entre página, controller e service. As demais telas devem seguir a mesma estrutura, e o README do modelo lista as regras.
 1. Dê à IA o código-fonte do protótipo (no navegador: Exibir código-fonte, ou o `index.html` deste repositório). É um arquivo único com CSS, JS e dados de exemplo.
 2. Os tokens estão no `:root` do CSS e na seção Tokens do Design System, já com a versão Flutter (`CoplanColors`, `CoplanRadius`, `CoplanLayout`).
 3. A fonte é Exo 2, embutida no HTML. No Flutter, use o pacote da fonte em arquivo local, não Google Fonts em tempo de execução.
@@ -44,7 +46,7 @@ Para o fluxo completo desde o login, use o CPF de teste `529.982.247-25` e qualq
 | 3 | Clicar no nome da unidade no cabeçalho | `#central` | Abre o seletor com 4 unidades na ordem do cadastro, a principal primeiro, e o subtítulo igual ao Tipo de Entidade do Central |
 | 4 | No seletor, clicar em `2025` | `#central` | Toast "Exercício 2025, exercício anterior: somente consulta". A pílula do cabeçalho mostra 2025 |
 | 5 | Clicar no ícone de grade do cabeçalho | qualquer tela | Abre a troca de sistema no mesmo padrão do seletor de unidade |
-| 6 | Recolher o menu e passar o mouse num grupo | qualquer tela | Menu com 60px. O painel flutuante lista as telas do grupo, sem ícones |
+| 6 | Recolher o menu e clicar num grupo | qualquer tela | Menu com 60px. Passar o mouse só mostra a dica com o nome; o clique abre o painel flutuante com as telas do grupo, sem ícones |
 | 7 | Pressionar `Ctrl+K` | qualquer tela de sistema | Abre a busca de telas |
 | 8 | Abrir Empenho | `#tela/k-2.10` | Aba `Empenho · Contábil · Coplan`. Indicadores: A empenhar (7 NADs, 2 prioritárias), Empenhado, Liquidado, Pago, A liquidar |
 | 9 | Clicar no indicador A empenhar | `#tela/k-2.10` | Painel de foco "NADs aguardando empenho", da mais antiga para a mais recente. A tabela principal some |
@@ -58,6 +60,8 @@ Para o fluxo completo desde o login, use o CPF de teste `529.982.247-25` e qualq
 | 17 | Editar um empenho sem assinatura | `#tela/k-2.10/4147?editar` | Abre a edição. Aba: `Editar · Empenho 4147 · Contábil · Coplan` |
 | 18 | Tentar editar um empenho já assinado | `#tela/k-2.10/4148?editar` | Redireciona para o detalhe (`?detalhes`): empenho assinado não é editável |
 | 19 | Alterar a descrição e clicar em Cancelar | `#tela/p-receita/37930?editar` | Barra inline "Descartar as alterações?" com Continuar editando e Descartar. Sem janela modal |
+| 20a | Clicar em Esqueci minha senha | `#login` | O formulário dá lugar a "Recuperar senha", no mesmo lugar, sem janela |
+| 20b | Abrir o menu do usuário e clicar em Sair | qualquer tela | Sai direto, sem confirmação, e mostra o toast "Você saiu" |
 | 20 | Abrir Especificação da Receita | `#tela/p-receita` | Lista em árvore com Agrupar, filtros, colunas configuráveis e paginação |
 | 21 | Editar uma conta e informar um código já existente | `#tela/p-receita/37930?editar` | Bloqueia com "Já existe a conta 1.0.0.0.00.0.0.00.00.00: RECEITAS CORRENTES." |
 | 22 | Incluir uma conta | `#tela/p-receita/novo` | Formulário vazio. Aba: `Incluir · Especificação da Receita · Planeja · Coplan` |
@@ -101,17 +105,26 @@ Para o fluxo completo desde o login, use o CPF de teste `529.982.247-25` e qualq
   - favoritos.
 - Toda tela tem deep link. O sistema é inferido pela tela: `k-` é Contábil, `p-` é Planejamento.
 - Título da aba no formato `Tela · Sistema · Coplan`.
+- Nenhuma janela modal. Fluxos secundários (recuperar senha, gerar cópia) aparecem no lugar do conteúdo. Ações reversíveis, como Sair, não pedem confirmação.
+
+**Estados** (definidos no Design System, seção Estados)
+- Toast: 8 segundos ou até fechar no X.
+- Carregando: o botão mostra spinner e o texto no gerúndio ("Entrando..."); listas mostram esqueleto no lugar das linhas.
+- Erro de rede: toast de erro "Sem conexão com o servidor" e, no lugar do conteúdo, a mensagem com o botão "Tentar de novo".
+- Desabilitado: opacidade de 50%, não recebe foco nem clique.
+- Somente leitura: fundo #EEF1FA, texto normal, pode ser selecionado e copiado.
 
 ## 5. Critérios de aceite: o que significa "idêntico"
 
 Uma tela está aceita quando cumpre todos os itens abaixo:
 
 1. **Tokens**: cores, raios, alturas (cabeçalho 65px, menu 280/60px) e tipografia exatamente como no Design System. Nenhuma cor fora da paleta.
-2. **Comparação visual**: print da tela em Flutter e do protótipo, os dois em 1440×900, sobrepostos. Sem diferença perceptível de posição, tamanho, cor ou texto.
-3. **Comportamento**: o passo correspondente do roteiro da seção 3 produz exatamente o resultado esperado, inclusive os textos de toast e de erro.
-4. **Responsivo**: as quebras de layout seguem as do protótipo (599, 899, 1199 e 1599px).
-5. **Regras visuais do DS**: vermelho só em bloqueio, sem janela modal, pílula de classificação neutra, menu aberto sem ícones, seletor padrão em todo select.
-6. **Deep link e título da aba** funcionando em todas as telas da entrega.
+2. **Contraste**: todo texto com no mínimo 4,5:1 (3:1 para texto a partir de 24px, ou 18,7px em negrito). Hover verde com texto escuro; texto branco sobre verde só no #01814E.
+3. **Comparação visual**: print da tela em Flutter e do protótipo, os dois em 1440×900, sobrepostos. Sem diferença perceptível de posição, tamanho, cor ou texto.
+4. **Comportamento**: o passo correspondente do roteiro da seção 3 produz exatamente o resultado esperado, inclusive os textos de toast e de erro.
+5. **Responsivo**: as quebras de layout seguem as do protótipo (599, 899, 1199 e 1599px).
+6. **Regras visuais do DS**: vermelho só em bloqueio, sem janela modal, pílula de classificação neutra, menu aberto sem ícones, seletor padrão em todo select.
+7. **Deep link e título da aba** funcionando em todas as telas da entrega.
 
 A aceitação é feita por mim, tela a tela, contra este roteiro.
 
