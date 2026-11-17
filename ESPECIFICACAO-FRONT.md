@@ -1,6 +1,6 @@
 # Especificação do front do novo Central
 
-Documento de handoff para construir o front em Flutter a partir do protótipo. Autor: Diego Loureiro, Gerente de Inovação. Versão 1.0, 17/11/2026.
+Documento de handoff para construir o front em Flutter web a partir do protótipo. Não há versão mobile (app) prevista. Autor: Diego Loureiro, Gerente de Inovação. Versão 1.1, 17/11/2026.
 
 | Artefato | Link | Papel |
 |---|---|---|
@@ -18,6 +18,8 @@ Ordem de precedência quando houver conflito: **protótipo, depois Design System
 - Estrutura comum: cabeçalho, seletor de unidade gestora e exercício, troca de sistema, menu lateral aberto, recolhido e flutuante, busca (Ctrl+K), notificações, favoritos, título da aba.
 - Contábil, 2.10 Empenho completo: lista com indicadores, inclusão a partir de NAD, inclusão avulsa, edição, detalhe, linha do tempo com documentos, extrato de liquidações.
 - Planejamento, Especificação da Receita: lista em árvore, inclusão, edição, visualização e validações. É o **modelo para todos os cadastros básicos em hierarquia**.
+
+**Plataforma**: Flutter web, rodando no navegador. Não há app mobile. O layout responsivo do protótipo continua valendo para janelas menores do navegador.
 
 **Fora do escopo**: as demais telas do menu existem só como navegação (placeholder). Administrativo, Servidor, Tributos e os outros sistemas mostram aviso de que não são navegáveis no protótipo.
 
@@ -139,10 +141,9 @@ Lista levantada a partir do protótipo. **Precisa ser validada contra o banco co
 ## 8. Perguntas em aberto
 
 1. Qual é a stack e o formato da API do backend (linguagem, REST ou outro, autenticação)?
-2. O front é Flutter web, mobile ou os dois na primeira entrega?
-3. Login: CPF e senha, certificado digital e gov.br entram nesta fase?
-4. Em qual repositório o front vai ficar, e qual é o fluxo de revisão?
-5. Qual é o prazo por bloco: estrutura comum, Empenho, Especificação da Receita?
+2. Login: CPF e senha, certificado digital e gov.br entram nesta fase?
+3. Em qual repositório o front vai ficar, e qual é o fluxo de revisão?
+4. Qual é o prazo por bloco: estrutura comum, Empenho, Especificação da Receita?
 
 ## 9. Governança
 
