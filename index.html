@@ -1536,6 +1536,7 @@ function render(){
   $('#app').classList.toggle('hidden',page==='login');
   document.body.classList.remove('drawer-open');
   if(page==='login'){ return; }
+  if(page==='tela'&&arg){const want=arg.startsWith('k-')?'cont':arg.startsWith('p-')?'plan':null;if(want&&sys.id!==want){setSys(want);lastSys=want;store.set('lastSys',want)}}
   bind();
   const isHub=page==='sistemas';
   document.body.classList.toggle('in-sys',!isHub);
