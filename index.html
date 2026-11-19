@@ -1286,7 +1286,9 @@ body{background:var(--bg)}
 /* preenchimentos verdes: verde de destaque com texto e ícone ESCUROS (8,3:1). Verde escuro só no toast de sucesso */
 .bulkbar .btn-accent,.dot,.chip.ok,.seg button.on,.sys:hover .si,.last-tag,.tabs button.on,.acc-sec em,.fsec-h .n.ok,.tl li.done .tli,.tl2 li.st-done .tli,.pg button.on,.ex-chip.on{background:var(--accent)!important;border-color:var(--accent)!important;color:var(--fg)!important}
 .bulkbar .btn-accent *,.dot *,.chip.ok *,.chip.ok .ic,.seg button.on *,.last-tag *,.tabs button.on *,.pg button.on *,.ex-chip.on *{color:var(--fg)!important}
-.toast.success{background:var(--dark-green)!important;color:#fff!important}
+.toast.success{background:var(--accent)!important;color:var(--fg)!important}
+.toast.success *,.toast.success .x,.toast.success .x .ic,.toast.success .ic{color:var(--fg)!important}
+.toast.success p{opacity:1}
 /* ícone sozinho dentro de círculo verde: branco, como nos portais. É decorativo (o texto ao lado diz o que é), por isso fica fora da regra 3:1 */
 .fsec-h .n.ok .ic,.fsec-h .n.ok .ic *,.tl li.done .tli,.tl li.done .tli *,.tl2 li.st-done .tli,.tl2 li.st-done .tli *,.sys:hover .si,.sys:hover .si *{color:#fff!important}
 .bulkbar .btn-accent:hover{filter:brightness(.9)}
