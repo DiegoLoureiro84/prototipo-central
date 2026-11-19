@@ -1279,11 +1279,14 @@ body{background:var(--bg)}
 #sysOpts .menu-item:hover .wm-m small,#ugOpts .ug-opt:hover small,#ugOpts .ug-opt.kb small{color:var(--fg)!important}
 
 /* selecionado: verde claro, texto escuro e marca (barra à esquerda no menu) */
-.nav-a.active,.fly-i.on:not(.has){background:var(--light-green)!important;color:var(--fg)!important;box-shadow:inset 3px 0 0 var(--dark-green)}
+.nav-a.active,.fly-i.on:not(.has){background:var(--light-green)!important;color:var(--fg)!important;box-shadow:none!important}
 .nav-a.active .ic,.nav-a.active+.fav-x,.nav-a.active+.fav-x svg{color:var(--fg)!important;fill:none}
 .nav-a.active:hover{background:var(--accent)!important}
 /* preenchimentos com texto branco: verde escuro da paleta (4,94:1) */
-.bulkbar .btn-accent,.dot,.chip.ok,.seg button.on,.sys:hover .si,.last-tag,.tabs button.on,.acc-sec em,.fsec-h .n.ok,.tl li.done .tli,.tl2 li.st-done .tli,.pg button.on,.ex-chip.on,.toast.success{background:var(--dark-green)!important;border-color:var(--dark-green)!important;color:#fff!important}
+/* preenchimentos verdes: verde de destaque com texto e ícone ESCUROS (8,3:1). Verde escuro só no toast de sucesso */
+.bulkbar .btn-accent,.dot,.chip.ok,.seg button.on,.sys:hover .si,.last-tag,.tabs button.on,.acc-sec em,.fsec-h .n.ok,.tl li.done .tli,.tl2 li.st-done .tli,.pg button.on,.ex-chip.on{background:var(--accent)!important;border-color:var(--accent)!important;color:var(--fg)!important}
+.bulkbar .btn-accent *,.dot *,.chip.ok *,.chip.ok .ic,.seg button.on *,.sys:hover .si *,.last-tag *,.tabs button.on *,.fsec-h .n.ok *,.tl li.done .tli *,.tl2 li.st-done .tli *,.tl2 li.st-done .tli .ic,.pg button.on *,.ex-chip.on *{color:var(--fg)!important}
+.toast.success{background:var(--dark-green)!important;color:#fff!important}
 .bulkbar .btn-accent:hover{filter:brightness(.9)}
 .ex-y.on{background:var(--light-green)!important;border-color:var(--dark-green)!important;color:var(--fg)!important}
 .ex-y.on *{color:var(--fg)!important}
@@ -1299,7 +1302,7 @@ kbd{color:var(--secondary-fg)!important}
 .login-brand kbd{color:#fff!important}
 .wm small,.wm-m small,.sys .wm small{color:var(--muted-fg)!important}
 /* contador dentro da aba ativa */
-.tabs .on em{background:#fff!important;color:var(--dark-green)!important}
+.tabs .on em{background:#fff!important;color:var(--fg)!important}
 /* estados (DS 2.1) */
 @keyframes skel{0%{background-position:100% 0}100%{background-position:-100% 0}}
 .skel{display:block;height:14px;border-radius:6px;background:linear-gradient(90deg,var(--readonly) 25%,var(--secondary) 50%,var(--readonly) 75%);background-size:200% 100%;animation:skel 1.2s linear infinite}
