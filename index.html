@@ -1296,7 +1296,10 @@ body{background:var(--bg)}
 .ex-y.on *{color:var(--fg)!important}
 .fsec-h .n:not(.ok){color:var(--fg)}
 /* vermelho: #F44336 fica para borda, barra e ícone; texto e fundo com texto usam o vermelho forte */
-.hint.err,.fgrid label i.req,.alert.err,.tbl .sub.neg,.kx-an .neg,.neg,.tl li.neg b,.tl li.neg p,.tl2 li.st-neg b,.tl2 li.st-neg p,.pp-note.bad,.paper .neg,.tbl td.neg,.tl2 li.st-neg .tl2-link,.tl2 li.w .lnk,.vw-sign.al b,.prio-t,.kx .kx-an .prio-t,.neg-t,.tl li.neg .tli,.tl2 li.st-neg .tli,.tl2 li.st-alert .tli{color:var(--danger-strong)!important}
+.hint.err,.fgrid label i.req,.alert.err,.tbl .sub.neg,.kx-an .neg,.neg,.tl li.neg b,.tl li.neg p,.tl2 li.st-neg b,.tl2 li.st-neg p,.pp-note.bad,.paper .neg,.tbl td.neg,.tl2 li.st-neg .tl2-link,.tl2 li.w .lnk,.prio-t,.kx .kx-an .prio-t,.neg-t,.tl li.neg .tli,.tl2 li.st-neg .tli{color:var(--danger-strong)!important}
+/* pendência não é erro: aguardando ação fica no azul da marca, nunca em vermelho */
+.tl2 li.st-alert .tli,.tl2 li.st-alert .tli *{color:var(--primary)!important}.tl2 li.st-alert .tli{border:2px solid var(--primary)!important;background:#EEF1FA!important}
+.vw-sign.al b{color:var(--fg)!important}.vw-sign.al>div>.ic{color:var(--primary)!important}
 .toast.error,.fchip button:hover,.chip.bad,.prio,.kx .kx-an .prio.sm,.prio.sm,.prio-tag .prio-i,.btn-danger,.fpop .menu-item.danger:hover{background:var(--danger-strong)!important;color:#fff!important}
 .fpop .menu-item.danger:hover *{color:#fff!important}
 /* âmbar: família de aviso que não bloqueia */
@@ -1353,7 +1356,7 @@ kbd{color:var(--secondary-fg)!important}
 .tbl-liq .chip{white-space:nowrap}
 .tbl-liq td.orgc{max-width:200px}.tbl-liq td.cred{min-width:180px;max-width:260px}
 .tbl-liq td.orgc .sub{overflow:hidden;text-overflow:ellipsis}
-.fsec-h .sec-r{margin-left:auto;flex:none}.l-desc .input.ta{height:auto;min-height:118px}.l-desc .input.ta textarea{min-height:100px}.input.ro.ta-ro{height:auto;min-height:118px;align-items:flex-start;padding:10px 12px}.input.ro.ta-ro span.v{white-space:normal;overflow:visible}.fsec-h .sec-r .btn[disabled]{opacity:.55;cursor:not-allowed}.sec-miss h3{white-space:nowrap}
+.fsec-h .sec-r{margin-left:auto;flex:none}.sec-foot .hint.pend-h{color:var(--primary);background:#EEF1FA;padding:8px 12px;border-radius:var(--r-lg)}.sec-foot .hint.pend-h .ic{color:var(--primary)}.l-desc .input.ta{height:auto;min-height:118px}.l-desc .input.ta textarea{min-height:100px}.input.ro.ta-ro{height:auto;min-height:118px;align-items:flex-start;padding:10px 12px}.input.ro.ta-ro span.v{white-space:normal;overflow:visible}.fsec-h .sec-r .btn[disabled]{opacity:.55;cursor:not-allowed}.sec-miss h3{white-space:nowrap}
 @media (max-width:1600px){.tbl-liq td,.tbl-liq th{padding-left:8px;padding-right:8px}.tbl-liq .w-act{width:44px}.tbl-liq .w-chk{width:36px}.tbl-liq td.cred{min-width:0;max-width:200px}.tbl-liq td.orgc{max-width:150px}}
 @media (max-width:1300px){.tbl-liq .col-org{display:none}}
 @media (max-width:1100px){.tbl-liq .col-ass{display:none}}
@@ -2879,7 +2882,7 @@ function tlvParts(e,keep){const steps=docsOf(e),allDocs=steps.flatMap(s=>s.docs)
     <div class="vw-bar"><div class="vw-title">${ico(cur.ic)}<b>${cur.label}</b>${ds.txt?`<span class="chip ${ds.alert?'bad-o':ds.ok?'ok':ds.ext?'gray':'pend'}">${ds.alert?ico('clock'):''}${ds.txt}</span>`:''}</div>
      <div class="vw-tools"><button class="btn-ghost btn" data-zoom="-1" aria-label="Diminuir zoom">${ico('zoom-out')}</button><span class="vw-z">${Math.round(ZOOM*100)}%</span><button class="btn-ghost btn" data-zoom="1" aria-label="Aumentar zoom">${ico('zoom-in')}</button>
       <span class="vw-sep"></span><button class="btn-ghost btn" id="vwDl" aria-label="Baixar PDF" title="Baixar PDF">${ico('download')}</button><button class="btn-ghost btn" id="vwPr" aria-label="Imprimir" title="Imprimir">${ico('printer')}</button></div></div>
-    ${ds.mine?`<div class="vw-sign al"><div>${ico('clock')}<span><b>Sem a sua assinatura</b><small>${ME.nome} · ${ME.papel}${ds.who?` · depois falta ${ds.who.nome} (${ds.who.papel})`:''}</small></span></div>
+    ${ds.mine?`<div class="vw-sign al"><div>${ico('clock')}<span><b>Aguardando a sua assinatura</b><small>${ME.nome} · ${ME.papel}${ds.who?` · depois falta ${ds.who.nome} (${ds.who.papel})`:''}</small></span></div>
       <label class="check"><input type="checkbox" id="sgOk"> Li o documento e concordo</label><button class="btn btn-accent" id="sgGo" disabled>${ico('pen-line')}Assinar com certificado</button></div>`:
      ds.general&&!ds.ok?`<div class="vw-sign gen al"><div>${ico('clock')}<span><b>Sem assinatura</b><small>Este órgão não usa fluxo estruturado de assinaturas; o status é atualizado quando o documento assinado é anexado.</small></span></div></div>`:''}
     <div class="vw-stage">${renderDoc(DOC,e)}</div>
@@ -3373,15 +3376,15 @@ function liqReq(){const base=[['Data',!!LF.data],['Empenho',!!LF.emp],['Descriç
 function syncLiq(){const req=liqReq(),done=req.filter(r=>r[1]).length,ok=done===req.length,q=n=>(req.find(r=>r[0]===n)||[0,true])[1];
   const e=LF.emp?E(LF.emp):null,t=e?tot(e):null,cur=LQ(LF.id),saldo=e?r2(t.aLiq+(cur?cur.l.valor:0)):0,v=r2(LF.valor),dt=desdTot(),dc=docsTot(),over=e&&v>saldo+0.005;
   $('#lSum').innerHTML=`<div><span>Número</span><b>${cur?liqN(cur.l):nextLiqNum()+'/'+EX+' · automático'}</b></div><div><span>Empenho</span><b>${e?`${e.num}/${e.ano}`:'—'}</b></div><div><span>Credor</span><b>${e?C(e.cred).nome:'—'}</b></div>
-   <div><span>Saldo a liquidar</span><b>${e?R$(saldo):'—'}</b></div><div><span>Desdobramentos</span><b style="color:${e&&Math.abs(dt-v)>=0.005?'var(--danger-strong)':'inherit'}">${e?R$(dt):'—'}</b></div><div><span>Documentos</span><b style="color:${e&&Math.abs(dc-v)>=0.005?'var(--danger-strong)':'inherit'}">${e?R$(dc):'—'}</b></div><div><span>Valor da liquidação</span><b class="big">${R$(v)}</b></div>
+   <div><span>Saldo a liquidar</span><b>${e?R$(saldo):'—'}</b></div><div><span>Desdobramentos</span><b>${e?R$(dt):'—'}</b></div><div><span>Documentos</span><b>${e?R$(dc):'—'}</b></div><div><span>Valor da liquidação</span><b class="big">${R$(v)}</b></div>
    ${e?`<div class="sum-use"><div class="row"><span>Esta liquidação usa</span><b style="color:${over?'var(--danger-strong)':'inherit'}">${saldo>0?(Math.round(v/saldo*1000)/10).toLocaleString('pt-BR'):100}% do saldo</b></div><div class="bar"><i class="${over?'over':''}" style="width:${saldo>0?Math.min(100,v/saldo*100):100}%"></i></div><div class="row"><span>Saldo após a liquidação</span><b style="color:${over?'var(--danger-strong)':'inherit'}">${R$(saldo-v)}</b></div></div>`:''}`;
   $('#lChk').innerHTML=`<li style="font-weight:600;color:var(--fg)">${done} de ${req.length} conferências ok</li>`+req.map(([l,k])=>`<li class="${k?'ok':''}">${ico(k?'circle-check':'circle')}${l}</li>`).join('');paintIcons($('#lChk'));
   const vh=$('#lValH');if(vh){vh.innerHTML=over?`${ico('circle-alert')}Maior que o saldo a liquidar do empenho (${R$(saldo)}).`:'';vh.classList.toggle('hidden',!over);$('#lValB').classList.toggle('err',!!over||(LF.tried&&!(v>0)));paintIcons(vh)}
   $('#lDescB').classList.toggle('err',LF.tried&&LF.desc.trim().length<5);
   const sn={1:q('Data')&&q('Empenho')&&q('Descrição')&&q('Valor')&&q('Valor até o saldo a liquidar'),2:!!e};
   if(e){Object.assign(sn,{3:q('Responsável pela liquidação')&&q('Data do atesto'),4:q('Desdobramentos completos')&&q('Desdobramentos somam o valor'),5:!!eOC(e)&&ocTot()>0&&q('Quantidades dentro do disponível'),6:q('Documentos completos')&&q('Documentos somam o valor'),11:!!LF.prev});
-    const dh=$('#lDesdH');if(dh){const bad=dt>0&&v>0&&Math.abs(dt-v)>=0.005;dh.innerHTML=bad?`${ico('circle-alert')}Os desdobramentos somam ${R$(dt)}; o valor da liquidação é ${R$(v)}.`:'';dh.classList.toggle('err',bad);paintIcons(dh)}
-    const ch=$('#lDocH');if(ch){const bad=dc>0&&v>0&&Math.abs(dc-v)>=0.005;ch.innerHTML=bad?`${ico('circle-alert')}Os documentos somam ${R$(dc)}; o valor da liquidação é ${R$(v)}.`:'';ch.classList.toggle('err',bad);paintIcons(ch)}
+    const gap=(el,tot,nome)=>{if(!el)return;const d=r2(v-tot);el.innerHTML=v>0&&Math.abs(d)>=0.005?`${ico('info')}${d>0?`Faltam <b>${R$(d)}</b> para ${nome} fecharem com o valor da liquidação.`:`${nome[0].toUpperCase()+nome.slice(1)} passam <b>${R$(-d)}</b> do valor da liquidação.`}`:'';el.classList.remove('err');el.classList.toggle('pend-h',!!el.innerHTML);paintIcons(el)};
+    gap($('#lDesdH'),dt,'os desdobramentos');gap($('#lDocH'),dc,'os documentos');
     const dT=$('#lDesdT');if(dT)dT.textContent=R$(dt)}
   Object.entries(sn).forEach(([k,ok2])=>{const n=$(`[data-ln="${k}"]`);n&&n.classList.toggle('ok',!!ok2)});
   $('#lSave').disabled=!ok}
