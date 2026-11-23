@@ -1362,7 +1362,8 @@ kbd{color:var(--secondary-fg)!important}
 @media (max-width:1100px){.tbl-liq .col-ass{display:none}}
 .form-layout>div{min-width:0}.fgrid>*{min-width:0}.input.ro span.v{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media (max-width:899px){.crumbs{flex-wrap:wrap;row-gap:2px}.sw-inline{flex:none;width:100%;max-width:100%}.sw-inline .sw-t{white-space:normal}.fgrid{grid-template-columns:minmax(0,1fr)}.fsec-h{flex-wrap:wrap}.fsec-h .sec-r{margin-left:0;width:100%}.sec-tot{min-width:0;width:100%;align-items:flex-start}.rm-c{justify-content:flex-end}.pair{grid-template-columns:1fr 1fr}}
-.wa-btn{width:auto;display:flex;gap:6px;padding:0 12px;border:1px solid var(--border);background:#fff;color:var(--fg);font:inherit;font-size:14px;font-weight:500}.wa-logo{width:20px;height:20px;display:block}.wa-btn .wa-fb{display:none}.wa-btn.no-logo .wa-fb{display:block}.wa-btn:hover,.wa-btn:focus-visible{background:#fff!important;border-color:var(--accent)!important;box-shadow:0 0 0 1px var(--accent) inset!important;color:var(--fg)!important}@media (max-width:1199px){.wa-btn{width:40px;padding:0;border:0;background:transparent;justify-content:center}.wa-btn span{display:none}}
+.wa-btn{width:40px;display:grid;place-items:center;gap:0;padding:0;border:1px solid var(--border);background:#fff;color:var(--fg);font:inherit;font-size:14px;font-weight:500}.wa-logo{width:22px;height:22px;display:block}.wa-btn .wa-fb{display:none}.wa-btn.no-logo .wa-fb{display:block}.wa-btn:hover,.wa-btn:focus-visible{background:#fff!important;border-color:var(--accent)!important;box-shadow:0 0 0 1px var(--accent) inset!important;color:var(--fg)!important}
+.empty .btn{display:flex!important;width:max-content;margin:14px auto 0!important}.empty .btn .ic{width:18px;height:18px;padding:0;margin:0;border-radius:0;background:none;color:inherit}
 </style>
 </head>
 <body>
@@ -1490,7 +1491,7 @@ kbd{color:var(--secondary-fg)!important}
       </div>
 
       <div class="anchor hide-sm">
-        <button class="icon-btn wa-btn" id="waBtn" aria-label="Falar com o suporte no WhatsApp" title="Falar com o suporte no WhatsApp"><img class="wa-logo" src="whatsapp.svg" alt="" width="20" height="20" onerror="this.parentElement.classList.add('no-logo');this.remove()"><i data-i="message-circle" class="wa-fb"></i><span>WhatsApp</span></button>
+        <button class="icon-btn wa-btn" id="waBtn" aria-label="Falar com o suporte no WhatsApp" title="Falar com o suporte no WhatsApp"><img class="wa-logo" src="whatsapp.svg" alt="" width="20" height="20" onerror="this.parentElement.classList.add('no-logo');this.remove()"><i data-i="message-circle" class="wa-fb"></i></button>
       </div>
 
       <div class="anchor hide-sm">
@@ -3407,10 +3408,10 @@ function saveLiq(){LF.tried=true;const req=liqReq();if(req.some(r=>!r[1])){if(LF
 /* ---------------- visualizar ---------------- */
 function liqHead(l,e,title,tab){const [sl,sc]=liqSit(l);const an=sl==='Totalmente anulado';
   return `<div class="crumbs">Contábil ${ico('chevron-right')} 2 - Orçamentário ${ico('chevron-right')} <button class="link" data-lback style="font-size:12px">2.12 - Liquidação</button> ${ico('chevron-right')} ${title?`<button class="link" data-lview style="font-size:12px">${liqN(l)}</button> ${ico('chevron-right')} ${title}`:liqN(l)}</div>
-  <div class="page-head"><button class="back" aria-label="Voltar" ${title?'data-lview':'data-lback'}>${ico('chevron-left')}</button><div><h1>${title||`Liquidação ${liqN(l)}`}</h1><p class="eh-sub">${title?`<span>Liquidação <b>${liqN(l)}</b></span>`:''}<span class="chip ${sc}">${sl}</span>${an?'':liqSigned(l)?`<span class="chip ok">${ico('check')}Assinado</span>`:`<span class="chip bad-o">${ico('clock')}Sem assinatura</span>`}<span>Empenho <button class="lk-emp" data-goemp="${e.num}">${e.num}/${e.ano}</button> · ${C(e.cred).nome}</span></p></div></div>
+  <div class="page-head"><button class="back" aria-label="Voltar" ${title?'data-lview':'data-lback'}>${ico('chevron-left')}</button><div><h1>${title||`Liquidação ${liqN(l)}`}</h1><p class="eh-sub">${title?`<span>Liquidação <b>${liqN(l)}</b></span>`:''}<span class="chip ${sc}">${sl}</span>${an?'':liqSigned(l)?`<span class="chip ok">${ico('check')}Assinado</span>`:`<span class="chip bad-o">${ico('clock')}Sem assinatura</span>`}<span>Empenho <button class="lk-emp" data-goemp="${e.num}">${e.num}/${e.ano}</button>${pgsOf(l).map(p=>` · Pagamento <button class="lk-emp" data-gopg="${p.id}">${pagNum(p)}</button>`).join('')} · ${C(e.cred).nome}</span></p></div></div>
   ${tab?`<div class="vtabs" role="tablist"><button role="tab" class="${tab==='det'?'on':''}" data-lt="det" aria-selected="${tab==='det'}">${ico('file-text')}Detalhes da liquidação</button><button role="tab" class="${tab==='tl'?'on':''}" data-lt="tl" aria-selected="${tab==='tl'}">${ico('git-commit-vertical')}Linha do tempo e documentos</button></div>`:''}`}
 function liqHeadWire(el,l,e){paintIcons(el);$$('[data-lback]',el).forEach(b=>b.onclick=()=>go('#tela/k-2.12'));$$('[data-lview]',el).forEach(b=>b.onclick=()=>go('#tela/k-2.12/'+l.id));
-  $$('[data-goemp]',el).forEach(b=>b.onclick=ev=>{ev.stopPropagation();go('#tela/k-2.10/'+b.dataset.goemp+'?detalhes')});
+  $$('[data-goemp]',el).forEach(b=>b.onclick=ev=>{ev.stopPropagation();go('#tela/k-2.10/'+b.dataset.goemp+'?detalhes')});$$('[data-gopg]',el).forEach(b=>b.onclick=ev=>{ev.stopPropagation();go('#tela/k-3.1.1/'+b.dataset.gopg)});
   $$('[data-lt]',el).forEach(b=>b.onclick=()=>go('#tela/k-2.12/'+l.id+(b.dataset.lt==='tl'?'?tl':'')))}
 
 function renderLiqView(id){const r=LQ(id);if(!r)return go('#tela/k-2.12');const {l,e}=r,d=D(e.dot),oc=eOC(e),[sl]=liqSit(l),an=sl==='Totalmente anulado',signed=liqSigned(l),ed=canEditLiq(l);
@@ -3441,11 +3442,7 @@ function renderLiqView(id){const r=LQ(id);if(!r)return go('#tela/k-2.12');const 
     <div><span>Valor liquidado</span><b>${R$(l.valor)}</b></div>${l.anul?`<div><span>Anulado</span><b class="neg">${R$(l.anul)}</b></div>`:''}<div><span>Retenções</span><b>${R$(retOf(l))}</b></div>
     <div><span>Líquido</span><b>${R$(l.liquido)}</b></div><div><span>Saldo a pagar</span><b class="big">${R$(saldoPg(l))}</b></div>${l.pago?`<div><span>Pagamento</span><b>${l.pg.op} · ${l.pg.data}</b></div>`:''}</div>
     <div class="side-acts">${ed?`<button class="btn btn-accent" id="lvEd2">${ico('pencil')}Editar</button>`:''}<button class="btn btn-gray" data-lback>${ico('arrow-left')}Voltar à lista</button></div></div>
-    <div class="card" style="margin-top:16px"><div class="card-h"><h3 style="font-size:18px">Caminho da despesa</h3></div><div class="card-b chain">
-      <button type="button" class="chain-i" data-goemp="${e.num}">${ico('file-pen-line')}<span><b>Empenho ${e.num}/${e.ano}</b><small>${R$(tot(e).V)} · ${status(e)[0]}</small></span></button>
-      <button type="button" class="chain-i on">${ico('file-check')}<span><b>Liquidação ${liqN(l)}</b><small>${R$(l.valor)} · ${liqSit(l)[0]}</small></span></button>
-      ${pgsOf(l).map(x=>`<button type="button" class="chain-i" data-gopg="${x.id}">${ico('banknote')}<span><b>Pagamento ${pagNum(x)}</b><small>${R$(x.valor)} · ${pgSit(x)[0]}</small></span></button>`).join('')}
-      ${saldoPg(l)>0&&!an?`<div class="chain-i wait">${ico('hourglass')}<span><b>${R$(saldoPg(l))} a pagar</b><small>${signed?'na fila de pagamento':'depois da assinatura da nota'}</small></span></div>`:''}</div></div></aside></div>`;
+</aside></div>`;
   liqHeadWire(el,l,e);$$('[data-gopg]',el).forEach(b=>b.onclick=()=>go('#tela/k-3.1.1/'+b.dataset.gopg));if($('#lvPay'))$('#lvPay').onclick=()=>go('#tela/k-3.1.1/novo?liq='+l.id);
   $$('[data-doc-go]',el).forEach(b=>b.onclick=()=>{DOC=b.dataset.docGo+':'+l.id;go('#tela/k-2.12/'+l.id+'?tl')});
   $$('[data-vdoc]',el).forEach(b=>b.onclick=()=>{DOC='nf:'+l.id;go('#tela/k-2.12/'+l.id+'?tl')});
@@ -3856,11 +3853,7 @@ function renderPgView(id,baixa){const p=PG(id);if(!p)return go('#tela/k-3.1.1');
   <aside class="side"><div class="card"><div class="card-h"><h3 style="font-size:18px">Resumo</h3></div><div class="card-b">
     <div><span>Valor do pagamento</span><b>${R$(p.valor)}</b></div>${p.anul?`<div><span>Anulado</span><b class="neg">${R$(p.anul)}</b></div>`:''}<div><span>Retenções</span><b>${R$(pgRet(p))}</b></div><div><span>Líquido ao credor</span><b>${R$(pgLiqV(p))}</b></div>
     <div><span>Baixado</span><b>${R$(pgBaix(p))}</b></div><div><span>Saldo da liquidação</span><b class="big">${R$(saldoPg(l))}</b></div></div>
-    <div class="side-acts">${ed?`<button class="btn btn-accent" id="pvEd2">${ico('pencil')}Editar</button>`:''}<button class="btn btn-gray" data-pback>${ico('arrow-left')}Voltar à lista</button></div></div>
-    <div class="card" style="margin-top:16px"><div class="card-h"><h3 style="font-size:18px">Caminho da despesa</h3></div><div class="card-b chain">
-      <button type="button" class="chain-i" data-goemp="${e.num}">${ico('file-pen-line')}<span><b>Empenho ${e.num}/${e.ano}</b><small>${R$(tot(e).V)} · ${status(e)[0]}</small></span></button>
-      <button type="button" class="chain-i" data-goliq="${l.id}">${ico('file-check')}<span><b>Liquidação ${liqN(l)}</b><small>${R$(l.valor)} · ${liqSit(l)[0]}</small></span></button>
-      ${pgsOf(l).map(x=>`<button type="button" class="chain-i ${x===p?'on':''}" data-gopg="${x.id}">${ico('banknote')}<span><b>Pagamento ${pagNum(x)}</b><small>${R$(x.valor)} · ${pgSit(x)[0]}</small></span></button>`).join('')}</div></div></aside></div>`;
+    <div class="side-acts">${ed?`<button class="btn btn-accent" id="pvEd2">${ico('pencil')}Editar</button>`:''}<button class="btn btn-gray" data-pback>${ico('arrow-left')}Voltar à lista</button></div></div></aside></div>`;
   pgHeadWire(el,p);
   $$('[data-gopg]',el).forEach(b=>b.onclick=()=>go('#tela/k-3.1.1/'+b.dataset.gopg));
   $$('[data-doc-go]',el).forEach(b=>b.onclick=()=>{DOC=b.dataset.docGo+':'+p.id;go('#tela/k-3.1.1/'+p.id+'?tl')});
