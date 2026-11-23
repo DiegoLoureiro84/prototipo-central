@@ -1365,6 +1365,7 @@ kbd{color:var(--secondary-fg)!important}
 @media (max-width:899px){.tlv>*{min-width:0}.vw-stage{overflow-x:auto}.tl2-t{flex-wrap:wrap}.vtabs{overflow-x:auto;scrollbar-width:none;max-width:100%}.vtabs::-webkit-scrollbar{display:none}.vtabs>button{flex:none;white-space:nowrap}.crumbs{flex-wrap:wrap;row-gap:2px}.sw-inline{flex:none;width:100%;max-width:100%}.sw-inline .sw-t{white-space:normal}.fgrid{grid-template-columns:minmax(0,1fr)}.fsec-h{flex-wrap:wrap}.fsec-h .sec-r{margin-left:0;width:100%}.sec-tot{min-width:0;width:100%;align-items:flex-start}.rm-c{justify-content:flex-end}.pair{grid-template-columns:1fr 1fr}}
 .wa-btn{width:40px;display:grid;place-items:center;gap:0;padding:0;border:1px solid var(--border);background:#fff;color:var(--fg);font:inherit;font-size:14px;font-weight:500}.wa-logo{width:22px;height:22px;display:block}.wa-btn .wa-fb{display:none}.wa-btn.no-logo .wa-fb{display:block}.wa-btn:hover,.wa-btn:focus-visible{background:#fff!important;border-color:var(--accent)!important;box-shadow:0 0 0 1px var(--accent) inset!important;color:var(--fg)!important}
 .empty .btn{display:flex!important;width:max-content;margin:14px auto 0!important}.empty .btn .ic{width:18px;height:18px;padding:0;margin:0;border-radius:0;background:none;color:inherit}
+#numTxt{flex:0 0 auto!important;min-width:3ch;max-width:100%;padding:0!important}.input .suf{color:var(--fg);font-weight:500;margin-left:-13px;white-space:nowrap}#numIn #resOpen{margin-left:auto}
 </style>
 </head>
 <body>
@@ -2939,12 +2940,11 @@ function numState(){const t=(F.numTxt||'').replace(/\D/g,'');if(!t)return {k:'au
   const used=EMPS.find(e=>e.num===n&&e.ano===EX);if(used)return {k:'used',n,e:used};
   const r=RESERVAS.find(x=>x.num===n);if(r)return {k:'res',n,r};return {k:'free',n}}
 function paintNum(){const box=$('#numBox');if(!box)return;const last=Math.max(...EMPS.map(e=>e.num));
-  if(F.edit){box.innerHTML=`<div class="fgrid"><div class="c4"><label>Número</label><div class="input ro"><span class="v">${F.edit}</span></div></div><div class="c2"><label>Ano</label><div class="input ro"><span class="v">${EX}</span></div></div></div>`;return}
+  if(F.edit){box.innerHTML=`<div class="fgrid"><div class="c6"><label>Número</label><div class="input ro"><span class="v">${F.edit}/${EX}</span></div></div><div class="c6"><label>Último empenho</label><div class="input ro"><span class="v">${last}/${EX}</span></div></div></div>`;return}
   box.innerHTML=`<div class="fgrid">
-   <div class="c3"><label>Último empenho</label><div class="input ro"><span class="v">${last}/${EX}</span></div></div>
-   <div class="c6"><label>Número <span class="chip gray" style="height:18px;font-size:10px">vazio = automático</span></label><div style="position:relative"><div class="input" id="numIn"><i data-i="hash"></i><input id="numTxt" inputmode="numeric" autocomplete="off" placeholder="Automático: ${nextNum()}" value="${F.numTxt||''}"><button type="button" class="link" id="resOpen" style="font-size:12px;white-space:nowrap">Reservas (${RESERVAS.length})</button></div><div class="res-list hidden" id="resList"></div></div><div id="numHint"></div></div>
-   <div class="c3"><label>Ano</label><div class="input ro"><span class="v">${EX}</span></div></div></div>`;
-  paintIcons(box);const inp=$('#numTxt'),lst=$('#resList');
+   <div class="c4"><label>Último empenho</label><div class="input ro"><span class="v">${last}/${EX}</span></div></div>
+   <div class="c8"><label>Número <span class="chip gray" style="height:18px;font-size:10px">vazio = automático</span></label><div style="position:relative"><div class="input" id="numIn"><i data-i="hash"></i><input id="numTxt" inputmode="numeric" autocomplete="off" placeholder="Automático: ${nextNum()}/${EX}" value="${F.numTxt||''}"><span class="suf" id="numSuf" ${F.numTxt?'':'hidden'}>/${EX}</span><button type="button" class="link" id="resOpen" style="font-size:12px;white-space:nowrap">Reservas (${RESERVAS.length})</button></div><div class="res-list hidden" id="resList"></div></div><div id="numHint"></div></div></div>`;
+  paintIcons(box);const inp=$('#numTxt'),lst=$('#resList');const fit=()=>{const v=inp.value;inp.style.setProperty('width',(v?v.length+0.2:inp.placeholder.length+1)+'ch','important');$('#numSuf').hidden=!v};fit();inp.addEventListener('input',fit);
   const hint=()=>{const st=numState(),h=$('#numHint'),bx=$('#numIn');bx.classList.toggle('err',st.k==='used');
     h.innerHTML=st.k==='auto'?`<p class="num-hint">${ico('info')}Fica com o próximo da sequência (${st.n}/${EX}), confirmado ao salvar.</p>`
      :st.k==='used'?`<p class="hint err">${ico('circle-alert')}O número ${st.n}/${EX} já é do empenho de ${C(st.e.cred).nome}. Deixe vazio ou use uma reserva.</p>`
@@ -3044,7 +3044,7 @@ const LCOL_LABEL={data:'Data',emp:'Empenho',org:'Órgão / unidade',desp:'Despes
 const LS={q:'',sort:['num',-1],page:1,per:20,adv:{},advOpen:false,focus:null,kpiHide:store.get('kpi_hide_liq',false),sel:new Set(),
   cols:store.get('lcols3',lcolsDef()),psort:['aliq',-1]};
 if(!Array.isArray(LS.cols)||LS.cols.length!==LCOLS_DEF.length)LS.cols=lcolsDef();
-const LADV_LABEL={num:'Número',emp:'Empenho',anoEmp:'Ano do empenho',nf:'Nº doc. fiscal',prot:'Nº protocolo',protPg:'Nº protocolo pgto',dIni:'Data de',dFim:'Data até',vIni:'Valor de',vFim:'Valor até',cred:'Credor',sit:'Situação',
+const LADV_LABEL={num:'Número',emp:'Empenho',nf:'Nº doc. fiscal',prot:'Nº protocolo',protPg:'Nº protocolo pgto',dIni:'Data de',dFim:'Data até',vIni:'Valor de',vFim:'Valor até',cred:'Credor',sit:'Situação',
   dotIni:'Cód. red. de',dotFim:'Cód. red. até',orgIni:'Órgão de',orgFim:'Órgão até',uniIni:'Unidade de',uniFim:'Unidade até',funIni:'Função de',funFim:'Função até',subIni:'Subfunção de',subFim:'Subfunção até',
   prgIni:'Programa de',prgFim:'Programa até',acaIni:'Ação de',acaFim:'Ação até',elIni:'Elemento de',elFim:'Elemento até',fonIni:'Fonte de',fonFim:'Fonte até'};
 
@@ -3085,8 +3085,7 @@ function lFiltered(){const a=LS.adv,norm=t=>String(t).toLowerCase().normalize('N
     return hay.includes(q)||(qd.length>=3&&(String(l.num).includes(qd)||String(e.num).includes(qd)||dig(c.doc).includes(qd)))});
   L=L.filter(({l,e})=>{const d=D(e.dot),c=C(e.cred),f=d.func.split('.');
     if(a.num&&!String(l.num).startsWith(dig(a.num)))return false;
-    if(a.emp&&!String(e.num).startsWith(dig(a.emp)))return false;
-    if(a.anoEmp&&String(e.ano)!==dig(a.anoEmp))return false;
+    if(a.emp){const [n,y]=a.emp.split('/');if(dig(n)&&!String(e.num).startsWith(dig(n)))return false;if(y&&dig(y)&&String(e.ano)!==dig(y))return false}
     if(a.nf&&!l.docs.some(x=>String(x.num).includes(a.nf.trim())))return false;
     if(a.prot&&!String(l.prot||'').includes(a.prot.trim()))return false;
     if(a.protPg&&!String(l.protPg||'').includes(a.protPg.trim()))return false;
@@ -3129,7 +3128,7 @@ function renderLiqList(){
     </div>
     ${LS.advOpen?`<div class="adv-inline"><div class="fgrid">
       <div class="c12 adv-sec">Liquidação e empenho</div>
-      ${f('num','Número','Nº da liquidação','text','c2')}${f('emp','Empenho','Nº do empenho','text','c2')}${f('anoEmp','Ano do empenho','aaaa','text','c2')}${f('nf','Nº doc. fiscal','','text','c2')}${f('prot','Nº protocolo','','text','c2')}${f('protPg','Nº protocolo pgto','','text','c2')}
+      ${f('num','Número','Nº da liquidação','text','c3')}${f('emp','Empenho','Nº ou nº/ano','text','c3')}${f('nf','Nº doc. fiscal','','text','c2')}${f('prot','Nº protocolo','','text','c2')}${f('protPg','Nº protocolo pgto','','text','c2')}
       <div class="c12 adv-sec">Período, valor e credor</div>
       ${f('dIni','Data inicial','','date','c2')}${f('dFim','Data final','','date','c2')}${f('vIni','Valor inicial','0,00','text','c2')}${f('vFim','Valor final','0,00','text','c2')}
       <div class="c4"><label for="la-cred">Credor (nome ou CNPJ)</label><div class="input"><i data-i="search"></i><input id="la-cred" data-adv="cred" value="${a.cred||''}" placeholder="Digite para buscar"></div></div>
@@ -3238,12 +3237,12 @@ function renderLiqForm(opt){opt=opt||{};const ed=opt.edit;const ex=ed?LQ(ed):nul
   <div class="page-head"><button class="back" aria-label="Voltar" data-back>${ico('chevron-left')}</button><div><h1>${ex?`Editar liquidação ${liqN(ex.l)}`:'Incluir liquidação'}</h1><p>${ex?'Só é possível editar enquanto a nota de liquidação não foi assinada nem paga.':`Última liquidação: <b>${last}/${EX}</b>. O próximo número é gerado ao salvar.`}</p></div></div>
   <div class="form-layout"><div>
    <section class="card">${secH(1,'Liquidação',false)}<div class="card-b"><div class="fgrid">
-     ${roF('Número',ex?ex.l.num:`${nextLiqNum()} · previsto`,'c3')}${roF('Ano',ex?ex.l.data.slice(-4):EX,'c3')}${roF('Última liquidação',`${last}/${EX}`,'c3')}
-     <div class="c3"><label for="lData">Data <i class="req">*</i></label><div class="input" id="lDataB"><input type="date" id="lData" value="${LF.data}"></div></div>
-     <div class="c6"><div id="lEmpBox"></div></div>
-     <div class="c6 l-desc"><label for="lDesc">Descrição <i class="req">*</i></label><div class="input ta" id="lDescB"><textarea id="lDesc" maxlength="500" placeholder="Histórico da liquidação, como vai aparecer na nota">${LF.desc}</textarea></div><div style="text-align:right"><span class="counter" id="lDescCnt">${LF.desc.length}/500</span></div></div>
+     ${roF('Número',ex?liqN(ex.l):`${nextLiqNum()}/${EX} · previsto`,'c4')}${roF('Última liquidação',`${last}/${EX}`,'c4')}
+     <div class="c4"><label for="lData">Data <i class="req">*</i></label><div class="input" id="lDataB"><input type="date" id="lData" value="${LF.data}"></div></div>
+     <div class="c12"><div id="lEmpBox"></div></div>
      <div class="c6"><label for="lVal">Valor <i class="req">*</i></label><div class="input" id="lValB"><span class="pre">R$</span><input id="lVal" inputmode="numeric" value="${LF.valor?brl(LF.valor):''}" placeholder="0,00"></div><div class="hint err hidden" id="lValH"></div></div>
      <div class="c6"><label for="lProt">Nº protocolo pgto</label><div class="input"><input id="lProt" value="${LF.protPg}"></div></div>
+     <div class="c12 l-desc"><label for="lDesc">Descrição <i class="req">*</i></label><div class="input ta" id="lDescB"><textarea id="lDesc" maxlength="500" placeholder="Histórico da liquidação, como vai aparecer na nota">${LF.desc}</textarea></div><div style="text-align:right"><span class="counter" id="lDescCnt">${LF.desc.length}/500</span></div></div>
    </div></div></section>
    <section class="card">${secH(2,'Empenho',false)}<div class="card-b" id="lEmpData"></div></section>
    <div id="lRest"></div>
@@ -3423,9 +3422,9 @@ function renderLiqView(id){const r=LQ(id);if(!r)return go('#tela/k-2.12');const 
   <div class="act-strip card"><div class="as-txt">${ico(next[0])}<div><b>${next[1]}</b><small>${next[2]}</small></div></div>
     <div class="as-btns"><button class="btn btn-gray" data-doc-go="nl">${ico('file-check')}Nota de liquidação</button>${ed?`<button class="btn btn-gray" id="lvEd">${ico('pencil')}Editar</button>`:''}${!an&&!signed?`<button class="btn btn-accent" data-doc-go="nl">${ico('pen-line')}Assinar</button>`:''}${!an&&signed&&saldoPg(l)>0?`<button class="btn btn-accent" id="lvPay">${ico('banknote')}Pagar</button>`:''}</div></div>
   <div class="form-layout"><div>
-   <section class="card">${secH(1,'Liquidação',true)}<div class="card-b"><div class="fgrid">${roF('Número',l.num,'c3')}${roF('Ano',l.data.slice(-4),'c3')}${roF('Última liquidação',`${nextLiqNum()-1}/${EX}`,'c3')}${roF('Data',l.data,'c3')}
-     ${roF('Empenho',empLabel(e,tot(e).aLiq),'c6')}<div class="c6 l-desc"><label>Descrição</label><div class="input ro ta-ro"><span class="v">${l.desc}</span></div></div>
-     ${roF('Valor',brl(l.valor),'c6')}${roF('Nº protocolo pgto',l.protPg||'','c6')}</div></div></section>
+   <section class="card">${secH(1,'Liquidação',true)}<div class="card-b"><div class="fgrid">${roF('Número',liqN(l),'c4')}${roF('Última liquidação',`${nextLiqNum()-1}/${EX}`,'c4')}${roF('Data',l.data,'c4')}
+     ${roF('Empenho',empLabel(e,tot(e).aLiq),'c12')}${roF('Valor',brl(l.valor),'c6')}${roF('Nº protocolo pgto',l.protPg||'','c6')}
+     <div class="c12 l-desc"><label>Descrição</label><div class="input ro ta-ro"><span class="v">${l.desc}</span></div></div></div></div></section>
    <section class="card">${secH(2,'Empenho',true)}<div class="card-b">${empFields(e)}</div></section>
    <section class="card">${secH(3,'Responsável e atesto',true)}<div class="card-b"><div class="fgrid">${roF('Responsável pela liquidação',l.resp,'c3')}${roF('Nome',respNome(l.resp))}${roF('Data do atesto',l.dtAt,'c3')}${roF('Responsável pelo atesto',l.respAt||'','c3')}${roF('Nome',respNome(l.respAt),'c9')}</div></div></section>
    <section class="card">${secH(4,'Subelemento/Desdobramento',true)}<div class="card-b">${l.desd.map(x=>`<div class="irow"><div class="fgrid">${roF('Sub/Desd',x.sub,'c5')}${roF('Quantidade',String(x.qtd).replace('.',','),'c2')}${roF('Un. medida',x.un,'c3')}${roF('Valor',brl(x.valor),'c2')}</div></div>`).join('')}
@@ -3544,7 +3543,7 @@ const pcolsDef=()=>PCOLS_DEF.map(k=>[k,!PCOLS_OFF.includes(k)]);
 const PCOL_LABEL={liq:'Liquidação',emp:'Empenho',org:'Órgão / unidade',desp:'Elemento de despesa',fonte:'Fonte',cred:'Credor',chq:'Cheq/Bord',pgcred:'Pagto credor',baixa:'Baixa',prot:'Nº protocolo pgto',lote:'Lote',bord:'Borderô',valor:'Valor',saldo:'Saldo',sit:'Situação',ass:'Assinatura'};
 const PS={q:'',sort:['num',-1],page:1,per:20,adv:{},advOpen:false,focus:null,kpiHide:store.get('kpi_hide_pag',false),sel:new Set(),cols:store.get('pcols1',pcolsDef())};
 if(!Array.isArray(PS.cols)||PS.cols.length!==PCOLS_DEF.length)PS.cols=pcolsDef();
-const PADV_LABEL={num:'Número',liq:'Liquidação',anoLiq:'Ano da liquidação',emp:'Empenho',anoEmp:'Ano do empenho',conta:'Conta bancária',docf:'Docto financeiro',bord:'Borderô',prot:'Nº protocolo',protPg:'Nº protocolo pgto',dIni:'Data de',dFim:'Data até',vIni:'Valor de',vFim:'Valor até',cred:'Credor',sit:'Situação',
+const PADV_LABEL={num:'Número',liq:'Liquidação',emp:'Empenho',conta:'Conta bancária',docf:'Docto financeiro',bord:'Borderô',prot:'Nº protocolo',protPg:'Nº protocolo pgto',dIni:'Data de',dFim:'Data até',vIni:'Valor de',vFim:'Valor até',cred:'Credor',sit:'Situação',
   dotIni:'Cód. red. de',dotFim:'Cód. red. até',orgIni:'Órgão de',orgFim:'Órgão até',uniIni:'Unidade de',uniFim:'Unidade até',funIni:'Função de',funFim:'Função até',subIni:'Subfunção de',subFim:'Subfunção até',prgIni:'Programa de',prgFim:'Programa até',acaIni:'Ação de',acaFim:'Ação até',elIni:'Elemento de',elFim:'Elemento até',fonIni:'Fonte de',fonFim:'Fonte até'};
 const PMETRICS={
  apagar:{label:'A pagar',icon:'hourglass',act:true,cta:'Ver fila de pagamento',calc:()=>{const L=allL().filter(x=>saldoPg(x.l)>0&&!(x.l.anul>=x.l.valor));return {v:R$(L.reduce((s,{l})=>s+saldoPg(l),0)),s:`${L.length} liquidações com saldo a pagar`}}},
@@ -3578,8 +3577,8 @@ function pFiltered(){const a=PS.adv,norm=t=>String(t).toLowerCase().normalize('N
   let L=PAGS.filter(p=>p.emissao.slice(-4)==String(EX)).map(p=>({p,...pgLE(p)})).filter(x=>x.l);
   if(q)L=L.filter(({p,l,e})=>{const c=C(e.cred),d=D(e.dot);const hay=norm([pagNum(p),liqN(l),`${e.num}/${e.ano}`,c.nome,c.doc,d.cod,d.acao,d.el,d.fonte,p.bord,contaN(p.conta)].join(' '));return hay.includes(q)||(qd.length>=3&&(String(p.num).includes(qd)||String(l.num).includes(qd)||String(e.num).includes(qd)||dig(c.doc).includes(qd)))});
   L=L.filter(({p,l,e})=>{const d=D(e.dot),c=C(e.cred),f=d.func.split('.');
-    if(a.num&&!String(p.num).startsWith(dig(a.num)))return false;if(a.liq&&!String(l.num).startsWith(dig(a.liq)))return false;if(a.anoLiq&&l.data.slice(-4)!==dig(a.anoLiq))return false;
-    if(a.emp&&!String(e.num).startsWith(dig(a.emp)))return false;if(a.anoEmp&&String(e.ano)!==dig(a.anoEmp))return false;
+    if(a.num&&!String(p.num).startsWith(dig(a.num)))return false;const ny=(v,num,ano)=>{const [n,y]=v.split('/');return !((dig(n)&&!String(num).startsWith(dig(n)))||(y&&dig(y)&&String(ano)!==dig(y)))};
+    if(a.liq&&!ny(a.liq,l.num,l.data.slice(-4)))return false;if(a.emp&&!ny(a.emp,e.num,e.ano))return false;
     if(a.conta&&String(p.conta)!==a.conta)return false;if(a.bord&&!String(p.bord).includes(a.bord.trim()))return false;
     if(a.docf&&!String(p.docf||'').includes(a.docf.trim()))return false;if(a.prot&&!String(p.prot||'').includes(a.prot.trim()))return false;if(a.protPg&&!String(l.protPg||'').includes(a.protPg.trim()))return false;
     if(a.cred&&!norm(c.nome+' '+c.doc).includes(norm(a.cred)))return false;if(a.sit&&pgSit(p)[0]!==a.sit)return false;
@@ -3621,10 +3620,10 @@ function renderPgList(){
     </div>
     ${PS.advOpen?`<div class="adv-inline"><div class="fgrid">
       <div class="c12 adv-sec">Pagamento, liquidação e empenho</div>
-      ${f('num','Número','Nº do pagamento')}${f('liq','Liquidação')}${f('anoLiq','Ano da liquidação','aaaa')}${f('emp','Empenho')}${f('anoEmp','Ano do empenho','aaaa')}${f('prot','Nº protocolo')}
-      ${f('protPg','Nº protocolo pgto')}${f('docf','Docto financeiro')}${f('bord','Borderô')}
-      <div class="c3"><label for="pa-conta">Conta bancária</label><div class="input"><select id="pa-conta" data-adv="conta"><option value="">Todas</option>${CONTAS.map(x=>`<option value="${x.id}" ${a.conta==x.id?'selected':''}>${x.f}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
-      <div class="c3"><label for="pa-sit">Situação</label><div class="input"><select id="pa-sit" data-adv="sit"><option value="">Todas</option>${sitOpts.map(o=>`<option ${a.sit===o?'selected':''}>${o}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
+      ${f('num','Número','Nº do pagamento')}${f('liq','Liquidação','Nº ou nº/ano')}${f('emp','Empenho','Nº ou nº/ano')}${f('prot','Nº protocolo')}${f('protPg','Nº protocolo pgto')}${f('docf','Docto financeiro')}
+      ${f('bord','Borderô','','text','c4')}
+      <div class="c4"><label for="pa-conta">Conta bancária</label><div class="input"><select id="pa-conta" data-adv="conta"><option value="">Todas</option>${CONTAS.map(x=>`<option value="${x.id}" ${a.conta==x.id?'selected':''}>${x.f}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
+      <div class="c4"><label for="pa-sit">Situação</label><div class="input"><select id="pa-sit" data-adv="sit"><option value="">Todas</option>${sitOpts.map(o=>`<option ${a.sit===o?'selected':''}>${o}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
       <div class="c12 adv-sec">Período, valor e credor</div>
       ${f('dIni','Data inicial','','date')}${f('dFim','Data final','','date')}${f('vIni','Valor inicial','0,00')}${f('vFim','Valor final','0,00')}
       <div class="c4"><label for="pa-cred">Credor (nome ou CNPJ)</label><div class="input"><i data-i="search"></i><input id="pa-cred" data-adv="cred" value="${a.cred||''}" placeholder="Digite para buscar"></div></div>
@@ -3718,9 +3717,9 @@ function renderPgForm(opt){opt=opt||{};const ex=opt.edit?PG(opt.edit):null;if(op
   <div class="page-head"><button class="back" aria-label="Voltar" data-back>${ico('chevron-left')}</button><div><h1>${ex?`Editar pagamento ${pagNum(ex)}`:'Incluir pagamento'}</h1><p>${ex?'Só é possível editar antes das assinaturas e da baixa bancária.':`Último pagamento: <b>${last}/${EX}</b>. O próximo número é gerado ao salvar.`}</p></div></div>
   <div class="form-layout"><div>
    <section class="card">${secH(1,'Informações gerais',false)}<div class="card-b"><div class="fgrid">
-     ${roF('Número',ex?ex.num:`${nextPagNum()} · previsto`,'c4')}${roF('Ano',ex?ex.emissao.slice(-4):EX,'c4')}${roF('Último pagamento',`${last}/${EX}`,'c4')}
-     <div class="c8"><div id="pLiqBox"></div></div>
+     ${roF('Número',ex?pagNum(ex):`${nextPagNum()}/${EX} · previsto`,'c4')}${roF('Último pagamento',`${last}/${EX}`,'c4')}
      <div class="c4"><label for="pEm">Emissão <i class="req">*</i></label><div class="input"><input type="date" id="pEm" value="${PF.emissao}"></div></div>
+     <div class="c12"><div id="pLiqBox"></div></div>
      <div class="c12" id="pOrdem"></div>
    </div></div></section>
    <section class="card">${secH(2,'Dotação',false)}<div class="card-b" id="pDot"></div></section>
@@ -3838,8 +3837,8 @@ function renderPgView(id,baixa){const p=PG(id);if(!p)return go('#tela/k-3.1.1');
   <div class="act-strip card"><div class="as-txt">${ico(next[0])}<div><b>${next[1]}</b><small>${next[2]}</small></div></div>
     <div class="as-btns"><button class="btn btn-gray" data-doc-go="op">${ico('banknote')}Ordem de pagamento</button>${ed?`<button class="btn btn-gray" id="pvEd">${ico('pencil')}Editar</button>`:''}${!an&&n<2?`<button class="btn btn-gray" id="pvSig">${ico('pen-line')}Enviar ao Assina</button>`:''}${cb&&!an?`<button class="btn ${n===2?'btn-accent':'btn-gray'}" id="pvBx">${ico('landmark')}Baixa</button>`:''}</div></div>`)+`
   <div class="form-layout"><div>
-   <section class="card">${secH(1,'Informações gerais',true)}<div class="card-b"><div class="fgrid">${roF('Número',p.num,'c4')}${roF('Ano',p.emissao.slice(-4),'c4')}${roF('Último pagamento',`${nextPagNum()-1}/${EX}`,'c4')}
-     <div class="c8"><label>Ref. liquidação</label><button type="button" class="input ro anx" data-goliq="${l.id}">${ico('file-check')}<span>${liqLabel(l,e,saldoPg(l))}</span></button></div>${roF('Emissão',p.emissao,'c4')}
+   <section class="card">${secH(1,'Informações gerais',true)}<div class="card-b"><div class="fgrid">${roF('Número',pagNum(p),'c4')}${roF('Último pagamento',`${nextPagNum()-1}/${EX}`,'c4')}${roF('Emissão',p.emissao,'c4')}
+     <div class="c12"><label>Ref. liquidação</label><button type="button" class="input ro anx" data-goliq="${l.id}">${ico('file-check')}<span>${liqLabel(l,e,saldoPg(l))}</span></button></div>
      ${p.just?`<div class="c12 l-desc"><label>Justificativa da quebra de ordem</label><div class="input ro ta-ro"><span class="v">${p.just}</span></div></div>`:''}</div></div></section>
    <section class="card">${secH(2,'Dotação',true)}<div class="card-b">${dotFields(e)}</div></section>
    <section class="card">${secH(3,'Credor, descrição e valores',true)}<div class="card-b"><div class="fgrid">${roF('Credor',`${103000+c.id*7} - ${c.nome}`,'c5')}${roF('Conta bancária',contaN(p.conta),'c4')}${roF('Tipo op.',p.tipoOp,'c3')}
