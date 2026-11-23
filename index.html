@@ -1284,13 +1284,13 @@ body{background:var(--bg)}
 .nav-a.active:hover{background:var(--accent)!important}
 /* preenchimentos com texto branco: verde escuro da paleta (4,94:1) */
 /* preenchimentos verdes: verde de destaque com texto e ícone ESCUROS (8,3:1). Verde escuro só no toast de sucesso */
-.bulkbar .btn-accent,.dot,.chip.ok,.seg button.on,.sys:hover .si,.last-tag,.tabs button.on,.acc-sec em,.fsec-h .n.ok,.tl li.done .tli,.tl2 li.st-done .tli,.pg button.on,.ex-chip.on{background:var(--accent)!important;border-color:var(--accent)!important;color:var(--fg)!important}
+.bulkbar .btn-accent,.dot,.chip.ok,.seg button.on,.last-tag,.tabs button.on,.acc-sec em,.fsec-h .n.ok,.tl li.done .tli,.tl2 li.st-done .tli,.pg button.on,.ex-chip.on{background:var(--accent)!important;border-color:var(--accent)!important;color:var(--fg)!important}
 .bulkbar .btn-accent *,.dot *,.chip.ok *,.chip.ok .ic,.seg button.on *,.last-tag *,.tabs button.on *,.pg button.on *,.ex-chip.on *{color:var(--fg)!important}
 .toast.success{background:var(--accent)!important;color:var(--fg)!important}
 .toast.success *,.toast.success .x,.toast.success .x .ic,.toast.success .ic{color:var(--fg)!important}
 .toast.success p{opacity:1}
 /* ícone sozinho dentro de círculo verde: branco, como nos portais. É decorativo (o texto ao lado diz o que é), por isso fica fora da regra 3:1 */
-.fsec-h .n.ok .ic,.fsec-h .n.ok .ic *,.tl li.done .tli,.tl li.done .tli *,.tl2 li.st-done .tli,.tl2 li.st-done .tli *,.sys:hover .si,.sys:hover .si *{color:#fff!important}
+.fsec-h .n.ok .ic,.fsec-h .n.ok .ic *,.tl li.done .tli,.tl li.done .tli *,.tl2 li.st-done .tli,.tl2 li.st-done .tli *{color:#fff!important}
 .bulkbar .btn-accent:hover{filter:brightness(.9)}
 .ex-y.on{background:var(--light-green)!important;border-color:var(--dark-green)!important;color:var(--fg)!important}
 .ex-y.on *{color:var(--fg)!important}
@@ -1314,6 +1314,9 @@ kbd{color:var(--secondary-fg)!important}
 .net-err{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:32px 16px;color:var(--secondary-fg)}
 .net-err .ic{width:32px;height:32px;color:var(--danger-strong)}
 .net-err b{color:var(--fg);font-size:16px}
+/* cartão de sistema: o ícone continua no verde padrão, sem fundo, também no hover */
+.sys .si,.sys:hover .si{background:none!important;border-color:transparent!important}
+.sys .si,.sys .si *,.sys:hover .si,.sys:hover .si *{color:var(--accent)!important}
 /* placeholder legível (4,5:1) */
 .input input::placeholder,.input textarea::placeholder,input::placeholder,textarea::placeholder{color:var(--muted-fg)!important;opacity:1}
 /* tabela: célula 14px */
