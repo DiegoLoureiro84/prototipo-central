@@ -1356,12 +1356,12 @@ kbd{color:var(--secondary-fg)!important}
 .tbl-liq .chip{white-space:nowrap}
 .tbl-liq td.orgc{max-width:200px}.tbl-liq td.cred{min-width:180px;max-width:260px}
 .tbl-liq td.orgc .sub{overflow:hidden;text-overflow:ellipsis}
-.fsec-h .sec-r{margin-left:auto;flex:none}.sec-foot .hint.pend-h{color:var(--primary);background:#EEF1FA;padding:8px 12px;border-radius:var(--r-lg)}.sec-foot .hint.pend-h .ic{color:var(--primary)}.l-desc .input.ta{height:auto;min-height:118px}.l-desc .input.ta textarea{min-height:100px}.input.ro.ta-ro{height:auto;min-height:118px;align-items:flex-start;padding:10px 12px}.input.ro.ta-ro span.v{white-space:normal;overflow:visible}.fsec-h .sec-r .btn[disabled]{opacity:.55;cursor:not-allowed}.sec-miss h3{white-space:nowrap}
+.fsec-h .sec-r{margin-left:auto;flex:none}.chain{display:flex;flex-direction:column;gap:0!important;padding-top:8px}.side .card-b.chain>*{border:0;padding:0}.chain-i{display:flex!important;align-items:center;gap:10px;width:100%;padding:10px!important;border-radius:var(--r-lg);text-align:left;background:none;border:0;font:inherit;cursor:pointer;position:relative}.chain-i+.chain-i::before{content:'';position:absolute;left:21px;top:-8px;height:12px;border-left:2px solid var(--border)}.chain-i .ic{width:22px;height:22px;flex:none;color:var(--primary)}.chain-i span{display:flex;flex-direction:column}.chain-i b{font-size:14px;color:var(--fg)}.chain-i small{font-size:12px;color:var(--secondary-fg)}.chain-i:hover{background:var(--accent)}.chain-i.on{background:var(--light-green);cursor:default}.chain-i.wait{cursor:default}.chain-i.wait:hover{background:none}.chain-i.wait .ic{color:var(--muted-fg)}.ret-tbl{overflow-x:auto;max-width:100%;border:1px solid var(--border);border-radius:var(--r-lg);margin-bottom:12px}.ret-add{padding:12px;border-radius:var(--r-lg);background:var(--bg);margin-bottom:8px}.sec-foot .hint.pend-h{color:var(--primary);background:#EEF1FA;padding:8px 12px;border-radius:var(--r-lg)}.sec-foot .hint.pend-h .ic{color:var(--primary)}.l-desc .input.ta{height:auto;min-height:118px}.l-desc .input.ta textarea{min-height:100px}.input.ro.ta-ro{height:auto;min-height:118px;align-items:flex-start;padding:10px 12px}.input.ro.ta-ro span.v{white-space:normal;overflow:visible}.fsec-h .sec-r .btn[disabled]{opacity:.55;cursor:not-allowed}.sec-miss h3{white-space:nowrap}
 @media (max-width:1600px){.tbl-liq td,.tbl-liq th{padding-left:8px;padding-right:8px}.tbl-liq .w-act{width:44px}.tbl-liq .w-chk{width:36px}.tbl-liq td.cred{min-width:0;max-width:200px}.tbl-liq td.orgc{max-width:150px}}
 @media (max-width:1300px){.tbl-liq .col-org{display:none}}
 @media (max-width:1100px){.tbl-liq .col-ass{display:none}}
 .form-layout>div{min-width:0}.fgrid>*{min-width:0}.input.ro span.v{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-@media (max-width:899px){.sw-inline{flex:none;width:100%;max-width:100%}.sw-inline .sw-t{white-space:normal}.fgrid{grid-template-columns:minmax(0,1fr)}.fsec-h{flex-wrap:wrap}.fsec-h .sec-r{margin-left:0;width:100%}.sec-tot{min-width:0;width:100%;align-items:flex-start}.rm-c{justify-content:flex-end}.pair{grid-template-columns:1fr 1fr}}
+@media (max-width:899px){.crumbs{flex-wrap:wrap;row-gap:2px}.sw-inline{flex:none;width:100%;max-width:100%}.sw-inline .sw-t{white-space:normal}.fgrid{grid-template-columns:minmax(0,1fr)}.fsec-h{flex-wrap:wrap}.fsec-h .sec-r{margin-left:0;width:100%}.sec-tot{min-width:0;width:100%;align-items:flex-start}.rm-c{justify-content:flex-end}.pair{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -2725,10 +2725,10 @@ function docsOf(e){const c=C(e.cred),t=tot(e),s=sigOf(e),d=D(e.dot),out=[];const
   e.liqs.forEach(l=>{const ls=liqSig(l),ok=sigFlow()?ls.cont:true;
     step({ic:'file-check',t:`Liquidação ${liqN(l)}`,p:`${lnk(`nf:${l.id}`,`${l.tipoDoc} ${l.doc}`)} · bruto ${R$(l.valor)}`,date:l.data,state:ok?'done':'alert',doc:`nl:${l.id}`,extra:[`nf:${l.id}`],badge:sigFlow()?sigBadge(+ls.cont,1):''});
     if(l.anul)step({ic:'file-x',t:`Anulação da liquidação ${liqN(l)}`,p:`${R$(l.anul)}`,date:l.data,state:'neg'});
-    const pg=l.pg||l.pgEst;
-    if(pg)step({ic:'banknote',t:`Pagamento · ${pg.op}`,p:`${R$(l.liquido)} · ${lnk(`cp:${l.id}`,'comprovante bancário')}`,date:pg.data,state:'done',doc:`op:${l.id}`,extra:[`cp:${l.id}`]});
-    if(l.pgAnul)step({ic:'undo-2',t:'Anulação do pagamento',p:`${R$(l.pgAnul)} estornado`,date:pg.data,state:'neg'});
-    if(!l.pago)step({ic:'hourglass',t:'Aguardando pagamento',p:`${R$(l.liquido)} a pagar da liquidação ${liqN(l)} · feito no Financeiro`,state:'wait'})});
+    pgsOf(l).forEach(p=>{const n=+p.sig.ord+(+p.sig.tes),bx=pgBaix(p)>0,an=p.anul>=p.valor;
+      step({ic:'banknote',t:`Pagamento ${pagNum(p)}`,p:`${R$(p.valor)}${pgRet(p)?` · retido ${R$(pgRet(p))}`:''} · ${pgSit(p)[0].toLowerCase()}${bx?` · ${lnk(`cp:${p.id}`,'comprovante bancário')}`:''}`,date:p.emissao,state:an?'neg':(sigFlow()?n===2:true)?'done':'alert',doc:`op:${p.id}`,extra:[`rp:${p.id}`,...(bx?[`cp:${p.id}`]:[])],badge:an?'':sigFlow()?sigBadge(n,2):''});
+      if(p.anul)step({ic:'undo-2',t:`Anulação do pagamento ${pagNum(p)}`,p:`${R$(p.anul)} ${an?'estornado':'anulado'}`,date:p.emissao,state:'neg'})});
+    const sp=saldoPg(l);if(sp>0&&!(l.anul>=l.valor))step({ic:'hourglass',t:'Aguardando pagamento',p:`${R$(sp)} a pagar da liquidação ${liqN(l)}${liqSigned(l)?' · na fila do Financeiro':' · entra na fila depois da assinatura da nota'}`,state:'wait'})});
   if(e.anulado<e.valor&&t.aLiq>0)step({ic:'file-check',t:e.liqs.length?'Saldo a liquidar':'Aguardando liquidação',p:`${R$(t.aLiq)} ainda não liquidados`,state:'wait'});
   return out}
 /* ---------- documentos (renderização fiel ao layout de um PDF; dados fictícios) ---------- */
@@ -2757,8 +2757,10 @@ function renderDoc(key,e){const [tp,id]=key.split(':');const c=C(e.cred),d=D(e.d
     `<div class="pp-note">${ico('info')}Documento do fornecedor, sem fluxo de assinatura interna. Atestado na liquidação.</div>`);
   if(tp==='nl'&&l){const ls=liqSig(l);return paper(`NOTA DE LIQUIDAÇÃO Nº ${liqN(l)}`,`Empenho ${e.num}/${e.ano} · ${l.data}`,kv([['Credor',c.nome],['Histórico',liqX(l,e).desc],['Documento fiscal',(l.docs||[]).map(x=>`${x.tipo} ${x.num}`).join(', ')],['Valor liquidado',R$(l.valor)],['Retenções',R$(retOf(l))],['Líquido a pagar',`<b>${R$(l.liquido)}</b>`],['Atesto',`${respNome(l.respAt||l.resp)||'Responsável'} em ${l.dtAt||l.data}: material/serviço entregue conforme o empenho`],['Previsão de pagamento',`${l.prev} · ${filaOf(d)}`]]),
     sigFlow()?sigBlock([{...SIGNERS.cont,ok:ls.cont}]):'')}
-  if(tp==='op'&&l){const pg=l.pg||l.pgEst;return paper(`ORDEM DE PAGAMENTO ${pg.op}`,`Liquidação ${liqN(l)} · ${pg.data}`,kv([['Favorecido',`${c.nome} · ${c.doc}`],['Conta pagadora',pg.conta||'Banco do Brasil · Ag 0001-9'],['Forma',pg.forma||'Transferência'],['Valor',`<b>${R$(l.liquido)}</b>`],...(l.pgAnul?[['Situação','<b class="neg">Pagamento anulado (estornado)</b>']]:[])]),sigBlock([{...SIGNERS.ord,ok:true},{...SIGNERS.tes,ok:true}]))}
-  if(tp==='cp'&&l){const pg=l.pg||l.pgEst;return paper(`COMPROVANTE DE TRANSFERÊNCIA`,`Banco Exemplo · ${pg.data}`,kv([['Pagador',ug.name],['Favorecido',c.nome],['Documento',c.doc],['Valor',R$(l.liquido)],['Autenticação','A1B2.C3D4.E5F6.7788']]),`<div class="pp-note">${ico('info')}Comprovante bancário importado do retorno do banco.</div>`)}
+  if(['op','cp','rp'].includes(tp)){const p=PG(id);if(p){const pl=pgLE(p).l,ll=p.lanc.filter(x=>x.baixa),lb=ll[ll.length-1];
+    if(tp==='op')return paper(`ORDEM DE PAGAMENTO Nº ${pagNum(p)}`,`Liquidação ${liqN(pl)} · empenho ${e.num}/${e.ano} · emitida em ${p.emissao}`,kv([['Favorecido',`${c.nome}<br><small>${c.doc}</small>`],['Histórico',p.desc],['Conta pagadora',contaN(p.conta)],['Tipo de operação',p.tipoOp],['Valor bruto',R$(p.valor)],['Retenções',R$(pgRet(p))],['Valor líquido',`<b>${R$(pgLiqV(p))}</b>`],...(p.anul?[['Anulado',`<b class="neg">${R$(p.anul)}</b>`]]:[])]),sigBlock([{...SIGNERS.ord,ok:p.sig.ord},{...SIGNERS.tes,ok:p.sig.tes}]));
+    if(tp==='rp')return paper(`RECIBO DE PAGAMENTO`,`Pagamento ${pagNum(p)} · ${p.emissao}`,`<p class="pp-p">Recebi de ${ug.name} a importância líquida de <b>${R$(pgLiqV(p))}</b> (${extenso(pgLiqV(p))}), referente a ${p.desc.toLowerCase()}, conforme a liquidação ${liqN(pl)} do empenho ${e.num}/${e.ano}.</p>`+kv([['Valor bruto',R$(p.valor)],['Retenções',R$(pgRet(p))],['Valor líquido',R$(pgLiqV(p))]]),sigBlock([{nome:c.nome,papel:'Credor',ok:!!lb,data:lb?fromISO2(lb.pgCred||lb.baixa):''}]));
+    if(tp==='cp'&&lb)return paper(`COMPROVANTE DE TRANSFERÊNCIA`,`Banco Exemplo · baixa em ${fromISO2(lb.baixa)}`,kv([['Pagador',ug.name],['Conta',contaN(p.conta)],['Favorecido',c.nome],['Documento',c.doc],['Valor',R$(ll.reduce((s2,x)=>s2+(+x.valor||0),0))],['Borderô',p.bord||'—'],['Autenticação','A1B2.C3D4.E5F6.7788']]),`<div class="pp-note">${ico('info')}Comprovante bancário importado do retorno do banco.</div>`)}}
   return paper('Documento indisponível','',`<p>Este documento ainda não foi gerado.</p>`)}
 function extenso(v){return `${brl(v)} reais`} /* simplificado no protótipo */
 
@@ -2766,6 +2768,8 @@ function docStatus(key,e){const [tp,id]=key.split(':');const s=sigOf(e),l=e.liqs
   if(!sigFlow()&&['ne','nl'].includes(tp)){const ok=(tp==='ne'?e.assinado:l&&liqSig(l).cont);return {txt:ok?'Assinado':'Sem assinatura',ok,mine:false,general:true,alert:!ok}}
   if(tp==='ne'){const n=+s.ord+(+s.cont);return {txt:n===2?'Assinado por todos':n===0?'Sem assinatura':`Pendente · ${n} de 2 assinaturas`,ok:n===2,mine:!s.cont,who:!s.ord?SIGNERS.ord:null,alert:n<2}}
   if(tp==='nl'&&l){const ls=liqSig(l);return {txt:ls.cont?'Assinada':'Sem assinatura',ok:ls.cont,mine:!ls.cont,alert:!ls.cont}}
+  if(tp==='op'){const p=PG(id);if(p){const n=+p.sig.ord+(+p.sig.tes);if(p.anul>=p.valor)return {txt:'Anulada',ok:true,ext:true};return {txt:n===2?'Assinada por todos':n===0?'Sem assinatura':'Pendente · 1 de 2',ok:n===2,mine:false,general:!sigFlow(),alert:n<2}}}
+  if(tp==='rp')return {txt:'Gerado pelo sistema',ok:true,ext:true};
   if(tp==='ne'||tp==='nl')return {txt:'',ok:true};
   return {txt:{req:'Registrada',def:'Deferido',res:'Reserva confirmada',pc:'Homologado',nad:'Autorizado no Administrativo',cnd:C(e.cred).cert==='ok'?'Válida':'Vencida',nf:'Documento externo',op:'Assinada',cp:'Importado do banco',na:'Assinada'}[tp]||'',ok:!(tp==='cnd'&&C(e.cred).cert!=='ok'),mine:false,ext:true,alert:tp==='cnd'&&C(e.cred).cert!=='ok'}}
 
@@ -2816,9 +2820,7 @@ function lancRows(e,lid){const L=[];const d=D(e.dot);
   e.liqs.filter(l=>!lid||l.id===lid).forEach(l=>{add(l.data,`Liquidação ${liqN(l)} · controle`,'6.2.2.1.3.01.00 Crédito empenhado a liquidar','6.2.2.1.3.03.00 Crédito empenhado liquidado a pagar',l.valor);
     add(l.data,`Liquidação ${liqN(l)} · patrimonial`,(d.el.startsWith('4.4')?`1.2.3.0.0.00.00 Imobilizado · ${d.elN}`:d.el.startsWith('4.6')?'2.2.2.0.0.00.00 Empréstimos e financiamentos (amortização)':d.el.startsWith('3.1')?`3.1.0.0.0.00.00 VPD de pessoal · ${d.elN}`:`3.3.0.0.0.00.00 VPD de uso de bens e serviços · ${d.elN}`),'2.1.3.1.1.00.00 Fornecedores a pagar',l.valor);
     if(l.anul)add(l.data,`Anulação da liquidação ${liqN(l)}`,'6.2.2.1.3.03.00 Crédito empenhado liquidado a pagar','6.2.2.1.3.01.00 Crédito empenhado a liquidar',l.anul,true);
-    const pg=l.pg||l.pgEst;if(pg){add(pg.data,`Pagamento ${pg.op} · controle`,'6.2.2.1.3.03.00 Crédito empenhado liquidado a pagar','6.2.2.1.3.04.00 Crédito empenhado pago',l.valor);
-      add(pg.data,`Pagamento ${pg.op} · financeiro`,'2.1.3.1.1.00.00 Fornecedores a pagar','1.1.1.1.1.00.00 Caixa e equivalentes',l.liquido)}
-    if(l.pgAnul)add(pg.data,'Anulação do pagamento (estorno)','6.2.2.1.3.04.00 Crédito empenhado pago','6.2.2.1.3.03.00 Crédito empenhado liquidado a pagar',l.pgAnul,true)});
+    pgsOf(l).forEach(p=>pagLancRows(p).forEach(x=>L.push(x)))});
   return L}
 function renderLanc(num){const e=E(num);if(!e)return go('#tela/k-2.10');const L=lancRows(e);
   const el=$('#content');el.innerHTML=auxHead(e,'Lançamentos contábeis')+`<div class="card"><div class="card-h"><h3>${L.length} lançamentos</h3><span class="muted">Partidas dobradas geradas pelo empenho, liquidações e pagamentos (PCASP)</span><button class="btn btn-gray fc-x" id="lcX">${ico('sheet')}Exportar</button></div>
@@ -2852,17 +2854,18 @@ function renderEmpFull(num){const e=E(num);if(!e)return go('#tela/k-2.10');
    <div class="card"><div class="card-h"><h3>Dotação ${d.cod}</h3></div><div class="card-b"><dl class="dl">
      <dt>Órgão / unidade</dt><dd>${d.org}</dd><dt>Ação</dt><dd>${d.acao}</dd><dt>Despesa</dt><dd>${d.el} · ${d.elN}${e.sub?`<br><span style="font-weight:400">${e.sub}</span>`:''}</dd><dt>Fonte</dt><dd>${d.fonte} · ${d.fonteN}</dd><dt>Classificação</dt><dd><code>${d.full}</code></dd><dt>Saldo da dotação</dt><dd>${R$(saldoDot(d.cod))}</dd></dl></div></div>
    </div>
-   <div class="card extrato"><div class="card-h"><h3>Extrato do empenho</h3>${e.liqs.length?`<span class="muted">${e.liqs.length} ${e.liqs.length===1?'liquidação':'liquidações'} · clique para abrir</span>`:''}</div>${e.liqs.length?`<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Liquidação</th><th>Documento</th><th class="r">Bruto</th><th class="r">Anulado</th><th class="r">Líquido</th><th>Pagamento</th><th class="r">Ações</th></tr></thead><tbody>${e.liqs.map(l=>`<tr data-liq="${l.id}" tabindex="0" title="Abrir a liquidação ${liqN(l)}"><td class="num"><b class="lk">${liqN(l)}</b><small>${l.data}</small></td><td>${l.tipoDoc} ${l.doc}</td><td class="r">${brl(l.valor)}</td><td class="r ${l.anul?'neg':''}">${l.anul?brl(l.anul):'—'}</td><td class="r"><b>${brl(l.liquido)}</b></td><td>${l.pago?`<span class="chip ok">Pago · ${l.pg.op}</span>`:l.pgAnul?'<span class="chip gray">Estornado</span>':'<span class="chip pend">A pagar</span>'}</td><td class="r"><button class="btn-ghost row-m" data-liqm="${l.id}" aria-label="Ações da liquidação ${liqN(l)}">${ico('ellipsis')}</button></td></tr>`).join('')}</tbody><tfoot><tr><td colspan="2">Total</td><td class="r">${brl(e.liqs.reduce((x,l)=>x+l.valor,0))}</td><td class="r ${t.La?'neg':''}">${t.La?brl(t.La):'—'}</td><td class="r"><b>${brl(e.liqs.reduce((x,l)=>x+l.liquido,0))}</b></td><td colspan="2"></td></tr></tfoot></table></div>`:`<div class="empty" style="border:0">${ico('file-check')}<b>Nenhuma liquidação ainda</b>${R$(t.aLiq)} a liquidar.${canLiq?`<button class="btn btn-gray" data-mode="liquidar" style="margin-top:12px">${ico('file-check')}Liquidar</button>`:''}</div>`}</div>
+   <div class="card extrato"><div class="card-h"><h3>Extrato do empenho</h3>${e.liqs.length?`<span class="muted">${e.liqs.length} ${e.liqs.length===1?'liquidação':'liquidações'} · clique para abrir</span>`:''}</div>${e.liqs.length?`<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Liquidação</th><th>Documento</th><th class="r">Bruto</th><th class="r">Anulado</th><th class="r">Líquido</th><th>Pagamento</th><th class="r">Ações</th></tr></thead><tbody>${e.liqs.map(l=>`<tr data-liq="${l.id}" tabindex="0" title="Abrir a liquidação ${liqN(l)}"><td class="num"><b class="lk">${liqN(l)}</b><small>${l.data}</small></td><td>${l.tipoDoc} ${l.doc}</td><td class="r">${brl(l.valor)}</td><td class="r ${l.anul?'neg':''}">${l.anul?brl(l.anul):'—'}</td><td class="r"><b>${brl(l.liquido)}</b></td><td>${pgsOf(l).length?pgsOf(l).map(p=>`<button class="lk-emp" data-gopg="${p.id}" title="Abrir o pagamento ${pagNum(p)}">${pagNum(p)}</button> <span class="chip ${pgSit(p)[1]}">${pgSit(p)[0]}</span>`).join('<br>'):''}${saldoPg(l)>0&&!(l.anul>=l.valor)?`${pgsOf(l).length?'<br>':''}<span class="chip pend">A pagar ${brl(saldoPg(l))}</span>`:''}</td><td class="r"><button class="btn-ghost row-m" data-liqm="${l.id}" aria-label="Ações da liquidação ${liqN(l)}">${ico('ellipsis')}</button></td></tr>`).join('')}</tbody><tfoot><tr><td colspan="2">Total</td><td class="r">${brl(e.liqs.reduce((x,l)=>x+l.valor,0))}</td><td class="r ${t.La?'neg':''}">${t.La?brl(t.La):'—'}</td><td class="r"><b>${brl(e.liqs.reduce((x,l)=>x+l.liquido,0))}</b></td><td colspan="2"></td></tr></tfoot></table></div>`:`<div class="empty" style="border:0">${ico('file-check')}<b>Nenhuma liquidação ainda</b>${R$(t.aLiq)} a liquidar.${canLiq?`<button class="btn btn-gray" data-mode="liquidar" style="margin-top:12px">${ico('file-check')}Liquidar</button>`:''}</div>`}</div>
   </div>`;
   paintIcons(el);
   $$('[data-back]',el).forEach(b=>b.onclick=()=>go('#tela/k-2.10'));
   $$('[data-mode]',el).forEach(b=>b.onclick=()=>b.dataset.mode==='liquidar'?go('#tela/k-2.12/novo?emp='+e.num):go(`#tela/k-2.10/${e.num}?${b.dataset.mode}`));
   $$('[data-open-doc]',el).forEach(b=>b.onclick=()=>{DOC='ne:'+e.num;go('#tela/k-2.10/'+e.num)});
-  const openLiq=(id,k)=>{if(!k)return go('#tela/k-2.12/'+id);DOC=k+':'+id;go('#tela/k-2.12/'+id+'?tl')};
+  $$('[data-gopg]',el).forEach(b=>b.onclick=ev=>{ev.stopPropagation();go('#tela/k-3.1.1/'+b.dataset.gopg)});
+  const openLiq=(id,k)=>{if(!k)return go('#tela/k-2.12/'+id);if(k==='pagar')return go('#tela/k-3.1.1/novo?liq='+id);if(k.startsWith('pg:'))return go('#tela/k-3.1.1/'+k.slice(3));DOC=k+':'+id;go('#tela/k-2.12/'+id+'?tl')};
   $$('tr[data-liq]',el).forEach(tr=>{tr.onclick=()=>openLiq(tr.dataset.liq);tr.onkeydown=ev=>{if(ev.key==='Enter'&&ev.target===tr)openLiq(tr.dataset.liq)}});
   $$('[data-liqm]',el).forEach(b=>b.onclick=ev=>{ev.stopPropagation();const id=b.dataset.liqm,l=e.liqs.find(x=>x.id===id),pg=l.pg||l.pgEst;
     const it=(k,ic,tx,sub)=>`<button class="menu-item" data-lk="${k}">${ico(ic)}<span><b>${tx}</b>${sub?`<small>${sub}</small>`:''}</span></button>`;
-    fpop(b,it('','eye','Visualizar liquidação','Todos os dados, na tela 2.12')+it('nl','file-check','Nota de liquidação','Linha do tempo com o PDF')+it('nf','receipt',`${l.tipoDoc} ${l.doc}`,'Documento fiscal')+(pg?it('op','banknote',`Ordem de pagamento ${pg.op}`,'')+it('cp','landmark','Comprovante bancário',''):''),
+    fpop(b,it('','eye','Visualizar liquidação','Todos os dados, na tela 2.12')+it('nl','file-check','Nota de liquidação','Linha do tempo com o PDF')+it('nf','receipt',`${l.tipoDoc} ${l.doc}`,'Documento fiscal')+pgsOf(l).map(p=>it('pg:'+p.id,'banknote',`Pagamento ${pagNum(p)}`,pgSit(p)[0])).join('')+(saldoPg(l)>0&&liqSigned(l)?it('pagar','banknote','Pagar',`${R$(saldoPg(l))} a pagar`):''),
       p=>$$('[data-lk]',p).forEach(x=>x.onclick=ev2=>{ev2.stopPropagation();closeFpop();openLiq(id,x.dataset.lk||null)}))});
   wireTabs(el,e);}
 /* ---------- tela do empenho ---------- */
@@ -2870,7 +2873,7 @@ function tlvParts(e,keep){const steps=docsOf(e),allDocs=steps.flatMap(s=>s.docs)
   if(keep)DOC=keep;
   if(!DOC||!allDocs.some(d=>d.key===DOC)){
     const pend=allDocs.find(d=>docStatus(d.key,e).mine);DOC=(pend||allDocs.find(d=>d.key.startsWith('ne:'))).key}
-  const ds=docStatus(DOC,e);const DOCN={req:'Solicitação de despesa',def:'Despacho de deferimento',res:'Reserva de dotação',pc:'Processo de compra',cnd:'Certidão negativa',nad:'NAD',ne:'Nota de empenho',na:'Nota de anulação',nl:'Nota de liquidação',nf:'Documento fiscal',op:'Ordem de pagamento',cp:'Comprovante bancário'};
+  const ds=docStatus(DOC,e);const DOCN={req:'Solicitação de despesa',def:'Despacho de deferimento',res:'Reserva de dotação',pc:'Processo de compra',cnd:'Certidão negativa',nad:'NAD',ne:'Nota de empenho',na:'Nota de anulação',nl:'Nota de liquidação',nf:'Documento fiscal',op:'Ordem de pagamento',cp:'Comprovante bancário',rp:'Recibo de pagamento'};
   const cur={label:DOCN[DOC.split(':')[0]]+(DOC.startsWith('nf:')?' · '+(e.liqs.find(l=>l.id===DOC.split(':')[1])||{}).doc:''),ic:'file-text'};
   const pendMine=allDocs.filter(d=>docStatus(d.key,e).mine).length;
     const html=`<div class="tlv">
@@ -2999,8 +3002,8 @@ const liqN=l=>`${l.num}/${(l.data||'').slice(-4)||EX}`;
 const respNome=c=>(RESPS.find(r=>r.cod===String(c||'').trim())||{}).nome||'';
 const filaOf=d=>d.el.startsWith('3.3.90.30')?'FORNECIMENTO DE BENS':d.el.startsWith('4.4.90.51')?'REALIZAÇÃO DE OBRAS':'PRESTAÇÃO DE SERVIÇOS';
 const retOf=l=>r2((l.ret.iss||0)+(l.ret.inss||0)+(l.ret.irrf||0));
-const saldoPg=l=>l.pago?0:Math.max(0,r2(l.liquido));
-function liqSit(l){const a=l.anul||0;if(a>=l.valor-0.005)return['Totalmente anulado','bad'];if(l.pago)return['Totalmente pago','ok'];if(a>0)return['Parcialmente anulado','gray'];return['A pagar','pend']}
+const saldoPg=l=>Math.max(0,r2(l.liquido-paidOf(l)));
+function liqSit(l){const a=l.anul||0;if(a>=l.valor-0.005)return['Totalmente anulado','bad'];const pd=paidOf(l);if(pd>=l.liquido-0.005&&pd>0)return['Totalmente pago','ok'];if(pd>0)return['Parcialmente pago','prim'];if(a>0)return['Parcialmente anulado','gray'];return['A pagar','pend']}
 const liqSigned=l=>sigFlow()?liqSig(l).cont:!!liqSig(l).cont;
 function LQ(id){for(const e of EMPS){const l=e.liqs.find(x=>x.id===id);if(l)return {l,e}}return null}
 const allL=()=>EMPS.filter(e=>e.ano===EX).flatMap(e=>e.liqs.map(l=>({l:liqX(l,e),e})));
@@ -3192,16 +3195,16 @@ function openLiqCols(anchor){const draw=()=>`<div class="col-row lock"><span>${i
     $$('[data-lmv]',p).forEach(b=>b.onclick=()=>{const [i,d]=b.dataset.lmv.split('|').map(Number);const t=LS.cols[i];LS.cols[i]=LS.cols[i+d];LS.cols[i+d]=t;save()});
     $('[data-lca=all]',p).onclick=()=>{LS.cols.forEach(c=>c[1]=true);save()};$('[data-lca=rst]',p).onclick=()=>{LS.cols=lcolsDef();save()}})}
 
-const canEditLiq=l=>!l.pago&&!l.pgAnul&&!l.anul&&!liqSigned(l);
-const editLiqWhy=l=>l.pago?'Liquidação já paga':l.pgAnul?'Liquidação com pagamento estornado':l.anul?'Liquidação com anulação':'Nota de liquidação já assinada';
+const canEditLiq=l=>!pgsOf(l).length&&!l.anul&&!liqSigned(l);
+const editLiqWhy=l=>pgsOf(l).length?'Liquidação com pagamento':l.anul?'Liquidação com anulação':'Nota de liquidação já assinada';
 function liqRowActions(b,id){const r=LQ(id);if(!r)return;const {l,e}=r,ed=canEditLiq(l);
   const it=(v,ic,t,sub,dis,why)=>`<button class="menu-item" data-v="${v}" ${dis?`disabled title="${why}"`:''}>${ico(ic)}<span><b>${t}</b>${sub?`<small>${dis?why:sub}</small>`:dis?`<small>${why}</small>`:''}</span></button>`;
-  fpop(b,it('det','eye','Visualizar','Todos os dados da liquidação')+it('tl','git-commit-vertical','Documentos','Linha do tempo com o PDF ao lado')+it('emp','file-pen-line',`Empenho ${e.num}/${e.ano}`,'Abrir o empenho desta liquidação')+'<hr>'+
+  fpop(b,it('det','eye','Visualizar','Todos os dados da liquidação')+it('tl','git-commit-vertical','Documentos','Linha do tempo com o PDF ao lado')+it('emp','file-pen-line',`Empenho ${e.num}/${e.ano}`,'Abrir o empenho desta liquidação')+pgsOf(l).map(p=>it('pg'+p.id,'banknote',`Pagamento ${pagNum(p)}`,pgSit(p)[0])).join('')+(saldoPg(l)>0&&liqSigned(l)?it('pagar','banknote','Pagar',`${R$(saldoPg(l))} a pagar`):'')+'<hr>'+
     it('edit','pencil','Editar','',!ed,editLiqWhy(l))+it('del','trash-2','Excluir','',!ed,editLiqWhy(l))+it('dir','shield-check','Direito especial','')+it('nl','printer','Imprimir nota de liquidação','')+it('lanc','book-open','Lançamentos contábeis',''),
    p=>{const on=(v,fn)=>{const x=$(`[data-v=${v}]`,p);if(x&&!x.disabled)x.onclick=ev=>{ev.stopPropagation();fn()}};
      on('det',()=>{closeFpop();go('#tela/k-2.12/'+id)});on('tl',()=>{closeFpop();DOC='nf:'+id;go('#tela/k-2.12/'+id+'?tl')});on('emp',()=>{closeFpop();go('#tela/k-2.10/'+e.num+'?detalhes')});
      on('edit',()=>{closeFpop();go('#tela/k-2.12/'+id+'?editar')});on('dir',()=>{closeFpop();go('#tela/k-2.12/'+id+'?direito')});on('lanc',()=>{closeFpop();go('#tela/k-2.12/'+id+'?lancamentos')});
-     on('nl',()=>{closeFpop();DOC='nl:'+id;go('#tela/k-2.12/'+id+'?tl')});
+     on('nl',()=>{closeFpop();DOC='nl:'+id;go('#tela/k-2.12/'+id+'?tl')});on('pagar',()=>{closeFpop();go('#tela/k-3.1.1/novo?liq='+id)});pgsOf(l).forEach(pg=>on('pg'+pg.id,()=>{closeFpop();go('#tela/k-3.1.1/'+pg.id)}));
      on('del',()=>{p.innerHTML=`<div class="del-conf"><b>Excluir a liquidação ${liqN(l)}?</b><p>${R$(l.valor)} voltam ao saldo a liquidar do empenho ${e.num}/${e.ano}. Esta ação não pode ser desfeita.</p><div><button class="btn btn-gray btn-sm" data-dc="0">Cancelar</button><button class="btn btn-sm btn-danger" data-dc="1">${ico('trash-2')}Excluir</button></div></div>`;paintIcons(p);
        $('[data-dc="0"]',p).onclick=ev=>{ev.stopPropagation();closeFpop()};$('[data-dc="1"]',p).onclick=ev=>{ev.stopPropagation();closeFpop();e.liqs.splice(e.liqs.indexOf(l),1);LS.sel.delete(id);toast('success','Liquidação excluída',`Liquidação ${liqN(l)} excluída. ${R$(l.valor)} voltaram ao saldo a liquidar do empenho ${e.num}/${e.ano}.`);go('#tela/k-2.12')}})});
   setTimeout(()=>document.addEventListener('click',()=>b.classList.remove('open'),{once:true}),0)}
@@ -3407,11 +3410,11 @@ function liqHeadWire(el,l,e){paintIcons(el);$$('[data-lback]',el).forEach(b=>b.o
   $$('[data-lt]',el).forEach(b=>b.onclick=()=>go('#tela/k-2.12/'+l.id+(b.dataset.lt==='tl'?'?tl':'')))}
 
 function renderLiqView(id){const r=LQ(id);if(!r)return go('#tela/k-2.12');const {l,e}=r,d=D(e.dot),oc=eOC(e),[sl]=liqSit(l),an=sl==='Totalmente anulado',signed=liqSigned(l),ed=canEditLiq(l);
-  const next=an?['circle-x','Liquidação anulada','O valor voltou ao saldo a liquidar do empenho.']:!signed?['pen-line','Próximo passo: assinar a nota de liquidação','Depois de assinada, a liquidação entra na fila de pagamento.']:l.pago?['circle-check','Sem pendências nesta liquidação',`Paga em ${l.pg.data} · ${l.pg.op}`]:['hourglass','Aguardando pagamento',`${R$(saldoPg(l))} a pagar · previsto para ${l.prev} · feito no Financeiro`];
+  const next=an?['circle-x','Liquidação anulada','O valor voltou ao saldo a liquidar do empenho.']:!signed?['pen-line','Próximo passo: assinar a nota de liquidação','Depois de assinada, a liquidação entra na fila de pagamento.']:saldoPg(l)<=0?['circle-check','Sem pendências nesta liquidação',`Paga · ${pgsOf(l).map(pagNum).join(', ')}`]:['banknote','Próximo passo: pagar',`${R$(saldoPg(l))} a pagar · previsto para ${l.prev}${(r=>r?` · ${r.pos}ª da fila da fonte ${r.fonte}`:'')(filaRank(l))}`];
   const el=$('#content');
   el.innerHTML=liqHead(l,e,'','det')+`
   <div class="act-strip card"><div class="as-txt">${ico(next[0])}<div><b>${next[1]}</b><small>${next[2]}</small></div></div>
-    <div class="as-btns"><button class="btn btn-gray" data-doc-go="nl">${ico('file-check')}Nota de liquidação</button>${ed?`<button class="btn btn-gray" id="lvEd">${ico('pencil')}Editar</button>`:''}${!an&&!signed?`<button class="btn btn-accent" data-doc-go="nl">${ico('pen-line')}Assinar</button>`:''}</div></div>
+    <div class="as-btns"><button class="btn btn-gray" data-doc-go="nl">${ico('file-check')}Nota de liquidação</button>${ed?`<button class="btn btn-gray" id="lvEd">${ico('pencil')}Editar</button>`:''}${!an&&!signed?`<button class="btn btn-accent" data-doc-go="nl">${ico('pen-line')}Assinar</button>`:''}${!an&&signed&&saldoPg(l)>0?`<button class="btn btn-accent" id="lvPay">${ico('banknote')}Pagar</button>`:''}</div></div>
   <div class="form-layout"><div>
    <section class="card">${secH(1,'Liquidação',true)}<div class="card-b"><div class="fgrid">${roF('Número',l.num,'c3')}${roF('Ano',l.data.slice(-4),'c3')}${roF('Última liquidação',`${nextLiqNum()-1}/${EX}`,'c3')}${roF('Data',l.data,'c3')}
      ${roF('Empenho',empLabel(e,tot(e).aLiq),'c6')}<div class="c6 l-desc"><label>Descrição</label><div class="input ro ta-ro"><span class="v">${l.desc}</span></div></div>
@@ -3433,8 +3436,13 @@ function renderLiqView(id){const r=LQ(id);if(!r)return go('#tela/k-2.12');const 
   <aside class="side"><div class="card"><div class="card-h"><h3 style="font-size:18px">Resumo</h3></div><div class="card-b">
     <div><span>Valor liquidado</span><b>${R$(l.valor)}</b></div>${l.anul?`<div><span>Anulado</span><b class="neg">${R$(l.anul)}</b></div>`:''}<div><span>Retenções</span><b>${R$(retOf(l))}</b></div>
     <div><span>Líquido</span><b>${R$(l.liquido)}</b></div><div><span>Saldo a pagar</span><b class="big">${R$(saldoPg(l))}</b></div>${l.pago?`<div><span>Pagamento</span><b>${l.pg.op} · ${l.pg.data}</b></div>`:''}</div>
-    <div class="side-acts">${ed?`<button class="btn btn-accent" id="lvEd2">${ico('pencil')}Editar</button>`:''}<button class="btn btn-gray" data-lback>${ico('arrow-left')}Voltar à lista</button></div></div></aside></div>`;
-  liqHeadWire(el,l,e);
+    <div class="side-acts">${ed?`<button class="btn btn-accent" id="lvEd2">${ico('pencil')}Editar</button>`:''}<button class="btn btn-gray" data-lback>${ico('arrow-left')}Voltar à lista</button></div></div>
+    <div class="card" style="margin-top:16px"><div class="card-h"><h3 style="font-size:18px">Caminho da despesa</h3></div><div class="card-b chain">
+      <button type="button" class="chain-i" data-goemp="${e.num}">${ico('file-pen-line')}<span><b>Empenho ${e.num}/${e.ano}</b><small>${R$(tot(e).V)} · ${status(e)[0]}</small></span></button>
+      <button type="button" class="chain-i on">${ico('file-check')}<span><b>Liquidação ${liqN(l)}</b><small>${R$(l.valor)} · ${liqSit(l)[0]}</small></span></button>
+      ${pgsOf(l).map(x=>`<button type="button" class="chain-i" data-gopg="${x.id}">${ico('banknote')}<span><b>Pagamento ${pagNum(x)}</b><small>${R$(x.valor)} · ${pgSit(x)[0]}</small></span></button>`).join('')}
+      ${saldoPg(l)>0&&!an?`<div class="chain-i wait">${ico('hourglass')}<span><b>${R$(saldoPg(l))} a pagar</b><small>${signed?'na fila de pagamento':'depois da assinatura da nota'}</small></span></div>`:''}</div></div></aside></div>`;
+  liqHeadWire(el,l,e);$$('[data-gopg]',el).forEach(b=>b.onclick=()=>go('#tela/k-3.1.1/'+b.dataset.gopg));if($('#lvPay'))$('#lvPay').onclick=()=>go('#tela/k-3.1.1/novo?liq='+l.id);
   $$('[data-doc-go]',el).forEach(b=>b.onclick=()=>{DOC=b.dataset.docGo+':'+l.id;go('#tela/k-2.12/'+l.id+'?tl')});
   $$('[data-vdoc]',el).forEach(b=>b.onclick=()=>{DOC='nf:'+l.id;go('#tela/k-2.12/'+l.id+'?tl')});
   ['#lvEd','#lvEd2'].forEach(s=>{const b=$(s);if(b)b.onclick=()=>go('#tela/k-2.12/'+l.id+'?editar')})}
@@ -3468,6 +3476,437 @@ CUSTOM['k-2.12']=a=>{if(!a)return renderLiqList();const [base,qs='']=a.split('?'
   if(qs==='editar')return renderLiqForm({edit:base});if(qs==='tl')return renderLiqTl(base);if(qs==='direito')return renderLiqDireito(base);if(qs==='lancamentos')return renderLiqLanc(base);
   return renderLiqView(base)};
 if(typeof SCREENS_NOTE!=='undefined')delete SCREENS_NOTE['k-2.12'];
+
+/* =====================================================================
+   3.1.1 PAGAMENTOS · lista, incluir, visualizar, baixa, linha do tempo
+   Campos tirados das telas do sistema original (prints de 22/11).
+   Um pagamento referencia uma liquidação; uma liquidação pode ter
+   vários pagamentos. Dados 100% fictícios; alíquotas ilustrativas.
+   ===================================================================== */
+var PAGS=[];
+const TIPO_OP=['TED','PIX','Cheque','Débito em conta'];
+const CEXTRA=[{cod:'21881',nome:'INSS RETIDO DE TERCEIROS',tipo:'Previdência'},{cod:'21890',nome:'PENSÃO ALIMENTÍCIA',tipo:'Consignação'},{cod:'10601',nome:'SALÁRIO FAMÍLIA - RPPS',tipo:'Benefício'}];
+const RORC=[{cod:'1101',rec:'ISS retido na fonte',fonte:'1.500.0000'},{cod:'1102',rec:'IRRF retido na fonte',fonte:'1.500.0000'}];
+const contaN=id=>{const c=CONTAS.find(x=>x.id==id)||CONTAS[0];return `${c.f} - ${c.n}`};
+const contaFor=d=>d.fonte.includes('1002')||d.fonte.startsWith('1.600')?3:d.fonte.includes('1001')?2:1;
+const PG=id=>PAGS.find(p=>p.id===id);
+const pagNum=p=>`${p.num}/${p.emissao.slice(-4)}`;
+const pgsOf=l=>PAGS.filter(p=>p.liq===l.id);
+const pgAtivo=p=>r2(p.valor-(p.anul||0));
+const pgRet=p=>r2(p.cons.reduce((s,x)=>s+(+x.valor||0),0)+p.orc.reduce((s,x)=>s+(+x.valor||0),0));
+const pgCons=p=>r2(p.cons.reduce((s,x)=>s+(+x.valor||0),0));
+const pgLiqV=p=>r2(p.valor-pgRet(p));
+const pgBaix=p=>r2(p.lanc.filter(x=>x.baixa).reduce((s,x)=>s+(+x.valor||0),0));
+const pgSigned=p=>!!(p.sig.ord&&p.sig.tes);
+const pgLE=p=>{for(const e of EMPS){const l=e.liqs.find(x=>x.id===p.liq);if(l)return {l,e}}return {}};
+function pgSit(p){if((p.anul||0)>=p.valor-0.005)return['Totalmente anulado','bad'];if(p.anul>0)return['Parcialmente anulado','gray'];const b=pgBaix(p),lv=pgLiqV(p);
+  if(lv>0&&b>=lv-0.005)return['Baixado','ok'];if(b>0)return['Parcialmente baixado','pend'];return['A baixar','pend']}
+function paidOf(l){return r2(pgsOf(l).reduce((s,p)=>s+pgAtivo(p),0))}
+function syncLiqPg(l){const ps=pgsOf(l).filter(p=>pgAtivo(p)>0),paid=paidOf(l);l.pago=l.liquido>0&&paid>=l.liquido-0.005;const last=ps[ps.length-1];
+  l.pg=last?{conta:contaN(last.conta),forma:last.tipoOp,data:last.emissao,op:'OP '+pagNum(last)}:null;l.pgAnul=0;l.pgEst=null}
+function syncAllPg(){EMPS.forEach(e=>e.liqs.forEach(syncLiqPg))}
+/* totais do empenho passam a vir dos pagamentos (um ou vários por liquidação) */
+function tot(e){const rr=x=>Math.round(x*100)/100;const Vb=e.valor,Va=e.anulado||0,Lb=e.liqs.reduce((s,l)=>s+l.valor,0),La=e.liqs.reduce((s,l)=>s+(l.anul||0),0);
+  const ps=(PAGS||[]).filter(p=>p.emp===e.num),Pb=ps.reduce((s,p)=>s+p.valor,0),Pa=ps.reduce((s,p)=>s+(p.anul||0),0);
+  const V=rr(Vb-Va),L=rr(Lb-La),P=rr(Pb-Pa);return {Vb,Va,Lb,La,Pb,Pa,V,L,P,aLiq:Math.max(0,rr(V-L)),aPag:Math.max(0,rr(L-P))}}
+function sugRet(l,e,valor){const d=D(e.dot),svc=d.el.startsWith('3.3.90.39'),obra=d.el.startsWith('4.4'),pf=e.cred===8,cons=[],orc=[];
+  if(pf||obra)cons.push({conta:'21881',valor:r2(valor*.11)});
+  if((svc||obra)&&!pf)orc.push({rec:'1101',valor:r2(valor*.05)});
+  if(svc&&!pf)orc.push({rec:'1102',valor:r2(valor*.048)});
+  return {cons,orc}}
+/* gera os pagamentos de exemplo a partir das liquidações já pagas */
+(function(){let k=0;const L=EMPS.flatMap(e=>e.liqs.map(l=>({l,e}))).sort((a,b)=>toISO(a.l.data).localeCompare(toISO(b.l.data))||a.l.num-b.l.num);
+  const mk=(l,e,valor,emissao,baixa)=>{k++;const d=D(e.dot),r=sugRet(l,e,valor);const p={id:'P'+k,num:0,liq:l.id,emp:e.num,emissao,valor,anul:0,conta:contaFor(d),tipoOp:k%7===0?'PIX':'TED',desc:l.desc||e.desc,
+      cons:r.cons.map((x,i)=>({...x,rex:String(37600+k*2+i)})),orc:r.orc.map((x,i)=>({...x,arr:String(52100+k*2+i)})),lanc:[],sig:{ord:!!baixa,tes:!!baixa},prot:'',lote:baixa?String(120+(k%30)):'',bord:''};
+    if(baixa){p.bord=String(800+k);p.lanc=[{chq:emissao,pgCred:emissao,baixa:emissao,valor:pgLiqV(p)}]}return p};
+  L.forEach(({l,e},i)=>{liqX(l,e);liqSig(l);
+    if(l.pago&&l.pg)PAGS.push(mk(l,e,l.liquido,l.pg.data,true));
+    else if(l.pgAnul&&l.pgEst){const p=mk(l,e,l.valor,l.pgEst.data,false);p.anul=p.valor;p.sig={ord:true,tes:true};PAGS.push(p)}
+    else if(!l.anul&&i%4===1){liqSig(l).cont=true;const p=mk(l,e,l.liquido,dMinus(l.data,-3),false);p.sig={ord:true,tes:false};PAGS.push(p)}
+    else if(!l.anul&&i%3!==0)liqSig(l).cont=true});
+  PAGS.sort((a,b)=>toISO(a.emissao).localeCompare(toISO(b.emissao))).forEach((p,i)=>p.num=2810+i);
+  const pa=PAGS.find(p=>!p.anul&&!p.lanc.length);if(pa){pa.anul=r2(pa.valor*.04)}
+  syncAllPg()})();
+const nextPagNum=()=>Math.max(2800,...PAGS.map(p=>p.num))+1;
+
+/* fila de pagamento: ordem cronológica por fonte e categoria (Lei 14.133, art. 141) */
+function filaList(){return allL().filter(({l})=>saldoPg(l)>0&&!(l.anul>=l.valor)&&liqSigned(l))
+  .sort((a,b)=>{const fa=D(a.e.dot).fonte+filaOf(D(a.e.dot)),fb=D(b.e.dot).fonte+filaOf(D(b.e.dot));return fa.localeCompare(fb)||toISO(a.l.prev).localeCompare(toISO(b.l.prev))||toISO(a.l.data).localeCompare(toISO(b.l.data))||a.l.num-b.l.num})}
+function filaRank(l){const L=filaList();const x=L.find(y=>y.l===l);if(!x)return null;const k=D(x.e.dot).fonte+filaOf(D(x.e.dot));const g=L.filter(y=>D(y.e.dot).fonte+filaOf(D(y.e.dot))===k);return {pos:g.indexOf(x)+1,tot:g.length,fonte:D(x.e.dot).fonte,fila:filaOf(D(x.e.dot))}}
+
+/* ---------------- lista ---------------- */
+const PCOLS_DEF=['liq','emp','org','desp','fonte','cred','chq','pgcred','baixa','prot','lote','bord','valor','saldo','sit','ass'];
+const PCOLS_OFF=['org','desp','fonte','chq','pgcred','baixa','prot','lote','bord'];
+const pcolsDef=()=>PCOLS_DEF.map(k=>[k,!PCOLS_OFF.includes(k)]);
+const PCOL_LABEL={liq:'Liquidação',emp:'Empenho',org:'Órgão / unidade',desp:'Elemento de despesa',fonte:'Fonte',cred:'Credor',chq:'Cheq/Bord',pgcred:'Pagto credor',baixa:'Baixa',prot:'Nº protocolo pgto',lote:'Lote',bord:'Borderô',valor:'Valor',saldo:'Saldo',sit:'Situação',ass:'Assinatura'};
+const PS={q:'',sort:['num',-1],page:1,per:20,adv:{},advOpen:false,focus:null,kpiHide:store.get('kpi_hide_pag',false),sel:new Set(),cols:store.get('pcols1',pcolsDef())};
+if(!Array.isArray(PS.cols)||PS.cols.length!==PCOLS_DEF.length)PS.cols=pcolsDef();
+const PADV_LABEL={num:'Número',liq:'Liquidação',anoLiq:'Ano da liquidação',emp:'Empenho',anoEmp:'Ano do empenho',conta:'Conta bancária',docf:'Docto financeiro',bord:'Borderô',prot:'Nº protocolo',protPg:'Nº protocolo pgto',dIni:'Data de',dFim:'Data até',vIni:'Valor de',vFim:'Valor até',cred:'Credor',sit:'Situação',
+  dotIni:'Cód. red. de',dotFim:'Cód. red. até',orgIni:'Órgão de',orgFim:'Órgão até',uniIni:'Unidade de',uniFim:'Unidade até',funIni:'Função de',funFim:'Função até',subIni:'Subfunção de',subFim:'Subfunção até',prgIni:'Programa de',prgFim:'Programa até',acaIni:'Ação de',acaFim:'Ação até',elIni:'Elemento de',elFim:'Elemento até',fonIni:'Fonte de',fonFim:'Fonte até'};
+const PMETRICS={
+ apagar:{label:'A pagar',icon:'hourglass',act:true,cta:'Ver fila de pagamento',calc:()=>{const L=allL().filter(x=>saldoPg(x.l)>0&&!(x.l.anul>=x.l.valor));return {v:R$(L.reduce((s,{l})=>s+saldoPg(l),0)),s:`${L.length} liquidações com saldo a pagar`}}},
+ pago:{label:'Pago',icon:'banknote',calc:()=>{const T=sumT();return {v:R$(T.P),an:anLine(T.Pb,T.Pa),bar:T.V?T.P/T.V:0,s:`${T.V?(Math.round(T.P/T.V*10000)/100).toLocaleString('pt-BR'):0}% do empenhado líquido`}}},
+ antiga:{label:'Liquidação mais antiga a pagar',icon:'calendar',act:true,cta:'Ver fila de pagamento',calc:()=>{const L=allL().filter(x=>saldoPg(x.l)>0&&!(x.l.anul>=x.l.valor)).sort((a,b)=>toISO(a.l.data).localeCompare(toISO(b.l.data)));const o=L[0];return o?{v:o.l.data,s:`${liqN(o.l)} · ${C(o.e.cred).nome} · ${R$(saldoPg(o.l))}`}:{v:'—',s:'nenhuma liquidação a pagar'}}},
+ consignado:{label:'Consignado',icon:'hand-coins',calc:()=>{const v=PAGS.filter(p=>!(p.anul>=p.valor)).reduce((s,p)=>s+pgCons(p),0);return {v:R$(v),s:'retido em consignações nos pagamentos'}}},
+ abaixar:{label:'A baixar',icon:'landmark',act:true,cta:'Ver pagamentos',calc:()=>{const L=PAGS.filter(p=>['A baixar','Parcialmente baixado'].includes(pgSit(p)[0]));return {v:`${L.length} ${L.length===1?'pagamento':'pagamentos'}`,s:'emitidos, sem baixa bancária completa'}}},
+ nass:{label:'Não assinados',icon:'pen-line',act:true,cta:'Ver e assinar',calc:()=>{const L=PAGS.filter(p=>!pgSigned(p)&&!(p.anul>=p.valor));return {v:`${L.length} ${L.length===1?'pagamento':'pagamentos'}`,s:'ordem de pagamento sem as 2 assinaturas',warn:L.length>0}}}};
+let PKPIS=store.get('kpis_pag',['apagar','pago','antiga']);
+
+function pkpiCards(){return `<div class="kpis kpis-x">${PKPIS.map((k,i)=>{const m=PMETRICS[k]||PMETRICS.pago,r=m.calc(),on=PS.focus===k||(PS.focus==='fila'&&(k==='apagar'||k==='antiga'));
+  return `<div class="kpi kx ${m.act?'act':''} ${on?'on':''} ${r.warn?'warn':''}" data-kpi="${k}" ${m.act?`role="button" tabindex="0" aria-pressed="${on}"`:''}>
+   <button class="kx-h" data-kpisel="${i}" aria-haspopup="listbox" aria-expanded="false" title="Escolher o que este cartão mostra">${ico(m.icon)}<span>${m.label}</span>${ico('chevrons-up-down')}</button>
+   <b>${r.v}</b>${r.an||''}${r.bar!=null?`<div class="bar"><i style="width:${Math.round(r.bar*100)}%"></i></div>`:''}<small>${r.s}</small>
+   ${m.act?`<span class="kx-cta">${on?'Mostrando abaixo':m.cta} ${ico(on?'chevron-down':'arrow-right')}</span>`:''}
+   <div class="kx-menu hidden" role="listbox">${Object.entries(PMETRICS).map(([id,mm])=>`<button class="kx-opt ${id===k?'sel':''}" data-kpiopt="${i}|${id}" ${PKPIS.includes(id)&&id!==k?'disabled':''}>${ico(mm.icon)}<span>${mm.label}</span>${id===k?ico('check'):PKPIS.includes(id)?'<small>já na tela</small>':''}</button>`).join('')}</div>
+  </div>`}).join('')}</div>`}
+function pFocusPanel(){
+  if(PS.focus==='fila'){const L=filaList(),nsig=allL().filter(({l})=>saldoPg(l)>0&&!(l.anul>=l.valor)&&!liqSigned(l)).length;let gk='',pos=0;
+    return `<section class="card focus-card"><div class="card-h"><h3>Fila de pagamento</h3><span class="muted">Ordem cronológica por fonte de recurso e categoria (Lei 14.133, art. 141) · ${L.length} ${L.length===1?'liquidação':'liquidações'}${nsig?` · ${nsig} aguardando a assinatura da nota de liquidação`:''}</span><button class="btn btn-gray fc-x" data-unfocus>${ico('x')}Fechar</button></div>
+    ${L.length?`<div class="tbl-wrap"><table class="tbl tbl-fila"><thead><tr><th>Ordem</th><th>Liquidação</th><th>Empenho</th><th>Fonte e categoria</th><th>Previsão</th><th>Credor</th><th class="r">Saldo a pagar</th><th></th></tr></thead><tbody>${L.map(({l,e})=>{const d=D(e.dot),k=d.fonte+filaOf(d);if(k!==gk){gk=k;pos=0}pos++;const late=toISO(l.prev)<toISO(today());
+      return `<tr class="norow"><td class="num"><b>${pos}º</b></td><td><button class="lk-emp" data-goliq="${l.id}">${liqN(l)}</button><span class="sub">${l.data}</span></td><td><button class="lk-emp" data-goemp="${e.num}">${e.num}/${e.ano}</button></td>
+      <td class="orgc"><b>${d.fonte}</b><span class="sub">${filaOf(d)}</span></td><td>${l.prev}${late?'<span class="sub">vencida</span>':''}</td><td class="cred">${credCell(C(e.cred))}${C(e.cred).cert==='vencida'?'<span class="sub">certidão vencida</span>':''}</td><td class="r"><b>${brl(saldoPg(l))}</b></td>
+      <td class="r"><button class="btn btn-accent btn-sm" data-pagar="${l.id}">${ico('banknote')}Pagar</button></td></tr>`}).join('')}</tbody></table></div>`
+    :`<div class="empty" style="border:0">${ico('circle-check')}<b>Fila vazia</b>Nenhuma liquidação assinada com saldo a pagar.</div>`}</section>`}
+  if(PS.focus==='abaixar'||PS.focus==='nass')return `<div class="focus-bar">${ico('list-filter')}<span>${PS.focus==='abaixar'?'Mostrando só pagamentos sem baixa bancária completa':'Mostrando só ordens de pagamento sem as 2 assinaturas'}</span><button class="link" data-unfocus>Ver todos</button></div>`;
+  return ''}
+
+function pFiltered(){const a=PS.adv,norm=t=>String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''),q=norm(PS.q.trim()),qd=q.replace(/\D/g,''),dig=v=>String(v||'').replace(/\D/g,'');
+  const rng=(v,ini,fim)=>{const x=+dig(v);if(ini&&dig(ini)&&x<+dig(ini))return false;if(fim&&dig(fim)&&x>+dig(fim))return false;return true};
+  let L=PAGS.filter(p=>p.emissao.slice(-4)==String(EX)).map(p=>({p,...pgLE(p)})).filter(x=>x.l);
+  if(q)L=L.filter(({p,l,e})=>{const c=C(e.cred),d=D(e.dot);const hay=norm([pagNum(p),liqN(l),`${e.num}/${e.ano}`,c.nome,c.doc,d.cod,d.acao,d.el,d.fonte,p.bord,contaN(p.conta)].join(' '));return hay.includes(q)||(qd.length>=3&&(String(p.num).includes(qd)||String(l.num).includes(qd)||String(e.num).includes(qd)||dig(c.doc).includes(qd)))});
+  L=L.filter(({p,l,e})=>{const d=D(e.dot),c=C(e.cred),f=d.func.split('.');
+    if(a.num&&!String(p.num).startsWith(dig(a.num)))return false;if(a.liq&&!String(l.num).startsWith(dig(a.liq)))return false;if(a.anoLiq&&l.data.slice(-4)!==dig(a.anoLiq))return false;
+    if(a.emp&&!String(e.num).startsWith(dig(a.emp)))return false;if(a.anoEmp&&String(e.ano)!==dig(a.anoEmp))return false;
+    if(a.conta&&String(p.conta)!==a.conta)return false;if(a.bord&&!String(p.bord).includes(a.bord.trim()))return false;
+    if(a.docf&&!String(p.docf||'').includes(a.docf.trim()))return false;if(a.prot&&!String(p.prot||'').includes(a.prot.trim()))return false;if(a.protPg&&!String(l.protPg||'').includes(a.protPg.trim()))return false;
+    if(a.cred&&!norm(c.nome+' '+c.doc).includes(norm(a.cred)))return false;if(a.sit&&pgSit(p)[0]!==a.sit)return false;
+    if(!rng(d.cod,a.dotIni,a.dotFim)||!rng(f[0],a.orgIni,a.orgFim)||!rng(f[1],a.uniIni,a.uniFim)||!rng(f[2],a.funIni,a.funFim)||!rng(f[3],a.subIni,a.subFim)||!rng(f[4],a.prgIni,a.prgFim)||!rng(f[5],a.acaIni,a.acaFim)||!rng(d.el,a.elIni,a.elFim)||!rng(d.fonte,a.fonIni,a.fonFim))return false;
+    if(a.vIni&&p.valor<parseMoney(a.vIni))return false;if(a.vFim&&p.valor>parseMoney(a.vFim))return false;
+    if(a.dIni&&toISO(p.emissao)<a.dIni)return false;if(a.dFim&&toISO(p.emissao)>a.dFim)return false;return true});
+  if(PS.focus==='abaixar')L=L.filter(x=>['A baixar','Parcialmente baixado'].includes(pgSit(x.p)[0]));
+  if(PS.focus==='nass')L=L.filter(x=>!pgSigned(x.p)&&!(x.p.anul>=x.p.valor));
+  const [k,dir]=PS.sort,val=({p,l,e})=>k==='num'?p.num:k==='liq'?l.num:k==='emp'?e.num:k==='cred'?C(e.cred).nome:k==='valor'?p.valor:k==='saldo'?pgAtivo(p):k==='sit'?pgSit(p)[0]:k==='ass'?+pgSigned(p):k==='fonte'?D(e.dot).fonte:k==='org'?D(e.dot).org:k==='desp'?D(e.dot).el:p.num;
+  return L.sort((x,y)=>{const A=val(x),B=val(y);return (typeof A==='string'?A.localeCompare(B):A-B)*dir||(y.p.num-x.p.num)})}
+
+function renderPgList(){
+  const c=$('#content'),all=pFiltered();const pages=Math.max(1,Math.ceil(all.length/PS.per));PS.page=Math.min(PS.page,pages);
+  const rows=all.slice((PS.page-1)*PS.per,PS.page*PS.per),a=PS.adv,nAdv=Object.values(a).filter(Boolean).length,vis=PS.cols.filter(x=>x[1]).map(x=>x[0]);
+  const sortTh=(k,l,r)=>`<th class="sort col-${k} ${r?'r':''}" data-sort="${k}" title="Ordenar por ${l.toLowerCase()}" aria-sort="${PS.sort[0]===k?(PS.sort[1]>0?'ascending':'descending'):'none'}">${l}${PS.sort[0]===k?ico(PS.sort[1]>0?'arrow-up':'arrow-down'):ico('arrow-up-down').replace('<i ','<i style="opacity:.35" ')}</th>`;
+  const plain=(k,l,r)=>`<th class="col-${k} ${r?'r':''}">${l}</th>`;
+  const chips=Object.entries(a).filter(([,v])=>v).map(([k,v])=>`<span class="fchip">${PADV_LABEL[k]}: <b>${/^d(Ini|Fim)$/.test(k)?fromISO(v):k==='conta'?(CONTAS.find(x=>x.id==v)||{}).f:v}</b><button data-rmf="${k}" aria-label="Remover filtro ${PADV_LABEL[k]}">${ico('x')}</button></span>`).join('');
+  const f=(k,l,ph='',type='text',cls='c2')=>`<div class="${cls}"><label for="pa-${k}">${l}</label><div class="input"><input id="pa-${k}" data-adv="${k}" type="${type}" placeholder="${ph}" value="${a[k]||''}"></div></div>`;
+  const pair=(k,l)=>`<div class="c3"><label>${l}</label><div class="pair"><div class="input"><input data-adv="${k}Ini" placeholder="de" aria-label="${l} inicial" value="${a[k+'Ini']||''}"></div><div class="input"><input data-adv="${k}Fim" placeholder="até" aria-label="${l} final" value="${a[k+'Fim']||''}"></div></div></div>`;
+  const lastL=p=>p.lanc[p.lanc.length-1]||{};
+  const TH={liq:sortTh('liq','Liquidação'),emp:sortTh('emp','Empenho'),org:sortTh('org','Órgão / unidade'),desp:sortTh('desp','Elemento'),fonte:sortTh('fonte','Fonte'),cred:sortTh('cred','Credor'),chq:plain('chq','Cheq/Bord'),pgcred:plain('pgcred','Pagto credor'),baixa:plain('baixa','Baixa'),prot:plain('prot','Nº protocolo pgto'),lote:plain('lote','Lote'),bord:plain('bord','Borderô'),valor:sortTh('valor','Valor',1),saldo:sortTh('saldo','Saldo',1),sit:sortTh('sit','Situação'),ass:sortTh('ass','Assinatura')};
+  const TD=({p,l,e})=>{const d=D(e.dot),[sl,sc]=pgSit(p),org=d.org.split(' '),ll=lastL(p),n=+p.sig.ord+(+p.sig.tes);return {
+    liq:`<td class="col-liq"><button class="lk-emp" data-goliq="${l.id}" title="Abrir a liquidação ${liqN(l)}">${liqN(l)}</button></td>`,emp:`<td class="col-emp"><button class="lk-emp" data-goemp="${e.num}" title="Abrir o empenho ${e.num}/${e.ano}">${e.num}/${e.ano}</button></td>`,
+    org:`<td class="col-org orgc"><b>${org[0]}</b><span class="sub">${org.slice(1).join(' ')}</span></td>`,desp:`<td class="col-desp orgc"><b>${d.el}</b><span class="sub">${d.elN}</span></td>`,fonte:`<td class="col-fonte orgc"><b>${d.fonte}</b><span class="sub">${d.fonteN}</span></td>`,
+    cred:`<td class="col-cred cred">${credCell(C(e.cred))}</td>`,chq:`<td class="col-chq">${ll.chq?fromISO2(ll.chq):''}</td>`,pgcred:`<td class="col-pgcred">${ll.pgCred?fromISO2(ll.pgCred):''}</td>`,baixa:`<td class="col-baixa">${ll.baixa?fromISO2(ll.baixa):''}</td>`,
+    prot:`<td class="col-prot">${l.protPg||''}</td>`,lote:`<td class="col-lote">${p.lote||''}</td>`,bord:`<td class="col-bord">${p.bord||''}</td>`,
+    valor:`<td class="col-valor r">${p.anul?`<b>${brl(p.valor)}</b><span class="sub neg">anulado ${brl(p.anul)}</span>`:brl(p.valor)}${pgRet(p)?`<span class="sub">retido ${brl(pgRet(p))}</span>`:''}</td>`,saldo:`<td class="col-saldo r">${brl(pgAtivo(p))}</td>`,
+    sit:`<td class="col-sit"><span class="chip ${sc}">${sl}</span></td>`,ass:`<td class="col-ass">${sl==='Totalmente anulado'?'<span class="muted">—</span>':n===2?`<span class="chip ok">${ico('check')}Assinado</span>`:`<span class="chip bad-o">${ico('clock')}${n?'Pendente · 1 de 2':'Sem assinatura'}</span>`}</td>`}};
+  const sitOpts=['A baixar','Parcialmente baixado','Baixado','Parcialmente anulado','Totalmente anulado'];
+  c.innerHTML=`<div class="crumbs">Contábil ${ico('chevron-right')} 3 - Financeiro ${ico('chevron-right')} 3.1 - Pagamentos ${ico('chevron-right')} 3.1.1 - Pagamentos</div>
+  <div class="page-head"><div class="kpi-tg-w"><h1>Pagamentos</h1><p>Exercício ${EX}</p><button type="button" class="kpi-tg" id="kpiTg" aria-expanded="${!PS.kpiHide}">${ico(PS.kpiHide?'chevron-down':'chevron-up')}${PS.kpiHide?'Mostrar indicadores':'Ocultar indicadores'}</button></div>
+    <div class="actions"><button class="btn btn-gray" id="pgAcoes">${ico('ellipsis-vertical')}Ações</button><button class="btn btn-accent" id="pgNovo">${ico('plus')}Incluir pagamento</button></div></div>
+  ${PS.kpiHide?'':pkpiCards()}${PS.kpiHide?'':pFocusPanel()}
+  <div class="card ${!PS.kpiHide&&PS.focus==='fila'?'hidden':''}">
+    <div class="toolbar">
+      <div class="input gsearch"><i data-i="search"></i><input id="pgQ" placeholder="Buscar por nº do pagamento, liquidação ou empenho, credor, CNPJ, dotação, fonte ou borderô" value="${PS.q.replace(/"/g,'&quot;')}">${PS.q?`<button class="btn-ghost" id="qClr" style="width:28px;height:28px" aria-label="Limpar busca">${ico('x')}</button>`:''}</div>
+      <button class="btn btn-gray ${PS.advOpen?'on':''}" id="advBtn" aria-expanded="${PS.advOpen}">${ico('sliders-horizontal')}Filtros avançados${nAdv?` <span class="chip ok" style="height:20px;padding:0 7px">${nAdv}</span>`:''}${ico(PS.advOpen?'chevron-up':'chevron-down')}</button>
+      <button class="btn-ghost btn" id="colsBtn" title="Colunas" aria-label="Colunas">${ico('columns-3')}</button>
+    </div>
+    ${PS.advOpen?`<div class="adv-inline"><div class="fgrid">
+      <div class="c12 adv-sec">Pagamento, liquidação e empenho</div>
+      ${f('num','Número','Nº do pagamento')}${f('liq','Liquidação')}${f('anoLiq','Ano da liquidação','aaaa')}${f('emp','Empenho')}${f('anoEmp','Ano do empenho','aaaa')}${f('prot','Nº protocolo')}
+      ${f('protPg','Nº protocolo pgto')}${f('docf','Docto financeiro')}${f('bord','Borderô')}
+      <div class="c3"><label for="pa-conta">Conta bancária</label><div class="input"><select id="pa-conta" data-adv="conta"><option value="">Todas</option>${CONTAS.map(x=>`<option value="${x.id}" ${a.conta==x.id?'selected':''}>${x.f}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
+      <div class="c3"><label for="pa-sit">Situação</label><div class="input"><select id="pa-sit" data-adv="sit"><option value="">Todas</option>${sitOpts.map(o=>`<option ${a.sit===o?'selected':''}>${o}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
+      <div class="c12 adv-sec">Período, valor e credor</div>
+      ${f('dIni','Data inicial','','date')}${f('dFim','Data final','','date')}${f('vIni','Valor inicial','0,00')}${f('vFim','Valor final','0,00')}
+      <div class="c4"><label for="pa-cred">Credor (nome ou CNPJ)</label><div class="input"><i data-i="search"></i><input id="pa-cred" data-adv="cred" value="${a.cred||''}" placeholder="Digite para buscar"></div></div>
+      <div class="c12 adv-sec">Dotação</div>
+      ${pair('dot','Cód. reduzido')}${pair('org','Órgão')}${pair('uni','Unidade')}${pair('fun','Função')}${pair('sub','Subfunção')}${pair('prg','Programa')}${pair('aca','Ação')}${pair('el','Elemento')}${pair('fon','Fonte')}
+      <div class="c9 flt-end">${clrBtn('advClr',nAdv>0)}</div></div></div>`:''}
+    ${chips&&!PS.advOpen?`<div class="fchips">${chips}${clrBtn('clrAdv',true,'sm')}</div>`:''}
+    <div class="bulkbar ${PS.sel.size?'on':''}" id="bulk"><b>${PS.sel.size} selecionado(s)</b><span style="flex:1"></span>
+      <button class="btn btn-ghost-w" id="bkPrint">${ico('printer')}Imprimir ordens</button><button class="btn btn-accent" id="bkSign">${ico('pen-line')}Assinar no Assina</button><button class="btn btn-ghost-w" id="bkClr" aria-label="Limpar seleção">${ico('x')}</button></div>
+    <div class="tbl-wrap"><table class="tbl tbl-liq tbl-pag"><thead><tr><th class="w-chk"><input type="checkbox" id="chkAll" ${rows.length&&rows.every(x=>PS.sel.has(x.p.id))?'checked':''} aria-label="Selecionar página"></th>
+      ${sortTh('num','Número')}${vis.map(k=>TH[k]).join('')}<th class="w-act">Ações</th></tr></thead>
+    <tbody>${rows.map(x=>{const td=TD(x);return `<tr data-pg="${x.p.id}" class="${PS.sel.has(x.p.id)?'sel':''}" tabindex="0"><td class="w-chk"><input type="checkbox" data-chk="${x.p.id}" ${PS.sel.has(x.p.id)?'checked':''} aria-label="Selecionar pagamento ${pagNum(x.p)}"></td>
+      <td class="num"><b>${x.p.num}</b><small>${x.p.emissao}</small></td>${vis.map(k=>td[k]).join('')}<td class="w-act"><button class="row-menu" data-rowm="${x.p.id}" aria-label="Ações do pagamento ${pagNum(x.p)}" title="Ações">${ico('ellipsis')}</button></td></tr>`}).join('')||
+      `<tr><td colspan="${vis.length+3}"><div class="empty" style="border:0">${ico('search-x')}<b>Nenhum pagamento encontrado</b>${EX!==2026?'Este protótipo só tem lançamentos em 2026.':'Revise a busca ou os filtros.'}</div></td></tr>`}</tbody></table></div>
+    <div class="pager"><span>${all.length?`${(PS.page-1)*PS.per+1}–${Math.min(PS.page*PS.per,all.length)} de ${all.length}`:'0 registros'}</span>
+      <span>Por página <select id="perSel">${[10,20,50].map(n=>`<option ${n===PS.per?'selected':''}>${n}</option>`).join('')}</select></span><span class="sp"></span>
+      <div class="pg"><button data-pgn="1" ${PS.page===1?'disabled':''} aria-label="Primeira">${ico('chevrons-left')}</button><button data-pgn="${PS.page-1}" ${PS.page===1?'disabled':''} aria-label="Anterior">${ico('chevron-left')}</button>
+      ${Array.from({length:pages},(_,i)=>i+1).map(i=>`<button data-pgn="${i}" class="${i===PS.page?'on':''}">${i}</button>`).join('')}
+      <button data-pgn="${PS.page+1}" ${PS.page===pages?'disabled':''} aria-label="Próxima">${ico('chevron-right')}</button><button data-pgn="${pages}" ${PS.page===pages?'disabled':''} aria-label="Última">${ico('chevrons-right')}</button></div></div>
+  </div>
+  <p class="tot ${!PS.kpiHide&&PS.focus==='fila'?'hidden':''}">Total filtrado: <b>${all.length} ${all.length===1?'pagamento':'pagamentos'}</b> · Valor: <b>${R$(all.reduce((s,{p})=>s+p.valor,0))}</b></p>`;
+  paintIcons(c);
+  $$('[data-kpisel]',c).forEach(b=>b.onclick=ev=>{ev.stopPropagation();const m=b.parentElement.querySelector('.kx-menu'),open=m.classList.contains('hidden');$$('.kx-menu',c).forEach(x=>x.classList.add('hidden'));
+    if(open){m.classList.remove('hidden');b.setAttribute('aria-expanded','true');setTimeout(()=>document.addEventListener('click',()=>{m.classList.add('hidden');b.setAttribute('aria-expanded','false')},{once:true}),0)}});
+  $$('[data-kpiopt]',c).forEach(b=>b.onclick=ev=>{ev.stopPropagation();const [i,id]=b.dataset.kpiopt.split('|');PKPIS[+i]=id;store.set('kpis_pag',PKPIS);PS.focus=null;renderPgList();toast('info','Cartão atualizado',`Agora mostra: ${PMETRICS[id].label}.`)});
+  $('#kpiTg').onclick=()=>{PS.kpiHide=!PS.kpiHide;store.set('kpi_hide_pag',PS.kpiHide);if(PS.kpiHide)PS.focus=null;renderPgList()};
+  $$('.kx.act',c).forEach(k=>{const go2=()=>{const id=['apagar','antiga'].includes(k.dataset.kpi)?'fila':k.dataset.kpi;PS.focus=PS.focus===id?null:id;PS.page=1;renderPgList();const fc=$('.focus-card,.focus-bar');if(fc&&PS.focus)fc.scrollIntoView({behavior:'smooth',block:'nearest'})};
+    k.onclick=ev=>{if(ev.target.closest('.kx-h,.kx-menu'))return;go2()};k.onkeydown=ev=>{if((ev.key==='Enter'||ev.key===' ')&&ev.target===k){ev.preventDefault();go2()}}});
+  $$('[data-unfocus]',c).forEach(b=>b.onclick=()=>{PS.focus=null;renderPgList()});
+  $$('[data-pagar]',c).forEach(b=>b.onclick=()=>go('#tela/k-3.1.1/novo?liq='+b.dataset.pagar));
+  $$('[data-goemp]',c).forEach(b=>b.onclick=ev=>{ev.stopPropagation();go('#tela/k-2.10/'+b.dataset.goemp+'?detalhes')});
+  $$('[data-goliq]',c).forEach(b=>b.onclick=ev=>{ev.stopPropagation();go('#tela/k-2.12/'+b.dataset.goliq)});
+  const q=$('#pgQ');q.oninput=()=>{PS.q=q.value;PS.page=1;const p=q.selectionStart;renderPgList();const n=$('#pgQ');n.focus();n.setSelectionRange(p,p)};
+  if($('#qClr'))$('#qClr').onclick=()=>{PS.q='';renderPgList();$('#pgQ').focus()};
+  $$('[data-sort]',c).forEach(th=>th.onclick=()=>{const k=th.dataset.sort;PS.sort=[k,PS.sort[0]===k?-PS.sort[1]:1];renderPgList()});
+  $$('[data-pgn]',c).forEach(b=>b.onclick=()=>{PS.page=+b.dataset.pgn;renderPgList();window.scrollTo(0,0)});
+  $('#perSel').onchange=e=>{PS.per=+e.target.value;PS.page=1;renderPgList()};
+  $$('[data-rmf]',c).forEach(b=>b.onclick=()=>{delete PS.adv[b.dataset.rmf];renderPgList()});
+  if($('#clrAdv'))$('#clrAdv').onclick=()=>{PS.adv={};renderPgList()};
+  $('#advBtn').onclick=()=>{PS.advOpen=!PS.advOpen;renderPgList()};
+  if(PS.advOpen){$$('[data-adv]',c).forEach(i=>{if(['vIni','vFim'].includes(i.dataset.adv))moneyInput(i);i.onchange=()=>{const v=i.value;if(v)PS.adv[i.dataset.adv]=v;else delete PS.adv[i.dataset.adv];PS.page=1;
+      setTimeout(()=>{const f2=document.activeElement&&document.activeElement.dataset&&document.activeElement.dataset.adv;renderPgList();if(f2){const n=$(`[data-adv="${f2}"]`);if(n&&n.tagName!=='SELECT')n.focus()}},0)}});
+    $('#advClr').onclick=()=>{PS.adv={};PS.page=1;renderPgList()}}
+  $('#pgNovo').onclick=()=>go('#tela/k-3.1.1/novo');
+  $('#pgAcoes').onclick=e=>{e.stopPropagation();fpop(e.currentTarget,`<button class="menu-item" data-a="inc">${ico('printer')}Inconsistência Pagamento</button><button class="menu-item" data-a="xls">${ico('sheet')}Exportar planilha</button>`,
+    p=>{$('[data-a=inc]',p).onclick=()=>{closeFpop();toast('info','Inconsistência Pagamento','Gerando o relatório em PDF.')};$('[data-a=xls]',p).onclick=()=>{closeFpop();toast('success','Planilha gerada',`${all.length} pagamentos exportados com os filtros atuais.`)}})};
+  $('#colsBtn').onclick=e=>{e.stopPropagation();openPgCols(e.currentTarget)};
+  $('#chkAll').onchange=e=>{rows.forEach(r=>e.target.checked?PS.sel.add(r.p.id):PS.sel.delete(r.p.id));renderPgList()};
+  $$('[data-chk]',c).forEach(x=>{x.onclick=ev=>ev.stopPropagation();x.onchange=()=>{x.checked?PS.sel.add(x.dataset.chk):PS.sel.delete(x.dataset.chk);renderPgList()}});
+  $('#bkClr').onclick=()=>{PS.sel.clear();renderPgList()};
+  $('#bkSign').onclick=()=>{let n=0;PS.sel.forEach(id=>{const p=PG(id);if(p&&!pgSigned(p)&&!(p.anul>=p.valor)){p.sig={ord:true,tes:true};n++}});PS.sel.clear();toast('success','Assinado no Assina',n?`${n} ordem(ns) de pagamento assinada(s) pelo ordenador e pela tesoureira.`:'As ordens selecionadas já estavam assinadas.');renderPgList()};
+  $('#bkPrint').onclick=()=>toast('info','Ordens de pagamento',`Gerando PDF com ${PS.sel.size} ordem(ns).`);
+  $$('[data-rowm]',c).forEach(b=>b.onclick=ev=>{ev.stopPropagation();b.classList.add('open');pgRowActions(b,b.dataset.rowm)});
+  $$('tr[data-pg]',c).forEach(tr=>{tr.onclick=()=>go('#tela/k-3.1.1/'+tr.dataset.pg);tr.onkeydown=ev=>{if(ev.key==='Enter'&&ev.target===tr)go('#tela/k-3.1.1/'+tr.dataset.pg)}});
+}
+const fromISO2=v=>/^\d{4}-/.test(v)?fromISO(v):v;
+function openPgCols(anchor){const draw=()=>`<div class="col-row lock"><span>${ico('lock')}Número e emissão</span></div>`+PS.cols.map(([k,on],i)=>`<div class="col-row"><label class="check"><input type="checkbox" data-pcol="${k}" ${on?'checked':''}>${PCOL_LABEL[k]}</label><span class="col-mv"><button type="button" data-pmv="${i}|-1" ${i===0?'disabled':''} aria-label="Subir ${PCOL_LABEL[k]}">${ico('chevron-up')}</button><button type="button" data-pmv="${i}|1" ${i===PS.cols.length-1?'disabled':''} aria-label="Descer ${PCOL_LABEL[k]}">${ico('chevron-down')}</button></span></div>`).join('')+
+   `<div class="col-row lock"><span>${ico('lock')}Ações</span></div><hr><div class="col-foot"><button type="button" class="link" data-pca="all">Mostrar todas</button><button type="button" class="link" data-pca="rst">Restaurar padrão</button></div>`;
+  const save=()=>{store.set('pcols1',PS.cols);renderPgList();openPgCols($('#colsBtn'))};
+  fpop(anchor,`<h4 class="cols-h">Colunas visíveis</h4>`+draw(),p=>{p.classList.add('cols-pop');p.onclick=e=>e.stopPropagation();
+    $$('[data-pcol]',p).forEach(x=>x.onchange=()=>{const it=PS.cols.find(c=>c[0]===x.dataset.pcol);if(PS.cols.filter(c=>c[1]).length===1&&!x.checked){x.checked=true;return}it[1]=x.checked;save()});
+    $$('[data-pmv]',p).forEach(b=>b.onclick=()=>{const [i,d]=b.dataset.pmv.split('|').map(Number);const t=PS.cols[i];PS.cols[i]=PS.cols[i+d];PS.cols[i+d]=t;save()});
+    $('[data-pca=all]',p).onclick=()=>{PS.cols.forEach(c=>c[1]=true);save()};$('[data-pca=rst]',p).onclick=()=>{PS.cols=pcolsDef();save()}})}
+
+const canEditPg=p=>!p.lanc.length&&!p.anul&&!(p.sig.ord||p.sig.tes);
+const editPgWhy=p=>p.lanc.length?'Pagamento com baixa bancária':p.anul?'Pagamento com anulação':'Ordem de pagamento já tem assinatura';
+const canBaixa=p=>!(p.anul>=p.valor)&&pgBaix(p)<pgLiqV(p)-0.005;
+function pgRowActions(b,id){const p=PG(id);if(!p)return;const {l,e}=pgLE(p),ed=canEditPg(p);
+  const it=(v,ic,t,sub,dis,why)=>`<button class="menu-item" data-v="${v}" ${dis?`disabled title="${why}"`:''}>${ico(ic)}<span><b>${t}</b>${sub?`<small>${dis?why:sub}</small>`:dis?`<small>${why}</small>`:''}</span></button>`;
+  fpop(b,it('det','eye','Visualizar','Todos os dados do pagamento')+it('tl','git-commit-vertical','Documentos','Linha do tempo com o PDF ao lado')+it('liq','file-check',`Liquidação ${liqN(l)}`,'Abrir a liquidação paga')+it('emp','file-pen-line',`Empenho ${e.num}/${e.ano}`,'Abrir o empenho')+'<hr>'+
+    it('edit','pencil','Editar','',!ed,editPgWhy(p))+it('del','trash-2','Excluir','',!ed,editPgWhy(p))+it('bx','landmark','Baixa',canBaixa(p)?'Registrar a baixa bancária':'',!canBaixa(p),'Pagamento já baixado')+it('dir','shield-check','Direito especial','')+
+    it('nl','printer','Imprimir nota de liquidação','')+it('rp','printer','Imprimir recibo de pagamento','')+it('lanc','book-open','Lançamentos contábeis',''),
+   pp=>{const on=(v,fn)=>{const x=$(`[data-v=${v}]`,pp);if(x&&!x.disabled)x.onclick=ev=>{ev.stopPropagation();fn()}};
+     on('det',()=>{closeFpop();go('#tela/k-3.1.1/'+id)});on('tl',()=>{closeFpop();DOC='op:'+id;go('#tela/k-3.1.1/'+id+'?tl')});on('liq',()=>{closeFpop();go('#tela/k-2.12/'+l.id)});on('emp',()=>{closeFpop();go('#tela/k-2.10/'+e.num+'?detalhes')});
+     on('edit',()=>{closeFpop();go('#tela/k-3.1.1/'+id+'?editar')});on('bx',()=>{closeFpop();go('#tela/k-3.1.1/'+id+'?baixa')});on('dir',()=>{closeFpop();go('#tela/k-3.1.1/'+id+'?direito')});on('lanc',()=>{closeFpop();go('#tela/k-3.1.1/'+id+'?lancamentos')});
+     on('nl',()=>{closeFpop();DOC='nl:'+l.id;go('#tela/k-3.1.1/'+id+'?tl')});on('rp',()=>{closeFpop();DOC='rp:'+id;go('#tela/k-3.1.1/'+id+'?tl')});
+     on('del',()=>{pp.innerHTML=`<div class="del-conf"><b>Excluir o pagamento ${pagNum(p)}?</b><p>${R$(p.valor)} voltam ao saldo a pagar da liquidação ${liqN(l)}. Esta ação não pode ser desfeita.</p><div><button class="btn btn-gray btn-sm" data-dc="0">Cancelar</button><button class="btn btn-sm btn-danger" data-dc="1">${ico('trash-2')}Excluir</button></div></div>`;paintIcons(pp);
+       $('[data-dc="0"]',pp).onclick=ev=>{ev.stopPropagation();closeFpop()};$('[data-dc="1"]',pp).onclick=ev=>{ev.stopPropagation();closeFpop();PAGS.splice(PAGS.indexOf(p),1);syncLiqPg(l);PS.sel.delete(id);toast('success','Pagamento excluído',`Pagamento ${pagNum(p)} excluído. ${R$(p.valor)} voltaram ao saldo a pagar da liquidação ${liqN(l)}.`);go('#tela/k-3.1.1')}})});
+  setTimeout(()=>document.addEventListener('click',()=>b.classList.remove('open'),{once:true}),0)}
+
+/* ---------------- formulário ---------------- */
+let PF=null;
+const liqLabel=(l,e,saldo)=>`${liqN(l)} - ${C(e.cred).nome} - saldo ${brl(saldo)}`;
+function dotFields(e){const d=D(e.dot),fn=d.func.split('.');return `<div class="fgrid">${roF('Código reduzido',d.cod,'c4')}${roF('Órgão / unidade',`${fn[0]}.${fn[1]} - ${d.org.split(' ').slice(1).join(' ')}`,'c8')}
+  ${roF('Funcional-programática',`${fn.slice(2).join('.')} - ${d.acao}`)}${roF('Despesa',`${d.el}.00 - ${d.elN}`)}${roF('Fonte de recurso',`${d.fonte} - ${d.fonteN}`)}${roF('Subelemento',e.sub||'')}</div>`}
+function renderPgForm(opt){opt=opt||{};const ex=opt.edit?PG(opt.edit):null;if(opt.edit&&(!ex||!canEditPg(ex)))return go('#tela/k-3.1.1/'+(opt.edit||''));
+  if(ex)PF={mode:'editar',id:ex.id,liq:ex.liq,emissao:toISO(ex.emissao),desc:ex.desc,valor:ex.valor,conta:ex.conta,tipoOp:ex.tipoOp,cons:ex.cons.map(x=>({...x})),orc:ex.orc.map(x=>({...x})),lanc:ex.lanc.map(x=>({...x})),just:ex.just||'',tried:false};
+  else PF={mode:'novo',liq:null,emissao:toISO(today()),desc:'',valor:0,conta:1,tipoOp:'TED',cons:[],orc:[],lanc:[],just:'',tried:false};
+  const c=$('#content'),last=nextPagNum()-1;
+  c.innerHTML=`<div class="crumbs">Contábil ${ico('chevron-right')} 3 - Financeiro ${ico('chevron-right')} 3.1 - Pagamentos ${ico('chevron-right')} <button class="link" data-back style="font-size:12px">3.1.1 - Pagamentos</button> ${ico('chevron-right')} ${ex?'Editar':'Incluir'}</div>
+  <div class="page-head"><button class="back" aria-label="Voltar" data-back>${ico('chevron-left')}</button><div><h1>${ex?`Editar pagamento ${pagNum(ex)}`:'Incluir pagamento'}</h1><p>${ex?'Só é possível editar antes das assinaturas e da baixa bancária.':`Último pagamento: <b>${last}/${EX}</b>. O próximo número é gerado ao salvar.`}</p></div></div>
+  <div class="form-layout"><div>
+   <section class="card">${secH(1,'Informações gerais',false)}<div class="card-b"><div class="fgrid">
+     ${roF('Número',ex?ex.num:`${nextPagNum()} · previsto`,'c4')}${roF('Ano',ex?ex.emissao.slice(-4):EX,'c4')}${roF('Último pagamento',`${last}/${EX}`,'c4')}
+     <div class="c8"><div id="pLiqBox"></div></div>
+     <div class="c4"><label for="pEm">Emissão <i class="req">*</i></label><div class="input"><input type="date" id="pEm" value="${PF.emissao}"></div></div>
+     <div class="c12" id="pOrdem"></div>
+   </div></div></section>
+   <section class="card">${secH(2,'Dotação',false)}<div class="card-b" id="pDot"></div></section>
+   <div id="pRest"></div>
+  </div>
+  <aside class="side"><div class="card"><div class="card-h"><h3 style="font-size:18px">Resumo</h3></div><div class="card-b" id="pSum"></div><ul class="checklist" id="pChk"></ul>
+    <div class="side-acts"><button class="btn btn-accent" id="pSave">${ico('save')}Salvar pagamento</button><button class="btn btn-gray" data-back>${ico('x')}Cancelar</button></div></div></aside></div>`;
+  paintIcons(c);
+  $$('[data-back]',c).forEach(b=>b.onclick=()=>go(ex?'#tela/k-3.1.1/'+ex.id:'#tela/k-3.1.1'));
+  $('#pSave').onclick=savePg;$('#pEm').onchange=ev=>{PF.emissao=ev.target.value;syncPg()};
+  if(opt.liq){const r=LQ(opt.liq);if(r&&saldoPg(r.l)>0&&liqSigned(r.l))pickPgLiq(r.l,r.e);else{paintPgLiq();toast('info','Liquidação não está na fila',r&&!liqSigned(r.l)?`A nota da liquidação ${liqN(r.l)} ainda não foi assinada.`:'Esta liquidação não tem saldo a pagar. Escolha outra.')}}
+  else paintPgLiq()}
+function pickPgLiq(l,e){PF.liq=l.id;if(PF.mode==='novo'){const s=saldoPg(l),r=sugRet(l,e,s);PF.valor=s;PF.desc=l.desc||e.desc;PF.conta=contaFor(D(e.dot));PF.cons=r.cons;PF.orc=r.orc}paintPgLiq()}
+function paintPgLiq(){const box=$('#pLiqBox');
+  if(!PF.liq){combo(box,{label:'Ref. liquidação',ph:'Nº da liquidação, credor ou empenho',items:()=>filaList().map(x=>x.l),empty:'Nenhuma liquidação assinada com saldo a pagar.',
+      render:l=>{const e=pgLE({liq:l.id}).e,c=C(e.cred);return {txt:`${l.num} ${e.num} ${c.nome} ${c.doc}`,html:`<span class="rr">saldo ${brl(saldoPg(l))}</span><b>${liqN(l)} - ${c.nome}</b><small>Empenho ${e.num}/${e.ano} · ${D(e.dot).fonte} · previsão ${l.prev}</small>`}},
+      onPick:l=>{const {e}=pgLE({liq:l.id});pickPgLiq(l,e)}});
+    box.insertAdjacentHTML('beforeend',`<p class="hint" style="margin-top:8px">${ico('info')}Só liquidações com a nota assinada e saldo a pagar, como na fila de pagamento.</p>`);paintIcons(box);
+    $('#pDot').innerHTML=`<p class="sec-empty">Escolha a liquidação na seção 1 para ver a dotação.</p>`;$('#pRest').innerHTML='';$('#pOrdem').innerHTML='';syncPg();return}
+  const r=LQ(PF.liq),{l,e}=r,cur=PG(PF.id),saldo=r2(saldoPg(l)+(cur?pgAtivo(cur):0));
+  box.innerHTML=`<label>Ref. liquidação <i class="req">*</i></label><div class="pick">${ico('circle-check')}<div><b>${liqLabel(l,e,saldo)}</b><small>Empenho ${e.num}/${e.ano} · ${l.desc}</small></div>${PF.mode==='novo'?'<button type="button" class="link x2" id="pLiqX">Trocar</button>':''}</div>`;
+  paintIcons(box);if($('#pLiqX'))$('#pLiqX').onclick=()=>{PF.liq=null;PF.cons=[];PF.orc=[];PF.lanc=[];paintPgLiq()};
+  const rk=filaRank(l),dr=l.direito||{},c=C(e.cred);
+  $('#pOrdem').innerHTML=(rk&&rk.pos>1&&!cur?`<div class="alert info" style="margin:0">${ico('list-ordered')}<span><b>Esta liquidação é a ${rk.pos}ª da fila</b> da fonte ${rk.fonte} · ${rk.fila.toLowerCase()}. ${rk.pos===2?'Há 1 liquidação mais antiga':`Há ${rk.pos-1} liquidações mais antigas`} aguardando. ${dr.ordem?'Direito especial concedido para pagar fora da ordem.':'Pagar fora da ordem cronológica exige justificativa (Lei 14.133, art. 141).'}</span></div>
+     ${dr.ordem?'':`<div style="margin-top:12px"><label for="pJust">Justificativa da quebra de ordem <i class="req">*</i></label><div class="input ta" id="pJustB"><textarea id="pJust" maxlength="500" placeholder="Motivo de relevante interesse público que justifica pagar antes das mais antigas">${PF.just}</textarea></div></div>`}`:rk&&!cur?`<div class="alert info" style="margin:0">${ico('circle-check')}<span><b>1ª da fila</b> da fonte ${rk.fonte} · ${rk.fila.toLowerCase()}. Pode pagar.</span></div>`:'')+
+    (c.cert==='vencida'?`<div class="alert warn">${ico('triangle-alert')}<span><b>Certidão negativa do credor vencida em 30/10/2026.</b> ${dr.certidao?'Direito especial concedido para pagar com certidão vencida.':'Alerta, não bloqueia. Peça a certidão atualizada ou conceda o direito especial na liquidação.'}</span></div>`:'');
+  paintIcons($('#pOrdem'));if($('#pJust'))$('#pJust').oninput=ev=>{PF.just=ev.target.value;syncPg()};
+  $('#pDot').innerHTML=dotFields(e);paintPgRest();syncPg()}
+function paintPgRest(){const {l,e}=LQ(PF.liq),c=C(e.cred),cur=PG(PF.id),saldo=r2(saldoPg(l)+(cur?pgAtivo(cur):0));
+  $('#pRest').innerHTML=`
+   <section class="card">${secH(3,'Credor, descrição e valores',false)}<div class="card-b"><div class="fgrid">
+     ${roF('Credor',`${103000+c.id*7} - ${c.nome}`,'c5')}
+     <div class="c4"><label for="pConta">Conta bancária <i class="req">*</i></label><div class="input"><select id="pConta">${CONTAS.map(x=>`<option value="${x.id}" ${PF.conta==x.id?'selected':''}>${x.f} - ${x.n}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
+     <div class="c3"><label for="pTop">Tipo op. <i class="req">*</i></label><div class="input"><select id="pTop">${TIPO_OP.map(o=>`<option ${PF.tipoOp===o?'selected':''}>${o}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
+     <div class="c6 l-desc"><label for="pDesc">Descrição <i class="req">*</i></label><div class="input ta" id="pDescB"><textarea id="pDesc" maxlength="500">${PF.desc}</textarea></div></div>
+     ${roF('Saldo a pagar',brl(saldo),'c3')}
+     <div class="c3"><label for="pVal">Valor <i class="req">*</i></label><div class="input" id="pValB"><span class="pre">R$</span><input id="pVal" inputmode="numeric" value="${PF.valor?brl(PF.valor):''}" placeholder="0,00"></div><div class="hint err hidden" id="pValH"></div></div>
+     ${roF('Total retenções',`<span id="pRetT"></span>`,'c6')}${roF('Valor líquido',`<span id="pLiqT"></span>`,'c6')}
+   </div></div></section>
+   <section class="card">${secH(4,'Retenção de consignação',false)}<div class="card-b" id="pCons"></div></section>
+   <section class="card">${secH(5,'Retenção orçamentária',false)}<div class="card-b" id="pOrc"></div></section>
+   <section class="card">${secH(6,'Lançamentos financeiros',false,`<button type="button" class="btn btn-gray btn-sm" id="pLcAdd">${ico('plus')}Incluir lançamento</button>`)}<div class="card-b" id="pLanc"></div></section>`;
+  paintIcons($('#pRest'));
+  $('#pConta').onchange=ev=>{PF.conta=+ev.target.value};$('#pTop').onchange=ev=>{PF.tipoOp=ev.target.value};$('#pDesc').oninput=ev=>{PF.desc=ev.target.value;syncPg()};
+  moneyInput($('#pVal'),v=>{PF.valor=v;syncPg()});
+  $('#pLcAdd').onclick=()=>{PF.lanc.push({chq:toISO(today()),pgCred:toISO(today()),baixa:'',valor:r2(PF.valor-retT()-lancT())});paintLanc();syncPg()};
+  paintRet();paintLanc()}
+const retT=()=>r2(PF.cons.reduce((s,x)=>s+(+x.valor||0),0)+PF.orc.reduce((s,x)=>s+(+x.valor||0),0));
+const lancT=()=>r2(PF.lanc.reduce((s,x)=>s+(+x.valor||0),0));
+function paintRet(){const e=pgLE({liq:PF.liq}).e,d=D(e.dot);
+  const tbl=(rows,head,empty,tot,addHtml)=>`<div class="tbl-wrap ret-tbl"><table class="tbl"><thead><tr>${head}</tr></thead><tbody>${rows||`<tr class="norow"><td colspan="6"><p class="sec-empty" style="text-align:center;padding:10px 0">${empty}</p></td></tr>`}</tbody></table></div>${addHtml}<div class="sec-foot"><span></span><div class="sec-tot"><span>Total</span><b>${R$(tot)}</b></div></div>`;
+  const cT=r2(PF.cons.reduce((s,x)=>s+(+x.valor||0),0)),oT=r2(PF.orc.reduce((s,x)=>s+(+x.valor||0),0));
+  $('#pCons').innerHTML=tbl(PF.cons.map((x,i)=>{const ce=CEXTRA.find(c=>c.cod===x.conta);return `<tr class="norow"><td>${ce.cod} - ${ce.nome}</td><td>${ce.tipo}</td><td class="r">${brl(x.valor)}</td><td>${x.rex||'<span class="muted">gerada ao salvar</span>'}</td><td class="r"><button type="button" class="btn-ghost btn rm-b" data-crm="${i}" aria-label="Remover retenção ${ce.nome}">${ico('trash-2')}</button></td></tr>`}).join(''),
+    '<th>Conta extra</th><th>Tipo</th><th class="r">Valor</th><th>Receita extra</th><th class="r">Ações</th>','Nenhuma retenção de consignação.',cT,
+    `<div class="ret-add fgrid"><div class="c6"><label for="pcC">Conta extra</label><div class="input"><select id="pcC"><option value="">Selecione</option>${CEXTRA.map(c=>`<option value="${c.cod}">${c.cod} - ${c.nome} · ${c.tipo}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
+     <div class="c3"><label for="pcV">Valor</label><div class="input"><span class="pre">R$</span><input id="pcV" inputmode="numeric" placeholder="0,00"></div></div><div class="c3 rm-c" style="justify-content:flex-start"><button type="button" class="btn btn-gray" id="pcAdd">${ico('plus')}Incluir retenção</button></div></div>`);
+  $('#pOrc').innerHTML=tbl(PF.orc.map((x,i)=>{const ro=RORC.find(c=>c.cod===x.rec);return `<tr class="norow"><td>${ro.cod}</td><td>${ro.rec}</td><td>${ro.fonte}</td><td class="r">${brl(x.valor)}</td><td>${x.arr||'<span class="muted">gerada ao salvar</span>'}</td><td class="r"><button type="button" class="btn-ghost btn rm-b" data-orm="${i}" aria-label="Remover retenção ${ro.rec}">${ico('trash-2')}</button></td></tr>`}).join(''),
+    '<th>Código reduzido</th><th>Receita</th><th>Fonte de recurso</th><th class="r">Valor</th><th>Receita arrecadada</th><th class="r">Ações</th>','Nenhuma retenção orçamentária.',oT,
+    `<div class="ret-add fgrid"><div class="c6"><label for="poR">Receita</label><div class="input"><select id="poR"><option value="">Selecione</option>${RORC.map(c=>`<option value="${c.cod}">${c.cod} - ${c.rec} · ${c.fonte}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
+     <div class="c3"><label for="poV">Valor</label><div class="input"><span class="pre">R$</span><input id="poV" inputmode="numeric" placeholder="0,00"></div></div><div class="c3 rm-c" style="justify-content:flex-start"><button type="button" class="btn btn-gray" id="poAdd">${ico('plus')}Incluir retenção</button></div></div>`);
+  paintIcons($('#pCons'));paintIcons($('#pOrc'));
+  let cv=0,ov=0;moneyInput($('#pcV'),v=>cv=v);moneyInput($('#poV'),v=>ov=v);
+  $('#pcAdd').onclick=()=>{const k=$('#pcC').value;if(!k||!cv){toast('info','Retenção incompleta','Escolha a conta extra e informe o valor.');return}PF.cons.push({conta:k,valor:cv});paintRet();syncPg()};
+  $('#poAdd').onclick=()=>{const k=$('#poR').value;if(!k||!ov){toast('info','Retenção incompleta','Escolha a receita e informe o valor.');return}PF.orc.push({rec:k,valor:ov});paintRet();syncPg()};
+  $$('[data-crm]').forEach(b=>b.onclick=()=>{PF.cons.splice(+b.dataset.crm,1);paintRet();syncPg()});$$('[data-orm]').forEach(b=>b.onclick=()=>{PF.orc.splice(+b.dataset.orm,1);paintRet();syncPg()});
+  const sl=$('[data-ln="4"]'),so=$('[data-ln="5"]');sl&&sl.classList.toggle('ok',PF.cons.length>0);so&&so.classList.toggle('ok',PF.orc.length>0)}
+function paintLanc(){const box=$('#pLanc');
+  box.innerHTML=(PF.lanc.length?PF.lanc.map((x,i)=>`<div class="irow"><div class="fgrid">
+    <div class="c3"><label for="lc1${i}">Cheque/Borderô</label><div class="input"><input type="date" id="lc1${i}" data-lc="${i}|chq" value="${x.chq}"></div></div>
+    <div class="c3"><label for="lc2${i}">Pagamento credor</label><div class="input"><input type="date" id="lc2${i}" data-lc="${i}|pgCred" value="${x.pgCred}"></div></div>
+    <div class="c3"><label for="lc3${i}">Baixa banco</label><div class="input"><input type="date" id="lc3${i}" data-lc="${i}|baixa" value="${x.baixa}"></div></div>
+    <div class="c2"><label for="lc4${i}">Valor</label><div class="input"><span class="pre">R$</span><input id="lc4${i}" data-lcv="${i}" inputmode="numeric" value="${x.valor?brl(x.valor):''}"></div></div>
+    <div class="c1 rm-c"><button type="button" class="btn-ghost btn rm-b" data-lcrm="${i}" aria-label="Remover lançamento ${i+1}">${ico('trash-2')}</button></div></div></div>`).join('')
+   :`<p class="sec-empty">Nenhum lançamento ainda. A baixa bancária pode ser registrada depois, pela ação Baixa.</p>`)+
+   `<div class="sec-foot"><span class="hint" id="pLcH"></span><div class="sec-tot"><span>Total dos lançamentos</span><b id="pLcT">${R$(lancT())}</b></div></div>`;
+  paintIcons(box);
+  $$('[data-lc]',box).forEach(i=>i.onchange=()=>{const [k,f]=i.dataset.lc.split('|');PF.lanc[+k][f]=i.value;syncPg()});
+  $$('[data-lcv]',box).forEach(i=>moneyInput(i,v=>{PF.lanc[+i.dataset.lcv].valor=v;$('#pLcT').textContent=R$(lancT());syncPg()}));
+  $$('[data-lcrm]',box).forEach(b=>b.onclick=()=>{PF.lanc.splice(+b.dataset.lcrm,1);paintLanc();syncPg()})}
+function pgReq(){const base=[['Ref. liquidação',!!PF.liq],['Emissão',!!PF.emissao]];if(!PF.liq)return base;
+  const {l}=LQ(PF.liq),cur=PG(PF.id),saldo=r2(saldoPg(l)+(cur?pgAtivo(cur):0)),v=r2(PF.valor),rk=cur?null:filaRank(l),needJ=rk&&rk.pos>1&&!(l.direito||{}).ordem;
+  return [...base,...(needJ?[['Justificativa da quebra de ordem',PF.just.trim().length>=10]]:[]),['Descrição',PF.desc.trim().length>=5],['Valor',v>0],['Valor até o saldo a pagar',v<=saldo+0.005],
+    ['Retenções até o valor',retT()<=v+0.005],['Lançamentos até o valor líquido',lancT()<=r2(v-retT())+0.005],['Lançamentos com data e valor',PF.lanc.every(x=>x.chq&&+x.valor>0)]]}
+function syncPg(){const req=pgReq(),done=req.filter(r=>r[1]).length,ok=done===req.length,q=n=>(req.find(r=>r[0]===n)||[0,true])[1];
+  const r=PF.liq?LQ(PF.liq):null,cur=PG(PF.id),saldo=r?r2(saldoPg(r.l)+(cur?pgAtivo(cur):0)):0,v=r2(PF.valor),rt=retT(),over=r&&v>saldo+0.005;
+  $('#pSum').innerHTML=`<div><span>Número</span><b>${cur?pagNum(cur):nextPagNum()+'/'+EX+' · automático'}</b></div><div><span>Liquidação</span><b>${r?liqN(r.l):'—'}</b></div><div><span>Empenho</span><b>${r?`${r.e.num}/${r.e.ano}`:'—'}</b></div><div><span>Credor</span><b>${r?C(r.e.cred).nome:'—'}</b></div>
+   <div><span>Saldo a pagar</span><b>${r?R$(saldo):'—'}</b></div><div><span>Retenções</span><b>${R$(rt)}</b></div><div><span>Valor líquido ao credor</span><b>${R$(Math.max(0,v-rt))}</b></div><div><span>Valor do pagamento</span><b class="big">${R$(v)}</b></div>`;
+  $('#pChk').innerHTML=`<li style="font-weight:600;color:var(--fg)">${done} de ${req.length} conferências ok</li>`+req.map(([t,k])=>`<li class="${k?'ok':''}">${ico(k?'circle-check':'circle')}${t}</li>`).join('');paintIcons($('#pChk'));
+  if($('#pRetT')){$('#pRetT').textContent=brl(rt);$('#pLiqT').textContent=brl(Math.max(0,v-rt))}
+  const vh=$('#pValH');if(vh){vh.innerHTML=over?`${ico('circle-alert')}Maior que o saldo a pagar da liquidação (${R$(saldo)}).`:'';vh.classList.toggle('hidden',!over);$('#pValB').classList.toggle('err',!!over);paintIcons(vh)}
+  const lh=$('#pLcH');if(lh){const d=r2((v-rt)-lancT());lh.innerHTML=PF.lanc.length&&d>0.005?`${ico('info')}Faltam <b>${R$(d)}</b> para a baixa completa do valor líquido.`:PF.lanc.length&&d<-0.005?`${ico('info')}Os lançamentos passam <b>${R$(-d)}</b> do valor líquido.`:'';lh.classList.toggle('pend-h',!!lh.innerHTML);paintIcons(lh)}
+  const sn={1:q('Ref. liquidação')&&q('Emissão')&&q('Justificativa da quebra de ordem'),2:!!r,3:q('Descrição')&&q('Valor')&&q('Valor até o saldo a pagar'),6:PF.lanc.length>0&&q('Lançamentos até o valor líquido')};
+  Object.entries(sn).forEach(([k,o])=>{const n=$(`[data-ln="${k}"]`);n&&n.classList.toggle('ok',!!o)});
+  $('#pSave').disabled=!ok}
+function savePg(){PF.tried=true;if(pgReq().some(r=>!r[1])){syncPg();return}
+  const {l,e}=LQ(PF.liq),v=r2(PF.valor);let k=PAGS.length+100;
+  const data={emissao:fromISO(PF.emissao),desc:PF.desc.trim(),valor:v,conta:PF.conta,tipoOp:PF.tipoOp,cons:PF.cons.map(x=>({...x,rex:x.rex||String(38000+(++k))})),orc:PF.orc.map(x=>({...x,arr:x.arr||String(53000+(++k))})),lanc:PF.lanc.map(x=>({...x})),just:PF.just.trim()};
+  if(PF.mode==='editar'){const p=PG(PF.id);Object.assign(p,data);syncLiqPg(l);toast('success','Pagamento atualizado',`Pagamento ${pagNum(p)}: ${R$(v)}.`);return go('#tela/k-3.1.1/'+p.id)}
+  const p={id:'P'+(Date.now()%1e7),num:nextPagNum(),liq:l.id,emp:e.num,anul:0,sig:{ord:false,tes:false},prot:'',lote:'',bord:data.lanc.length?String(900+PAGS.length):'',...data};
+  PAGS.push(p);syncLiqPg(l);toast('success','Pagamento incluído',`Pagamento ${pagNum(p)} de ${R$(v)} emitido. Próximo passo: assinaturas da ordem de pagamento${p.lanc.some(x=>x.baixa)?'':' e baixa bancária'}.`);DOC='op:'+p.id;go('#tela/k-3.1.1/'+p.id+'?tl')}
+
+/* ---------------- visualizar, baixa, linha do tempo ---------------- */
+function pgHead(p,l,e,title,tab){const [sl,sc]=pgSit(p),n=+p.sig.ord+(+p.sig.tes);
+  return `<div class="crumbs">Contábil ${ico('chevron-right')} 3 - Financeiro ${ico('chevron-right')} 3.1 - Pagamentos ${ico('chevron-right')} <button class="link" data-pback style="font-size:12px">3.1.1 - Pagamentos</button> ${ico('chevron-right')} ${title?`<button class="link" data-pview style="font-size:12px">${pagNum(p)}</button> ${ico('chevron-right')} ${title}`:pagNum(p)}</div>
+  <div class="page-head"><button class="back" aria-label="Voltar" ${title?'data-pview':'data-pback'}>${ico('chevron-left')}</button><div><h1>${title||`Pagamento ${pagNum(p)}`}</h1><p class="eh-sub">${title?`<span>Pagamento <b>${pagNum(p)}</b></span>`:''}<span class="chip ${sc}">${sl}</span>${sl==='Totalmente anulado'?'':n===2?`<span class="chip ok">${ico('check')}Assinado</span>`:`<span class="chip bad-o">${ico('clock')}${n?'Pendente · 1 de 2':'Sem assinatura'}</span>`}
+    <span>Liquidação <button class="lk-emp" data-goliq="${l.id}">${liqN(l)}</button> · Empenho <button class="lk-emp" data-goemp="${e.num}">${e.num}/${e.ano}</button> · ${C(e.cred).nome}</span></p></div></div>
+  ${tab?`<div class="vtabs" role="tablist"><button role="tab" class="${tab==='det'?'on':''}" data-pt="det" aria-selected="${tab==='det'}">${ico('file-text')}Detalhes do pagamento</button><button role="tab" class="${tab==='tl'?'on':''}" data-pt="tl" aria-selected="${tab==='tl'}">${ico('git-commit-vertical')}Linha do tempo e documentos</button></div>`:''}`}
+function pgHeadWire(el,p){paintIcons(el);$$('[data-pback]',el).forEach(b=>b.onclick=()=>go('#tela/k-3.1.1'));$$('[data-pview]',el).forEach(b=>b.onclick=()=>go('#tela/k-3.1.1/'+p.id));
+  $$('[data-goemp]',el).forEach(b=>b.onclick=ev=>{ev.stopPropagation();go('#tela/k-2.10/'+b.dataset.goemp+'?detalhes')});$$('[data-goliq]',el).forEach(b=>b.onclick=ev=>{ev.stopPropagation();go('#tela/k-2.12/'+b.dataset.goliq)});
+  $$('[data-pt]',el).forEach(b=>b.onclick=()=>go('#tela/k-3.1.1/'+p.id+(b.dataset.pt==='tl'?'?tl':'')))}
+function renderPgView(id,baixa){const p=PG(id);if(!p)return go('#tela/k-3.1.1');const {l,e}=pgLE(p),c=C(e.cred),[sl]=pgSit(p),an=sl==='Totalmente anulado',n=+p.sig.ord+(+p.sig.tes),ed=canEditPg(p),cb=canBaixa(p);
+  const next=an?['circle-x','Pagamento anulado','O valor voltou ao saldo a pagar da liquidação.']:n<2?['pen-line','Aguardando as assinaturas da ordem de pagamento',`${p.sig.ord?'Ordenador de despesa assinou · falta a tesoureira':'Faltam o ordenador de despesa e a tesoureira'}${cb?' · depois, a baixa bancária':''}`]:cb?['landmark','Próximo passo: registrar a baixa bancária',`${R$(r2(pgLiqV(p)-pgBaix(p)))} do valor líquido sem baixa`]:['circle-check','Sem pendências neste pagamento',`Baixado em ${fromISO2((p.lanc[p.lanc.length-1]||{}).baixa||'')}`];
+  const el=$('#content');const ll=p.lanc;
+  el.innerHTML=pgHead(p,l,e,baixa?'Baixa bancária':'',baixa?'':'det')+(baixa?pgBaixaPanel(p):`
+  <div class="act-strip card"><div class="as-txt">${ico(next[0])}<div><b>${next[1]}</b><small>${next[2]}</small></div></div>
+    <div class="as-btns"><button class="btn btn-gray" data-doc-go="op">${ico('banknote')}Ordem de pagamento</button>${ed?`<button class="btn btn-gray" id="pvEd">${ico('pencil')}Editar</button>`:''}${!an&&n<2?`<button class="btn btn-gray" id="pvSig">${ico('pen-line')}Enviar ao Assina</button>`:''}${cb&&!an?`<button class="btn ${n===2?'btn-accent':'btn-gray'}" id="pvBx">${ico('landmark')}Baixa</button>`:''}</div></div>`)+`
+  <div class="form-layout"><div>
+   <section class="card">${secH(1,'Informações gerais',true)}<div class="card-b"><div class="fgrid">${roF('Número',p.num,'c4')}${roF('Ano',p.emissao.slice(-4),'c4')}${roF('Último pagamento',`${nextPagNum()-1}/${EX}`,'c4')}
+     <div class="c8"><label>Ref. liquidação</label><button type="button" class="input ro anx" data-goliq="${l.id}">${ico('file-check')}<span>${liqLabel(l,e,saldoPg(l))}</span></button></div>${roF('Emissão',p.emissao,'c4')}
+     ${p.just?`<div class="c12 l-desc"><label>Justificativa da quebra de ordem</label><div class="input ro ta-ro"><span class="v">${p.just}</span></div></div>`:''}</div></div></section>
+   <section class="card">${secH(2,'Dotação',true)}<div class="card-b">${dotFields(e)}</div></section>
+   <section class="card">${secH(3,'Credor, descrição e valores',true)}<div class="card-b"><div class="fgrid">${roF('Credor',`${103000+c.id*7} - ${c.nome}`,'c5')}${roF('Conta bancária',contaN(p.conta),'c4')}${roF('Tipo op.',p.tipoOp,'c3')}
+     <div class="c6 l-desc"><label>Descrição</label><div class="input ro ta-ro"><span class="v">${p.desc}</span></div></div>${roF('Saldo a pagar',brl(saldoPg(l)),'c3')}${roF('Valor',brl(p.valor),'c3')}
+     ${roF('Total retenções',brl(pgRet(p)),'c6')}${roF('Valor líquido',brl(pgLiqV(p)),'c6')}</div></div></section>
+   <section class="card">${secH(4,'Retenção de consignação',p.cons.length>0)}<div class="card-b"><div class="tbl-wrap ret-tbl"><table class="tbl"><thead><tr><th>Conta extra</th><th>Tipo</th><th class="r">Valor</th><th>Receita extra</th></tr></thead><tbody>${p.cons.map(x=>{const ce=CEXTRA.find(z=>z.cod===x.conta);return `<tr class="norow"><td>${ce.cod} - ${ce.nome}</td><td>${ce.tipo}</td><td class="r">${brl(x.valor)}</td><td>${x.rex}</td></tr>`}).join('')||'<tr class="norow"><td colspan="4"><p class="sec-empty" style="text-align:center;padding:10px 0">Nenhuma retenção de consignação.</p></td></tr>'}</tbody></table></div>
+     <div class="sec-foot"><span></span><div class="sec-tot"><span>Total</span><b>${R$(pgCons(p))}</b></div></div></div></section>
+   <section class="card">${secH(5,'Retenção orçamentária',p.orc.length>0)}<div class="card-b"><div class="tbl-wrap ret-tbl"><table class="tbl"><thead><tr><th>Código reduzido</th><th>Receita</th><th>Fonte de recurso</th><th class="r">Valor</th><th>Receita arrecadada</th></tr></thead><tbody>${p.orc.map(x=>{const ro=RORC.find(z=>z.cod===x.rec);return `<tr class="norow"><td>${ro.cod}</td><td>${ro.rec}</td><td>${ro.fonte}</td><td class="r">${brl(x.valor)}</td><td>${x.arr}</td></tr>`}).join('')||'<tr class="norow"><td colspan="5"><p class="sec-empty" style="text-align:center;padding:10px 0">Nenhuma retenção orçamentária.</p></td></tr>'}</tbody></table></div>
+     <div class="sec-foot"><span></span><div class="sec-tot"><span>Total</span><b>${R$(r2(pgRet(p)-pgCons(p)))}</b></div></div></div></section>
+   <section class="card">${secH(6,'Lançamentos financeiros',ll.length>0)}<div class="card-b">${ll.length?ll.map(x=>`<div class="irow"><div class="fgrid">${roF('Cheque/Borderô',fromISO2(x.chq||''),'c3')}${roF('Pagamento credor',fromISO2(x.pgCred||''),'c3')}${roF('Baixa banco',fromISO2(x.baixa||''),'c3')}${roF('Valor',brl(x.valor),'c3')}</div></div>`).join(''):`<p class="sec-empty">Nenhum lançamento financeiro. ${cb&&!an?'Use a ação Baixa quando o banco confirmar.':''}</p>`}
+     <div class="sec-foot"><span></span><div class="sec-tot"><span>Total dos lançamentos</span><b>${R$(ll.reduce((s,x)=>s+(+x.valor||0),0))}</b></div></div></div></section>
+  </div>
+  <aside class="side"><div class="card"><div class="card-h"><h3 style="font-size:18px">Resumo</h3></div><div class="card-b">
+    <div><span>Valor do pagamento</span><b>${R$(p.valor)}</b></div>${p.anul?`<div><span>Anulado</span><b class="neg">${R$(p.anul)}</b></div>`:''}<div><span>Retenções</span><b>${R$(pgRet(p))}</b></div><div><span>Líquido ao credor</span><b>${R$(pgLiqV(p))}</b></div>
+    <div><span>Baixado</span><b>${R$(pgBaix(p))}</b></div><div><span>Saldo da liquidação</span><b class="big">${R$(saldoPg(l))}</b></div></div>
+    <div class="side-acts">${ed?`<button class="btn btn-accent" id="pvEd2">${ico('pencil')}Editar</button>`:''}<button class="btn btn-gray" data-pback>${ico('arrow-left')}Voltar à lista</button></div></div>
+    <div class="card" style="margin-top:16px"><div class="card-h"><h3 style="font-size:18px">Caminho da despesa</h3></div><div class="card-b chain">
+      <button type="button" class="chain-i" data-goemp="${e.num}">${ico('file-pen-line')}<span><b>Empenho ${e.num}/${e.ano}</b><small>${R$(tot(e).V)} · ${status(e)[0]}</small></span></button>
+      <button type="button" class="chain-i" data-goliq="${l.id}">${ico('file-check')}<span><b>Liquidação ${liqN(l)}</b><small>${R$(l.valor)} · ${liqSit(l)[0]}</small></span></button>
+      ${pgsOf(l).map(x=>`<button type="button" class="chain-i ${x===p?'on':''}" data-gopg="${x.id}">${ico('banknote')}<span><b>Pagamento ${pagNum(x)}</b><small>${R$(x.valor)} · ${pgSit(x)[0]}</small></span></button>`).join('')}</div></div></aside></div>`;
+  pgHeadWire(el,p);
+  $$('[data-gopg]',el).forEach(b=>b.onclick=()=>go('#tela/k-3.1.1/'+b.dataset.gopg));
+  $$('[data-doc-go]',el).forEach(b=>b.onclick=()=>{DOC=b.dataset.docGo+':'+p.id;go('#tela/k-3.1.1/'+p.id+'?tl')});
+  ['#pvEd','#pvEd2'].forEach(s=>{const b=$(s);if(b)b.onclick=()=>go('#tela/k-3.1.1/'+p.id+'?editar')});
+  if($('#pvBx'))$('#pvBx').onclick=()=>go('#tela/k-3.1.1/'+p.id+'?baixa');
+  if($('#pvSig'))$('#pvSig').onclick=()=>{p.sig={ord:true,tes:true};toast('success','Assinado no Assina',`Ordem de pagamento ${pagNum(p)} assinada pelo ordenador e pela tesoureira (simulação).`);renderPgView(p.id)};
+  if(baixa)wirePgBaixa(p)}
+function pgBaixaPanel(p){const falta=r2(pgLiqV(p)-pgBaix(p));return `<section class="card inline-act"><div class="card-h">${ico('landmark')}<h3>Registrar baixa bancária</h3><span class="muted">${contaN(p.conta)} · ${R$(falta)} do valor líquido sem baixa</span></div><div class="card-b">
+  <div class="fgrid"><div class="c3"><label for="bx1">Cheque/Borderô</label><div class="input"><input type="date" id="bx1" value="${toISO(p.emissao)}"></div></div><div class="c3"><label for="bx2">Pagamento credor</label><div class="input"><input type="date" id="bx2" value="${toISO(today())}"></div></div>
+  <div class="c3"><label for="bx3">Baixa banco <i class="req">*</i></label><div class="input"><input type="date" id="bx3" value="${toISO(today())}"></div></div><div class="c3"><label for="bx4">Valor <i class="req">*</i></label><div class="input" id="bx4b"><span class="pre">R$</span><input id="bx4" inputmode="numeric" value="${brl(falta)}"></div></div></div>
+  ${pgSigned(p)?'':`<div class="alert info">${ico('info')}<span>A ordem de pagamento ainda não tem as 2 assinaturas. A baixa fica registrada, mas o pagamento continua pendente de assinatura.</span></div>`}</div>
+  <div class="ia-acts"><button class="btn btn-gray" data-pview>${ico('x')}Cancelar</button><button class="btn btn-accent" id="bxOk">${ico('check')}Confirmar baixa</button></div></section>`}
+function wirePgBaixa(p){let v=r2(pgLiqV(p)-pgBaix(p));moneyInput($('#bx4'),x=>v=x);
+  $('#bxOk').onclick=()=>{const falta=r2(pgLiqV(p)-pgBaix(p));if(!v||v>falta+0.005||!$('#bx3').value){$('#bx4b').classList.add('err');toast('info','Confira a baixa',`Informe a data da baixa e um valor até ${R$(falta)}.`);return}
+    p.lanc.push({chq:$('#bx1').value,pgCred:$('#bx2').value,baixa:$('#bx3').value,valor:v});if(!p.bord)p.bord=String(900+PAGS.indexOf(p));toast('success','Baixa registrada',`${R$(v)} baixados no pagamento ${pagNum(p)}.`);go('#tela/k-3.1.1/'+p.id)};
+  setTimeout(()=>{const s=$('.inline-act');s&&s.scrollIntoView({behavior:'smooth',block:'start'})},60)}
+function renderPgTl(id,keep){const p=PG(id);if(!p)return go('#tela/k-3.1.1');const {l,e}=pgLE(p);
+  if(keep)DOC=keep;else if(!DOC||!(DOC.endsWith(':'+id)||DOC==='nl:'+l.id))DOC='op:'+id;
+  const T=tlvParts(e,DOC),el=$('#content');
+  el.innerHTML=pgHead(p,l,e,'','tl')+`<div class="mini-tot"><span>Pagamento <b>${R$(p.valor)}</b>${p.anul?`<em class="neg">anulado ${R$(p.anul)}</em>`:''}</span><span>Retenções <b>${R$(pgRet(p))}</b></span><span>Líquido <b>${R$(pgLiqV(p))}</b></span><span>Baixado <b>${R$(pgBaix(p))}</b></span>
+    ${T.pendMine?`<span class="mt-pend">${ico('clock')}${T.pendMine} ${T.pendMine===1?'documento aguarda':'documentos aguardam'} sua assinatura</span>`:''}</div>${T.html}`;
+  pgHeadWire(el,p);tlvWire(el,e,k=>renderPgTl(id,k),T.cur)}
+function renderPgDireito(id){const p=PG(id);if(!p)return go('#tela/k-3.1.1');const {l,e}=pgLE(p),dr=p.direito||{};
+  const el=$('#content');el.innerHTML=pgHead(p,l,e,'Direito especial')+`<section class="card inline-act" style="box-shadow:none"><div class="card-h">${ico('shield-check')}<h3>Permissões excepcionais para este pagamento</h3></div><div class="card-b">
+   <p class="ia-txt">Libera ações que o perfil do usuário normalmente não permite, só para este pagamento. Fica registrado na auditoria.</p>
+   <div class="dr-list">${DR_OPTS.map(([k,t,s])=>`<label class="dr-item"><input type="checkbox" data-dr="${k}" ${dr[k]?'checked':''}><span><b>${t}</b><small>${s}</small></span></label>`).join('')}</div>
+   <div class="fgrid" style="margin-top:14px"><div class="c4"><label for="drU">Concedido a</label><div class="input"><select id="drU"><option>Ana Exemplo · Tesoureira</option><option>Diego Loureiro · Contador</option><option>Todos com acesso ao pagamento</option></select>${ico('chevron-down')}</div></div>
+   <div class="c3"><label for="drAte">Válido até</label><div class="input"><input type="date" id="drAte" value="${dr.ate||toISO(today())}"></div></div>
+   <div class="c5"><label for="drJ">Justificativa <i class="req">*</i></label><div class="input" id="drJb"><input id="drJ" value="${dr.just||''}" placeholder="Ex.: protocolo 123/2026"></div></div></div></div>
+   <div class="ia-acts"><button class="btn btn-gray" data-pview>${ico('x')}Cancelar</button><button class="btn btn-accent" id="drOk">${ico('check')}Salvar direito especial</button></div></section>`;
+  pgHeadWire(el,p);$('#drOk').onclick=()=>{if(!$('#drJ').value.trim()){$('#drJb').classList.add('err');$('#drJ').focus();return}
+    const o={ate:$('#drAte').value,just:$('#drJ').value.trim()};$$('[data-dr]',el).forEach(x=>o[x.dataset.dr]=x.checked);p.direito=o;toast('success','Direito especial salvo',`Registrado na auditoria do pagamento ${pagNum(p)}.`);go('#tela/k-3.1.1/'+p.id)}}
+function pagLancRows(p){const L=[],add=(data,ev,deb,cred,v,neg)=>L.push({data,ev,deb,cred,v,neg}),n=pagNum(p);
+  add(p.emissao,`Pagamento ${n} · controle`,'6.2.2.1.3.03.00 Crédito empenhado liquidado a pagar','6.2.2.1.3.04.00 Crédito empenhado pago',p.valor);
+  add(p.emissao,`Pagamento ${n} · financeiro`,'2.1.3.1.1.00.00 Fornecedores a pagar','1.1.1.1.1.00.00 Caixa e equivalentes',pgLiqV(p));
+  p.cons.forEach(x=>{const ce=CEXTRA.find(z=>z.cod===x.conta);add(p.emissao,`Retenção · ${ce.nome.toLowerCase()}`,'2.1.3.1.1.00.00 Fornecedores a pagar','2.1.8.8.1.00.00 Consignações a recolher',x.valor)});
+  p.orc.forEach(x=>{const ro=RORC.find(z=>z.cod===x.rec);add(p.emissao,`Retenção orçamentária · ${ro.rec}`,'2.1.3.1.1.00.00 Fornecedores a pagar','4.1.1.0.0.00.00 VPA tributária',x.valor);add(p.emissao,`${ro.rec} · controle da receita`,'6.2.1.1.0.00.00 Receita a realizar','6.2.1.2.0.00.00 Receita realizada',x.valor)});
+  if(p.anul)add(p.emissao,`Anulação do pagamento ${n}`,'6.2.2.1.3.04.00 Crédito empenhado pago','6.2.2.1.3.03.00 Crédito empenhado liquidado a pagar',p.anul,true);
+  return L}
+function renderPgLanc(id){const p=PG(id);if(!p)return go('#tela/k-3.1.1');const {l,e}=pgLE(p),L=pagLancRows(p);
+  const el=$('#content');el.innerHTML=pgHead(p,l,e,'Lançamentos contábeis')+`<div class="card"><div class="card-h"><h3>${L.length} lançamentos</h3><span class="muted">Partidas dobradas geradas pelo pagamento e pelas retenções (PCASP)</span><button class="btn btn-gray fc-x" id="lcX">${ico('sheet')}Exportar</button></div>
+   <div class="tbl-wrap"><table class="tbl tbl-lc"><thead><tr><th>Data</th><th>Evento</th><th>Débito</th><th>Crédito</th><th class="r">Valor</th></tr></thead><tbody>${L.map(x=>`<tr class="norow ${x.neg?'neg-row':''}"><td>${x.data}</td><td><b>${x.ev}</b></td><td><code>${x.deb}</code></td><td><code>${x.cred}</code></td><td class="r ${x.neg?'neg':''}">${brl(x.v)}</td></tr>`).join('')}</tbody></table></div></div>
+   <p class="hint" style="margin-top:10px">${ico('info')}Contas do PCASP ilustrativas no protótipo; no sistema vêm da tabela de eventos contábeis do município.</p>`;
+  pgHeadWire(el,p);$('#lcX').onclick=()=>toast('success','Planilha gerada',`${L.length} lançamentos exportados.`)}
+
+CUSTOM['k-3.1.1']=a=>{if(!a)return renderPgList();const [base,qs='']=a.split('?');
+  if(base==='novo')return renderPgForm({liq:qs.startsWith('liq=')?qs.slice(4):null});
+  if(qs==='editar')return renderPgForm({edit:base});if(qs==='tl')return renderPgTl(base);if(qs==='baixa')return renderPgView(base,true);if(qs==='direito')return renderPgDireito(base);if(qs==='lancamentos')return renderPgLanc(base);
+  return renderPgView(base)};
+if(typeof SCREENS_NOTE!=='undefined')delete SCREENS_NOTE['k-3.1.1'];
 
 /* ================= PLANEJAMENTO · Cadastros Básicos · Especificação da Receita =================
    Padrão de cadastro reutilizável: lista (busca única, agrupar, filtros inline, colunas, ordenação,
