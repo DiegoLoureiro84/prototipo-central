@@ -1353,7 +1353,7 @@ kbd{color:var(--secondary-fg)!important}
 .tbl-liq .chip{white-space:nowrap}
 .tbl-liq td.orgc{max-width:200px}.tbl-liq td.cred{min-width:180px;max-width:260px}
 .tbl-liq td.orgc .sub{overflow:hidden;text-overflow:ellipsis}
-.fsec-h .sec-r{margin-left:auto;flex:none}.fsec-h .sec-r .btn[disabled]{opacity:.55;cursor:not-allowed}.sec-miss h3{white-space:nowrap}
+.fsec-h .sec-r{margin-left:auto;flex:none}.l-desc .input.ta{height:auto;min-height:118px}.l-desc .input.ta textarea{min-height:100px}.input.ro.ta-ro{height:auto;min-height:118px;align-items:flex-start;padding:10px 12px}.input.ro.ta-ro span.v{white-space:normal;overflow:visible}.fsec-h .sec-r .btn[disabled]{opacity:.55;cursor:not-allowed}.sec-miss h3{white-space:nowrap}
 @media (max-width:1600px){.tbl-liq td,.tbl-liq th{padding-left:8px;padding-right:8px}.tbl-liq .w-act{width:44px}.tbl-liq .w-chk{width:36px}.tbl-liq td.cred{min-width:0;max-width:200px}.tbl-liq td.orgc{max-width:150px}}
 @media (max-width:1300px){.tbl-liq .col-org{display:none}}
 @media (max-width:1100px){.tbl-liq .col-ass{display:none}}
@@ -2752,7 +2752,7 @@ function renderDoc(key,e){const [tp,id]=key.split(':');const c=C(e.cred),d=D(e.d
     `<div class="pp-note ${ok?'':'bad'}">${ico(ok?'shield-check':'shield-alert')}${ok?'Documento externo, sem fluxo de assinatura. Válido.':'Documento externo. <b>Vencido:</b> alerta, não bloqueia o empenho.'}</div>`)}
   if(tp==='nf'&&l)return paper(`${l.tipoDoc==='Recibo'?'RECIBO':'NOTA FISCAL DE SERVIÇO ELETRÔNICA'} Nº ${l.doc}`,`Emitida em ${l.data}`,kv([['Prestador',`${c.nome}<br><small>${c.doc}</small>`],['Tomador',`${ug.name}`],['Discriminação',e.desc],['Valor bruto',R$(l.valor)],['Retenções',R$(retOf(l))]])+`<div class="pp-val"><span>Valor líquido</span><b>${R$(l.liquido)}</b></div>`,
     `<div class="pp-note">${ico('info')}Documento do fornecedor, sem fluxo de assinatura interna. Atestado na liquidação.</div>`);
-  if(tp==='nl'&&l){const ls=liqSig(l);return paper(`NOTA DE LIQUIDAÇÃO Nº ${liqN(l)}`,`Empenho ${e.num}/${e.ano} · ${l.data}`,kv([['Credor',c.nome],['Documento fiscal',(liqX(l,e).docs||[]).map(x=>`${x.tipo} ${x.num}`).join(', ')],['Valor liquidado',R$(l.valor)],['Retenções',R$(retOf(l))],['Líquido a pagar',`<b>${R$(l.liquido)}</b>`],['Atesto',`${respNome(l.respAt||l.resp)||'Responsável'} em ${l.dtAt||l.data}: material/serviço entregue conforme o empenho`],['Previsão de pagamento',`${l.prev} · ${filaOf(d)}`]]),
+  if(tp==='nl'&&l){const ls=liqSig(l);return paper(`NOTA DE LIQUIDAÇÃO Nº ${liqN(l)}`,`Empenho ${e.num}/${e.ano} · ${l.data}`,kv([['Credor',c.nome],['Histórico',liqX(l,e).desc],['Documento fiscal',(l.docs||[]).map(x=>`${x.tipo} ${x.num}`).join(', ')],['Valor liquidado',R$(l.valor)],['Retenções',R$(retOf(l))],['Líquido a pagar',`<b>${R$(l.liquido)}</b>`],['Atesto',`${respNome(l.respAt||l.resp)||'Responsável'} em ${l.dtAt||l.data}: material/serviço entregue conforme o empenho`],['Previsão de pagamento',`${l.prev} · ${filaOf(d)}`]]),
     sigFlow()?sigBlock([{...SIGNERS.cont,ok:ls.cont}]):'')}
   if(tp==='op'&&l){const pg=l.pg||l.pgEst;return paper(`ORDEM DE PAGAMENTO ${pg.op}`,`Liquidação ${liqN(l)} · ${pg.data}`,kv([['Favorecido',`${c.nome} · ${c.doc}`],['Conta pagadora',pg.conta||'Banco do Brasil · Ag 0001-9'],['Forma',pg.forma||'Transferência'],['Valor',`<b>${R$(l.liquido)}</b>`],...(l.pgAnul?[['Situação','<b class="neg">Pagamento anulado (estornado)</b>']]:[])]),sigBlock([{...SIGNERS.ord,ok:true},{...SIGNERS.tes,ok:true}]))}
   if(tp==='cp'&&l){const pg=l.pg||l.pgEst;return paper(`COMPROVANTE DE TRANSFERÊNCIA`,`Banco Exemplo · ${pg.data}`,kv([['Pagador',ug.name],['Favorecido',c.nome],['Documento',c.doc],['Valor',R$(l.liquido)],['Autenticação','A1B2.C3D4.E5F6.7788']]),`<div class="pp-note">${ico('info')}Comprovante bancário importado do retorno do banco.</div>`)}
@@ -3012,7 +3012,7 @@ function groupBySub(items){const m={};items.filter(x=>+x.vt>0).forEach(x=>{const
 
 /* completa os campos da liquidação a partir do empenho (dados gerados) */
 function liqX(l,e){if(l.x)return l;l.x=1;const d=D(e.dot),h=l.num||1,subs=SUBEL[d.el]||[''];
-  l.resp=l.resp||RESPS[h%4].cod;l.respAt=l.respAt||RESPS[(h+1)%4].cod;l.dtAt=l.dtAt||l.data;
+  l.desc=l.desc||e.desc;if(l.protPg==null)l.protPg='';l.resp=l.resp||RESPS[h%4].cod;l.respAt=l.respAt||RESPS[(h+1)%4].cod;l.dtAt=l.dtAt||l.data;
   if(!l.oc){l.oc=[];const oc=eOC(e);if(oc){let rest=l.valor;oc.forEach((it,i)=>{const share=i<oc.length-1?r2(l.valor/oc.length):r2(rest);rest=r2(rest-share);const qtd=r2(share/it.vu);l.oc.push({cod:it.cod,qtd,vt:share,sub:it.sub})})}}
   if(!l.desd)l.desd=l.oc.length?groupBySub(l.oc.map(x=>({...x,un:(eOC(e).find(i=>i.cod===x.cod)||{}).un}))):[{sub:e.sub||subs[0],qtd:1,un:d.el.startsWith('3.3.90.30')?'09 - un - unidade':'20 - sv - serviço',valor:l.valor}];
   if(!l.docs)l.docs=[{tipo:l.tipoDoc,num:l.doc,serie:l.tipoDoc==='NF-e'?'1':'',chave:'',data:l.data,valor:l.valor,anexo:''}];
@@ -3207,24 +3207,32 @@ function liqRowActions(b,id){const r=LQ(id);if(!r)return;const {l,e}=r,ed=canEdi
 let LF=null;
 const roF=(lb,v,cls='c6')=>`<div class="${cls}"><label>${lb}</label><div class="input ro"><span class="v">${v===''||v==null?'&nbsp;':v}</span></div></div>`;
 const secH=(n,t,ok,right='')=>`<div class="fsec-h"><span class="n ${ok?'ok':''}" data-ln="${n}">${n}</span><h3>${t}</h3>${right?`<span class="sec-r">${right}</span>`:''}</div>`;
-function empFields(e){const d=D(e.dot),c=C(e.cred),t=tot(e),fn=d.func.split('.');
-  return `<div class="fgrid">${roF('Tipo',e.tipo,'c3')}${roF('Data do empenho',e.data,'c3')}${roF('Nº protocolo',e.protocolo||'','c3')}${roF('Tipo de processo',e.proc,'c3')}
-   ${roF('Proc. de compra',e.proc==='Sem processo'?'':`${(e.num%90)+10}/${e.ano}`,'c3')}${roF('NAD',e.nad?`${e.nad}/${e.ano}`:'','c3')}${roF('Tipo proc. compra',e.contrato?`Contrato - ${e.contrato}`:'','c3')}${roF('Código reduzido',d.cod,'c3')}
-   ${roF('Órgão / unidade',`${fn[0]}.${fn[1]} - ${d.org.split(' ').slice(1).join(' ')}`)}${roF('Funcional-programática',`${fn.slice(2).join('.')} - ${d.acao}`)}
-   ${roF('Despesa',`${d.el}.00 - ${d.elN}`)}${roF('Fonte de recurso',`${d.fonte} - ${d.fonteN}`)}
-   ${roF('Subelemento',e.sub||'')}${roF('Credor',`${103000+c.id*7} - ${c.nome}`)}
-   ${roF('Valor do empenho',brl(t.V))}${roF('Saldo a liquidar',brl(t.aLiq))}</div>`}
+function empFields(e){const d=D(e.dot),c=C(e.cred),t=tot(e),fn=d.func.split('.'),sem=e.proc==='Sem processo';
+  return `<div class="fgrid">${roF('Tipo',e.tipo,'c3')}${roF('Data do empenho',e.data,'c3')}${roF('Nº protocolo',e.protocolo||'','c3')}${roF('Tipo de processo',sem?'Despesa sem licitação':'Processo de compra','c3')}
+   ${sem?'':`${roF('Proc. lic.',`${(e.num%70)+10}/${e.ano}`,'c3')}${roF('Mod. lic.',`${e.proc} - ${(e.num%40)+1}/${e.ano}`,'c3')}${roF('Proc. de compra',`${(e.num%90)+10}/${e.ano}`,'c3')}${roF('NAD',e.nad?`${e.nad}/${e.ano}`:'','c3')}${roF('Tipo proc. compra',e.contrato?`Contrato - ${e.contrato}`:'Normal','c3')}`}
+   ${roF('Código reduzido',d.cod,sem?'c4':'c3')}${roF('Órgão / unidade',`${fn[0]}.${fn[1]} - ${d.org.split(' ').slice(1).join(' ')}`,sem?'c8':'c6')}
+   ${roF('Funcional-programática',`${fn.slice(2).join('.')} - ${d.acao}`)}${roF('Despesa',`${d.el}.00 - ${d.elN}`)}
+   ${roF('Fonte de recurso',`${d.fonte} - ${d.fonteN}`)}${roF('Subelemento',e.sub||'')}
+   ${roF('Credor',`${103000+c.id*7} - ${c.nome}`)}${roF('Valor do empenho',brl(t.V),'c3')}${roF('Saldo a liquidar',brl(t.aLiq),'c3')}</div>`}
+const empLabel=(e,saldo)=>`${e.num}/${e.ano} - ${C(e.cred).nome} - saldo ${brl(saldo)}`;
 
 function renderLiqForm(opt){opt=opt||{};const ed=opt.edit;const ex=ed?LQ(ed):null;if(ed&&(!ex||!canEditLiq(ex.l)))return go('#tela/k-2.12/'+(ed||''));
-  if(ex){const {l,e}=ex;LF={mode:'editar',id:l.id,emp:e.num,resp:l.resp,respAt:l.respAt||'',dtAt:toISO(l.dtAt),desd:l.desd.map(x=>({...x})),oc:null,ocLoad:false,docs:l.docs.map(x=>({...x,data:toISO(x.data)})),obra:l.obra||'',prev:toISO(l.prev),tried:false};
+  if(ex){const {l,e}=ex;LF={mode:'editar',id:l.id,emp:e.num,data:toISO(l.data),desc:l.desc||e.desc,valor:l.valor,protPg:l.protPg||'',resp:l.resp,respAt:l.respAt||'',dtAt:toISO(l.dtAt),desd:l.desd.map(x=>({...x})),oc:null,ocLoad:false,docs:l.docs.map(x=>({...x,data:toISO(x.data)})),obra:l.obra||'',prev:toISO(l.prev),tried:false};
     const oc=eOC(e);LF.oc=oc?oc.map(it=>{const u=(l.oc||[]).find(x=>x.cod===it.cod);return {cod:it.cod,qtd:u?u.qtd:0,sub:u?u.sub:it.sub}}):null}
-  else LF={mode:'novo',emp:null,resp:'1001',respAt:'',dtAt:toISO(today()),desd:[],oc:null,ocLoad:false,docs:[],obra:'',prev:'',tried:false};
+  else LF={mode:'novo',emp:null,data:toISO(today()),desc:'',valor:0,protPg:'',resp:'1001',respAt:'',dtAt:toISO(today()),desd:[],oc:null,ocLoad:false,docs:[],obra:'',prev:'',tried:false};
   const c=$('#content'),last=nextLiqNum()-1;
   c.innerHTML=`<div class="crumbs">Contábil ${ico('chevron-right')} 2 - Orçamentário ${ico('chevron-right')} <button class="link" data-back style="font-size:12px">2.12 - Liquidação</button> ${ico('chevron-right')} ${ex?'Editar':'Incluir'}</div>
   <div class="page-head"><button class="back" aria-label="Voltar" data-back>${ico('chevron-left')}</button><div><h1>${ex?`Editar liquidação ${liqN(ex.l)}`:'Incluir liquidação'}</h1><p>${ex?'Só é possível editar enquanto a nota de liquidação não foi assinada nem paga.':`Última liquidação: <b>${last}/${EX}</b>. O próximo número é gerado ao salvar.`}</p></div></div>
   <div class="form-layout"><div>
-   ${secMiss()}
-   <section class="card">${secH(2,'Empenho',false)}<div class="card-b" id="lEmpBox"></div></section>
+   <section class="card">${secH(1,'Liquidação',false)}<div class="card-b"><div class="fgrid">
+     ${roF('Número',ex?ex.l.num:`${nextLiqNum()} · previsto`,'c3')}${roF('Ano',ex?ex.l.data.slice(-4):EX,'c3')}${roF('Última liquidação',`${last}/${EX}`,'c3')}
+     <div class="c3"><label for="lData">Data <i class="req">*</i></label><div class="input" id="lDataB"><input type="date" id="lData" value="${LF.data}"></div></div>
+     <div class="c6"><div id="lEmpBox"></div></div>
+     <div class="c6 l-desc"><label for="lDesc">Descrição <i class="req">*</i></label><div class="input ta" id="lDescB"><textarea id="lDesc" maxlength="500" placeholder="Histórico da liquidação, como vai aparecer na nota">${LF.desc}</textarea></div><div style="text-align:right"><span class="counter" id="lDescCnt">${LF.desc.length}/500</span></div></div>
+     <div class="c6"><label for="lVal">Valor <i class="req">*</i></label><div class="input" id="lValB"><span class="pre">R$</span><input id="lVal" inputmode="numeric" value="${LF.valor?brl(LF.valor):''}" placeholder="0,00"></div><div class="hint err hidden" id="lValH"></div></div>
+     <div class="c6"><label for="lProt">Nº protocolo pgto</label><div class="input"><input id="lProt" value="${LF.protPg}"></div></div>
+   </div></div></section>
+   <section class="card">${secH(2,'Empenho',false)}<div class="card-b" id="lEmpData"></div></section>
    <div id="lRest"></div>
   </div>
   <aside class="side"><div class="card"><div class="card-h"><h3 style="font-size:18px">Resumo</h3></div><div class="card-b" id="lSum"></div>
@@ -3233,28 +3241,35 @@ function renderLiqForm(opt){opt=opt||{};const ed=opt.edit;const ex=ed?LQ(ed):nul
   paintIcons(c);
   $$('[data-back]',c).forEach(b=>b.onclick=()=>go(ex?'#tela/k-2.12/'+ex.l.id:'#tela/k-2.12'));
   $('#lSave').onclick=saveLiq;
+  $('#lData').onchange=ev=>{LF.data=ev.target.value;syncLiq()};
+  $('#lDesc').oninput=ev=>{LF.desc=ev.target.value;$('#lDescCnt').textContent=LF.desc.length+'/500';syncLiq()};
+  $('#lProt').oninput=ev=>{LF.protPg=ev.target.value};
+  moneyInput($('#lVal'),v=>{const old=LF.valor;LF.valor=v;
+    if(LF.emp){if(!LF.ocLoad&&LF.desd.length===1&&r2(+LF.desd[0].valor||0)===r2(old)){LF.desd[0].valor=v;paintDesd()}
+      if(LF.docs.length===1&&r2(+LF.docs[0].valor||0)===r2(old)){LF.docs[0].valor=v;paintDocs()}}
+    syncLiq()});
   if(opt.emp){const e=E(opt.emp);if(e&&aLiqOpen(e))pickLiqEmp(e,true);else{paintLiqEmp();toast('info','Empenho sem saldo a liquidar',`O empenho ${opt.emp} não tem saldo a liquidar. Escolha outro.`)}}
   else paintLiqEmp();
 }
-function secMiss(){return `<section class="card sec-miss">${secH(1,'Seção 1',false,'<span class="chip gray">aguardando a tela do sistema</span>')}<div class="card-b"><p class="hint" style="margin:0">${ico('info')}Os campos desta seção entram quando chegar o print do sistema original.</p></div></section>`}
 function pickLiqEmp(e,init){LF.emp=e.num;const t=tot(e),pf=e.cred===8,d=D(e.dot),oc=eOC(e);
   if(LF.mode==='novo'){
     LF.oc=oc?oc.map(it=>({cod:it.cod,qtd:r2(Math.max(0,it.qtd-ocUsed(e,it.cod))),sub:it.sub})):null;
     if(LF.oc){const tv=ocTot();if(tv>t.aLiq+0.005){const k=t.aLiq/tv;LF.oc.forEach(x=>x.qtd=r2(x.qtd*k))}LF.ocLoad=true;LF.desd=desdFromOC()}
     else LF.desd=[{sub:e.sub||(SUBEL[d.el]||[''])[0],qtd:1,un:d.el.startsWith('3.3.90.30')?'09 - un - unidade':'20 - sv - serviço',valor:t.aLiq}];
-    LF.docs=[{tipo:pf?'Recibo':d.el.startsWith('3.3.90.30')?'NF-e':'NFS-e',num:'',serie:'',chave:'',data:toISO(today()),valor:desdTot(),anexo:''}];
+    LF.valor=desdTot();LF.desc=e.desc;$('#lVal').value=brl(LF.valor);$('#lDesc').value=LF.desc;$('#lDescCnt').textContent=LF.desc.length+'/500';
+    LF.docs=[{tipo:pf?'Recibo':d.el.startsWith('3.3.90.30')?'NF-e':'NFS-e',num:'',serie:'',chave:'',data:toISO(today()),valor:LF.valor,anexo:''}];
     LF.obra=d.el.startsWith('4.4.90.51')?OBRA_OPTS[0]:'';LF.prev=toISO(dMinus(today(),-20))}
   paintLiqEmp();paintLiqRest();syncLiq()}
-function paintLiqEmp(){const box=$('#lEmpBox');
+function paintLiqEmp(){const box=$('#lEmpBox'),dat=$('#lEmpData');
   if(!LF.emp){combo(box,{label:'Empenho',ph:'Nº do empenho, credor ou dotação',items:()=>EMPS.filter(e=>e.ano===EX&&aLiqOpen(e)),empty:'Nenhum empenho com saldo a liquidar.',
-      render:e=>{const d=D(e.dot),c=C(e.cred);return {txt:`${e.num} ${c.nome} ${c.doc} ${d.cod} ${d.acao}`,html:`<span class="rr">${R$(tot(e).aLiq)} a liquidar</span><b>${e.num}/${e.ano} · ${c.nome}</b><small>${d.cod} · ${d.acao} · ${d.el} ${d.elN}</small>`}},
+      render:e=>{const d=D(e.dot),c=C(e.cred);return {txt:`${e.num} ${c.nome} ${c.doc} ${d.cod} ${d.acao}`,html:`<span class="rr">saldo ${brl(tot(e).aLiq)}</span><b>${e.num}/${e.ano} - ${c.nome}</b><small>${d.cod} · ${d.acao} · ${d.el} ${d.elN}</small>`}},
       onPick:e=>pickLiqEmp(e)});
-    box.insertAdjacentHTML('beforeend',`<p class="hint" style="margin-top:8px">${ico('info')}Só aparecem empenhos do exercício com saldo a liquidar. Dá para liquidar também pelo botão Liquidar dentro do empenho.</p>`);paintIcons(box);$('#lRest').innerHTML='';syncLiq();return}
-  const e=E(LF.emp),c=C(e.cred);
-  box.innerHTML=`<div class="pick">${ico('circle-check')}<div><b>Empenho ${e.num}/${e.ano} · ${c.nome}</b><small>${e.desc}</small></div>${LF.mode==='novo'?'<button type="button" class="link x2" id="lEmpX">Trocar</button>':''}</div>
-   ${c.cert==='vencida'?`<div class="alert warn" style="margin-top:12px">${ico('triangle-alert')}<span><b>Certidão negativa do credor vencida em 30/10/2026.</b> Alerta, não bloqueia a liquidação. Peça a certidão atualizada antes do pagamento ou use o direito especial.</span></div>`:''}
-   <div style="margin-top:14px">${empFields(e)}</div>`;
-  paintIcons(box);if($('#lEmpX'))$('#lEmpX').onclick=()=>{LF.emp=null;LF.desd=[];LF.docs=[];LF.oc=null;paintLiqEmp()}}
+    box.insertAdjacentHTML('beforeend',`<p class="hint" style="margin-top:8px">${ico('info')}Só empenhos do exercício com saldo a liquidar.</p>`);paintIcons(box);
+    dat.innerHTML=`<p class="sec-empty">Escolha o empenho na seção 1 para ver os dados dele aqui.</p>`;$('#lRest').innerHTML='';syncLiq();return}
+  const e=E(LF.emp),c=C(e.cred),cur=LQ(LF.id),saldo=r2(tot(e).aLiq+(cur?cur.l.valor:0));
+  box.innerHTML=`<label>Empenho <i class="req">*</i></label><div class="pick">${ico('circle-check')}<div><b>${empLabel(e,saldo)}</b><small>${e.desc}</small></div>${LF.mode==='novo'?'<button type="button" class="link x2" id="lEmpX">Trocar</button>':''}</div>`;
+  dat.innerHTML=`${c.cert==='vencida'?`<div class="alert warn" style="margin:0 0 14px">${ico('triangle-alert')}<span><b>Certidão negativa do credor vencida em 30/10/2026.</b> Alerta, não bloqueia a liquidação. Peça a certidão atualizada antes do pagamento ou use o direito especial.</span></div>`:''}${empFields(e)}`;
+  paintIcons(box);paintIcons(dat);if($('#lEmpX'))$('#lEmpX').onclick=()=>{LF.emp=null;LF.desd=[];LF.docs=[];LF.oc=null;paintLiqEmp()}}
 
 const ocTot=()=>{if(!LF.oc)return 0;const e=E(LF.emp),oc=eOC(e);return r2(LF.oc.reduce((s,x)=>{const it=oc.find(i=>i.cod===x.cod);return s+r2((+x.qtd||0)*it.vu)},0))};
 const desdTot=()=>r2(LF.desd.reduce((s,x)=>s+(+x.valor||0),0));
@@ -3347,36 +3362,37 @@ function paintDocs(){const box=$('#lDocs');const e=E(LF.emp);const opt=(list,v)=
   $$('[data-dcrm]',box).forEach(b=>b.onclick=()=>{LF.docs.splice(+b.dataset.dcrm,1);paintDocs();syncLiq()});
   $$('[data-anx]',box).forEach(b=>b.onclick=()=>{const k=+b.dataset.anx,x=LF.docs[k];x.anexo=x.anexo?'':`${x.tipo.toLowerCase().replace(/[^a-z]/g,'')}-${x.num||'documento'}.pdf`;paintDocs();toast('info',x.anexo?'Arquivo anexado':'Anexo removido',x.anexo?`${x.anexo} (simulação do protótipo).`:'O documento ficou sem anexo.')})}
 
-function liqReq(){if(!LF.emp)return [['Empenho',false]];const e=E(LF.emp),t=tot(e),cur=LQ(LF.id),saldo=r2(t.aLiq+(cur?cur.l.valor:0)),dt=desdTot(),dc=docsTot();
+function liqReq(){const base=[['Data',!!LF.data],['Empenho',!!LF.emp],['Descrição',LF.desc.trim().length>=5],['Valor',LF.valor>0]];if(!LF.emp)return base;
+  const e=E(LF.emp),t=tot(e),cur=LQ(LF.id),saldo=r2(t.aLiq+(cur?cur.l.valor:0)),v=r2(LF.valor),dt=desdTot(),dc=docsTot();
   const oc=eOC(e),ocOver=oc&&LF.oc.some(x=>{const it=oc.find(o=>o.cod===x.cod);return (+x.qtd||0)>r2(it.qtd-ocUsed(e,it.cod,cur&&cur.l))+0.005});
-  return [['Empenho',true],['Responsável pela liquidação',!!respNome(LF.resp)],['Data do atesto',!!LF.dtAt],
-   ['Desdobramentos completos',LF.desd.length>0&&LF.desd.every(x=>x.sub&&x.un&&+x.valor>0)],
-   ['Valor até o saldo a liquidar',dt>0&&dt<=saldo+0.005],
+  return [...base,['Valor até o saldo a liquidar',v<=saldo+0.005],['Responsável pela liquidação',!!respNome(LF.resp)],['Data do atesto',!!LF.dtAt],
+   ['Desdobramentos completos',LF.desd.length>0&&LF.desd.every(x=>x.sub&&x.un&&+x.valor>0)],['Desdobramentos somam o valor',v>0&&Math.abs(dt-v)<0.005],
    ...(oc?[['Quantidades dentro do disponível',!ocOver]]:[]),
-   ['Documentos completos',LF.docs.length>0&&LF.docs.every(x=>x.tipo&&x.num.trim()&&x.data&&+x.valor>0)],
-   ['Documentos somam o valor',dc>0&&Math.abs(dc-dt)<0.005],
+   ['Documentos completos',LF.docs.length>0&&LF.docs.every(x=>x.tipo&&x.num.trim()&&x.data&&+x.valor>0)],['Documentos somam o valor',v>0&&Math.abs(dc-v)<0.005],
    ['Data prevista para o pagamento',!!LF.prev]]}
-function syncLiq(){const req=liqReq(),done=req.filter(r=>r[1]).length,ok=done===req.length;
-  const e=LF.emp?E(LF.emp):null,t=e?tot(e):null,cur=LQ(LF.id),saldo=e?r2(t.aLiq+(cur?cur.l.valor:0)):0,dt=desdTot(),dc=docsTot(),over=e&&dt>saldo+0.005;
+function syncLiq(){const req=liqReq(),done=req.filter(r=>r[1]).length,ok=done===req.length,q=n=>(req.find(r=>r[0]===n)||[0,true])[1];
+  const e=LF.emp?E(LF.emp):null,t=e?tot(e):null,cur=LQ(LF.id),saldo=e?r2(t.aLiq+(cur?cur.l.valor:0)):0,v=r2(LF.valor),dt=desdTot(),dc=docsTot(),over=e&&v>saldo+0.005;
   $('#lSum').innerHTML=`<div><span>Número</span><b>${cur?liqN(cur.l):nextLiqNum()+'/'+EX+' · automático'}</b></div><div><span>Empenho</span><b>${e?`${e.num}/${e.ano}`:'—'}</b></div><div><span>Credor</span><b>${e?C(e.cred).nome:'—'}</b></div>
-   <div><span>Saldo a liquidar</span><b>${e?R$(saldo):'—'}</b></div><div><span>Total dos documentos</span><b style="color:${e&&Math.abs(dc-dt)>=0.005?'var(--danger-strong)':'inherit'}">${e?R$(dc):'—'}</b></div><div><span>Valor da liquidação</span><b class="big">${R$(dt)}</b></div>
-   ${e?`<div class="sum-use"><div class="row"><span>Esta liquidação usa</span><b style="color:${over?'var(--danger-strong)':'inherit'}">${saldo>0?(Math.round(dt/saldo*1000)/10).toLocaleString('pt-BR'):100}% do saldo</b></div><div class="bar"><i class="${over?'over':''}" style="width:${saldo>0?Math.min(100,dt/saldo*100):100}%"></i></div><div class="row"><span>Saldo após a liquidação</span><b style="color:${over?'var(--danger-strong)':'inherit'}">${R$(saldo-dt)}</b></div></div>`:''}`;
+   <div><span>Saldo a liquidar</span><b>${e?R$(saldo):'—'}</b></div><div><span>Desdobramentos</span><b style="color:${e&&Math.abs(dt-v)>=0.005?'var(--danger-strong)':'inherit'}">${e?R$(dt):'—'}</b></div><div><span>Documentos</span><b style="color:${e&&Math.abs(dc-v)>=0.005?'var(--danger-strong)':'inherit'}">${e?R$(dc):'—'}</b></div><div><span>Valor da liquidação</span><b class="big">${R$(v)}</b></div>
+   ${e?`<div class="sum-use"><div class="row"><span>Esta liquidação usa</span><b style="color:${over?'var(--danger-strong)':'inherit'}">${saldo>0?(Math.round(v/saldo*1000)/10).toLocaleString('pt-BR'):100}% do saldo</b></div><div class="bar"><i class="${over?'over':''}" style="width:${saldo>0?Math.min(100,v/saldo*100):100}%"></i></div><div class="row"><span>Saldo após a liquidação</span><b style="color:${over?'var(--danger-strong)':'inherit'}">${R$(saldo-v)}</b></div></div>`:''}`;
   $('#lChk').innerHTML=`<li style="font-weight:600;color:var(--fg)">${done} de ${req.length} conferências ok</li>`+req.map(([l,k])=>`<li class="${k?'ok':''}">${ico(k?'circle-check':'circle')}${l}</li>`).join('');paintIcons($('#lChk'));
-  if(e){const sn={2:true,3:!!respNome(LF.resp)&&!!LF.dtAt,4:req[3][1]&&req[4][1],5:!!eOC(e)&&ocTot()>0&&(req.find(r=>r[0]==='Quantidades dentro do disponível')||[0,1])[1],6:req.find(r=>r[0]==='Documentos completos')[1]&&req.find(r=>r[0]==='Documentos somam o valor')[1],11:!!LF.prev};
-    Object.entries(sn).forEach(([k,v])=>{const n=$(`[data-ln="${k}"]`);n&&n.classList.toggle('ok',!!v)});
-    const dh=$('#lDesdH');if(dh){dh.innerHTML=over?`${ico('circle-alert')}Maior que o saldo a liquidar (${R$(saldo)}).`:'';dh.classList.toggle('err',!!over);paintIcons(dh)}
-    const ch=$('#lDocH');if(ch){const bad=dc>0&&Math.abs(dc-dt)>=0.005;ch.innerHTML=bad?`${ico('circle-alert')}Os documentos somam ${R$(dc)}; os desdobramentos, ${R$(dt)}.`:'';ch.classList.toggle('err',bad);paintIcons(ch)}
+  const vh=$('#lValH');if(vh){vh.innerHTML=over?`${ico('circle-alert')}Maior que o saldo a liquidar do empenho (${R$(saldo)}).`:'';vh.classList.toggle('hidden',!over);$('#lValB').classList.toggle('err',!!over||(LF.tried&&!(v>0)));paintIcons(vh)}
+  $('#lDescB').classList.toggle('err',LF.tried&&LF.desc.trim().length<5);
+  const sn={1:q('Data')&&q('Empenho')&&q('Descrição')&&q('Valor')&&q('Valor até o saldo a liquidar'),2:!!e};
+  if(e){Object.assign(sn,{3:q('Responsável pela liquidação')&&q('Data do atesto'),4:q('Desdobramentos completos')&&q('Desdobramentos somam o valor'),5:!!eOC(e)&&ocTot()>0&&q('Quantidades dentro do disponível'),6:q('Documentos completos')&&q('Documentos somam o valor'),11:!!LF.prev});
+    const dh=$('#lDesdH');if(dh){const bad=dt>0&&v>0&&Math.abs(dt-v)>=0.005;dh.innerHTML=bad?`${ico('circle-alert')}Os desdobramentos somam ${R$(dt)}; o valor da liquidação é ${R$(v)}.`:'';dh.classList.toggle('err',bad);paintIcons(dh)}
+    const ch=$('#lDocH');if(ch){const bad=dc>0&&v>0&&Math.abs(dc-v)>=0.005;ch.innerHTML=bad?`${ico('circle-alert')}Os documentos somam ${R$(dc)}; o valor da liquidação é ${R$(v)}.`:'';ch.classList.toggle('err',bad);paintIcons(ch)}
     const dT=$('#lDesdT');if(dT)dT.textContent=R$(dt)}
-  else{const n=$('[data-ln="2"]');n&&n.classList.remove('ok')}
+  Object.entries(sn).forEach(([k,ok2])=>{const n=$(`[data-ln="${k}"]`);n&&n.classList.toggle('ok',!!ok2)});
   $('#lSave').disabled=!ok}
-function saveLiq(){LF.tried=true;const req=liqReq();if(req.some(r=>!r[1])){paintDesd();paintDocs();syncLiq();const f=$('.form-layout .err');if(f)f.scrollIntoView({behavior:'smooth',block:'center'});return}
-  const e=E(LF.emp),dt=desdTot(),oc=eOC(e);
-  const data={resp:LF.resp,respAt:LF.respAt,dtAt:fromISO(LF.dtAt),desd:LF.desd.map(x=>({...x})),oc:oc?LF.oc.filter(x=>+x.qtd>0).map(x=>{const it=oc.find(o=>o.cod===x.cod);return {cod:x.cod,qtd:x.qtd,vt:r2(x.qtd*it.vu),sub:x.sub}}):[],
-    docs:LF.docs.map(x=>({...x,data:fromISO(x.data)})),obra:LF.obra,prev:fromISO(LF.prev),valor:dt,liquido:dt,tipoDoc:LF.docs[0].tipo,doc:LF.docs[0].num.trim(),x:1};
-  if(LF.mode==='editar'){const {l}=LQ(LF.id);Object.assign(l,data);toast('success','Liquidação atualizada',`Liquidação ${liqN(l)}: ${R$(dt)}.`);DOC='nl:'+l.id;return go('#tela/k-2.12/'+l.id)}
+function saveLiq(){LF.tried=true;const req=liqReq();if(req.some(r=>!r[1])){if(LF.emp){paintDesd();paintDocs()}syncLiq();const f=$('.form-layout .err');if(f)f.scrollIntoView({behavior:'smooth',block:'center'});return}
+  const e=E(LF.emp),v=r2(LF.valor),oc=eOC(e);
+  const data={data:fromISO(LF.data),desc:LF.desc.trim(),protPg:LF.protPg.trim(),resp:LF.resp,respAt:LF.respAt,dtAt:fromISO(LF.dtAt),desd:LF.desd.map(x=>({...x})),oc:oc?LF.oc.filter(x=>+x.qtd>0).map(x=>{const it=oc.find(o=>o.cod===x.cod);return {cod:x.cod,qtd:x.qtd,vt:r2(x.qtd*it.vu),sub:x.sub}}):[],
+    docs:LF.docs.map(x=>({...x,data:fromISO(x.data)})),obra:LF.obra,prev:fromISO(LF.prev),valor:v,liquido:v,tipoDoc:LF.docs[0].tipo,doc:LF.docs[0].num.trim(),x:1};
+  if(LF.mode==='editar'){const {l}=LQ(LF.id);Object.assign(l,data);toast('success','Liquidação atualizada',`Liquidação ${liqN(l)}: ${R$(v)}.`);DOC='nl:'+l.id;return go('#tela/k-2.12/'+l.id)}
   const n=Math.max(0,...e.liqs.map(l=>+l.id.split('-')[1]||0))+1;
-  const l={id:`${e.num}-${n}`,num:nextLiqNum(),data:today(),ret:{iss:0,inss:0,irrf:0},pago:false,pg:null,anul:0,pgAnul:0,sig:{cont:false},...data};
-  e.liqs.push(l);toast('success','Liquidação incluída',`Liquidação ${liqN(l)} de ${R$(dt)} salva. Próximo passo: assinar a nota de liquidação.`);DOC='nl:'+l.id;go('#tela/k-2.12/'+l.id+'?tl')}
+  const l={id:`${e.num}-${n}`,num:nextLiqNum(),ret:{iss:0,inss:0,irrf:0},pago:false,pg:null,anul:0,pgAnul:0,sig:{cont:false},...data};
+  e.liqs.push(l);toast('success','Liquidação incluída',`Liquidação ${liqN(l)} de ${R$(v)} salva. Próximo passo: assinar a nota de liquidação.`);DOC='nl:'+l.id;go('#tela/k-2.12/'+l.id+'?tl')}
 
 /* ---------------- visualizar ---------------- */
 function liqHead(l,e,title,tab){const [sl,sc]=liqSit(l);const an=sl==='Totalmente anulado';
@@ -3394,7 +3410,9 @@ function renderLiqView(id){const r=LQ(id);if(!r)return go('#tela/k-2.12');const 
   <div class="act-strip card"><div class="as-txt">${ico(next[0])}<div><b>${next[1]}</b><small>${next[2]}</small></div></div>
     <div class="as-btns"><button class="btn btn-gray" data-doc-go="nl">${ico('file-check')}Nota de liquidação</button>${ed?`<button class="btn btn-gray" id="lvEd">${ico('pencil')}Editar</button>`:''}${!an&&!signed?`<button class="btn btn-accent" data-doc-go="nl">${ico('pen-line')}Assinar</button>`:''}</div></div>
   <div class="form-layout"><div>
-   ${secMiss()}
+   <section class="card">${secH(1,'Liquidação',true)}<div class="card-b"><div class="fgrid">${roF('Número',l.num,'c3')}${roF('Ano',l.data.slice(-4),'c3')}${roF('Última liquidação',`${nextLiqNum()-1}/${EX}`,'c3')}${roF('Data',l.data,'c3')}
+     ${roF('Empenho',empLabel(e,tot(e).aLiq),'c6')}<div class="c6 l-desc"><label>Descrição</label><div class="input ro ta-ro"><span class="v">${l.desc}</span></div></div>
+     ${roF('Valor',brl(l.valor),'c6')}${roF('Nº protocolo pgto',l.protPg||'','c6')}</div></div></section>
    <section class="card">${secH(2,'Empenho',true)}<div class="card-b">${empFields(e)}</div></section>
    <section class="card">${secH(3,'Responsável e atesto',true)}<div class="card-b"><div class="fgrid">${roF('Responsável pela liquidação',l.resp,'c3')}${roF('Nome',respNome(l.resp))}${roF('Data do atesto',l.dtAt,'c3')}${roF('Responsável pelo atesto',l.respAt||'','c3')}${roF('Nome',respNome(l.respAt),'c9')}</div></div></section>
    <section class="card">${secH(4,'Subelemento/Desdobramento',true)}<div class="card-b">${l.desd.map(x=>`<div class="irow"><div class="fgrid">${roF('Sub/Desd',x.sub,'c5')}${roF('Quantidade',String(x.qtd).replace('.',','),'c2')}${roF('Un. medida',x.un,'c3')}${roF('Valor',brl(x.valor),'c2')}</div></div>`).join('')}
