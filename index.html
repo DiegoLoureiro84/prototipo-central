@@ -1363,7 +1363,7 @@ kbd{color:var(--secondary-fg)!important}
 .form-layout>div{min-width:0}.fgrid>*{min-width:0}.input.ro span.v{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media (max-width:1100px){.tlv{grid-template-columns:minmax(0,1fr)!important}}
 @media (max-width:899px){.tlv>*{min-width:0}.vw-stage{overflow-x:auto}.tl2-t{flex-wrap:wrap}.vtabs{overflow-x:auto;scrollbar-width:none;max-width:100%}.vtabs::-webkit-scrollbar{display:none}.vtabs>button{flex:none;white-space:nowrap}.crumbs{flex-wrap:wrap;row-gap:2px}.sw-inline{flex:none;width:100%;max-width:100%}.sw-inline .sw-t{white-space:normal}.fgrid{grid-template-columns:minmax(0,1fr)}.fsec-h{flex-wrap:wrap}.fsec-h .sec-r{margin-left:0;width:100%}.sec-tot{min-width:0;width:100%;align-items:flex-start}.rm-c{justify-content:flex-end}.pair{grid-template-columns:1fr 1fr}}
-.wa-btn{width:40px;display:grid;place-items:center;gap:0;padding:0;border:1px solid var(--border);background:#fff;color:var(--fg);font:inherit;font-size:14px;font-weight:500}.wa-logo{width:22px;height:22px;display:block}.wa-btn .wa-fb{display:none}.wa-btn.no-logo .wa-fb{display:block}.wa-btn:hover,.wa-btn:focus-visible{background:#fff!important;border-color:var(--accent)!important;box-shadow:0 0 0 1px var(--accent) inset!important;color:var(--fg)!important}
+.wa-btn .wa-logo{width:19px;height:19px;display:block}.wa-btn .wa-fb{display:none}.wa-btn.no-logo .wa-fb{display:block}
 .empty .btn{display:flex!important;width:max-content;margin:14px auto 0!important}.empty .btn .ic{width:18px;height:18px;padding:0;margin:0;border-radius:0;background:none;color:inherit}
 #numTxt{flex:0 0 auto!important;min-width:3ch;max-width:100%;padding:0!important}.input .suf{color:var(--fg);font-weight:500;margin-left:-13px;white-space:nowrap}#numIn #resOpen{margin-left:auto}
 </style>
@@ -1493,7 +1493,7 @@ kbd{color:var(--secondary-fg)!important}
       </div>
 
       <div class="anchor hide-sm">
-        <button class="icon-btn wa-btn" id="waBtn" aria-label="Falar com o suporte no WhatsApp" title="Falar com o suporte no WhatsApp"><img class="wa-logo" src="whatsapp.svg" alt="" width="20" height="20" onerror="this.parentElement.classList.add('no-logo');this.remove()"><i data-i="message-circle" class="wa-fb"></i></button>
+        <button class="icon-btn wa-btn" id="waBtn" aria-label="Falar com o suporte no WhatsApp" title="Falar com o suporte no WhatsApp"><img class="wa-logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3MjAgNzIwIj4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiAjMTExYjIxOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0zNjAsMEMxNjEuMTgsMCwwLDE2MS4xOCwwLDM2MGMwLDY1LjQxLDE3LjQ1LDEyNi43NSw0Ny45NCwxNzkuNjFMMCw3MjBsMTg3LjAyLTQ0LjIxYzUxLjM0LDI4LjE4LDExMC4yOCw0NC4yMSwxNzIuOTgsNDQuMjEsMTk4LjgyLDAsMzYwLTE2MS4xOCwzNjAtMzYwUzU1OC44MiwwLDM2MCwwWk0zNjAsNjU1LjUyYy02MC4xNywwLTExNi4xMy0xNy45OC0xNjIuODItNDguODdsLTExMC40OSwyOC4xNCwzMC45OS0xMDUuNjFjLTMzLjUzLTQ3LjkzLTUzLjItMTA2LjI2LTUzLjItMTY5LjE5LDAtMTYzLjIxLDEzMi4zMS0yOTUuNTIsMjk1LjUyLTI5NS41MnMyOTUuNTIsMTMyLjMxLDI5NS41MiwyOTUuNTItMTMyLjMxLDI5NS41Mi0yOTUuNTIsMjk1LjUyWiIvPgogIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTQ0NC4zNSw0MDcuNTJsODcuMSw0MS4wNmM0LDEuODgsNi41Niw1Ljk0LDYuMiwxMC4zNC0uOTQsMTEuNDYtNS41NCwzNC40My0yNi4xMyw1NS4wMi01OC4xMiw1OC4xMi0xNjIuNDktNy42NC0xNjYuNzQtMTAuMTgtMjUuNjctMTMuNzktNTAuMDYtMzIuMjQtNzMuMTktNTUuMzYtMjMuMTItMjMuMTItNDEuNTgtNDcuNTItNTUuMzctNzMuMTktMi41NS00LjI0LTY4LjMxLTEwOC42MS0xMC4xOC0xNjYuNzQsMjAuNTktMjAuNTksNDMuNTYtMjUuMTksNTUuMDItMjYuMTMsNC40MS0uMzYsOC40NiwyLjIsMTAuMzQsNi4ybDQxLjA3LDg3LjFjMS45NCw0LjEyLDEuMDksOS4wMi0yLjEzLDEyLjI0bC0zMC42MSwzMC42MWMtNi42Miw2LjYyLTguNTYsMTYuOTMtNCwyNS4xMSwxMS4xNywyMC4wMywyNi4xOSwzOS4zMiw0My41OSw1Ny4wNywxNy43NSwxNy40LDM3LjA0LDMyLjQzLDU3LjA3LDQzLjU5LDguMTgsNC41NiwxOC40OCwyLjYyLDI1LjExLTRsMzAuNjEtMzAuNjFjMy4yMi0zLjIyLDguMTItNC4wOCwxMi4yNC0yLjEzWiIvPgo8L3N2Zz4=" alt="" width="20" height="20" onerror="this.parentElement.classList.add('no-logo');this.remove()"><i data-i="message-circle" class="wa-fb"></i></button>
       </div>
 
       <div class="anchor hide-sm">
@@ -2826,7 +2826,7 @@ function lancRows(e,lid){const L=[];const d=D(e.dot);
   if(!lid){add(e.data,'Empenho da despesa','6.2.2.1.1.00.00 Crédito disponível','6.2.2.1.3.01.00 Crédito empenhado a liquidar',e.valor);
   add(e.data,'Empenho · disponibilidade por destinação','8.2.1.1.1.00.00 DDR disponível','8.2.1.1.2.00.00 DDR comprometida por empenho',e.valor);
   if(e.anulado)add(e.data,'Anulação de empenho','6.2.2.1.3.01.00 Crédito empenhado a liquidar','6.2.2.1.1.00.00 Crédito disponível',e.anulado,true);}
-  e.liqs.filter(l=>!lid||l.id===lid).forEach(l=>{add(l.data,`Liquidação ${liqN(l)} · controle`,'6.2.2.1.3.01.00 Crédito empenhado a liquidar','6.2.2.1.3.03.00 Crédito empenhado liquidado a pagar',l.valor);
+  e.liqs.filter(l=>(!lid||l.id===lid)&&!l.semLanc).forEach(l=>{add(l.data,`Liquidação ${liqN(l)} · controle`,'6.2.2.1.3.01.00 Crédito empenhado a liquidar','6.2.2.1.3.03.00 Crédito empenhado liquidado a pagar',l.valor);
     add(l.data,`Liquidação ${liqN(l)} · patrimonial`,(d.el.startsWith('4.4')?`1.2.3.0.0.00.00 Imobilizado · ${d.elN}`:d.el.startsWith('4.6')?'2.2.2.0.0.00.00 Empréstimos e financiamentos (amortização)':d.el.startsWith('3.1')?`3.1.0.0.0.00.00 VPD de pessoal · ${d.elN}`:`3.3.0.0.0.00.00 VPD de uso de bens e serviços · ${d.elN}`),'2.1.3.1.1.00.00 Fornecedores a pagar',l.valor);
     if(l.anul)add(l.data,`Anulação da liquidação ${liqN(l)}`,'6.2.2.1.3.03.00 Crédito empenhado liquidado a pagar','6.2.2.1.3.01.00 Crédito empenhado a liquidar',l.anul,true);
     pgsOf(l).forEach(p=>pagLancRows(p).forEach(x=>L.push(x)))});
@@ -2864,7 +2864,7 @@ function renderEmpFull(num){const e=E(num);if(!e)return go('#tela/k-2.10');
    <div class="card"><div class="card-h"><h3>Dotação ${d.cod}</h3></div><div class="card-b"><dl class="dl">
      <dt>Órgão / unidade</dt><dd>${d.org}</dd><dt>Ação</dt><dd>${d.acao}</dd><dt>Despesa</dt><dd>${d.el} · ${d.elN}${e.sub?`<br><span style="font-weight:400">${e.sub}</span>`:''}</dd><dt>Fonte</dt><dd>${d.fonte} · ${d.fonteN}</dd><dt>Classificação</dt><dd><code>${d.full}</code></dd><dt>Saldo da dotação</dt><dd>${R$(saldoDot(d.cod))}</dd></dl></div></div>
    </div>
-   <div class="card extrato"><div class="card-h"><h3>Extrato do empenho</h3>${e.liqs.length?`<span class="muted">${e.liqs.length} ${e.liqs.length===1?'liquidação':'liquidações'} · clique para abrir</span>`:''}</div>${e.liqs.length?`<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Liquidação</th><th>Documento</th><th class="r">Bruto</th><th class="r">Anulado</th><th class="r">Líquido</th><th>Pagamento</th><th class="r">Ações</th></tr></thead><tbody>${e.liqs.map(l=>`<tr data-liq="${l.id}" tabindex="0" title="Abrir a liquidação ${liqN(l)}"><td class="num"><b class="lk">${liqN(l)}</b><small>${l.data}</small></td><td>${l.tipoDoc} ${l.doc}</td><td class="r">${brl(l.valor)}</td><td class="r ${l.anul?'neg':''}">${l.anul?brl(l.anul):'—'}</td><td class="r"><b>${brl(l.liquido)}</b></td><td>${pgsOf(l).length?pgsOf(l).map(p=>`<button class="lk-emp" data-gopg="${p.id}" title="Abrir o pagamento ${pagNum(p)}">${pagNum(p)}</button> <span class="chip ${pgSit(p)[1]}">${pgSit(p)[0]}</span>`).join('<br>'):''}${saldoPg(l)>0&&!(l.anul>=l.valor)?`${pgsOf(l).length?'<br>':''}<span class="chip pend">A pagar ${brl(saldoPg(l))}</span>`:''}</td><td class="r"><button class="btn-ghost row-m" data-liqm="${l.id}" aria-label="Ações da liquidação ${liqN(l)}">${ico('ellipsis')}</button></td></tr>`).join('')}</tbody><tfoot><tr><td colspan="2">Total</td><td class="r">${brl(e.liqs.reduce((x,l)=>x+l.valor,0))}</td><td class="r ${t.La?'neg':''}">${t.La?brl(t.La):'—'}</td><td class="r"><b>${brl(e.liqs.reduce((x,l)=>x+l.liquido,0))}</b></td><td colspan="2"></td></tr></tfoot></table></div>`:`<div class="empty" style="border:0">${ico('file-check')}<b>Nenhuma liquidação ainda</b>${R$(t.aLiq)} a liquidar.${canLiq?`<button class="btn btn-gray" data-mode="liquidar" style="margin-top:12px">${ico('file-check')}Liquidar</button>`:''}</div>`}</div>
+   <div class="card extrato"><div class="card-h"><h3>Extrato do empenho</h3>${e.liqs.length?`<span class="muted">${e.liqs.length} ${e.liqs.length===1?'liquidação':'liquidações'} · clique para abrir</span>`:''}</div>${e.liqs.length?`<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Liquidação</th><th>Documento</th><th class="r">Bruto</th><th class="r">Anulado</th><th class="r">Líquido</th><th>Pagamento</th><th class="r">Ações</th></tr></thead><tbody>${e.liqs.map(l=>`<tr data-liq="${l.id}" tabindex="0" title="Abrir a liquidação ${liqN(l)}"><td class="num"><b class="lk">${liqN(l)}</b><small>${l.data}</small></td><td>${l.tipoDoc} ${l.doc}</td><td class="r">${brl(l.valor)}</td><td class="r ${l.anul?'neg':''}">${l.anul?brl(l.anul):'—'}</td><td class="r"><b>${brl(l.liquido)}</b></td><td>${pgsOf(l).length?pgsOf(l).map(p=>`<button class="lk-emp" data-gopg="${p.id}" title="Abrir o pagamento ${pagNum(p)}">${pagNum(p)}</button> <span class="chip ${pgSit(p)[1]}">${pgSit(p)[0]}</span>`).join('<br>'):''}${saldoPg(l)>0&&!(l.anul>=l.valor)?`${pgsOf(l).length?'<br>':''}<span class="chip pend">A pagar ${brl(saldoPg(l))}</span>`:''}</td><td class="r"><button class="btn-ghost row-m" data-liqm="${l.id}" aria-label="Ações da liquidação ${liqN(l)}">${ico('ellipsis')}</button></td></tr>`).join('')}</tbody><tfoot><tr><td colspan="2">Total</td><td class="r">${brl(e.liqs.reduce((x,l)=>x+l.valor,0))}</td><td class="r ${t.La?'neg':''}">${t.La?brl(t.La):'—'}</td><td class="r"><b>${brl(e.liqs.reduce((x,l)=>x+l.liquido,0))}</b></td><td colspan="2"></td></tr></tfoot></table></div>`:`<div class="empty" style="border:0">${ico('file-check')}<b>Este empenho não tem liquidação</b>Saldo a liquidar: ${R$(t.aLiq)}.</div>`}</div>
   </div>`;
   paintIcons(el);
   $$('[data-back]',el).forEach(b=>b.onclick=()=>go('#tela/k-2.10'));
@@ -3230,6 +3230,7 @@ function empFields(e){const d=D(e.dot),c=C(e.cred),t=tot(e),fn=d.func.split('.')
    ${roF('Credor',`${103000+c.id*7} - ${c.nome}`)}${roF('Valor do empenho',brl(t.V),'c3')}${roF('Saldo a liquidar',brl(t.aLiq),'c3')}</div>`}
 const empLabel=(e,saldo)=>`${e.num}/${e.ano} - ${C(e.cred).nome} - saldo ${brl(saldo)}`;
 
+function liqEmptyCard(t,msg){return `<div class="card"><div class="empty" style="border:0">${ico(t==='tl'?'git-commit-vertical':'book-open')}<b>${t==='tl'?'Nenhum evento na linha do tempo':'Nenhum lançamento contábil'}</b>${msg}</div></div>`}
 function renderLiqForm(opt){opt=opt||{};const ed=opt.edit;const ex=ed?LQ(ed):null;if(ed&&(!ex||!canEditLiq(ex.l)))return go('#tela/k-2.12/'+(ed||''));
   if(ex){const {l,e}=ex;LF={mode:'editar',id:l.id,emp:e.num,data:toISO(l.data),desc:l.desc||e.desc,valor:l.valor,protPg:l.protPg||'',resp:l.resp,respAt:l.respAt||'',dtAt:toISO(l.dtAt),desd:l.desd.map(x=>({...x})),oc:null,ocLoad:false,docs:l.docs.map(x=>({...x,data:toISO(x.data)})),obra:l.obra||'',prev:toISO(l.prev),tried:false};
     const oc=eOC(e);LF.oc=oc?oc.map(it=>{const u=(l.oc||[]).find(x=>x.cod===it.cod);return {cod:it.cod,qtd:u?u.qtd:0,sub:u?u.sub:it.sub}}):null}
@@ -3237,7 +3238,8 @@ function renderLiqForm(opt){opt=opt||{};const ed=opt.edit;const ex=ed?LQ(ed):nul
   const c=$('#content'),last=nextLiqNum()-1;
   c.innerHTML=`<div class="crumbs">Contábil ${ico('chevron-right')} 2 - Orçamentário ${ico('chevron-right')} <button class="link" data-back style="font-size:12px">2.12 - Liquidação</button> ${ico('chevron-right')} ${ex?'Editar':'Incluir'}</div>
   <div class="page-head"><button class="back" aria-label="Voltar" data-back>${ico('chevron-left')}</button><div><h1>${ex?`Editar liquidação ${liqN(ex.l)}`:'Incluir liquidação'}</h1><p>${ex?'Só é possível editar enquanto a nota de liquidação não foi assinada nem paga.':`Última liquidação: <b>${last}/${EX}</b>. O próximo número é gerado ao salvar.`}</p></div></div>
-  <div class="form-layout"><div>
+  ${ex?'':`<div class="vtabs" role="tablist"><button role="tab" class="on" data-ft="det" aria-selected="true">${ico('file-text')}Detalhes da liquidação</button><button role="tab" data-ft="tl" aria-selected="false">${ico('git-commit-vertical')}Linha do tempo e documentos</button><button role="tab" data-ft="lanc" aria-selected="false">${ico('book-open')}Lançamentos contábeis</button></div><div id="lfPane" class="hidden"></div>`}
+  <div class="form-layout" id="lfMain"><div>
    <section class="card">${secH(1,'Liquidação',false)}<div class="card-b"><div class="fgrid">
      ${roF('Número',ex?liqN(ex.l):`${nextLiqNum()}/${EX} · previsto`,'c4')}${roF('Última liquidação',`${last}/${EX}`,'c4')}
      <div class="c4"><label for="lData">Data <i class="req">*</i></label><div class="input" id="lDataB"><input type="date" id="lData" value="${LF.data}"></div></div>
@@ -3254,6 +3256,9 @@ function renderLiqForm(opt){opt=opt||{};const ed=opt.edit;const ex=ed?LQ(ed):nul
     <div class="side-acts"><button class="btn btn-accent" id="lSave">${ico('save')}Salvar liquidação</button><button class="btn btn-gray" data-back>${ico('x')}Cancelar</button></div></div></aside></div>`;
   paintIcons(c);
   $$('[data-back]',c).forEach(b=>b.onclick=()=>go(ex?'#tela/k-2.12/'+ex.l.id:'#tela/k-2.12'));
+  $$('[data-ft]',c).forEach(b=>b.onclick=()=>{const t=b.dataset.ft;$$('[data-ft]',c).forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-selected',x===b)});
+    $('#lfMain').classList.toggle('hidden',t!=='det');const p=$('#lfPane');p.classList.toggle('hidden',t==='det');
+    p.innerHTML=t==='det'?'':liqEmptyCard(t,'Esta liquidação ainda não foi salva. '+(t==='tl'?'A linha do tempo começa quando ela for salva, com a nota de liquidação e as assinaturas.':'Os lançamentos contábeis são gerados quando ela for salva.'));paintIcons(p)});
   $('#lSave').onclick=saveLiq;
   $('#lData').onchange=ev=>{LF.data=ev.target.value;syncLiq()};
   $('#lDesc').oninput=ev=>{LF.desc=ev.target.value;$('#lDescCnt').textContent=LF.desc.length+'/500';syncLiq()};
@@ -3453,7 +3458,8 @@ function renderLiqView(id){const r=LQ(id);if(!r)return go('#tela/k-2.12');const 
 
 function renderLiqTl(id,keep){const r=LQ(id);if(!r)return go('#tela/k-2.12');const {l,e}=r;
   if(keep)DOC=keep;else if(!DOC||!DOC.endsWith(':'+id))DOC='nl:'+id;
-  const T=tlvParts(e,DOC),el=$('#content');
+  const el=$('#content');if(l.semTl){el.innerHTML=liqHead(l,e,'','tl')+liqEmptyCard('tl','Não há documentos nem eventos registrados para esta liquidação.');liqHeadWire(el,l,e);return}
+  const T=tlvParts(e,DOC);
   el.innerHTML=liqHead(l,e,'','tl')+`<div class="mini-tot"><span>Liquidado <b>${R$(l.valor)}</b>${l.anul?`<em class="neg">anulado ${R$(l.anul)}</em>`:''}</span><span>Retenções <b>${R$(retOf(l))}</b></span><span>Saldo a pagar <b>${R$(saldoPg(l))}</b></span><span>Empenho a liquidar <b>${R$(tot(e).aLiq)}</b></span>
     ${T.pendMine?`<span class="mt-pend">${ico('clock')}${T.pendMine} ${T.pendMine===1?'documento aguarda':'documentos aguardam'} sua assinatura</span>`:''}</div>${T.html}`;
   liqHeadWire(el,l,e);tlvWire(el,e,k=>renderLiqTl(id,k))}
@@ -3470,7 +3476,8 @@ function renderLiqDireito(id){const r=LQ(id);if(!r)return go('#tela/k-2.12');con
   liqHeadWire(el,l,e);$('#drOk').onclick=()=>{if(!$('#drJ').value.trim()){$('#drJb').classList.add('err');$('#drJ').focus();return}
     const o={ate:$('#drAte').value,just:$('#drJ').value.trim()};$$('[data-dr]',el).forEach(x=>o[x.dataset.dr]=x.checked);l.direito=o;toast('success','Direito especial salvo',`Registrado na auditoria da liquidação ${liqN(l)}.`);go('#tela/k-2.12/'+l.id)}}
 function renderLiqLanc(id){const r=LQ(id);if(!r)return go('#tela/k-2.12');const {l,e}=r,L=lancRows(e,l.id);
-  const el=$('#content');el.innerHTML=liqHead(l,e,'','lanc')+`<div class="card"><div class="card-h"><h3>${L.length} lançamentos</h3><span class="muted">Partidas dobradas geradas pela liquidação e pelo pagamento (PCASP)</span><button class="btn btn-gray fc-x" id="lcX">${ico('sheet')}Exportar</button></div>
+  const el=$('#content');if(l.semLanc){el.innerHTML=liqHead(l,e,'','lanc')+liqEmptyCard('lanc','Não há lançamentos contábeis registrados para esta liquidação.');liqHeadWire(el,l,e);return}
+  el.innerHTML=liqHead(l,e,'','lanc')+`<div class="card"><div class="card-h"><h3>${L.length} lançamentos</h3><span class="muted">Partidas dobradas geradas pela liquidação e pelo pagamento (PCASP)</span><button class="btn btn-gray fc-x" id="lcX">${ico('sheet')}Exportar</button></div>
    <div class="tbl-wrap"><table class="tbl tbl-lc"><thead><tr><th>Data</th><th>Evento</th><th>Débito</th><th>Crédito</th><th class="r">Valor</th></tr></thead><tbody>${L.map(x=>`<tr class="norow ${x.neg?'neg-row':''}"><td>${x.data}</td><td><b>${x.ev}</b></td><td><code>${x.deb}</code></td><td><code>${x.cred}</code></td><td class="r ${x.neg?'neg':''}">${brl(x.v)}</td></tr>`).join('')}</tbody></table></div></div>
    <p class="hint" style="margin-top:10px">${ico('info')}Contas do PCASP ilustrativas no protótipo; no sistema vêm da tabela de eventos contábeis do município. Os lançamentos do empenho ficam no empenho ${e.num}/${e.ano}.</p>`;
   liqHeadWire(el,l,e);$('#lcX').onclick=()=>toast('success','Planilha gerada',`${L.length} lançamentos exportados.`)}
@@ -3530,7 +3537,10 @@ function sugRet(l,e,valor){const d=D(e.dot),svc=d.el.startsWith('3.3.90.39'),obr
     else if(!l.anul&&i%3!==0)liqSig(l).cont=true});
   PAGS.sort((a,b)=>toISO(a.emissao).localeCompare(toISO(b.emissao))).forEach((p,i)=>p.num=2810+i);
   const pa=PAGS.find(p=>!p.anul&&!p.lanc.length);if(pa){pa.anul=r2(pa.valor*.04)}
-  syncAllPg()})();
+  syncAllPg();
+  /* demonstração: liquidações sem linha do tempo e/ou sem lançamentos */
+  const free=L.filter(({l})=>!l.anul&&!PAGS.some(p=>p.liq===l.id)).map(x=>x.l);
+  if(free[0]){free[0].semTl=true;free[0].semLanc=true}if(free[1])free[1].semLanc=true;if(free[2])free[2].semTl=true})();
 const nextPagNum=()=>Math.max(2800,...PAGS.map(p=>p.num))+1;
 
 /* fila de pagamento: ordem cronológica por fonte e categoria (Lei 14.133, art. 141) */
