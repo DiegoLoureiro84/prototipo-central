@@ -373,7 +373,7 @@ body:not(.sys-cont) #exAnchor{display:none}
 .kpi small{font-size:12px;color:var(--muted-fg)}
 .kpi .bar{margin-top:10px}
 .bar{height:6px;border-radius:3px;background:var(--muted);overflow:hidden}
-.bar i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:3px}.bar i.warn{background:#F59E0B}
 
 .card{background:#fff;border:1px solid var(--border);border-radius:var(--r-lg)}
 .card-h{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap}
@@ -2269,11 +2269,11 @@ function syncForm(){
   const req=[...(!F.edit&&numState().k==='used'?[['Número disponível',false]]:[]),['Tipo de processo',!!F.proc],['Data',!!F.data],['Natureza',!!F.nat],['Tipo',!!F.tipo],['Dotação',!!F.dot],...vk.map(k=>[VL[k],!!F[k]]),['Credor',!!F.cred],['Descrição',F.desc.trim().length>=5],['Valor',F.valor>0]];
   if(typeof vincAlerts==='function')vincAlerts();if(typeof nfAlert==='function')nfAlert();
   const s=F.dot?saldoDot(F.dot):0,over=F.dot&&F.valor>s;
-  if($('#saldoBox')){const pc=s>0?Math.min(100,F.valor/s*100):100;$('#saldoBox').innerHTML=`<div class="row"><span>Este empenho usa</span><b>${R$(F.valor)} de ${R$(s)}</b></div><div class="bar"><i class="${over?'over':''}" style="width:${pc}%"></i></div><div class="row" style="margin:6px 0 0"><span>Saldo após o empenho</span><b style="color:${over?'var(--destructive)':'inherit'}">${R$(s-F.valor)}</b></div>`}
+  if($('#saldoBox')){const pc=s>0?Math.min(100,F.valor/s*100):100;$('#saldoBox').innerHTML=`<div class="row"><span>Este empenho usa</span><b>${R$(F.valor)} de ${R$(s)}</b></div><div class="bar"><i class="${over?'over':pc>=75?'warn':''}" style="width:${pc}%"></i></div><div class="row" style="margin:6px 0 0"><span>Saldo após o empenho</span><b style="color:${over?'var(--destructive)':'inherit'}">${R$(s-F.valor)}</b></div>`}
   const vh=$('#valH');if(vh){if(over){vh.innerHTML=ico('circle-alert')+`Valor maior que o saldo da dotação (${R$(s)}). Peça crédito adicional ou escolha outra dotação.`;vh.classList.remove('hidden');paintIcons(vh);$('#valBox').classList.add('err')}else{vh.classList.add('hidden');$('#valBox').classList.remove('err')}}
   const done=req.filter(r=>r[1]).length;
   $('#sumBox').innerHTML=`<div><span>Número</span><b>${F.edit?F.edit+'/'+EX:(st=>st.n+'/'+EX+' · '+({auto:'automático',res:'reservado',free:'informado',used:'já usado'})[st.k])(numState())}</b></div><div><span>Dotação</span><b>${F.dot?F.dot+' · '+D(F.dot).acao:'—'}</b></div><div><span>Credor</span><b>${F.cred?C(F.cred).nome:'—'}</b></div><div><span>Tipo</span><b>${F.tipo||'—'}</b></div>
-    <div><span>Saldo da dotação</span><b>${F.dot?R$(s):'—'}</b></div><div><span>Valor do empenho</span><b class="big">${R$(F.valor)}</b></div>${F.dot?`<div class="sum-use"><div class="row"><span>Este empenho usa</span><b style="color:${over?'var(--destructive)':'inherit'}">${s>0?(Math.round(F.valor/s*1000)/10).toLocaleString('pt-BR'):100}% do saldo</b></div><div class="bar"><i class="${over?'over':''}" style="width:${s>0?Math.min(100,F.valor/s*100):100}%"></i></div><div class="row"><span>Saldo após o empenho</span><b style="color:${over?'var(--destructive)':'inherit'}">${R$(s-F.valor)}</b></div></div>`:''}`;
+    <div><span>Saldo da dotação</span><b>${F.dot?R$(s):'—'}</b></div><div><span>Valor do empenho</span><b class="big">${R$(F.valor)}</b></div>${F.dot?useBar('Este empenho usa',F.valor,s,'Saldo após o empenho'):''}`;
   $('#chkList').innerHTML=`<li style="font-weight:600;color:var(--fg)">${done} de ${req.length} obrigatórios preenchidos</li>`+req.map(([l,ok])=>`<li class="${ok?'ok':''}">${ico(ok?'circle-check':'circle')}${l}</li>`).join('');paintIcons($('#chkList'));
   const sn={1:F.proc&&F.data&&F.nat&&F.tipo&&(F.edit||numState().k!=='used'),2:!!F.dot&&vk.every(k=>F[k]),3:F.cred&&F.desc.trim().length>=5&&F.valor>0&&!over};Object.entries(sn).forEach(([k,v])=>$(`[data-sn="${k}"]`).classList.toggle('ok',!!v));
   const valid=done===req.length&&!over;$('#saveBtn').disabled=!valid;}
@@ -2613,6 +2613,8 @@ function paintVinc(){const box=$('#vincBox');if(!box)return;const vk=F.dot?(VINC
   if(vk.includes('divida')){html+=sel('divida','Dívida fundada',DIVIDAS.map(x=>[x.id,x.desc]),'Elemento 4.6.90.71: amortização exige o contrato da dívida.')+`<div class="c6" id="vincInfo-divida"></div>`}
   box.innerHTML=`<div class="vinc-h">${ico('link')}<b>Vínculos exigidos por esta dotação</b></div><div class="fgrid">${html}</div>`;paintIcons(box);
   $$('[data-vinc]',box).forEach(x=>x.onchange=()=>{F[x.dataset.vinc]=x.value;syncForm()})}
+function useBar(lbl,v,saldo,after){const over=v>saldo+0.005,pc=saldo>0?v/saldo*100:100,warn=!over&&pc>=75,cl=over?'over':warn?'warn':'',col=over?'var(--danger-strong)':warn?'var(--warn-fg)':'inherit';
+  return `<div class="sum-use"><div class="row"><span>${lbl}</span><b style="color:${col}">${(Math.round(pc*10)/10).toLocaleString('pt-BR')}% do saldo</b></div><div class="bar"><i class="${cl}" style="width:${Math.min(100,pc)}%"></i></div><div class="row"><span>${after}</span><b style="color:${over?'var(--danger-strong)':'inherit'}">${R$(saldo-v)}</b></div></div>`}
 function vincAlerts(){const ci=$('#vincInfo-contrato');if(ci){const k=CONTRATOS.find(x=>x.n===F.contrato);ci.innerHTML=k?`<div class="vinfo"><span>${k.obj}</span><span>Saldo do contrato <b>${R$(k.saldo)}</b> · vigência até ${k.fim}</span>${F.valor>k.saldo?`<span class="neg">Valor acima do saldo do contrato. Alerta, não bloqueia.</span>`:''}</div>`:''}
   const ei=$('#vincInfo-emenda');if(ei){const k=EMENDAS.find(x=>x.id===F.emenda);ei.innerHTML=k?`<div class="vinfo"><span>Saldo da emenda <b>${R$(k.saldo)}</b></span>${F.valor>k.saldo?`<span class="neg">Valor acima do saldo da emenda. Alerta, não bloqueia.</span>`:''}</div>`:''}
   const di=$('#vincInfo-divida');if(di){const k=DIVIDAS.find(x=>x.id===F.divida);di.innerHTML=k?`<div class="vinfo"><span>Saldo devedor <b>${R$(k.saldo)}</b></span></div>`:''}}
@@ -3386,7 +3388,7 @@ function syncLiq(){const req=liqReq(),done=req.filter(r=>r[1]).length,ok=done===
   const e=LF.emp?E(LF.emp):null,t=e?tot(e):null,cur=LQ(LF.id),saldo=e?r2(t.aLiq+(cur?cur.l.valor:0)):0,v=r2(LF.valor),dt=desdTot(),dc=docsTot(),over=e&&v>saldo+0.005;
   $('#lSum').innerHTML=`<div><span>Número</span><b>${cur?liqN(cur.l):nextLiqNum()+'/'+EX+' · automático'}</b></div><div><span>Empenho</span><b>${e?`${e.num}/${e.ano}`:'—'}</b></div><div><span>Credor</span><b>${e?C(e.cred).nome:'—'}</b></div>
    <div><span>Saldo a liquidar</span><b>${e?R$(saldo):'—'}</b></div><div><span>Desdobramentos</span><b>${e?R$(dt):'—'}</b></div><div><span>Documentos</span><b>${e?R$(dc):'—'}</b></div><div><span>Valor da liquidação</span><b class="big">${R$(v)}</b></div>
-   ${e?`<div class="sum-use"><div class="row"><span>Esta liquidação usa</span><b style="color:${over?'var(--danger-strong)':'inherit'}">${saldo>0?(Math.round(v/saldo*1000)/10).toLocaleString('pt-BR'):100}% do saldo</b></div><div class="bar"><i class="${over?'over':''}" style="width:${saldo>0?Math.min(100,v/saldo*100):100}%"></i></div><div class="row"><span>Saldo após a liquidação</span><b style="color:${over?'var(--danger-strong)':'inherit'}">${R$(saldo-v)}</b></div></div>`:''}`;
+   ${e?useBar('Esta liquidação usa',v,saldo,'Saldo após a liquidação'):''}`;
   $('#lChk').innerHTML=`<li style="font-weight:600;color:var(--fg)">${done} de ${req.length} conferências ok</li>`+req.map(([l,k])=>`<li class="${k?'ok':''}">${ico(k?'circle-check':'circle')}${l}</li>`).join('');paintIcons($('#lChk'));
   const vh=$('#lValH');if(vh){vh.innerHTML=over?`${ico('circle-alert')}Maior que o saldo a liquidar do empenho (${R$(saldo)}).`:'';vh.classList.toggle('hidden',!over);$('#lValB').classList.toggle('err',!!over||(LF.tried&&!(v>0)));paintIcons(vh)}
   $('#lDescB').classList.toggle('err',LF.tried&&LF.desc.trim().length<5);
@@ -3806,7 +3808,7 @@ function pgReq(){const base=[['Ref. liquidação',!!PF.liq],['Emissão',!!PF.emi
 function syncPg(){const req=pgReq(),done=req.filter(r=>r[1]).length,ok=done===req.length,q=n=>(req.find(r=>r[0]===n)||[0,true])[1];
   const r=PF.liq?LQ(PF.liq):null,cur=PG(PF.id),saldo=r?r2(saldoPg(r.l)+(cur?pgAtivo(cur):0)):0,v=r2(PF.valor),rt=retT(),over=r&&v>saldo+0.005;
   $('#pSum').innerHTML=`<div><span>Número</span><b>${cur?pagNum(cur):nextPagNum()+'/'+EX+' · automático'}</b></div><div><span>Liquidação</span><b>${r?liqN(r.l):'—'}</b></div><div><span>Empenho</span><b>${r?`${r.e.num}/${r.e.ano}`:'—'}</b></div><div><span>Credor</span><b>${r?C(r.e.cred).nome:'—'}</b></div>
-   <div><span>Saldo a pagar</span><b>${r?R$(saldo):'—'}</b></div><div><span>Retenções</span><b>${R$(rt)}</b></div><div><span>Valor líquido ao credor</span><b>${R$(Math.max(0,v-rt))}</b></div><div><span>Valor do pagamento</span><b class="big">${R$(v)}</b></div>`;
+   <div><span>Saldo a pagar</span><b>${r?R$(saldo):'—'}</b></div><div><span>Retenções</span><b>${R$(rt)}</b></div><div><span>Valor líquido ao credor</span><b>${R$(Math.max(0,v-rt))}</b></div><div><span>Valor do pagamento</span><b class="big">${R$(v)}</b></div>${r?useBar('Este pagamento usa',v,saldo,'Saldo após o pagamento'):''}`;
   $('#pChk').innerHTML=`<li style="font-weight:600;color:var(--fg)">${done} de ${req.length} conferências ok</li>`+req.map(([t,k])=>`<li class="${k?'ok':''}">${ico(k?'circle-check':'circle')}${t}</li>`).join('');paintIcons($('#pChk'));
   if($('#pRetT')){$('#pRetT').textContent=brl(rt);$('#pLiqT').textContent=brl(Math.max(0,v-rt))}
   const vh=$('#pValH');if(vh){vh.innerHTML=over?`${ico('circle-alert')}Maior que o saldo a pagar da liquidação (${R$(saldo)}).`:'';vh.classList.toggle('hidden',!over);$('#pValB').classList.toggle('err',!!over);paintIcons(vh)}
