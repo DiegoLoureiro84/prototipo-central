@@ -1391,6 +1391,40 @@ button.sb-c{cursor:pointer}button.sb-c:hover{background:var(--accent)}
 .sb-c b{display:block;font-size:14px;font-weight:600}.sb-c small{display:block;font-size:13px;color:var(--secondary-fg)}
 @media (max-width:1100px){.sb-ch{grid-template-columns:1fr 1fr}}
 @media (max-width:700px){.sb-grid,.sb-ch{grid-template-columns:minmax(0,1fr)}}
+.hub-wrap{max-width:none!important;padding-left:0!important;padding-right:0!important}
+.hub2{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:28px;align-items:start}
+.hub-h{display:flex;align-items:baseline;gap:12px;margin:18px 0 14px;flex-wrap:wrap}.hub-h h2,.av-h h2{font-size:20px;font-weight:700;color:var(--fg);margin:0}.hub-h span,.av-h span{font-size:13px;color:var(--muted-fg)}
+.sys2-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.sys2{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-height:150px;padding:18px;background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);text-align:left;font:inherit;color:var(--fg);cursor:pointer;transition:border-color .15s,background .15s}
+.sys2:hover{background:var(--accent);border-color:var(--accent)}.sys2:hover small{color:var(--fg)}
+.sys2.last{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.sys2 .s2-ic{width:42px;height:42px;border-radius:var(--r-md);display:grid;place-items:center;background:var(--light-green);color:var(--fg);margin-bottom:6px}.sys2 .s2-ic .ic{width:22px;height:22px}
+.sys2 b{font-size:18px;font-weight:600}.sys2 small{font-size:13px;line-height:1.35;color:var(--secondary-fg);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.sys2 .last-tag{position:absolute;top:-10px;right:12px}
+.hub-av{position:sticky;top:calc(var(--header) + 16px);padding:18px;max-height:calc(100vh - var(--header) - 32px);display:flex;flex-direction:column}.hub-av .notes2{overflow:auto;min-height:0;flex:1}
+.av-h{display:flex;align-items:baseline;gap:10px;margin:0 0 12px;flex-wrap:wrap}
+.hub-av .tabs{margin-bottom:12px}
+.notes2{display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.notes2.compact{border:0;border-radius:0;gap:8px;background:transparent}
+.note2{display:flex;align-items:flex-start;gap:12px;width:100%;padding:14px;border:0;border-bottom:1px solid var(--border);background:#fff;text-align:left;font:inherit;color:var(--fg);cursor:pointer;transition:background .15s}
+.notes2.compact .note2{border:1px solid var(--border);border-radius:var(--r-lg)}
+.notes2:not(.compact) .note2:last-child{border-bottom:0}
+.note2:hover{background:var(--light-green)}
+.note2 .ni{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--readonly);color:var(--primary);flex:none}
+.note2 .nb{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.note2 .nb b{font-size:14px;font-weight:600}
+.note2.unread .nb b::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:6px;vertical-align:1px}
+.note2 .nt{font-size:13px;color:var(--secondary-fg);line-height:1.4}.note2 small{font-size:12px;color:var(--muted-fg)}.note2 .nc{margin-top:4px}.note2 .nc:empty{display:none}
+.note2>.ic{align-self:center;color:var(--muted-fg);flex:none}
+#notifPop .notif{width:100%;border:0;background:transparent;text-align:left;font:inherit;color:var(--fg);cursor:pointer;border-radius:var(--r-md)}
+#notifPop .notif:hover{background:var(--light-green)}#notifPop .notif.unread b::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-right:6px;vertical-align:1px}
+.av-view{padding:0}.av-view .vw-bar{border-radius:var(--r-lg) var(--r-lg) 0 0}.av-ack{border-radius:0 0 var(--r-lg) var(--r-lg)}.av-view .vw-bar{padding:10px 16px;border-bottom:1px solid var(--border)}
+.av-doc{background:var(--readonly);padding:24px;display:flex;justify-content:center;overflow:auto}
+.pp-txt{font-size:calc(13px * var(--z,1));line-height:1.6}.pp-txt p+p{margin-top:8px}.pp-txt h3{font-size:calc(14px * var(--z,1));margin:14px 0 6px}.pp-txt ul{padding-left:18px;list-style:disc}
+.av-ack{position:sticky;bottom:0;display:flex;align-items:center;gap:16px;justify-content:space-between;padding:14px 16px;background:#fff;border-top:1px solid var(--border);font-size:13px;color:var(--fg)}
+.av-ack span{display:flex;align-items:center;gap:8px}.av-ack .ic{width:16px;height:16px;flex:none;color:var(--primary)}
+@media (max-width:1100px){.hub2{grid-template-columns:minmax(0,1fr)}.hub-av{position:static;max-height:none}}
+@media (max-width:899px){.sys2-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sys2{min-height:120px}.av-ack{flex-direction:column;align-items:stretch}.av-doc{padding:12px}}
+@media (min-width:1200px){.sys-grid.sys-grid5{grid-template-columns:repeat(5,minmax(0,1fr))}.sys-grid.sys-grid5 .sys{padding:0 16px;gap:14px}}
 </style>
 </head>
 <body>
@@ -1606,9 +1640,11 @@ const SYSTEMS=[
 let lastSys=store.get('lastSys','central');
 let notifTab='todas';
 let NOTES=[
-  {id:1,pend:true,icon:'file-check',title:'Novo termo de uso para ciência',text:'A versão 3.2 do termo de uso dos sistemas precisa da sua ciência até 30/11.',when:'há 12 min',from:'Central'},
-  {id:2,pend:true,icon:'megaphone',title:'Comunicado: recesso de fim de ano',text:'Os sistemas ficarão em manutenção programada em 26/12, das 20h às 23h.',when:'há 2 h',from:'Coplan'},
-  {id:3,pend:false,icon:'calendar-days',title:'Feriado municipal cadastrado',text:'20/11 foi incluído no calendário de todas as unidades gestoras.',when:'ontem',from:'Central'}];
+  {id:1,kind:'doc',pend:true,read:false,icon:'file-check',title:'Novo termo de uso para ciência',text:'A versão 3.2 do termo de uso dos sistemas precisa da sua ciência até 30/11.',when:'há 12 min',from:'Central',doc:'termo'},
+  {id:2,kind:'doc',pend:true,read:false,icon:'megaphone',title:'Comunicado: manutenção de fim de ano',text:'Ofício da Coplan: os sistemas ficarão em manutenção programada em 26/12, das 20h às 23h.',when:'há 2 h',from:'Coplan',doc:'comunicado'},
+  {id:3,kind:'doc',pend:true,read:false,icon:'scroll-text',title:'Decreto nº 412/2026: encerramento do exercício',text:'Prazos para empenho, liquidação e pagamento no fechamento de 2026.',when:'hoje, 09:14',from:'Prefeitura',doc:'decreto'},
+  {id:4,kind:'task',pend:false,read:false,prio:true,icon:'banknote',title:'Liquidação pronta para pagar',text:'',when:'há 35 min',from:'Contábil',task:'pagar'},
+  {id:5,kind:'task',pend:false,read:false,prio:true,icon:'file-check',title:'Empenho de NAD prioritária para liquidar',text:'',when:'ontem',from:'Contábil',task:'liquidar'}];
 let MENU=[
   {id:'cfg',label:'Configuração',icon:'settings',items:[
     ['ug','Unidade Gestora','building-2','Dados e parâmetros das UGs'],
@@ -1677,16 +1713,17 @@ function render(){
   if(page==='tela'&&arg){const want=arg.startsWith('k-')?'cont':arg.startsWith('p-')?'plan':null;if(want&&sys.id!==want){setSys(want);lastSys=want;store.set('lastSys',want)}}
   bind();
   const isLegal=page==='privacidade'||page==='termos'||page==='sobre';if(!isLegal)legalBack=cur;
-  const isHub=page==='sistemas';
+  const isAviso=page==='aviso',avHub=isAviso&&avisoBack.startsWith('#sistemas');
+  const isHub=page==='sistemas'||avHub;
   document.body.classList.toggle('in-sys',!isHub);
   document.body.classList.toggle('sys-cont',!isHub&&sys.id==='cont');
   $('#sidebar').classList.toggle('hidden',isHub);
   $('#collapseBtn').style.display=isHub?'none':'';
   $('#openPalette').style.visibility=isHub?'hidden':'';
   $('#sysBtn').parentElement.style.display=isHub?'none':'';
-  if(isHub){ $('#prodName').textContent=muni.short; return renderHub(); }
+  if(isHub){ $('#prodName').textContent=muni.short; if(avHub){renderAviso(arg);return window.scrollTo(0,0)} return renderHub(); }
   renderSidebar(arg);
-  if(page==='central') renderHome(); else if(page==='tela') renderScreen(arg,arg2); else if(isLegal) renderLegal(page);
+  if(page==='central') renderHome(); else if(page==='tela') renderScreen(arg,arg2); else if(isLegal) renderLegal(page); else if(isAviso) renderAviso(arg);
   window.scrollTo(0,0);
 }
 
@@ -1738,7 +1775,7 @@ function renderHub(){
   c.innerHTML=`<div class="hub-wrap">
     <div class="page-head"><div><h1>Início</h1><p>${greet()}, Diego. Você tem acesso a ${SYSTEMS.length} sistemas.</p></div></div>
     <div class="sec-head"><h2>Escolha o sistema</h2><span>Selecione para onde deseja entrar.</span></div>
-    <div class="sys-grid">${SYSTEMS.map((s,i)=>`<button class="sys ${s.id===lastSys?'last':''}" data-sys="${s.id}" title="${s.name}: ${s.desc}" aria-label="Entrar no ${s.name}">
+    <div class="sys-grid sys-grid5">${SYSTEMS.map((s,i)=>`<button class="sys ${s.id===lastSys?'last':''}" data-sys="${s.id}" title="${s.name}: ${s.desc}" aria-label="Entrar no ${s.name}">
       <span class="si">${ico('layout-grid')}</span>
       <span class="wm">${sysWord(s)}<small>gove</small></span>
       ${s.id===lastSys?'<span class="last-tag">último acesso</span>':''}
@@ -1753,19 +1790,72 @@ function renderHub(){
   wireNotices(c,renderHub);
 }
 /* avisos do município: no início dos sistemas aparecem antes das telas */
-function noticesHTML(){const pend=NOTES.filter(n=>n.pend);const list=notifTab==='todas'?NOTES:pend;return `<div class="sec-head"><h2>Avisos do município</h2><span>Ocorrências, notificações e comunicados.</span></div>
+function noteTarget(n){if(n.task==='pagar'){const f=filaList()[0];return f?{l:f.l,e:f.e}:null}
+  if(n.task==='liquidar'){const e=EMPS.find(x=>x.prio&&tot(x).aLiq>0);return e?{e}:null}return null}
+function noteText(n){if(n.text)return n.text;const t=noteTarget(n);if(!t)return '';
+  if(n.task==='pagar')return `Liquidação ${liqN(t.l)} · ${C(t.e.cred).nome} · ${R$(saldoPg(t.l))}. É a 1ª da fila cronológica.`;
+  return `Empenho ${t.e.num}/${t.e.ano} · ${C(t.e.cred).nome} · ${R$(tot(t.e).aLiq)} a liquidar.`}
+function noteChip(n){return n.pend?`<span class="chip pend">Pendente de ciência</span>`:n.prio&&!n.done?prioTag(true):n.kind==='doc'?`<span class="chip soft">${ico('check')}Ciente</span>`:''}
+function noticesHTML(compact){const pend=NOTES.filter(n=>n.pend);const list=notifTab==='todas'?NOTES:pend;
+  return `<div class="${compact?'av-h':'sec-head'}"><h2>Avisos</h2><span>Clique para abrir o documento.</span></div>
     <div class="tabs" role="tablist">
       <button role="tab" class="${notifTab==='todas'?'on':''}" data-tab="todas">Todas <em>${NOTES.length}</em></button>
       <button role="tab" class="${notifTab==='pend'?'on':''}" data-tab="pend">Pendentes de ciência <em>${pend.length}</em></button>
     </div>
-    <div class="notes">${list.length?list.map(n=>`<div class="note ${n.pend?'pend':''}">
+    <div class="notes2 ${compact?'compact':''}">${list.length?list.map(n=>`<button class="note2 ${n.read?'':'unread'}" data-note="${n.id}">
         <span class="ni">${ico(n.icon)}</span>
-        <div class="nb"><b>${n.title}</b><p>${n.text}</p><small>${n.from} · ${n.when}</small></div>
-        ${n.pend?`<button class="btn btn-accent" data-ciencia="${n.id}">${ico('check')}Dar ciência</button>`:`<span class="chip soft">${ico('check')}Ciente</span>`}
-      </div>`).join(''):`<div class="empty" style="border:0">${ico('bell')}<b>Nenhuma notificação nova</b>Você está em dia! Avisaremos quando houver novidades.</div>`}</div>`}
+        <span class="nb"><b>${n.title}</b><span class="nt">${noteText(n)}</span><small>${n.from} · ${n.when}</small><span class="nc">${noteChip(n)}</span></span>
+        ${ico('chevron-right')}
+      </button>`).join(''):`<div class="empty" style="border:0">${ico('bell')}<b>Nenhum aviso pendente</b>Você está em dia.</div>`}</div>`}
+function openNote(id){const n=NOTES.find(x=>x.id==id);if(!n)return;n.read=true;paintNotifPop();
+  if(n.kind==='doc'){avisoBack=cur;return go('#aviso/'+n.id)}
+  const t=noteTarget(n);if(!t)return toast('info','Nada pendente','Este item já foi tratado.');
+  setSys('cont');lastSys='cont';store.set('lastSys','cont');
+  if(n.task==='pagar'){DOC='nl:'+t.l.id;go('#tela/k-2.12/'+t.l.id+'?tl')}else{DOC=null;go('#tela/k-2.10/'+t.e.num)}}
 function wireNotices(c,again){
   $$('[data-tab]',c).forEach(b=>b.onclick=()=>{notifTab=b.dataset.tab;again()});
-  $$('[data-ciencia]',c).forEach(b=>b.onclick=()=>{const n=NOTES.find(x=>x.id==b.dataset.ciencia);n.pend=false;n.when='agora';toast('success','Ciência registrada',n.title);again()});}
+  $$('[data-note]',c).forEach(b=>b.onclick=()=>openNote(b.dataset.note));}
+function paintNotifPop(){const p=$('#notifPop');if(!p)return;const un=NOTES.filter(n=>!n.read).length;
+  const d=$('#notifDot');if(d){d.textContent=un;d.classList.toggle('hidden',!un)}
+  p.innerHTML=`<div style="display:flex;align-items:center"><h4>Notificações</h4><button class="link" id="readAll" style="margin-left:auto;font-size:12px;padding:8px 10px">Marcar como lidas</button></div>
+   ${NOTES.map(n=>`<button class="notif ${n.read?'':'unread'}" data-pnote="${n.id}">${ico(n.icon)}<div><b>${n.title}</b><p>${noteText(n)}</p><small>${n.from} · ${n.when}</small></div></button>`).join('')}`;
+  paintIcons(p);$$('[data-pnote]',p).forEach(b=>b.onclick=()=>{closePops();openNote(b.dataset.pnote)});
+  $('#readAll').onclick=()=>{NOTES.forEach(n=>n.read=true);paintNotifPop();toast('success','Tudo em dia','Notificações marcadas como lidas.')}}
+/* visualizador de aviso: documento + ciência */
+let avisoBack='#sistemas';
+function coplanPaper(title,sub,body,foot){return `<div class="paper" style="--z:${ZOOM}"><div class="wm">PROTÓTIPO</div>
+   <header class="pp-h"><div><b>COPLAN GESTÃO EM TECNOLOGIA LTDA.</b><small>Av. José Monteiro de Figueiredo, 730 · Duque de Caxias · Cuiabá/MT · (65) 3046-5400</small></div></header>
+   <h2 class="pp-t">${title}</h2>${sub?`<p class="pp-s">${sub}</p>`:''}${body}${foot||''}</div>`}
+function avisoDoc(n){
+  if(n.doc==='termo'){const T=LEGAL.termos;return coplanPaper('TERMOS DE USO DOS SISTEMAS',T.ver,`<div class="pp-txt">${T.secs().map((s,i)=>`<h3>${i+1}. ${s[0]}</h3>${s[1]}`).join('')}</div>`)}
+  if(n.doc==='comunicado')return coplanPaper('COMUNICADO Nº 27/2026','Cuiabá/MT, 24 de novembro de 2026',`<div class="pp-txt">
+    <p>Aos usuários dos sistemas da plataforma Coplan,</p>
+    <p>Informamos que, para a virada do exercício, os sistemas passarão por manutenção programada em <b>26/12/2026, das 20h às 23h</b> (horário de Cuiabá).</p>
+    <p>Durante esse período, todos os sistemas ficarão indisponíveis, inclusive o login gov.br e a assinatura eletrônica no Assina. Os lançamentos feitos até as 20h ficam preservados.</p>
+    <p>Recomendamos concluir assinaturas e envios ao Tribunal de Contas antes do horário da manutenção.</p>
+    <p>Dúvidas pelo chamado no próprio sistema ou pelo telefone (65) 3046-5400.</p></div>`,
+    sigBlock([{nome:'Coplan Gestão em Tecnologia Ltda.',papel:'Suporte e operação',ok:true,data:'24/11/2026'}]));
+  if(n.doc==='decreto')return paper('DECRETO Nº 412, DE 24 DE NOVEMBRO DE 2026','Dispõe sobre o encerramento do exercício financeiro de 2026 e dá outras providências.',`<div class="pp-txt">
+    <p>O PREFEITO MUNICIPAL, no uso das atribuições que lhe confere a Lei Orgânica do Município,</p><p><b>DECRETA:</b></p>
+    <p><b>Art. 1º</b> Ficam estabelecidos os seguintes prazos para o encerramento do exercício financeiro de 2026:</p>
+    <p>I · emissão de empenhos: até <b>15/12/2026</b>;<br>II · liquidação da despesa: até <b>22/12/2026</b>;<br>III · pagamentos: até <b>30/12/2026</b>.</p>
+    <p><b>Art. 2º</b> As despesas empenhadas e não pagas até 31/12/2026 serão inscritas em restos a pagar, processados ou não processados, conforme o caso.</p>
+    <p><b>Art. 3º</b> Os pedidos de empenho recebidos após o prazo do art. 1º, I, dependem de justificativa do ordenador de despesa.</p>
+    <p><b>Art. 4º</b> Este Decreto entra em vigor na data de sua publicação.</p></div>`,
+    sigBlock([{nome:'Prefeito Exemplo',papel:'Prefeito Municipal',ok:true,data:'24/11/2026'}]));
+  return ''}
+function renderAviso(id){const n=NOTES.find(x=>x.id==id);if(!n||n.kind!=='doc')return go('#sistemas');n.read=true;
+  const c=$('#content');
+  c.innerHTML=`<div class="${document.body.classList.contains('in-sys')?'':'hub-wrap'}"><div class="page-head"><button class="back" aria-label="Voltar" id="avBack">${ico('chevron-left')}</button><div><h1>${n.title}</h1><p>${n.from} · ${n.when}</p></div></div>
+   <div class="card av-view"><div class="vw-bar"><div class="vw-title">${ico(n.icon)}<b>Documento</b>${n.pend?'<span class="chip pend">Pendente de ciência</span>':'<span class="chip ok">Ciência registrada</span>'}</div>
+     <div class="vw-tools"><button class="btn-ghost btn" data-zoom="-1" aria-label="Diminuir zoom">${ico('zoom-out')}</button><span class="vw-z">${Math.round(ZOOM*100)}%</span><button class="btn-ghost btn" data-zoom="1" aria-label="Aumentar zoom">${ico('zoom-in')}</button>
+      <span class="vw-sep"></span><button class="btn-ghost btn" id="avDl" aria-label="Baixar PDF" title="Baixar PDF">${ico('download')}</button><button class="btn-ghost btn" id="avPr" aria-label="Imprimir" title="Imprimir">${ico('printer')}</button></div></div>
+    <div class="av-doc">${avisoDoc(n)}</div>
+    <div class="av-ack">${n.pend?`<span>${ico('info')}Ao dar ciência, você confirma que leu este documento. A ciência fica registrada com seu usuário, data e hora.</span><button class="btn btn-accent" id="avOk">${ico('check')}Dar ciência</button>`:`<span>${ico('badge-check')}Ciência registrada por Diego Loureiro${n.ackAt?' em '+n.ackAt:''}.</span>`}</div></div></div>`;
+  paintIcons(c);$('#avBack').onclick=()=>go(avisoBack);
+  $$('[data-zoom]',c).forEach(b=>b.onclick=()=>{ZOOM=Math.min(1.5,Math.max(.6,Math.round((ZOOM+ +b.dataset.zoom*.1)*10)/10));renderAviso(id)});
+  $('#avDl').onclick=()=>toast('success','PDF gerado','No sistema, baixa o documento em PDF.');$('#avPr').onclick=()=>toast('info','Imprimir','No sistema, abre a impressão do documento.');
+  const ok=$('#avOk');if(ok)ok.onclick=()=>{n.pend=false;n.ackAt=new Date().toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});toast('success','Ciência registrada',n.title);paintNotifPop();renderAviso(id)}}
 function enterSys(id){const t=SYSTEMS.find(s=>s.id===id);if(!NAVEGAVEIS.includes(id)){toast('info',t.name,'Neste protótipo estão navegáveis o Central, o Contábil e o Planejamento.');return}setSys(id);lastSys=id;store.set('lastSys',id);go('#central');}
 
 /* ---------- SIDEBAR ---------- */
@@ -2031,6 +2121,8 @@ let EMPS=[];
     e.liqs.forEach((l,j)=>{l.anul=0;l.pgAnul=0;
       if(!l.pago&&(i%6===2)){l.anul=Math.round(l.valor*.2*100)/100;l.liquido=Math.round((l.liquido-l.anul)*100)/100}
       if(l.pago&&(i%9===4)){l.pgAnul=l.valor;l.pago=false;l.pgEst=l.pg;l.pg=null}})});})();
+/* NAD prioritária (Administrativo) que virou empenho e aguarda liquidação */
+(function(){const e=EMPS.find(x=>!x.liqs.length&&!x.anulado&&x.assinado)||EMPS.find(x=>!x.liqs.length&&!x.anulado);if(e)e.prio=true})();
 function mkLiq(e,valor,p,pago){const iss=e.cred!==8&&e.cred!==7?Math.round(valor*.05*100)/100:0;const ret={iss,inss:0,irrf:Math.round(valor*.015*100)/100};
   const l={id:`${e.num}-${e.liqs.length+1}`,tipoDoc:e.cred===8?'Recibo':'NFS-e',doc:String(1000+Math.floor(rnd()*8999)),data:e.data,valor,ret,liquido:Math.round((valor-ret.iss-ret.inss-ret.irrf)*100)/100,pago:!!pago,pg:null};
   if(pago)l.pg={conta:CONTAS[0].n,forma:'Transferência (TED/PIX)',data:e.data,op:'OP '+(2600+Math.floor(rnd()*900))};return l}
@@ -2863,7 +2955,7 @@ function lancRows(e,lid){const L=[];const d=D(e.dot);
   return L}
 function renderLanc(num){const e=E(num);if(!e)return go('#tela/k-2.10');const L=lancRows(e);
   const el=$('#content');const [sl,sc]=status(e),sg=sigFlow()?(sigOf(e).ord&&sigOf(e).cont):e.assinado;el.innerHTML=`<div class="crumbs">Contábil ${ico('chevron-right')} 2 - Orçamentário ${ico('chevron-right')} <button class="link" data-back style="font-size:12px">2.10 - Empenho</button> ${ico('chevron-right')} ${e.num}/${e.ano}</div>
-  <div class="page-head"><button class="back" aria-label="Voltar" data-back>${ico('chevron-left')}</button><div><h1>Empenho ${e.num}/${e.ano}</h1><p class="eh-sub"><span class="chip ${sc}">${sl}</span>${sg?`<span class="chip ok">${ico('check')}Assinado</span>`:`<span class="chip bad-o">${ico('clock')}Sem assinatura</span>`}<span>${C(e.cred).nome} · ${C(e.cred).doc}</span></p></div></div>${viewTabs(e,'lanc')}<div class="card"><div class="card-h"><h3>${L.length} lançamentos</h3><span class="muted">Partidas dobradas geradas pelo empenho, liquidações e pagamentos (PCASP)</span><button class="btn btn-gray fc-x" id="lcX">${ico('sheet')}Exportar</button></div>
+  <div class="page-head"><button class="back" aria-label="Voltar" data-back>${ico('chevron-left')}</button><div><h1>Empenho ${e.num}/${e.ano}</h1><p class="eh-sub"><span class="chip ${sc}">${sl}</span>${e.prio?prioTag(true):''}${sg?`<span class="chip ok">${ico('check')}Assinado</span>`:`<span class="chip bad-o">${ico('clock')}Sem assinatura</span>`}<span>${C(e.cred).nome} · ${C(e.cred).doc}</span></p></div></div>${viewTabs(e,'lanc')}<div class="card"><div class="card-h"><h3>${L.length} lançamentos</h3><span class="muted">Partidas dobradas geradas pelo empenho, liquidações e pagamentos (PCASP)</span><button class="btn btn-gray fc-x" id="lcX">${ico('sheet')}Exportar</button></div>
    <div class="tbl-wrap"><table class="tbl tbl-lc"><thead><tr><th>Data</th><th>Evento</th><th>Débito</th><th>Crédito</th><th class="r">Valor</th></tr></thead><tbody>${L.map(x=>`<tr class="norow ${x.neg?'neg-row':''}"><td>${x.data}</td><td><b>${x.ev}</b></td><td><code>${x.deb}</code></td><td><code>${x.cred}</code></td><td class="r ${x.neg?'neg':''}">${x.neg?'':''}${brl(x.v)}</td></tr>`).join('')}</tbody></table></div></div>
    <p class="hint" style="margin-top:10px">${ico('info')}Contas do PCASP ilustrativas no protótipo; no sistema vêm da tabela de eventos contábeis do município.</p>`;
   paintIcons(el);$$('[data-back]',el).forEach(b=>b.onclick=()=>go('#tela/k-2.10'));wireTabs(el,e);$('#lcX').onclick=()=>toast('success','Planilha gerada',`${L.length} lançamentos exportados.`)}
@@ -2874,7 +2966,7 @@ function renderEmpFull(num){const e=E(num);if(!e)return go('#tela/k-2.10');
   const signed=sigFlow()?(s.ord&&s.cont):e.assinado;
   const el=$('#content');
   el.innerHTML=`<div class="crumbs">Contábil ${ico('chevron-right')} 2 - Orçamentário ${ico('chevron-right')} <button class="link" data-back style="font-size:12px">2.10 - Empenho</button> ${ico('chevron-right')} ${e.num}/${e.ano}</div>
-  <div class="page-head"><button class="back" aria-label="Voltar" data-back>${ico('chevron-left')}</button><div><h1>Empenho ${e.num}/${e.ano}</h1><p class="eh-sub"><span class="chip ${sc}">${sl}</span>${signed?`<span class="chip ok">${ico('check')}Assinado</span>`:`<span class="chip bad-o">${ico('clock')}Sem assinatura</span>`}</p></div></div>
+  <div class="page-head"><button class="back" aria-label="Voltar" data-back>${ico('chevron-left')}</button><div><h1>Empenho ${e.num}/${e.ano}</h1><p class="eh-sub"><span class="chip ${sc}">${sl}</span>${e.prio?prioTag(true):''}${signed?`<span class="chip ok">${ico('check')}Assinado</span>`:`<span class="chip bad-o">${ico('clock')}Sem assinatura</span>`}</p></div></div>
   ${viewTabs(e,'det')}
   <div class="act-strip card"><div class="as-txt">${ico(!signed?'pen-line':canLiq?'file-check':'circle-check')}<div><b>${!signed?'Próximo passo: assinar a nota de empenho':canLiq?'Próximo passo: liquidar quando o material ou serviço for entregue':'Sem pendências neste empenho'}</b><small>${an?'Empenho anulado.':`${R$(t.aLiq)} a liquidar · ${R$(t.aPag)} liquidado a pagar`}</small></div></div>
     <div class="as-btns"><button class="btn btn-gray" data-open-doc="ne">${ico('file-pen-line')}Nota de empenho</button>${!an&&t.aLiq>0?`<button class="btn btn-gray" data-mode="anular">${ico('file-x')}Anular</button>`:''}${canLiq?`<button class="btn ${signed?'btn-accent':'btn-gray'}" data-mode="liquidar">${ico('file-check')}Liquidar</button>`:''}${signed?'':`<button class="btn btn-accent" data-open-doc="ne">${ico('pen-line')}Assinar</button>`}</div></div>
@@ -2942,7 +3034,7 @@ function renderEmpDetail(num,mode,keep){const e=E(num);if(!e)return go('#tela/k-
   const el=$('#content');
   el.innerHTML=`<div class="crumbs">Contábil ${ico('chevron-right')} 2 - Orçamentário ${ico('chevron-right')} <button class="link" data-back style="font-size:12px">2.10 - Empenho</button> ${ico('chevron-right')} ${e.num}/${e.ano}</div>
   <div class="page-head"><button class="back" aria-label="Voltar" data-back>${ico('chevron-left')}</button><div><h1>Empenho ${e.num}/${e.ano}</h1>
-    <p class="eh-sub"><span class="chip ${sc}">${sl}</span><span>${c.nome} · ${c.doc}</span></p></div>
+    <p class="eh-sub"><span class="chip ${sc}">${sl}</span>${e.prio?prioTag(true):''}<span>${c.nome} · ${c.doc}</span></p></div>
     <div class="actions">${!an&&t.aLiq>0?`<button class="btn btn-gray" data-mode="anular">${ico('file-x')}Anular</button>`:''}${canLiq?`<button class="btn ${e.assinado?'btn-accent':'btn-gray'}" data-mode="liquidar">${ico('file-check')}Liquidar</button>`:''}</div></div>
   ${viewTabs(e,'tl')}
   <div class="mini-tot"><span>Empenhado <b>${R$(t.V)}</b>${t.Va?`<em class="neg">anulado ${R$(t.Va)}</em>`:''}</span><span>Liquidado <b>${R$(t.L)}</b>${t.La?`<em class="neg">anulado ${R$(t.La)}</em>`:''}</span><span>Pago <b>${R$(t.P)}</b>${t.Pa?`<em class="neg">anulado ${R$(t.Pa)}</em>`:''}</span><span>A liquidar <b>${R$(t.aLiq)}</b></span>
@@ -3569,7 +3661,7 @@ function sugRet(l,e,valor){const d=D(e.dot),svc=d.el.startsWith('3.3.90.39'),obr
   const pa=PAGS.find(p=>!p.anul&&!p.lanc.length);if(pa){pa.anul=r2(pa.valor*.04)}
   syncAllPg();
   /* demonstração: liquidações sem linha do tempo e/ou sem lançamentos */
-  const free=L.filter(({l})=>!l.anul&&!PAGS.some(p=>p.liq===l.id)).map(x=>x.l);
+  const free=L.filter(({l})=>!l.anul&&!PAGS.some(p=>p.liq===l.id)&&!liqSigned(l)).map(x=>x.l);
   if(free[0]){free[0].semTl=true;free[0].semLanc=true}if(free[1])free[1].semLanc=true;if(free[2])free[2].semTl=true})();
 const nextPagNum=()=>Math.max(2800,...PAGS.map(p=>p.num))+1;
 
@@ -4371,7 +4463,7 @@ function clrBtn(id,show,cls=''){return `<button type="button" class="btn-clr ${c
 const prioTag=(sm)=>`<span class="prio-tag ${sm?'sm':''}" title="Prioridade definida pelo Administrativo na NAD">${'<span class="prio-i" aria-hidden="true">!</span>'}Prioritária</span>`;
 /* ---------- título da aba: tela · sistema · Coplan ---------- */
 function setTitle(){const h=(location.hash||'#login').replace('#',''),[page,arg='']=h.split('/');let t;
-  if(page==='login')t='Entrar';else if(page==='sistemas')t='Sistemas';else if(page==='privacidade')t='Política de Privacidade';else if(page==='termos')t='Termos de Uso';else if(page==='sobre')t='Sobre o sistema';
+  if(page==='login')t='Entrar';else if(page==='sistemas')t='Sistemas';else if(page==='aviso')t='Aviso';else if(page==='privacidade')t='Política de Privacidade';else if(page==='termos')t='Termos de Uso';else if(page==='sobre')t='Sobre o sistema';
   else{const sn=sysWord(sys);
     if(page==='tela'){const sc=SCREENS[arg]||{},base=(sc.label||'').replace(/^[\d.]+\s*-\s*/,'');const sub=h.split('/')[2]||'',[id,qs='']=sub.split('?');
       let pg=base;if(sub.startsWith('novo'))pg=`Incluir · ${base}`;else if(id){const num=arg==='p-receita'&&typeof recOf==='function'&&recOf(id)?rFmt(recOf(id).cod):id;pg=`${qs==='editar'?'Editar · ':''}${base} ${num}`}
@@ -4409,7 +4501,7 @@ function init(){
   $('#goHub').onclick=()=>go('#sistemas');
   $('#exBtn').onclick=e=>{e.stopPropagation();openExPop()};
   $('#logout').onclick=()=>{closePops();logout()};
-  $('#readAll').onclick=()=>{$('#notifDot').classList.add('hidden');toast('success','Tudo em dia','Notificações marcadas como lidas.')};
+  paintNotifPop();
   document.addEventListener('keydown',e=>{
     if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'&&route!=='login'&&route!=='sistemas'){e.preventDefault();palette()}
     if(e.key==='Escape'){closePops();$('#layer').innerHTML=''}
