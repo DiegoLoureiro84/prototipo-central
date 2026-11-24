@@ -1375,7 +1375,7 @@ kbd{color:var(--secondary-fg)!important}
 #legalPub{min-height:100vh;background:var(--bg)}
 .legal-top{position:sticky;top:0;z-index:5;height:65px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:#fff;border-bottom:1px solid var(--border)}
 .legal-brand{font-size:22px;font-weight:800;color:var(--primary)}
-.legal-main{max-width:1440px;margin:0 auto;padding:28px 28px 48px}
+.legal-main{padding:28px 28px 48px;box-sizing:content-box}.legal-page{max-width:1280px;margin:0 auto}
 @media (max-width:1000px){.legal{padding:20px}.legal-top,.legal-main{padding-left:16px;padding-right:16px}}
 </style>
 </head>
@@ -3999,11 +3999,11 @@ function legalBody(k){const L=LEGAL[k],S=L.secs();
 function wireLegal(el){}
 let legalBack='#sistemas';
 function renderLegal(k){const L=LEGAL[k],c=$('#content');
-  c.innerHTML=`<div class="hub-wrap"><div class="page-head"><button class="back" aria-label="Voltar" id="lgBack">${ico('chevron-left')}</button><div><h1>${L.title}</h1><p>${L.sub}</p></div></div>${legalBody(k)}</div>`;
+  c.innerHTML=`<div class="legal-page"><div class="page-head"><button class="back" aria-label="Voltar" id="lgBack">${ico('chevron-left')}</button><div><h1>${L.title}</h1><p>${L.sub}</p></div></div>${legalBody(k)}</div>`;
   paintIcons(c);$('#lgBack').onclick=()=>go(legalBack);wireLegal(c)}
 function renderLegalPub(k){const L=LEGAL[k],c=$('#legalPub');
   c.innerHTML=`<header class="legal-top"><span class="legal-brand">Coplan</span></header>
-  <main class="legal-main"><div class="page-head"><button class="back" aria-label="Voltar para o login" id="lgPubBack">${ico('chevron-left')}</button><div><h1>${L.title}</h1><p>${L.sub}</p></div></div>${legalBody(k)}</main>`;
+  <main class="legal-main legal-page"><div class="page-head"><button class="back" aria-label="Voltar para o login" id="lgPubBack">${ico('chevron-left')}</button><div><h1>${L.title}</h1><p>${L.sub}</p></div></div>${legalBody(k)}</main>`;
   paintIcons(c);$('#lgPubBack').onclick=()=>go('#login');wireLegal(c);window.scrollTo(0,0)}
 
 /* ================= PLANEJAMENTO · Cadastros Básicos · Especificação da Receita =================
