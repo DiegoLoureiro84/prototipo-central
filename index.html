@@ -568,7 +568,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
 @media (max-width:899px){
   .kpis{grid-template-columns:1fr 1fr}.kpi b{font-size:18px}
   .toolbar .input{width:100%}
-  .fgrid{grid-template-columns:1fr}.fgrid>*{grid-column:auto!important}
+  .fgrid,.fsplit>.fs-l{grid-template-columns:1fr}.fgrid>*,.fsplit>.fs-l>*{grid-column:auto!important}
   .tipo-seg{grid-template-columns:1fr}
   .ex-btn small{display:none}.ex-btn{padding:0 8px}
   .dl{grid-template-columns:1fr}
@@ -1425,6 +1425,15 @@ button.sb-c{cursor:pointer}button.sb-c:hover{background:var(--accent)}
 @media (max-width:1100px){.hub2{grid-template-columns:minmax(0,1fr)}.hub-av{position:static;max-height:none}}
 @media (max-width:899px){.sys2-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sys2{min-height:120px}.av-ack{flex-direction:column;align-items:stretch}.av-doc{padding:12px}}
 @media (min-width:1200px){.sys-grid.sys-grid5{grid-template-columns:repeat(5,minmax(0,1fr))}.sys-grid.sys-grid5 .sys{padding:0 16px;gap:14px}}
+.fq{padding:12px 16px;border-bottom:1px solid var(--border)}.fq .input{max-width:none}
+input.money,.input:has(.pre) input,input[placeholder="0,00"]{text-align:right;font-variant-numeric:tabular-nums}
+.input.ro.num{justify-content:flex-end}.input.ro.num span.v{text-align:right;width:100%;font-variant-numeric:tabular-nums}
+/* coluna dupla: campos empilhados à esquerda, descrição ocupa a altura toda à direita */
+.fsplit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 16px;align-items:stretch}
+.fsplit>.fs-l{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px 16px;align-content:start}
+.fsplit>.fs-r{display:flex;flex-direction:column;min-width:0}
+.fsplit>.fs-r .input.ta,.fsplit>.fs-r .input.fs-ta{flex:1;display:flex;align-items:flex-start;height:auto}.fsplit>.fs-r .input.fs-ta span.v{white-space:normal}.fsplit>.fs-r .input.ta textarea{flex:1;height:auto;min-height:96px;resize:none}
+@media (max-width:899px){.fsplit{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body>
@@ -1790,6 +1799,16 @@ function renderHub(){
   wireNotices(c,renderHub);
 }
 /* avisos do município: no início dos sistemas aparecem antes das telas */
+/* busca dentro do card de foco dos dashboards */
+let FQ={};
+const fqBox=ph=>`<div class="fq"><div class="input"><i data-i="search"></i><input data-fq type="search" placeholder="${ph}" aria-label="${ph}"></div></div>`;
+const fqNorm=t=>(t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+function wireFq(root){$$('[data-fq]',root).forEach(inp=>{const card=inp.closest('.focus-card'),key=(card.querySelector('h3')||{}).textContent||'';
+  const apply=()=>{const q=fqNorm(inp.value.trim()),qd=q.replace(/\D/g,'');FQ[key]=inp.value;let shown=0;
+    const rows=[...card.querySelectorAll('tbody tr'),...card.querySelectorAll('.dot-low')].filter(r=>!r.querySelector('td[colspan]')&&!r.classList.contains('fq-none'));
+    rows.forEach(r=>{const t=fqNorm(r.textContent),td=t.replace(/\D/g,'');const ok=!q||t.includes(q)||(qd.length>=3&&td.includes(qd));r.style.display=ok?'':'none';if(ok)shown++});
+    let em=card.querySelector('.fq-none');if(q&&!shown){if(!em){em=document.createElement('div');em.className='fq-none empty';em.style.border='0';em.innerHTML=ico('search-x')+'<b>Nada encontrado</b>Revise a busca.';card.appendChild(em)}}else if(em)em.remove()};
+  inp.value=FQ[key]||'';inp.oninput=apply;if(inp.value)apply();paintIcons(inp.parentElement)})}
 function noteTarget(n){if(n.task==='pagar'){const f=filaList()[0];return f?{l:f.l,e:f.e}:null}
   if(n.task==='liquidar'){const e=EMPS.find(x=>x.prio&&tot(x).aLiq>0);return e?{e}:null}return null}
 function noteText(n){if(n.text)return n.text;const t=noteTarget(n);if(!t)return '';
@@ -2077,7 +2096,7 @@ const today=()=>{const d=new Date();return d.toLocaleDateString('pt-BR')};
 const toISO=br=>{const [d,m,y]=br.split('/');return `${y}-${m}-${d}`};
 const fromISO=iso=>{if(!iso)return'';const [y,m,d]=iso.split('-');return `${d}/${m}/${y}`};
 const parseMoney=s=>+(String(s).replace(/\D/g,''))/100;
-function moneyInput(el,cb){el.addEventListener('input',()=>{const v=parseMoney(el.value);el.value=v?brl(v):'';cb&&cb(v)})}
+function moneyInput(el,cb){el.classList.add('money');el.addEventListener('input',()=>{const v=parseMoney(el.value);el.value=v?brl(v):'';cb&&cb(v)})}
 let seed=11;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;const pick=a=>a[Math.floor(rnd()*a.length)];
 
 /* ---------- dados fictícios ---------- */
@@ -2326,14 +2345,13 @@ function renderEmpForm(copyFrom){
 
    <section class="card"><div class="fsec-h"><span class="n" data-sn="2">2</span><h3>Dotação</h3></div><div class="card-b"><div id="dotBox"></div><div id="vincBox"></div></div></section>
 
-   <section class="card"><div class="fsec-h"><span class="n" data-sn="3">3</span><h3>Credor, descrição e valor</h3></div><div class="card-b"><div class="fgrid">
-     <div class="c12" id="credBox"></div>
-     <div class="c12"><label>Descrição <i class="req">*</i></label><div class="input ta"><textarea data-f="desc" maxlength="500" placeholder="Objeto da despesa, como vai aparecer na nota de empenho">${F.desc}</textarea></div>
-       <div style="display:flex;justify-content:space-between"><button type="button" class="link" id="histBtn" style="font-size:12px">Usar histórico padrão</button><span class="counter" id="descCnt">${F.desc.length}/500</span></div></div>
+   <section class="card"><div class="fsec-h"><span class="n" data-sn="3">3</span><h3>Credor, descrição e valor</h3></div><div class="card-b"><div class="fgrid fsplit">
+     <div class="fs-l"><div class="c12" id="credBox"></div>
      <div class="c6"><label>Valor <i class="req">*</i></label><div class="input" id="valBox"><span class="pre">R$</span><input data-money id="valIn" inputmode="numeric" placeholder="0,00"></div><div class="hint err hidden" id="valH"></div></div>
-     <div class="c6"><label>Nota fiscal <span class="chip gray" style="height:18px;font-size:10px">se já houver</span></label><div class="input" id="nfBox"><input data-f="nf" placeholder="Nº da NF-e ou NFS-e" value="${F.nf}"></div></div>
-     <div class="c12" id="nfAlert"></div>
-   </div></div></section>
+     <div class="c6"><label>Nota fiscal <span class="chip gray" style="height:18px;font-size:10px">se já houver</span></label><div class="input" id="nfBox"><input data-f="nf" placeholder="Nº da NF-e ou NFS-e" value="${F.nf}"></div></div></div>
+     <div class="fs-r"><label>Descrição <i class="req">*</i></label><div class="input ta"><textarea data-f="desc" maxlength="500" placeholder="Objeto da despesa, como vai aparecer na nota de empenho">${F.desc}</textarea></div>
+       <div style="display:flex;justify-content:space-between"><button type="button" class="link" id="histBtn" style="font-size:12px">Usar histórico padrão</button><span class="counter" id="descCnt">${F.desc.length}/500</span></div></div>
+   </div><div id="nfAlert"></div></div></section>
 
    <section class="card acc-sec" style="border-radius:var(--r-lg)" id="clsSec"><button type="button" style="padding:16px">${ico('tags')}<span style="font-size:20px;font-weight:600">Classificação da despesa</span><span class="chip gray" style="margin-left:8px">opcional</span>${ico('chevron-down').replace('<i ','<i class="chev" ')}</button>
      <div><div class="fgrid">
@@ -2595,12 +2613,12 @@ function kpiCards(){return `<div class="kpis kpis-x">${KPIS.map((k,i)=>{const m=
 function psTh(k,l,r){const on=ST.psort[0]===k;return `<th class="sort ${r?'r':''}" data-psort="${k}" aria-sort="${on?(ST.psort[1]>0?'ascending':'descending'):'none'}">${l}${on?ico(ST.psort[1]>0?'arrow-up':'arrow-down'):ico('arrow-up-down').replace('<i ','<i style="opacity:.35" ')}</th>`}
 function psSort(l){const [k,d]=ST.psort;return [...l].sort((a,b)=>{const v=k==='rec'?a.rec.localeCompare(b.rec):k==='prio'?(+!!b.prio)-(+!!a.prio)||a.rec.localeCompare(b.rec):k==='valor'?a.valor-b.valor:k==='cred'?C(a.cred).nome.localeCompare(C(b.cred).nome):k==='dot'?a.dot-b.dot:(+a.nad)-(+b.nad);return v*d})}
 function focusPanel(){
-  if(ST.focus==='aempenhar'){const l=preOpen();return `<section class="card focus-card"><div class="card-h"><h3>NADs aguardando empenho</h3><span class="muted">${l.length} ${l.length===1?'NAD emitida':'NADs emitidas'} pelo Administrativo, da mais antiga para a mais recente</span><button class="btn btn-gray fc-x" data-unfocus>${ico('x')}Fechar</button></div>
+  if(ST.focus==='aempenhar'){const l=preOpen();return `<section class="card focus-card"><div class="card-h"><h3>NADs aguardando empenho</h3><span class="muted">${l.length} ${l.length===1?'NAD emitida':'NADs emitidas'} pelo Administrativo, da mais antiga para a mais recente</span><button class="btn btn-gray fc-x" data-unfocus>${ico('x')}Fechar</button></div>${fqBox('Buscar por nº da NAD, credor ou CPF/CNPJ')}
    ${l.length?`<div class="tbl-wrap"><table class="tbl"><thead><tr>${psTh('num','NAD')}${psTh('cred','Credor')}${psTh('dot','Dotação e natureza da despesa')}${psTh('valor','Valor',1)}${psTh('rec','Recebida')}${psTh('prio','Prioridade')}<th></th></tr></thead><tbody>${psSort(l).map(p=>{const d=D(p.dot),c=C(p.cred),s=saldoDot(p.dot),ok=s>=p.valor,age=daysSince(p.rec);
      return `<tr class="norow"><td class="num"><b>NAD ${p.nad}</b><small>${p.desc}</small></td><td class="cred">${credCell(c)}</td><td class="dotc"><b>${d.cod}</b> · ${d.acao}<span class="sub ${ok?'':'neg'}">${ok?`${d.el} · ${d.elN}`:'Saldo insuficiente: '+R$(s)}</span></td><td class="r"><b>${brl(p.valor)}</b></td>
      <td><span class="chip ${age>5?'pend':'gray'}">${age===0?'hoje':age===1?'há 1 dia':`há ${age} dias`}</span></td><td class="prio-c">${p.prio?prioTag():''}</td><td class="r"><button class="btn btn-accent btn-sm" data-empenhar="${p.id}" ${ok?'':'disabled title="Sem saldo na dotação"'}>${ico('file-pen-line')}Empenhar</button></td></tr>`}).join('')}</tbody></table></div>`
    :`<div class="empty" style="border:0">${ico('circle-check')}<b>Tudo empenhado</b>Não há NADs do Administrativo aguardando empenho.</div>`}</section>`}
-  if(ST.focus==='dotbaixa'){const l=DOTS.filter(d=>saldoDot(d.cod)/d.dot<.15);return `<section class="card focus-card"><div class="card-h"><h3>Dotações com saldo baixo</h3><span class="muted">Peça crédito adicional antes de travar um empenho</span><button class="btn btn-gray fc-x" data-unfocus>${ico('x')}Fechar</button></div>
+  if(ST.focus==='dotbaixa'){const l=DOTS.filter(d=>saldoDot(d.cod)/d.dot<.15);return `<section class="card focus-card"><div class="card-h"><h3>Dotações com saldo baixo</h3><span class="muted">Peça crédito adicional antes de travar um empenho</span><button class="btn btn-gray fc-x" data-unfocus>${ico('x')}Fechar</button></div>${fqBox('Buscar por dotação, ação ou órgão')}
    ${l.length?`<div class="card-b">${l.map(d=>{const s=saldoDot(d.cod),p=Math.max(0,s/d.dot);return `<div class="dot-low"><div><b>${d.cod} · ${d.acao}</b><small>${d.org} · ${d.fonte}</small></div><div class="dl-bar"><div class="bar"><i class="over" style="width:${Math.round((1-p)*100)}%"></i></div><small>${R$(s)} de ${R$(d.dot)}</small></div></div>`}).join('')}</div>`
    :`<div class="empty" style="border:0">${ico('circle-check')}<b>Nenhuma dotação abaixo de 15%</b>Todas as dotações têm saldo confortável.</div>`}</section>`}
   if(ST.focus==='nass'||ST.focus==='anular'){const t=ST.focus==='nass'?'Mostrando só empenhos não assinados':'Mostrando só empenhos com saldo a liquidar';
@@ -2675,7 +2693,7 @@ function renderEmpList(){
     if(open){m.classList.remove('hidden');b.setAttribute('aria-expanded','true');setTimeout(()=>document.addEventListener('click',()=>{m.classList.add('hidden');b.setAttribute('aria-expanded','false')},{once:true}),0)}});
   $$('[data-kpiopt]',c).forEach(b=>b.onclick=ev=>{ev.stopPropagation();const [i,id]=b.dataset.kpiopt.split('|');const old=KPIS[+i];KPIS[+i]=id;store.set('kpis_emp3',KPIS);if(ST.focus===old)ST.focus=null;renderEmpList();toast('info','Cartão atualizado',`Agora mostra: ${METRICS[id].label}.`)});
   $('#kpiTg').onclick=()=>{ST.kpiHide=!ST.kpiHide;store.set('kpi_hide_emp',ST.kpiHide);if(ST.kpiHide)ST.focus=null;renderEmpList()};
-  $$('.kx.act',c).forEach(k=>{const go2=()=>{const id=k.dataset.kpi;ST.focus=ST.focus===id?null:id;ST.page=1;renderEmpList();const fc=$('.focus-card,.focus-bar');if(fc&&ST.focus)fc.scrollIntoView({behavior:'smooth',block:'nearest'})};
+  wireFq(c);$$('.kx.act',c).forEach(k=>{const go2=()=>{const id=k.dataset.kpi;ST.focus=ST.focus===id?null:id;ST.page=1;renderEmpList();const fc=$('.focus-card,.focus-bar');if(fc&&ST.focus)fc.scrollIntoView({behavior:'smooth',block:'nearest'})};
     k.onclick=ev=>{if(ev.target.closest('.kx-h,.kx-menu'))return;go2()};k.onkeydown=ev=>{if((ev.key==='Enter'||ev.key===' ')&&ev.target===k){ev.preventDefault();go2()}}});
   $$('[data-unfocus]',c).forEach(b=>b.onclick=()=>{ST.focus=null;renderEmpList()});
   $$('[data-psort]',c).forEach(th=>th.onclick=()=>{const k=th.dataset.psort;ST.psort=[k,ST.psort[0]===k?-ST.psort[1]:1];renderEmpList()});
@@ -3193,7 +3211,7 @@ function lFocusPanel(){
   if(LS.focus==='aliquidar'){const l=EMPS.filter(e=>e.ano===EX&&aLiqOpen(e));const [k,dir]=LS.psort;
     const srt=[...l].sort((a,b)=>(k==='aliq'?tot(a).aLiq-tot(b).aLiq:k==='cred'?C(a.cred).nome.localeCompare(C(b.cred).nome):k==='data'?toISO(a.data).localeCompare(toISO(b.data)):a.num-b.num)*dir);
     const th=(kk,lb,r)=>{const on=k===kk;return `<th class="sort ${r?'r':''}" data-lps="${kk}" aria-sort="${on?(dir>0?'ascending':'descending'):'none'}">${lb}${on?ico(dir>0?'arrow-up':'arrow-down'):ico('arrow-up-down').replace('<i ','<i style="opacity:.35" ')}</th>`};
-    return `<section class="card focus-card"><div class="card-h"><h3>Empenhos com saldo a liquidar</h3><span class="muted">${l.length} ${l.length===1?'empenho':'empenhos'} · clique em Liquidar para abrir o formulário já com o empenho</span><button class="btn btn-gray fc-x" data-unfocus>${ico('x')}Fechar</button></div>
+    return `<section class="card focus-card"><div class="card-h"><h3>Empenhos com saldo a liquidar</h3><span class="muted">${l.length} ${l.length===1?'empenho':'empenhos'} · clique em Liquidar para abrir o formulário já com o empenho</span><button class="btn btn-gray fc-x" data-unfocus>${ico('x')}Fechar</button></div>${fqBox('Buscar por nº do empenho, credor ou CPF/CNPJ')}
     ${l.length?`<div class="tbl-wrap"><table class="tbl"><thead><tr>${th('num','Empenho')}${th('data','Data')}${th('cred','Credor')}<th>Dotação e natureza da despesa</th>${th('aliq','A liquidar',1)}<th>Assinatura</th><th></th></tr></thead><tbody>${srt.map(e=>{const d=D(e.dot),t=tot(e);
       return `<tr class="norow"><td class="num"><button class="lk-emp" data-goemp="${e.num}"><b>${e.num}/${e.ano}</b></button><small>NAD ${e.nad}</small></td><td>${e.data}</td><td class="cred">${credCell(C(e.cred))}</td><td class="dotc"><b>${d.cod}</b> · ${d.acao}<span class="sub">${d.el} · ${d.elN}</span></td><td class="r"><b>${brl(t.aLiq)}</b><span class="sub">de ${brl(t.V)}</span></td>
       <td>${e.assinado?`<span class="chip ok">${ico('check')}Assinado</span>`:`<span class="chip bad-o">${ico('clock')}Sem assinatura</span>`}</td><td class="r"><button class="btn btn-accent btn-sm" data-liqemp="${e.num}">${ico('file-check')}Liquidar</button></td></tr>`}).join('')}</tbody></table></div>`
@@ -3287,7 +3305,7 @@ function renderLiqList(){
     if(open){m.classList.remove('hidden');b.setAttribute('aria-expanded','true');setTimeout(()=>document.addEventListener('click',()=>{m.classList.add('hidden');b.setAttribute('aria-expanded','false')},{once:true}),0)}});
   $$('[data-kpiopt]',c).forEach(b=>b.onclick=ev=>{ev.stopPropagation();const [i,id]=b.dataset.kpiopt.split('|');const old=LKPIS[+i];LKPIS[+i]=id;store.set('kpis_liq',LKPIS);if(LS.focus===old)LS.focus=null;renderLiqList();toast('info','Cartão atualizado',`Agora mostra: ${LMETRICS[id].label}.`)});
   $('#kpiTg').onclick=()=>{LS.kpiHide=!LS.kpiHide;store.set('kpi_hide_liq',LS.kpiHide);if(LS.kpiHide)LS.focus=null;renderLiqList()};
-  $$('.kx.act',c).forEach(k=>{const go2=()=>{const id=k.dataset.kpi;LS.focus=LS.focus===id?null:id;LS.page=1;renderLiqList();const fc=$('.focus-card,.focus-bar');if(fc&&LS.focus)fc.scrollIntoView({behavior:'smooth',block:'nearest'})};
+  wireFq(c);$$('.kx.act',c).forEach(k=>{const go2=()=>{const id=k.dataset.kpi;LS.focus=LS.focus===id?null:id;LS.page=1;renderLiqList();const fc=$('.focus-card,.focus-bar');if(fc&&LS.focus)fc.scrollIntoView({behavior:'smooth',block:'nearest'})};
     k.onclick=ev=>{if(ev.target.closest('.kx-h,.kx-menu'))return;go2()};k.onkeydown=ev=>{if((ev.key==='Enter'||ev.key===' ')&&ev.target===k){ev.preventDefault();go2()}}});
   $$('[data-unfocus]',c).forEach(b=>b.onclick=()=>{LS.focus=null;renderLiqList()});
   $$('[data-lps]',c).forEach(th=>th.onclick=()=>{const k=th.dataset.lps;LS.psort=[k,LS.psort[0]===k?-LS.psort[1]:1];renderLiqList()});
@@ -3341,7 +3359,7 @@ function liqRowActions(b,id){const r=LQ(id);if(!r)return;const {l,e}=r,ed=canEdi
 
 /* ---------------- formulário (incluir / editar) e visualização ---------------- */
 let LF=null;
-const roF=(lb,v,cls='c6')=>`<div class="${cls}"><label>${lb}</label><div class="input ro"><span class="v">${v===''||v==null?'&nbsp;':v}</span></div></div>`;
+const roF=(lb,v,cls='c6',num)=>`<div class="${cls}"><label>${lb}</label><div class="input ro ${num||/^(-?R\$\s?)?-?[\d.]+,\d{2}$/.test(String(v).trim())?'num':''}"><span class="v">${v===''||v==null?'&nbsp;':v}</span></div></div>`;
 const secH=(n,t,ok,right='')=>`<div class="fsec-h"><span class="n ${ok?'ok':''}" data-ln="${n}">${n}</span><h3>${t}</h3>${right?`<span class="sec-r">${right}</span>`:''}</div>`;
 function empFields(e){const d=D(e.dot),c=C(e.cred),t=tot(e),fn=d.func.split('.'),sem=e.proc==='Sem processo';
   return `<div class="fgrid">${roF('Tipo',e.tipo,'c3')}${roF('Data do empenho',e.data,'c3')}${roF('Nº protocolo',e.protocolo||'','c3')}${roF('Tipo de processo',sem?'Despesa sem licitação':'Processo de compra','c3')}
@@ -3697,7 +3715,7 @@ function pkpiCards(){return `<div class="kpis kpis-x">${PKPIS.map((k,i)=>{const 
   </div>`}).join('')}</div>`}
 function pFocusPanel(){
   if(PS.focus==='fila'){const L=filaList(),nsig=allL().filter(({l})=>saldoPg(l)>0&&!(l.anul>=l.valor)&&!liqSigned(l)).length;let gk='',pos=0;
-    return `<section class="card focus-card"><div class="card-h"><h3>Fila de pagamento</h3><span class="muted">Ordem cronológica por fonte de recurso e categoria (Lei 14.133, art. 141) · ${L.length} ${L.length===1?'liquidação':'liquidações'}${nsig?` · ${nsig} aguardando a assinatura da nota de liquidação`:''}</span><button class="btn btn-gray fc-x" data-unfocus>${ico('x')}Fechar</button></div>
+    return `<section class="card focus-card"><div class="card-h"><h3>Fila de pagamento</h3><span class="muted">Ordem cronológica por fonte de recurso e categoria (Lei 14.133, art. 141) · ${L.length} ${L.length===1?'liquidação':'liquidações'}${nsig?` · ${nsig} aguardando a assinatura da nota de liquidação`:''}</span><button class="btn btn-gray fc-x" data-unfocus>${ico('x')}Fechar</button></div>${fqBox('Buscar por nº da liquidação, empenho ou credor')}
     ${L.length?`<div class="tbl-wrap"><table class="tbl tbl-fila"><thead><tr><th>Ordem</th><th>Liquidação</th><th>Empenho</th><th>Fonte e categoria</th><th>Previsão</th><th>Credor</th><th class="r">Saldo a pagar</th><th></th></tr></thead><tbody>${L.map(({l,e})=>{const d=D(e.dot),k=d.fonte+filaOf(d);if(k!==gk){gk=k;pos=0}pos++;const late=toISO(l.prev)<toISO(today());
       return `<tr class="norow"><td class="num"><b>${pos}º</b></td><td><button class="lk-emp" data-goliq="${l.id}">${liqN(l)}</button><span class="sub">${l.data}</span></td><td><button class="lk-emp" data-goemp="${e.num}">${e.num}/${e.ano}</button></td>
       <td class="orgc"><b>${d.fonte}</b><span class="sub">${filaOf(d)}</span></td><td>${l.prev}${late?'<span class="sub">vencida</span>':''}</td><td class="cred">${credCell(C(e.cred))}${C(e.cred).cert==='vencida'?'<span class="sub">certidão vencida</span>':''}</td><td class="r"><b>${brl(saldoPg(l))}</b></td>
@@ -3784,7 +3802,7 @@ function renderPgList(){
     if(open){m.classList.remove('hidden');b.setAttribute('aria-expanded','true');setTimeout(()=>document.addEventListener('click',()=>{m.classList.add('hidden');b.setAttribute('aria-expanded','false')},{once:true}),0)}});
   $$('[data-kpiopt]',c).forEach(b=>b.onclick=ev=>{ev.stopPropagation();const [i,id]=b.dataset.kpiopt.split('|');PKPIS[+i]=id;store.set('kpis_pag',PKPIS);PS.focus=null;renderPgList();toast('info','Cartão atualizado',`Agora mostra: ${PMETRICS[id].label}.`)});
   $('#kpiTg').onclick=()=>{PS.kpiHide=!PS.kpiHide;store.set('kpi_hide_pag',PS.kpiHide);if(PS.kpiHide)PS.focus=null;renderPgList()};
-  $$('.kx.act',c).forEach(k=>{const go2=()=>{const id=['apagar','antiga'].includes(k.dataset.kpi)?'fila':k.dataset.kpi;PS.focus=PS.focus===id?null:id;PS.page=1;renderPgList();const fc=$('.focus-card,.focus-bar');if(fc&&PS.focus)fc.scrollIntoView({behavior:'smooth',block:'nearest'})};
+  wireFq(c);$$('.kx.act',c).forEach(k=>{const go2=()=>{const id=['apagar','antiga'].includes(k.dataset.kpi)?'fila':k.dataset.kpi;PS.focus=PS.focus===id?null:id;PS.page=1;renderPgList();const fc=$('.focus-card,.focus-bar');if(fc&&PS.focus)fc.scrollIntoView({behavior:'smooth',block:'nearest'})};
     k.onclick=ev=>{if(ev.target.closest('.kx-h,.kx-menu'))return;go2()};k.onkeydown=ev=>{if((ev.key==='Enter'||ev.key===' ')&&ev.target===k){ev.preventDefault();go2()}}});
   $$('[data-unfocus]',c).forEach(b=>b.onclick=()=>{PS.focus=null;renderPgList()});
   $$('[data-pagar]',c).forEach(b=>b.onclick=()=>go('#tela/k-3.1.1/novo?liq='+b.dataset.pagar));
@@ -3888,10 +3906,11 @@ function paintPgRest(){const {l,e}=LQ(PF.liq),c=C(e.cred),cur=PG(PF.id),saldo=r2
      ${roF('Credor',`${103000+c.id*7} - ${c.nome}`,'c5')}
      <div class="c4"><label for="pConta">Conta bancária <i class="req">*</i></label><div class="input"><select id="pConta">${CONTAS.map(x=>`<option value="${x.id}" ${PF.conta==x.id?'selected':''}>${x.f} - ${x.n}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
      <div class="c3"><label for="pTop">Tipo op. <i class="req">*</i></label><div class="input"><select id="pTop">${TIPO_OP.map(o=>`<option ${PF.tipoOp===o?'selected':''}>${o}</option>`).join('')}</select>${ico('chevron-down')}</div></div>
-     <div class="c6 l-desc"><label for="pDesc">Descrição <i class="req">*</i></label><div class="input ta" id="pDescB"><textarea id="pDesc" maxlength="500">${PF.desc}</textarea></div></div>
-     ${roF('Saldo a pagar',brl(saldo),'c3')}
-     <div class="c3"><label for="pVal">Valor <i class="req">*</i></label><div class="input" id="pValB"><span class="pre">R$</span><input id="pVal" inputmode="numeric" value="${PF.valor?brl(PF.valor):''}" placeholder="0,00"></div><div class="hint err hidden" id="pValH"></div></div>
-     ${roF('Total retenções',`<span id="pRetT"></span>`,'c6')}${roF('Valor líquido',`<span id="pLiqT"></span>`,'c6')}
+   </div><div class="fgrid fsplit" style="margin-top:14px"><div class="fs-l">
+     ${roF('Saldo a pagar',brl(saldo),'c6')}
+     <div class="c6"><label for="pVal">Valor <i class="req">*</i></label><div class="input" id="pValB"><span class="pre">R$</span><input id="pVal" inputmode="numeric" value="${PF.valor?brl(PF.valor):''}" placeholder="0,00"></div><div class="hint err hidden" id="pValH"></div></div>
+     ${roF('Total retenções',`<span id="pRetT"></span>`,'c6',1)}${roF('Valor líquido',`<span id="pLiqT"></span>`,'c6',1)}</div>
+     <div class="fs-r"><label for="pDesc">Descrição <i class="req">*</i></label><div class="input ta" id="pDescB"><textarea id="pDesc" maxlength="500">${PF.desc}</textarea></div></div>
    </div></div></section>
    <section class="card">${secH(4,'Retenção de consignação',false)}<div class="card-b" id="pCons"></div></section>
    <section class="card">${secH(5,'Retenção orçamentária',false)}<div class="card-b" id="pOrc"></div></section>
@@ -3976,8 +3995,9 @@ function renderPgView(id,baixa){const p=PG(id);if(!p)return go('#tela/k-3.1.1');
      ${p.just?`<div class="c12 l-desc"><label>Justificativa da quebra de ordem</label><div class="input ro ta-ro"><span class="v">${p.just}</span></div></div>`:''}</div></div></section>
    <section class="card">${secH(2,'Dotação',true)}<div class="card-b">${dotFields(e)}</div></section>
    <section class="card">${secH(3,'Credor, descrição e valores',true)}<div class="card-b"><div class="fgrid">${roF('Credor',`${103000+c.id*7} - ${c.nome}`,'c5')}${roF('Conta bancária',contaN(p.conta),'c4')}${roF('Tipo op.',p.tipoOp,'c3')}
-     <div class="c6 l-desc"><label>Descrição</label><div class="input ro ta-ro"><span class="v">${p.desc}</span></div></div>${roF('Saldo a pagar',brl(saldoPg(l)),'c3')}${roF('Valor',brl(p.valor),'c3')}
-     ${roF('Total retenções',brl(pgRet(p)),'c6')}${roF('Valor líquido',brl(pgLiqV(p)),'c6')}</div></div></section>
+     </div><div class="fgrid fsplit" style="margin-top:14px"><div class="fs-l">${roF('Saldo a pagar',brl(saldoPg(l)),'c6')}${roF('Valor',brl(p.valor),'c6')}
+     ${roF('Total retenções',brl(pgRet(p)),'c6')}${roF('Valor líquido',brl(pgLiqV(p)),'c6')}</div>
+     <div class="fs-r"><label>Descrição</label><div class="input ro ta-ro fs-ta"><span class="v">${p.desc}</span></div></div></div></div></section>
    <section class="card">${secH(4,'Retenção de consignação',p.cons.length>0)}<div class="card-b"><div class="tbl-wrap ret-tbl"><table class="tbl"><thead><tr><th>Conta extra</th><th>Tipo</th><th class="r">Valor</th><th>Receita extra</th></tr></thead><tbody>${p.cons.map(x=>{const ce=CEXTRA.find(z=>z.cod===x.conta);return `<tr class="norow"><td>${ce.cod} - ${ce.nome}</td><td>${ce.tipo}</td><td class="r">${brl(x.valor)}</td><td>${x.rex}</td></tr>`}).join('')||'<tr class="norow"><td colspan="4"><p class="sec-empty" style="text-align:center;padding:10px 0">Nenhuma retenção de consignação.</p></td></tr>'}</tbody></table></div>
      <div class="sec-foot"><span></span><div class="sec-tot"><span>Total</span><b>${R$(pgCons(p))}</b></div></div></div></section>
    <section class="card">${secH(5,'Retenção orçamentária',p.orc.length>0)}<div class="card-b"><div class="tbl-wrap ret-tbl"><table class="tbl"><thead><tr><th>Código reduzido</th><th>Receita</th><th>Fonte de recurso</th><th class="r">Valor</th><th>Receita arrecadada</th></tr></thead><tbody>${p.orc.map(x=>{const ro=RORC.find(z=>z.cod===x.rec);return `<tr class="norow"><td>${ro.cod}</td><td>${ro.rec}</td><td>${ro.fonte}</td><td class="r">${brl(x.valor)}</td><td>${x.arr}</td></tr>`}).join('')||'<tr class="norow"><td colspan="5"><p class="sec-empty" style="text-align:center;padding:10px 0">Nenhuma retenção orçamentária.</p></td></tr>'}</tbody></table></div>
