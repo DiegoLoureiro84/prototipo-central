@@ -1465,7 +1465,7 @@ kbd{color:var(--secondary-fg)!important}
       </div>
 
       <div class="demo-hint"><i data-i="info"></i><span>CPF de teste</span><button type="button" class="cpf-copy" id="cpfCopy" title="Clique para copiar"><span>529.982.247-25</span><i data-i="copy"></i></button><span class="dh-s">senha: 4+ caracteres</span></div>
-      <p class="login-foot">© 2026 Coplan Tecnologia · <a class="link" href="#privacidade/publico">Política de Privacidade</a></p>
+      <p class="login-foot">© 2026 Coplan Tecnologia · <a class="link" href="#privacidade/publico">Política de Privacidade</a> · <a class="link" href="#termos/publico">Termos de Uso</a></p>
     </div>
   </div>
 </section>
@@ -1546,7 +1546,7 @@ kbd{color:var(--secondary-fg)!important}
       <main class="content" id="content"></main>
       <footer class="footer">
         <span>© 2026 Coplan Tecnologia. Todos os direitos reservados.</span>
-        <div class="links"><a href="#privacidade">Política de Privacidade</a><a href="#">Termos de Uso</a><a href="#">Sobre</a></div>
+        <div class="links"><a href="#privacidade">Política de Privacidade</a><a href="#termos">Termos de Uso</a><a href="#">Sobre</a></div>
         <div class="stores">
           <a class="store" href="#"><i data-i="apple"></i><span>Download na<b>App Store</b></span></a>
           <a class="store" href="#"><i data-i="play"></i><span>Disponível no<b>Google Play</b></span></a>
@@ -1653,16 +1653,16 @@ window.addEventListener('hashchange',()=>{cur=location.hash||'#login';render()})
 function render(){
   const h=cur.replace('#','')||'login'; route=h; closePops();
   const [page,arg,arg2]=h.split('/');
-  const pub=page==='privacidade'&&arg==='publico';
+  const pub=(page==='privacidade'||page==='termos')&&arg==='publico';
   $('#legalPub').classList.toggle('hidden',!pub);
   $('#login').classList.toggle('hidden',page!=='login');
   $('#app').classList.toggle('hidden',page==='login'||pub);
-  if(pub)return renderLegalPub('privacidade');
+  if(pub)return renderLegalPub(page);
   document.body.classList.remove('drawer-open');
   if(page==='login'){ return; }
   if(page==='tela'&&arg){const want=arg.startsWith('k-')?'cont':arg.startsWith('p-')?'plan':null;if(want&&sys.id!==want){setSys(want);lastSys=want;store.set('lastSys',want)}}
   bind();
-  const isLegal=page==='privacidade';if(!isLegal)legalBack=cur;
+  const isLegal=page==='privacidade'||page==='termos';if(!isLegal)legalBack=cur;
   const isHub=page==='sistemas';
   document.body.classList.toggle('in-sys',!isHub);
   document.body.classList.toggle('sys-cont',!isHub&&sys.id==='cont');
@@ -1672,7 +1672,7 @@ function render(){
   $('#sysBtn').parentElement.style.display=isHub?'none':'';
   if(isHub){ $('#prodName').textContent=muni.short; return renderHub(); }
   renderSidebar(arg);
-  if(page==='central') renderHome(); else if(page==='tela') renderScreen(arg,arg2); else if(isLegal) renderLegal('privacidade');
+  if(page==='central') renderHome(); else if(page==='tela') renderScreen(arg,arg2); else if(isLegal) renderLegal(page);
   window.scrollTo(0,0);
 }
 
@@ -3994,9 +3994,38 @@ const LEGAL={privacidade:{title:'Política de Privacidade',sub:'Como os sistemas
  ['Alterações nesta política',`<p>A versão e a data da última atualização ficam no topo desta página. Mudanças relevantes são avisadas por notificação nos sistemas.</p>`],
  ['Contato',`<p>Coplan Gestão em Tecnologia Ltda.<br>Canal de privacidade e do encarregado: privacidade@coplan.srv.br<br>Telefone: (65) 3046-5400<br>Endereço: Av. José Monteiro de Figueiredo, 730, Duque de Caxias, Cuiabá/MT, CEP 78043-300</p>`]
 ]}};
+LEGAL.termos={title:'Termos de Uso',sub:'Regras para usar os sistemas da Coplan.',ver:'Versão 3.2 · atualizada em 24/11/2026',
+ secs:()=>[
+ ['Aceitação dos termos',`<p>Ao acessar e usar os sistemas da plataforma Coplan (${SYSTEMS.map(s=>s.name).join(', ').replace(/, ([^,]*)$/,' e $1')}), o usuário concorda em cumprir estes Termos de Uso e as leis e normas aplicáveis.</p>
+  <p>Quem não concordar com algum dos termos não deve acessar nem usar os sistemas.</p>
+  <p>O uso também implica a aceitação da <a class="link" href="#privacidade" data-legal="privacidade">Política de Privacidade</a>.</p>`],
+ ['Uso da licença',`<p>É concedida permissão para usar os sistemas exclusivamente no exercício das funções do usuário no órgão ou na entidade pública a que ele está vinculado.</p>
+  <p>Esta é uma licença de uso, não uma transferência de propriedade. O usuário não pode:</p><ul>
+  <li>modificar, copiar ou redistribuir o conteúdo dos sistemas;</li>
+  <li>fazer engenharia reversa ou tentar acessar áreas sem permissão;</li>
+  <li>remover avisos de direitos autorais ou marcas;</li>
+  <li>compartilhar o login e a senha com outras pessoas;</li>
+  <li>usar os sistemas para práticas ilícitas, fraudes ou violação de normas internas.</li></ul>
+  <p>O descumprimento pode resultar na suspensão ou no bloqueio do acesso e na responsabilização administrativa ou legal.</p>`],
+ ['Responsabilidade do usuário',`<p>O usuário é responsável por:</p><ul>
+  <li>manter em sigilo as credenciais de acesso, incluindo senha e certificado digital;</li>
+  <li>informar dados verdadeiros e atualizados;</li>
+  <li>usar os sistemas de forma ética e de acordo com as normas legais;</li>
+  <li>avisar a Coplan imediatamente sobre qualquer uso indevido.</li></ul>
+  <p>Todas as ações ficam registradas com o usuário que as fez. A Coplan não se responsabiliza por acessos indevidos causados pelo compartilhamento de senha ou por negligência do usuário.</p>`],
+ ['Isenção de responsabilidade',`<p>Os sistemas são fornecidos no estado em que se encontram, sem garantias além das previstas no contrato com o órgão.</p>
+  <p>A Coplan não se responsabiliza por:</p><ul>
+  <li>falhas técnicas, indisponibilidades, interrupções temporárias ou perda de dados;</li>
+  <li>danos diretos ou indiretos decorrentes do uso ou da impossibilidade de uso dos sistemas;</li>
+  <li>ações de terceiros que comprometam a integridade ou a segurança das informações.</li></ul>
+  <p>A Coplan adota boas práticas de segurança e busca manter os sistemas sempre disponíveis e atualizados.</p>`],
+ ['Alterações nestes termos',`<p>A Coplan Gestão em Tecnologia Ltda. pode alterar estes Termos de Uso.</p>
+  <p>Cada nova versão é avisada por notificação nos sistemas e pede a ciência do usuário. Ao continuar usando os sistemas depois de dar ciência, o usuário concorda com a nova versão.</p>
+  <p>A versão e a data da última atualização ficam no topo desta página.</p>`]
+]};
 function legalBody(k){const L=LEGAL[k],S=L.secs();
   return `<article class="card legal"><p class="legal-meta">${ico('file-clock')}${L.ver}</p>${S.map((s,i)=>`<section><h2>${i+1}. ${s[0]}</h2>${s[1]}</section>`).join('')}</article>`}
-function wireLegal(el){}
+function wireLegal(el){$$('[data-legal]',el).forEach(a=>a.onclick=ev=>{ev.preventDefault();const pub=(location.hash||'').endsWith('/publico');go('#'+a.dataset.legal+(pub?'/publico':''))})}
 let legalBack='#sistemas';
 function renderLegal(k){const L=LEGAL[k],c=$('#content');
   c.innerHTML=`<div class="legal-page"><div class="page-head"><button class="back" aria-label="Voltar" id="lgBack">${ico('chevron-left')}</button><div><h1>${L.title}</h1><p>${L.sub}</p></div></div>${legalBody(k)}</div>`;
@@ -4311,7 +4340,7 @@ function clrBtn(id,show,cls=''){return `<button type="button" class="btn-clr ${c
 const prioTag=(sm)=>`<span class="prio-tag ${sm?'sm':''}" title="Prioridade definida pelo Administrativo na NAD">${'<span class="prio-i" aria-hidden="true">!</span>'}Prioritária</span>`;
 /* ---------- título da aba: tela · sistema · Coplan ---------- */
 function setTitle(){const h=(location.hash||'#login').replace('#',''),[page,arg='']=h.split('/');let t;
-  if(page==='login')t='Entrar';else if(page==='sistemas')t='Sistemas';else if(page==='privacidade')t='Política de Privacidade';
+  if(page==='login')t='Entrar';else if(page==='sistemas')t='Sistemas';else if(page==='privacidade')t='Política de Privacidade';else if(page==='termos')t='Termos de Uso';
   else{const sn=sysWord(sys);
     if(page==='tela'){const sc=SCREENS[arg]||{},base=(sc.label||'').replace(/^[\d.]+\s*-\s*/,'');const sub=h.split('/')[2]||'',[id,qs='']=sub.split('?');
       let pg=base;if(sub.startsWith('novo'))pg=`Incluir · ${base}`;else if(id){const num=arg==='p-receita'&&typeof recOf==='function'&&recOf(id)?rFmt(recOf(id).cod):id;pg=`${qs==='editar'?'Editar · ':''}${base} ${num}`}
