@@ -1434,6 +1434,7 @@ input.money,.input:has(.pre) input,input[placeholder="0,00"]{text-align:right;fo
 .fsplit>.fs-r{display:flex;flex-direction:column;min-width:0}
 .fsplit>.fs-r .input.ta,.fsplit>.fs-r .input.fs-ta{flex:1;display:flex;align-items:flex-start;height:auto}.fsplit>.fs-r .input.fs-ta span.v{white-space:normal}.fsplit>.fs-r .input.ta textarea{flex:1;height:auto;min-height:96px;resize:none}
 @media (max-width:899px){.fsplit{grid-template-columns:minmax(0,1fr)}}
+.fl{display:block;font-size:14px;font-weight:600;margin-bottom:10px;color:var(--fg)}.fl i.req{font-style:normal;color:var(--danger-strong)}
 </style>
 </head>
 <body>
@@ -2376,7 +2377,7 @@ function renderEmpForm(copyFrom){
   F.numTxt=F.numTxt||'';ST.nadDoc='nad';wireFormTabs();paintNum();paintOrig();paintDot();paintCred();syncForm();
 }
 function combo(box,{label,ph,items,render,onPick,empty}){
-  box.innerHTML=`<label>${label} <i class="req">*</i></label><div style="position:relative"><div class="input"><i data-i="search"></i><input placeholder="${ph}" autocomplete="off"></div><div class="res-list hidden"></div></div>`;
+  box.innerHTML=`<label class="fl">${label} <i class="req">*</i></label><div style="position:relative"><div class="input"><i data-i="search"></i><input placeholder="${ph}" autocomplete="off"></div><div class="res-list hidden"></div></div>`;
   paintIcons(box);const inp=$('input',box),lst=$('.res-list',box);let kb=0,cur=[];
   const draw=()=>{const q=inp.value.toLowerCase();cur=items().filter(x=>!q||render(x).txt.toLowerCase().includes(q)).slice(0,8);kb=Math.min(kb,Math.max(cur.length-1,0));
     lst.innerHTML=cur.map((x,i)=>`<button type="button" class="res ${i===kb?'kb':''}" data-i="${i}">${render(x).html}</button>`).join('')||`<div class="hint" style="padding:10px">${empty}</div>`;lst.classList.remove('hidden');
@@ -3896,7 +3897,7 @@ function paintPgLiq(){const box=$('#pLiqBox');
   paintIcons(box);if($('#pLiqX'))$('#pLiqX').onclick=()=>{PF.liq=null;PF.cons=[];PF.orc=[];PF.lanc=[];paintPgLiq()};
   const rk=filaRank(l),dr=l.direito||{},c=C(e.cred);
   $('#pOrdem').innerHTML=(rk&&rk.pos>1&&!cur?`<div class="alert info" style="margin:0">${ico('list-ordered')}<span><b>Esta liquidação é a ${rk.pos}ª da fila</b> da fonte ${rk.fonte} · ${rk.fila.toLowerCase()}. ${rk.pos===2?'Há 1 liquidação mais antiga':`Há ${rk.pos-1} liquidações mais antigas`} aguardando. ${dr.ordem?'Direito especial concedido para pagar fora da ordem.':'Pagar fora da ordem cronológica exige justificativa (Lei 14.133, art. 141).'}</span></div>
-     ${dr.ordem?'':`<div style="margin-top:12px"><label for="pJust">Justificativa da quebra de ordem <i class="req">*</i></label><div class="input ta" id="pJustB"><textarea id="pJust" maxlength="500" placeholder="Motivo de relevante interesse público que justifica pagar antes das mais antigas">${PF.just}</textarea></div></div>`}`:rk&&!cur?`<div class="alert info" style="margin:0">${ico('circle-check')}<span><b>1ª da fila</b> da fonte ${rk.fonte} · ${rk.fila.toLowerCase()}. Pode pagar.</span></div>`:'')+
+     ${dr.ordem?'':`<div style="margin-top:12px"><label class="fl" for="pJust">Justificativa da quebra de ordem <i class="req">*</i></label><div class="input ta" id="pJustB"><textarea id="pJust" maxlength="500" placeholder="Motivo de relevante interesse público que justifica pagar antes das mais antigas">${PF.just}</textarea></div></div>`}`:rk&&!cur?`<div class="alert info" style="margin:0">${ico('circle-check')}<span><b>1ª da fila</b> da fonte ${rk.fonte} · ${rk.fila.toLowerCase()}. Pode pagar.</span></div>`:'')+
     (c.cert==='vencida'?`<div class="alert warn">${ico('triangle-alert')}<span><b>Certidão negativa do credor vencida em 30/10/2026.</b> ${dr.certidao?'Direito especial concedido para pagar com certidão vencida.':'Alerta, não bloqueia. Peça a certidão atualizada ou conceda o direito especial na liquidação.'}</span></div>`:'');
   paintIcons($('#pOrdem'));if($('#pJust'))$('#pJust').oninput=ev=>{PF.just=ev.target.value;syncPg()};
   $('#pDot').innerHTML=dotFields(e);paintPgRest();syncPg()}
