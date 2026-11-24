@@ -639,14 +639,14 @@ body{background:var(--bg)}
 .tile .ti,.sys .si{transition:transform .2s}
 .tile:hover .ti{transform:scale(1.05)}
 /* rodapé: margem lateral 48, linha no topo, selos de loja em texto cinza que fica azul no hover */
-.footer{background:transparent;margin:0 48px;padding:16px 0;border-top:1px solid var(--border);border-bottom:0}
+.footer{background:#fff;margin:0;padding:16px 28px;border-top:1px solid var(--border);border-bottom:0}.footer .links{margin-left:auto}.footer .stores{margin-left:8px}
 .store{background:transparent;color:rgba(10,26,46,.6)!important;padding:0;height:auto}
 .store:hover{color:var(--primary)!important}
 .store .ic{width:22px;height:22px}
 .store b{font-size:13px;font-weight:600}
 .store span{font-size:11px}
 @media (max-width:999px){.search-trigger{width:40px;height:40px;padding:0;justify-content:center;border:0;background:transparent}.search-trigger span,.search-trigger kbd{display:none}.me-txt{display:none}}
-@media (max-width:899px){.page-head h1,.hello{font-size:32px}.page-head p{font-size:14px;color:var(--fg)}.footer{margin:0 24px}.h-brand{box-shadow:none;border-right:0;background:transparent}}
+@media (max-width:899px){.page-head h1,.hello{font-size:32px}.page-head p{font-size:14px;color:var(--fg)}.footer{margin:0}.footer .links{margin-left:0}.h-brand{box-shadow:none;border-right:0;background:transparent}}
 
 .collapsed .fav-row .nav-a{padding-right:0}
 .toolbar .input{width:220px}
@@ -677,7 +677,7 @@ body{background:var(--bg)}
 .toolbar .input:has(#empSit){flex:none;width:auto}
 @media (max-width:1600px){.tbl-emp th:nth-child(3),.tbl-emp td:nth-child(3),.tbl-emp th:nth-child(10),.tbl-emp td:nth-child(10){display:none}.tbl-emp .dotc code{display:none}.tbl-emp .dotc{max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tbl-emp .cred{min-width:0;max-width:190px}.tbl-emp .saldo-cell{min-width:96px}.tbl-emp td,.tbl-emp th{padding-left:8px;padding-right:8px}.tbl-emp .w-act{width:44px}.tbl-emp .w-chk{width:36px}}
 .toolbar .sp{flex:0 0 0}
-@media (min-width:1600px){.content{padding:28px 40px 48px}}
+@media (min-width:1600px){.content{padding:28px 40px 48px}.footer{padding:16px 40px}}
 @media (max-width:1280px){.tbl .dotc code{max-width:180px}.tbl .cred{min-width:170px}}
 @media (max-width:1300px){.tbl-emp th:nth-child(4),.tbl-emp td:nth-child(4){display:none}.tbl-emp .dotc{max-width:160px}}
 /* ===== Empenho v2 ===== */
@@ -1263,6 +1263,7 @@ body{background:var(--bg)}
   .drawer-open .scrim{display:block;position:fixed;inset:var(--header) 0 0 0;background:rgba(0,0,0,.4);z-index:34}
   .collapsed .sidebar{width:var(--sidebar)}
   .content{padding:20px 16px 32px}
+  .footer{padding:16px}.footer .stores{margin-left:0}
   .filter-bar .input{width:100%}
   .stores{margin-left:0}
   .pop{position:fixed;left:12px;right:12px;top:calc(var(--header) + 4px);min-width:0}
