@@ -1367,21 +1367,16 @@ kbd{color:var(--secondary-fg)!important}
 .wa-btn .wa-logo{width:19px;height:19px;display:block}.wa-btn .wa-fb{display:none}.wa-btn.no-logo .wa-fb{display:block}
 .empty .btn{display:flex!important;width:max-content;margin:14px auto 0!important}.empty .btn .ic{width:18px;height:18px;padding:0;margin:0;border-radius:0;background:none;color:inherit}
 #numTxt{flex:0 0 auto!important;min-width:3ch;max-width:100%;padding:0!important}.input .suf{color:var(--fg);font-weight:500;margin-left:-13px;white-space:nowrap}#numIn #resOpen{margin-left:auto}
-.legal-meta{display:inline-flex;align-items:center;gap:8px;margin:-8px 0 16px;font-size:13px;color:var(--muted-fg)}.legal-meta .ic{width:16px;height:16px}
-.legal-wrap{display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px;align-items:start}
-.legal-toc{position:sticky;top:calc(var(--header) + 16px);display:flex;flex-direction:column;gap:2px;font-size:13px}
-.legal-toc a{padding:7px 10px;border-radius:var(--r-md);color:var(--fg);text-decoration:none;line-height:1.3}
-.legal-toc a:hover{background:var(--accent);color:var(--fg)}
+.legal .legal-meta{display:flex;align-items:center;gap:8px;margin:0 0 24px;padding-bottom:16px;border-bottom:1px solid var(--border);font-size:13px;color:var(--muted-fg);max-width:none}.legal-meta .ic{width:16px;height:16px}
 .legal{padding:32px 40px}.legal section{scroll-margin-top:calc(var(--header) + 16px)}.legal section+section{margin-top:28px}
 .legal h2{font-size:18px;font-weight:600;color:var(--fg);margin:0 0 10px}
-.legal p,.legal li{font-size:14px;line-height:1.65;color:var(--fg);max-width:80ch}.legal p+p,.legal p+ul,.legal ul+p{margin-top:10px}
+.legal p,.legal li{font-size:14px;line-height:1.65;color:var(--fg)}.legal p+p,.legal p+ul,.legal ul+p{margin-top:10px}
 .legal ul{padding-left:20px;list-style:disc;display:flex;flex-direction:column;gap:4px}
 #legalPub{min-height:100vh;background:var(--bg)}
 .legal-top{position:sticky;top:0;z-index:5;height:65px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:#fff;border-bottom:1px solid var(--border)}
 .legal-brand{font-size:22px;font-weight:800;color:var(--primary)}
 .legal-main{max-width:1440px;margin:0 auto;padding:28px 28px 48px}
-#legalPub .legal-toc{top:81px}#legalPub .legal section{scroll-margin-top:81px}
-@media (max-width:1000px){.legal-wrap{grid-template-columns:minmax(0,1fr)}.legal-toc{display:none}.legal{padding:20px}.legal-top,.legal-main{padding-left:16px;padding-right:16px}}
+@media (max-width:1000px){.legal{padding:20px}.legal-top,.legal-main{padding-left:16px;padding-right:16px}}
 </style>
 </head>
 <body>
@@ -4000,17 +3995,15 @@ const LEGAL={privacidade:{title:'Política de Privacidade',sub:'Como os sistemas
  ['Contato',`<p>Coplan Gestão em Tecnologia Ltda.<br>Canal de privacidade e do encarregado: privacidade@coplan.srv.br<br>Telefone: (65) 3046-5400<br>Endereço: Av. José Monteiro de Figueiredo, 730, Duque de Caxias, Cuiabá/MT, CEP 78043-300</p>`]
 ]}};
 function legalBody(k){const L=LEGAL[k],S=L.secs();
-  return `<div class="legal-meta">${ico('file-clock')}${L.ver}</div>
-  <div class="legal-wrap"><nav class="legal-toc" aria-label="Seções">${S.map((s,i)=>`<a href="javascript:void 0" data-lg="${i}">${i+1}. ${s[0]}</a>`).join('')}</nav>
-  <article class="card legal">${S.map((s,i)=>`<section id="lg-${i}"><h2>${i+1}. ${s[0]}</h2>${s[1]}</section>`).join('')}</article></div>`}
-function wireLegal(el){$$('[data-lg]',el).forEach(a=>a.onclick=()=>{const t=el.querySelector('#lg-'+a.dataset.lg);if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})}
+  return `<article class="card legal"><p class="legal-meta">${ico('file-clock')}${L.ver}</p>${S.map((s,i)=>`<section><h2>${i+1}. ${s[0]}</h2>${s[1]}</section>`).join('')}</article>`}
+function wireLegal(el){}
 let legalBack='#sistemas';
 function renderLegal(k){const L=LEGAL[k],c=$('#content');
-  c.innerHTML=`<div class="hub-wrap"><div class="page-head"><div><h1>${L.title}</h1><p>${L.sub}</p></div><button class="back" aria-label="Voltar" id="lgBack">${ico('chevron-left')}</button></div>${legalBody(k)}</div>`;
+  c.innerHTML=`<div class="hub-wrap"><div class="page-head"><button class="back" aria-label="Voltar" id="lgBack">${ico('chevron-left')}</button><div><h1>${L.title}</h1><p>${L.sub}</p></div></div>${legalBody(k)}</div>`;
   paintIcons(c);$('#lgBack').onclick=()=>go(legalBack);wireLegal(c)}
 function renderLegalPub(k){const L=LEGAL[k],c=$('#legalPub');
-  c.innerHTML=`<header class="legal-top"><span class="legal-brand">Coplan</span><button class="btn btn-gray" id="lgPubBack">${ico('arrow-left')}Voltar para o login</button></header>
-  <main class="legal-main"><div class="page-head"><div><h1>${L.title}</h1><p>${L.sub}</p></div></div>${legalBody(k)}</main>`;
+  c.innerHTML=`<header class="legal-top"><span class="legal-brand">Coplan</span></header>
+  <main class="legal-main"><div class="page-head"><button class="back" aria-label="Voltar para o login" id="lgPubBack">${ico('chevron-left')}</button><div><h1>${L.title}</h1><p>${L.sub}</p></div></div>${legalBody(k)}</main>`;
   paintIcons(c);$('#lgPubBack').onclick=()=>go('#login');wireLegal(c);window.scrollTo(0,0)}
 
 /* ================= PLANEJAMENTO · Cadastros Básicos · Especificação da Receita =================
