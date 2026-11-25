@@ -1435,6 +1435,27 @@ input.money,.input:has(.pre) input,input[placeholder="0,00"]{text-align:right;fo
 .fsplit>.fs-r .input.ta,.fsplit>.fs-r .input.fs-ta{flex:1;display:flex;align-items:flex-start;height:auto}.fsplit>.fs-r .input.fs-ta span.v{white-space:normal}.fsplit>.fs-r .input.ta textarea{flex:1;height:auto;min-height:96px;resize:none}
 @media (max-width:899px){.fsplit{grid-template-columns:minmax(0,1fr)}}
 .fl{display:block;font-size:14px;font-weight:600;margin-bottom:10px;color:var(--fg)}.fl i.req{font-style:normal;color:var(--danger-strong)}
+
+/* ===== Contraste não-texto (WCAG 1.4.11, 3:1): verde claro só como fundo; verde forte para ícone, texto, foco e seleção ===== */
+:root{--green-strong:#017647;--star-line:#A16207;--bar-ok:#017647;--bar-warn:#A16207;--bar-over:#B91C1C;--icon-off:#8A8A8F}
+.input:focus-within{border-color:var(--green-strong)!important;box-shadow:0 0 0 1px var(--green-strong)!important}
+.input.err,.input.err:focus-within{border-color:var(--destructive)!important;box-shadow:0 0 0 1px var(--destructive)!important}
+.checklist li .ic{color:var(--icon-off)}.checklist li.ok .ic{color:var(--green-strong)}
+.sys .si,.sys:hover .si,.si-m,.si-m .ic,#sysOpts .menu-item .si-m .ic{color:var(--green-strong)}
+.menu-item:hover .si-m,.menu-item:hover .si-m .ic,#sysOpts .menu-item:hover .si-m .ic{color:var(--fg)!important}
+.sys.last,.kx.on,.focus-card,.tipo-seg button.on,#advBtn.on,.inline-act,.copy-from,.tl li.now .tli{border-color:var(--green-strong)!important}
+.kx.on,.tipo-seg button.on,.inline-act{box-shadow:0 0 0 1px var(--green-strong) inset!important}
+.check input,.tbl input[type=checkbox],.fpop input,.ret input[type=checkbox]{accent-color:var(--green-strong)}
+.fsec-h .n.ok,.fsec-h .n.ok .ic,.tl li.done .tli,.tl2 li.st-done .tli,.tl2 li.st-done .tli .ic{color:var(--fg)!important}
+.star:hover,.star.on,.fav-sec .ic,.fav-row.is-fav .fav-x,.fav-x:hover{color:var(--star-line)!important}
+.star.on svg,.fav-sec .ic svg,.fav-row.is-fav .fav-x svg{fill:var(--star)!important}
+.note2.unread .nb b::before,#notifPop .notif.unread b::before{background:var(--green-strong)}
+.av-ack .ic{color:inherit}.av-ack>span .ic{color:var(--primary)}
+.bar i{background:var(--bar-ok)}.bar i.warn{background:var(--bar-warn)!important}.bar i.over{background:var(--bar-over)!important}
+
+.fsec-h .n.ok .ic,.fsec-h .n.ok .ic *,.tl li.done .tli,.tl li.done .tli *,.tl2 li.st-done .tli,.tl2 li.st-done .tli *{color:var(--fg)!important}
+.sys .si .ic,.sys .si svg,.sys:hover .si .ic{color:var(--green-strong)!important}
+.btn[data-open-doc="ne"]:not(.btn-accent) .ic,#dPrint .ic{color:var(--green-strong)}
 </style>
 </head>
 <body>
@@ -4150,7 +4171,7 @@ LEGAL.termos={title:'Termos de Uso',sub:'Regras para usar os sistemas da Coplan.
   <p>Cada nova versão é avisada por notificação nos sistemas e pede a ciência do usuário. Ao continuar usando os sistemas depois de dar ciência, o usuário concorda com a nova versão.</p>
   <p>A versão e a data da última atualização ficam no topo desta página.</p>`]
 ]};
-function sobreBody(){const u=ug,info=[['Sistema',sys.name],['Versão','2026.11.24'],['Data do build','24/11/2026'],['Ambiente','Protótipo'],['Município',`${muni.short}/${ug.uf||'MT'}`],['Unidade gestora',u.name],['Exercício',String(EX)],['Usuário','Diego Loureiro · Administrador']];
+function sobreBody(){const u=ug,info=[['Sistema',sys.name],['Versão','2026.11.25'],['Data do build','25/11/2026'],['Ambiente','Protótipo'],['Município',`${muni.short}/${ug.uf||'MT'}`],['Unidade gestora',u.name],['Exercício',String(EX)],['Usuário','Diego Loureiro · Administrador']];
   return `<article class="card legal sobre">
    <div class="sb-top"><span class="sb-ic">${ico(sys.icon||'layout-grid')}</span><div><h2>${sys.name}</h2><p>${sys.desc}</p></div></div>
    <div class="sb-grid"><section><h3>Informações do sistema</h3><dl class="sb-kv">${info.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
